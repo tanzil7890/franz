@@ -1,0 +1,116 @@
+(println "=== Franz Cond Chains Demo ===")
+(println "")
+
+(println "--- Basic Cond Examples ---")
+(println "")
+
+(println "Example 1: Simple cond chain")
+x = 15
+category = (cond
+  ((greater_than x 10) "big")
+  ((greater_than x 5) "medium")
+  (else "small"))
+(println "x:" x "| Category:" category)
+(println "")
+
+(println "Example 2: Grade classification")
+score = 85
+grade = (cond
+  ((greater_than score 89) "A")
+  ((greater_than score 79) "B")
+  ((greater_than score 69) "C")
+  ((greater_than score 59) "D")
+  (else "F"))
+(println "Score:" score "| Grade:" grade)
+(println "")
+
+(println "Example 3: Age brackets")
+age = 25
+bracket = (cond
+  ((less_than age 18) "minor")
+  ((less_than age 30) "young adult")
+  ((less_than age 50) "middle age")
+  (else "senior"))
+(println "Age:" age "| Bracket:" bracket)
+(println "")
+
+(println "--- Cond with Logical Operators ---")
+(println "")
+
+(println "Example 4: AND conditions")
+temp = 25
+humidity = 60
+comfort = (cond
+  ((and (greater_than temp 20) (less_than temp 26)) "comfortable")
+  ((greater_than temp 30) "too hot")
+  (else "other"))
+(println "Temp:" temp "| Humidity:" humidity "| Comfort:" comfort)
+(println "")
+
+(println "Example 5: OR conditions")
+weekend = 1
+holiday = 0
+day_type = (cond
+  ((or weekend holiday) "day off")
+  (else "work day"))
+(println "Weekend:" weekend "| Holiday:" holiday "| Type:" day_type)
+(println "")
+
+(println "--- Cond with Arithmetic ---")
+(println "")
+
+(println "Example 6: Discount calculator")
+order_total = 250
+discount = (cond
+  ((greater_than order_total 500) 100)
+  ((greater_than order_total 200) 50)
+  ((greater_than order_total 100) 20)
+  (else 0))
+final_price = (subtract order_total discount)
+(println "Order:" order_total "| Discount:" discount "| Final:" final_price)
+(println "")
+
+(println "Example 7: Shipping cost")
+weight = 5
+shipping = (cond
+  ((greater_than weight 10) (multiply weight 5))
+  ((greater_than weight 5) (multiply weight 3))
+  (else (multiply weight 2)))
+(println "Weight:" weight "kg | Shipping:" shipping)
+(println "")
+
+(println "--- Real-World Patterns ---")
+(println "")
+
+(println "Example 8: HTTP status codes")
+status_code = 404
+message = (cond
+  ((is status_code 200) "OK")
+  ((is status_code 404) "Not Found")
+  ((is status_code 500) "Server Error")
+  (else "Unknown"))
+(println "Status:" status_code "| Message:" message)
+(println "")
+
+(println "Example 9: Priority levels")
+urgency = 3
+priority = (cond
+  ((is urgency 1) "critical")
+  ((is urgency 2) "high")
+  ((is urgency 3) "medium")
+  (else "low"))
+(println "Urgency:" urgency "| Priority:" priority)
+(println "")
+
+(println "Example 10: Temperature warnings")
+celsius = 35
+warning = (cond
+  ((greater_than celsius 40) "extreme heat")
+  ((greater_than celsius 30) "heat advisory")
+  ((less_than celsius 0) "freezing")
+  ((less_than celsius 10) "cold")
+  (else "normal"))
+(println "Temperature:" celsius "C | Warning:" warning)
+(println "")
+
+(println "=== Demo Complete ===")

@@ -1,0 +1,62 @@
+(println "=== Partial Application with Pipe ===")
+(println "")
+
+(println "Example 1: Clean pipeline with partials")
+add_ten = (partial add 10)
+times_three = (partial multiply 3)
+minus_five = (partial subtract 5)
+
+result1 = (pipe 5
+  {x -> <- (call add_ten x)}       // 5 + 10 = 15
+  {x -> <- (call times_three x)}   // 15 * 3 = 45
+  {x -> <- (call minus_five x)})   // 5 - 45 = -40
+
+(println "Pipeline: 5 -> +10 -> *3 -> (5 - result)")
+(println "Result:" result1)
+(println "")
+
+(println "Example 2: Data processing pipeline")
+numbers = (list 1 2 3 4 5)
+
+double_each = (partial map numbers)
+sum_all = {lst -> <- (reduce lst {acc x i -> <- (add acc x)} 0)}
+
+doubled = (call double_each {x i -> <- (multiply x 2)})
+total = (sum_all doubled)
+
+(println "Original numbers:" numbers)
+(println "After doubling:" doubled)
+(println "Sum:" total)
+(println "")
+
+(println "Example 3: Building function libraries")
+// Mathematical operations
+square = {x -> <- (multiply x x)}
+cube = {x -> <- (multiply x (multiply x x))}
+add_one = (partial add 1)
+
+// Pipeline to process a number
+process = {n ->
+  <- (pipe n
+    square                        // x²
+    {x -> <- (call add_one x)}    // x² + 1
+    {x -> <- (multiply x 2)})     // 2(x² + 1)
+}
+
+(println "Process 5: square -> +1 -> *2 =" (process 5))
+(println "Process 10: square -> +1 -> *2 =" (process 10))
+(println "")
+
+(println "Example 4: Validation pipeline with partials")
+min_value = (partial greater_than 0)     // Checks: is 0 > x? (x must be negative fails)
+max_value = (partial less_than 100)      // Checks: is 100 < x? (x must be > 100 to pass)
+
+validate = {x ->
+  min_ok = (call min_value x)
+  max_ok = (call max_value x)
+  <- (and (is min_ok 0) (is max_ok 0))  // Both must fail to be in range
+}
+
+(println "Validate -5 (out of range):" (validate -5))
+(println "Validate 50 (in range):" (validate 50))
+(println "Validate 150 (out of range):" (validate 150))

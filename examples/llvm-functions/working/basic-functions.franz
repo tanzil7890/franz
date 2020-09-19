@@ -1,0 +1,29 @@
+(println "=== Franz LLVM Function Examples ===")
+(println "")
+
+(println "1. Simple Function (1 parameter):")
+add10 = {x -> <- (add x 10)}
+(println "  add10(5) =")
+(println "  " (add10 5))
+(println "")
+
+(println "2. Multi-Parameter Function:")
+multiply_sum = {a b c -> <- (multiply (add a b) c)}
+(println "  multiply_sum(2, 3, 4) = (2+3)*4 =")
+(println "  " (multiply_sum 2 3 4))
+(println "")
+
+(println "3. No-Parameter Function:")
+get_pi_approx = {-> <- 3}
+(println "  get_pi_approx() =")
+(println "  " (get_pi_approx))
+(println "")
+
+(println "4. Nested Function Calls:")
+inc = {x -> <- (add x 1)}
+dec = {x -> <- (subtract x 1)}
+(println "  inc(dec(inc(5))) =")
+(println "  " (inc (dec (inc 5))))
+(println "")
+
+(println "=== Functions enable code reuse and abstraction! ===")

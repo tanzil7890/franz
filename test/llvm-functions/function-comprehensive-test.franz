@@ -1,0 +1,101 @@
+(println "=== LLVM Function Definition Tests ===")
+(println "")
+
+(println "Test 1: Simple function with 1 parameter")
+add10 = {x -> <- (add x 10)}
+result1 = (add10 5)
+(println "add10(5) =")
+(println result1)
+(println "Expected: 15")
+(println "")
+
+(println "Test 2: Multi-parameter function")
+sum = {x y -> <- (add x y)}
+result2 = (sum 3 7)
+(println "sum(3, 7) =")
+(println result2)
+(println "Expected: 10")
+(println "")
+
+(println "Test 3: No-parameter function")
+get_answer = {-> <- 42}
+result3 = (get_answer)
+(println "get_answer() =")
+(println result3)
+(println "Expected: 42")
+(println "")
+
+(println "Test 4: Function with subtraction")
+subtract5 = {x -> <- (subtract x 5)}
+result4 = (subtract5 20)
+(println "subtract5(20) =")
+(println result4)
+(println "Expected: 15")
+(println "")
+
+(println "Test 5: Function with multiplication")
+double = {x -> <- (multiply x 2)}
+result5 = (double 21)
+(println "double(21) =")
+(println result5)
+(println "Expected: 42")
+(println "")
+
+(println "Test 6: Function with division")
+half = {x -> <- (divide x 2)}
+result6 = (half 84)
+(println "half(84) =")
+(println result6)
+(println "Expected: 42")
+(println "")
+
+(println "Test 7: Multi-operation function")
+calc = {a b -> <- (multiply (add a b) 2)}
+result7 = (calc 3 4)
+(println "calc(3, 4) = (3+4)*2 =")
+(println result7)
+(println "Expected: 14")
+(println "")
+
+(println "Test 8: Three parameters")
+sum3 = {x y z -> <- (add (add x y) z)}
+result8 = (sum3 1 2 3)
+(println "sum3(1, 2, 3) =")
+(println result8)
+(println "Expected: 6")
+(println "")
+
+(println "Test 9: Float function")
+add_pi = {x -> <- (add x 3.14)}
+result9 = (add_pi 1.0)
+(println "add_pi(1.0) =")
+(println result9)
+(println "Expected: 4.14")
+(println "")
+
+(println "Test 10: Nested calls")
+inc = {x -> <- (add x 1)}
+result10 = (inc (inc (inc 0)))
+(println "inc(inc(inc(0))) =")
+(println result10)
+(println "Expected: 3")
+(println "")
+
+(println "Test 11: Mixed int/float in function")
+avg = {a b -> <- (divide (add a b) 2)}
+result11 = (avg 3 4)
+(println "avg(3, 4) =")
+(println result11)
+(println "Expected: 3.5 or 3")
+(println "")
+
+(println "Test 12: String formatting functions")
+format_hex = {n -> <- (format-int n 16)}
+result12 = (format_hex 255)
+(println "format_hex(255) =")
+(println result12)
+(println "Expected: 0xFF")
+(println "")
+
+(println "")
+(println "=== All 12 Function Tests Complete ===")

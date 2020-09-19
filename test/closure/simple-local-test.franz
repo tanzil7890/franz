@@ -1,0 +1,14 @@
+(println "=== Simple Local Scope Test ===")
+
+// Simple function that creates and uses a closure locally
+test_local = {->
+  local_y = 5
+  local_f = {local_x -> <- (add local_x local_y)}
+  local_result = (local_f 3)
+  <- local_result
+}
+
+result = (test_local)
+(println "Expected: 8")
+(println "Got:")
+(println result)

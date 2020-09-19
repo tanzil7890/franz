@@ -1,0 +1,106 @@
+// Working Test Suite for type() Function in LLVM Mode
+//  Runtime type introspection (literals and variables only)
+// Note: Function results not supported in LLVM mode (would require runtime type tags)
+
+(println "=== type() Function LLVM Mode Tests ===")
+(println "")
+
+// Test 1: Integer type (literal)
+(println "Test 1: Integer literal")
+(println "  type(42) =" (type 42))
+(println "  Expected: integer")
+(println "")
+
+// Test 2: Float type (literal)
+(println "Test 2: Float literal")
+(println "  type(3.14) =" (type 3.14))
+(println "  Expected: float")
+(println "")
+
+// Test 3: String type (literal)
+(println "Test 3: String literal")
+(println "  type(\"hello\") =" (type "hello"))
+(println "  Expected: string")
+(println "")
+
+// Test 4: List type (literal)
+(println "Test 4: List literal")
+(println "  type([1, 2, 3]) =" (type [1, 2, 3]))
+(println "  Expected: list")
+(println "")
+
+// Test 5: Function type (literal)
+(println "Test 5: Function literal")
+(println "  type({x -> <- (add x 1)}) =" (type {x -> <- (add x 1)}))
+(println "  Expected: closure")
+(println "")
+
+// Test 6: Void type
+(println "Test 6: Void")
+(println "  type(void) =" (type void))
+(println "  Expected: void")
+(println "")
+
+// Test 7: Integer variable
+(println "Test 7: Integer variable")
+int_var = 42
+(println "  int_var =" int_var)
+(println "  type(int_var) =" (type int_var))
+(println "  Expected: integer")
+(println "")
+
+// Test 8: Float variable
+(println "Test 8: Float variable")
+float_var = 3.14
+(println "  float_var =" float_var)
+(println "  type(float_var) =" (type float_var))
+(println "  Expected: float")
+(println "")
+
+// Test 9: String variable
+(println "Test 9: String variable")
+str_var = "world"
+(println "  str_var =" str_var)
+(println "  type(str_var) =" (type str_var))
+(println "  Expected: string")
+(println "")
+
+// Test 10: List variable
+(println "Test 10: List variable")
+list_var = [10, 20, 30]
+(println "  type(list_var) =" (type list_var))
+(println "  Expected: list")
+(println "")
+
+// Test 11: Closure variable
+(println "Test 11: Closure variable")
+func_var = {x -> <- (multiply x 2)}
+(println "  type(func_var) =" (type func_var))
+(println "  Expected: closure")
+(println "")
+
+// Test 12: Void variable
+(println "Test 12: Void variable")
+void_var = void
+(println "  type(void_var) =" (type void_var))
+(println "  Expected: void")
+(println "")
+
+// Test 13: Empty list
+(println "Test 13: Empty list")
+empty = []
+(println "  type([]) =" (type empty))
+(println "  Expected: list")
+(println "")
+
+// Test 14: Nested list
+(println "Test 14: Nested list")
+nested = [[1, 2], [3, 4]]
+(println "  type([[1,2],[3,4]]) =" (type nested))
+(println "  Expected: list")
+(println "")
+
+(println "=== All 14 Tests Complete ===")
+(println "")
+(println "Note: LLVM mode supports type() for literals and variables assigned from literals.")
+(println "Function results (e.g., x = (add 1 2)) are not supported in LLVM mode.")

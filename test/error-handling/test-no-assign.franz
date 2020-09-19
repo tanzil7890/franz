@@ -1,0 +1,2 @@
+(try { (error "first") } {e -> <- 1})
+y = 5

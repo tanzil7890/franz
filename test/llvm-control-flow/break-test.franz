@@ -1,0 +1,65 @@
+(println "=== Break Statement Test ===")
+(println "")
+
+(println "Test 1: Break when i equals 5")
+result1 = (loop 10 {i ->
+  (if (is i 5)
+    {(break i)}
+    {})
+})
+(println "  Result:" result1 "  Expected: 5")
+
+(println "")
+(println "Test 2: Break on first iteration")
+result2 = (loop 10 {i ->
+  (if (is i 0)
+    {(break 99)}
+    {})
+})
+(println "  Result:" result2 "  Expected: 99")
+
+(println "")
+(println "Test 3: No break - loop completes")
+result3 = (loop 5 {i ->
+  (println "  i:" i)
+})
+(println "  Result:" result3 "  Expected: 0")
+
+(println "")
+(println "Test 4: Break with first even number")
+result4 = (loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {(break i)}
+    {})
+})
+(println "  Result:" result4 "  Expected: 0")
+
+(println "")
+(println "Test 5: Find first odd number")
+result5 = (loop 10 {i ->
+  (if (is (remainder i 2) 1)
+    {(break i)}
+    {})
+})
+(println "  Result:" result5 "  Expected: 1")
+
+(println "")
+(println "Test 6: Break with arithmetic result")
+result6 = (loop 10 {i ->
+  (if (is i 3)
+    {(break (multiply i 10))}
+    {})
+})
+(println "  Result:" result6 "  Expected: 30")
+
+(println "")
+(println "Test 7: Break on last iteration")
+result7 = (loop 10 {i ->
+  (if (is i 9)
+    {(break i)}
+    {})
+})
+(println "  Result:" result7 "  Expected: 9")
+
+(println "")
+(println "All break tests complete!")

@@ -1,0 +1,133 @@
+// Example: Recursive List Processing with head, tail, cons, empty?
+// Demonstrates idiomatic functional programming in Franz
+
+(println "=== Recursive List Processing Examples ===\n")
+
+// Example 1: Sum of list (basic recursion)
+(println "1. Sum of list:")
+
+sum = {lst ->
+  <- (if (empty? lst)
+    {<- 0}
+    {<- (add (head lst) (sum (tail lst)))}
+  )
+}
+
+numbers = (list 1 2 3 4 5)
+(println "   sum(" numbers ") = " (sum numbers))
+
+// Example 2: Length of list (counting)
+(println "\n2. Length of list:")
+
+my_length = {lst ->
+  <- (if (empty? lst)
+    {<- 0}
+    {<- (add 1 (my_length (tail lst)))}
+  )
+}
+
+(println "   length(" numbers ") = " (my_length numbers))
+
+// Example 3: Map (transform each element)
+(println "\n3. Map - double each number:")
+
+my_map = {lst fn ->
+  <- (if (empty? lst)
+    {<- (list)}
+    {<- (cons (fn (head lst)) (my_map (tail lst) fn))}
+  )
+}
+
+double = {x -> <- (multiply x 2)}
+doubled = (my_map numbers double)
+(println "   map(double, " numbers ") = " doubled)
+
+// Example 4: Filter (select elements)
+(println "\n4. Filter - keep even numbers:")
+
+my_filter = {lst fn ->
+  <- (if (empty? lst)
+    {<- (list)}
+    {
+      h = (head lst)
+      t = (tail lst)
+      <- (if (fn h)
+        {<- (cons h (my_filter t fn))}
+        {<- (my_filter t fn)}
+      )
+    }
+  )
+}
+
+is_even = {x -> <- (is (remainder x 2) 0)}
+evens = (my_filter numbers is_even)
+(println "   filter(is_even, " numbers ") = " evens)
+
+// Example 5: Reverse list
+(println "\n5. Reverse list:")
+
+reverse_helper = {lst acc ->
+  <- (if (empty? lst)
+    {<- acc}
+    {<- (reverse_helper (tail lst) (cons (head lst) acc))}
+  )
+}
+
+reverse = {lst ->
+  <- (reverse_helper lst (list))
+}
+
+reversed = (reverse numbers)
+(println "   reverse(" numbers ") = " reversed)
+
+// Example 6: Build range
+(println "\n6. Build range:")
+
+build_range = {n ->
+  <- (if (is n 0)
+    {<- (list)}
+    {<- (cons n (build_range (subtract n 1)))}
+  )
+}
+
+range_5 = (build_range 5)
+(println "   build_range(5) = " range_5)
+
+// Example 7: Maximum element
+(println "\n7. Find maximum:")
+
+list_max = {lst ->
+  <- (if (empty? (tail lst))
+    {<- (head lst)}
+    {
+      h = (head lst)
+      rest_max = (list_max (tail lst))
+      <- (if (greater_than h rest_max) {<- h} {<- rest_max})
+    }
+  )
+}
+
+max_val = (list_max numbers)
+(println "   max(" numbers ") = " max_val)
+
+// Example 8: Append two lists
+(println "\n8. Append lists:")
+
+append = {lst1 lst2 ->
+  <- (if (empty? lst1)
+    {<- lst2}
+    {<- (cons (head lst1) (append (tail lst1) lst2))}
+  )
+}
+
+list1 = (list 1 2 3)
+list2 = (list 4 5 6)
+combined = (append list1 list2)
+(println "   append(" list1 ", " list2 ") = " combined)
+
+(println "\n=== All Examples Complete ===")
+(println "These patterns work because:")
+(println "  - head: safely gets first element")
+(println "  - tail: safely gets rest of list")
+(println "  - cons: builds new lists")
+(println "  - empty?: checks base case")

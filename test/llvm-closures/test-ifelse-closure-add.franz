@@ -1,0 +1,14 @@
+(println "Test: Closure with if-else + arithmetic")
+
+min_of_two = {x y ->
+  (if (less_than x y)
+    {<- x}
+    {<- y})
+}
+
+a = (min_of_two 30 10)
+(println "min_of_two(30, 10) =" a)
+
+result = (add a 5)
+(println "a + 5 =" result)
+(println "Expected: 15")

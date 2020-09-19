@@ -1,0 +1,18 @@
+(println "=== Debug Nested Scope ===")
+
+// Function that creates a variable and a closure
+outer_func = {->
+  outer_var = 42
+  inner_closure = {inner_param -> <- (add inner_param outer_var)}
+  <- inner_closure
+}
+
+(println "Creating closure...")
+my_closure = (outer_func)
+
+(println "Calling returned closure...")
+result = (my_closure 8)
+
+(println "Expected: 50")
+(println "Got:")
+(println result)

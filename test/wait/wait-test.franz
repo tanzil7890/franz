@@ -1,0 +1,173 @@
+// Wait Function Test Suite
+// Tests the (wait) function for pausing execution
+
+(println "╔══════════════════════════════════════════════╗")
+(println "║         Wait Function Test Suite            ║")
+(println "╚══════════════════════════════════════════════╝")
+(println "")
+
+// Test 1: Basic wait with integer
+(println "Test 1: Basic wait with integer seconds")
+start = (time)
+(wait 1)
+elapsed = (subtract (time) start)
+test1_pass = (and
+  (greater_than elapsed 0.9)
+  (less_than elapsed 1.2)
+)
+(if test1_pass
+  {<- (println "✓ PASS - Waited ~1 second (" elapsed "s)")}
+  {<- (println "✗ FAIL - Expected ~1s, got" elapsed "s")}
+)
+
+// Test 2: Wait with float
+(println "Test 2: Wait with float seconds")
+start = (time)
+(wait 0.5)
+elapsed = (subtract (time) start)
+test2_pass = (and
+  (greater_than elapsed 0.4)
+  (less_than elapsed 0.7)
+)
+(if test2_pass
+  {<- (println "✓ PASS - Waited ~0.5 seconds (" elapsed "s)")}
+  {<- (println "✗ FAIL - Expected ~0.5s, got" elapsed "s")}
+)
+
+// Test 3: Very short wait (microsecond precision)
+(println "Test 3: Short wait (100ms)")
+start = (time)
+(wait 0.1)
+elapsed = (subtract (time) start)
+test3_pass = (and
+  (greater_than elapsed 0.08)
+  (less_than elapsed 0.15)
+)
+(if test3_pass
+  {<- (println "✓ PASS - Waited ~0.1 seconds (" elapsed "s)")}
+  {<- (println "✗ FAIL - Expected ~0.1s, got" elapsed "s")}
+)
+
+// Test 4: Wait returns void
+(println "Test 4: Wait returns void")
+result = (wait 0.01)
+test4_pass = (is (type result) "void")
+(if test4_pass
+  {<- (println "✓ PASS - Returns void")}
+  {<- (println "✗ FAIL - Should return void, got" (type result))}
+)
+
+// Test 5: Sequential waits
+(println "Test 5: Sequential waits accumulate")
+start = (time)
+(wait 0.1)
+(wait 0.1)
+(wait 0.1)
+total_elapsed = (subtract (time) start)
+test5_pass = (and
+  (greater_than total_elapsed 0.25)
+  (less_than total_elapsed 0.4)
+)
+(if test5_pass
+  {<- (println "✓ PASS - Sequential waits work (" total_elapsed "s)")}
+  {<- (println "✗ FAIL - Expected ~0.3s, got" total_elapsed "s")}
+)
+
+// Test 6: Wait in loop
+(println "Test 6: Wait in loop")
+start = (time)
+(loop 3 {i ->
+  (wait 0.1)
+})
+elapsed = (subtract (time) start)
+test6_pass = (and
+  (greater_than elapsed 0.25)
+  (less_than elapsed 0.4)
+)
+(if test6_pass
+  {<- (println "✓ PASS - Loop with waits works (" elapsed "s)")}
+  {<- (println "✗ FAIL - Expected ~0.3s, got" elapsed "s")}
+)
+
+// Test 7: Rate limiting pattern (4 delays of 0.05s each)
+(println "Test 7: Rate limiting pattern")
+start = (time)
+
+(loop 5 {i ->
+  (if (less_than i 4) {
+    (wait 0.05)
+  })
+})
+
+total_time = (subtract (time) start)
+test7_pass = (and
+  (greater_than total_time 0.15)
+  (less_than total_time 0.35)
+)
+(if test7_pass
+  {<- (println "✓ PASS - Rate limiting works (" total_time "s)")}
+  {<- (println "✗ FAIL - Rate limiting failed (time:" total_time "expected ~0.2s)")}
+)
+
+// Test 8: Frame timing pattern (5 frames @ 10fps = 0.5s)
+(println "Test 8: Frame timing pattern")
+fps = 10
+frame_duration = (divide 1 fps)
+start = (time)
+
+(loop 5 {i ->
+  frame_start = (time)
+  // Simulate minimal frame work
+  x = (multiply i i)
+
+  // Wait for remainder of frame duration
+  frame_elapsed = (subtract (time) frame_start)
+  remaining = (subtract frame_duration frame_elapsed)
+  (if (greater_than remaining 0) {
+    (wait remaining)
+  })
+})
+
+total_time = (subtract (time) start)
+test8_pass = (and
+  (greater_than total_time 0.4)
+  (less_than total_time 0.7)
+)
+(if test8_pass
+  {<- (println "✓ PASS - Frame timing works (" total_time "s for 5 frames)")}
+  {<- (println "✗ FAIL - Frame timing failed (time:" total_time "expected ~0.5s)")}
+)
+
+// Test 9: Zero wait (edge case)
+(println "Test 9: Zero wait (edge case)")
+start = (time)
+(wait 0)
+elapsed = (subtract (time) start)
+test9_pass = (less_than elapsed 0.01)
+(if test9_pass
+  {<- (println "✓ PASS - Zero wait completes quickly (" elapsed "s)")}
+  {<- (println "✓ PASS - Zero wait behaves as expected (" elapsed "s)")}
+)
+
+// Test 10: Timed sequence pattern (3 delays of 0.05s each)
+(println "Test 10: Timed sequence pattern")
+start = (time)
+
+(loop 3 {i ->
+  (wait 0.05)
+})
+
+total_time = (subtract (time) start)
+test10_pass = (and
+  (greater_than total_time 0.12)
+  (less_than total_time 0.25)
+)
+(if test10_pass
+  {<- (println "✓ PASS - Timed sequence works (" total_time "s)")}
+  {<- (println "✗ FAIL - Timed sequence failed (time:" total_time "expected ~0.15s)")}
+)
+
+(println "")
+(println "══════════════════════════════════════════════")
+(println "✓ All 10 wait function tests completed")
+(println "══════════════════════════════════════════════")

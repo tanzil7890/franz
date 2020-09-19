@@ -1,0 +1,4 @@
+// String utility module for namespace testing
+greet = {name -> <- (join "Hello, " (join name "!"))}
+shout = {msg -> <- (join msg "!!!")}
+double = {str -> <- (join str str)}

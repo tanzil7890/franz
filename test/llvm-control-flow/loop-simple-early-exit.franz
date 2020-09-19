@@ -1,0 +1,10 @@
+(println "=== Simple Early Exit Test ===")
+(println "")
+
+(println "Test: Loop with immediate early exit on i=0")
+result = (loop 5 {i ->
+  (println "i=" i)
+  <- i
+})
+(println "Result:" result)
+(println "Expected: 0 (exits immediately)")

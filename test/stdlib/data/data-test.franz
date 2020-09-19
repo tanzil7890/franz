@@ -1,0 +1,337 @@
+(use "stdlib/data.franz" {
+  (println "=== Data Structure Utilities Test Suite ===")
+  (println "")
+
+  // ========================================================================
+  // PAIR TESTS
+  // ========================================================================
+
+  (println "Test 1: pair - Create basic pair")
+  test1_pair = (pair 1 2)
+  test1_len = (length test1_pair)
+  (if (is test1_len 2) {
+    (println "PASS: pair creates 2-element list")
+  } {
+    (println "FAIL: Expected length 2, got" test1_len)
+  })
+
+  (println "Test 2: pair - Different types")
+  test2_pair = (pair "hello" 42)
+  test2_first = (get test2_pair 0)
+  test2_second = (get test2_pair 1)
+  (if (is test2_first "hello") {
+    (if (is test2_second 42) {
+      (println "PASS: pair works with mixed types")
+    } {
+      (println "FAIL: Second element incorrect")
+    })
+  } {
+    (println "FAIL: First element incorrect")
+  })
+
+  (println "Test 3: pair - Nested pairs")
+  test3_inner = (pair 1 2)
+  test3_outer = (pair test3_inner 3)
+  test3_first = (get test3_outer 0)
+  (if (is (length test3_first) 2) {
+    (println "PASS: pair handles nested pairs")
+  } {
+    (println "FAIL: Nested pair not preserved")
+  })
+
+  // ========================================================================
+  // FST TESTS
+  // ========================================================================
+
+  (println "")
+  (println "Test 4: fst - Get first element of integer pair")
+  test4_pair = (pair 10 20)
+  test4_result = (fst test4_pair)
+  (if (is test4_result 10) {
+    (println "PASS: fst returns first element")
+  } {
+    (println "FAIL: Expected 10, got" test4_result)
+  })
+
+  (println "Test 5: fst - Get first element of string pair")
+  test5_pair = (pair "first" "second")
+  test5_result = (fst test5_pair)
+  (if (is test5_result "first") {
+    (println "PASS: fst works with strings")
+  } {
+    (println "FAIL: Expected 'first', got" test5_result)
+  })
+
+  (println "Test 6: fst - Works with list created manually")
+  test6_list = (list "a" "b")
+  test6_result = (fst test6_list)
+  (if (is test6_result "a") {
+    (println "PASS: fst works with regular lists")
+  } {
+    (println "FAIL: Expected 'a', got" test6_result)
+  })
+
+  // ========================================================================
+  // SND TESTS
+  // ========================================================================
+
+  (println "")
+  (println "Test 7: snd - Get second element of integer pair")
+  test7_pair = (pair 10 20)
+  test7_result = (snd test7_pair)
+  (if (is test7_result 20) {
+    (println "PASS: snd returns second element")
+  } {
+    (println "FAIL: Expected 20, got" test7_result)
+  })
+
+  (println "Test 8: snd - Get second element of string pair")
+  test8_pair = (pair "first" "second")
+  test8_result = (snd test8_pair)
+  (if (is test8_result "second") {
+    (println "PASS: snd works with strings")
+  } {
+    (println "FAIL: Expected 'second', got" test8_result)
+  })
+
+  (println "Test 9: snd - Works with list created manually")
+  test9_list = (list 100 200)
+  test9_result = (snd test9_list)
+  (if (is test9_result 200) {
+    (println "PASS: snd works with regular lists")
+  } {
+    (println "FAIL: Expected 200, got" test9_result)
+  })
+
+  // ========================================================================
+  // ASSOC TESTS
+  // ========================================================================
+
+  (println "")
+  (println "Test 10: assoc - Lookup existing key")
+  test10_alist = (list (pair "name" "John") (pair "age" 30) (pair "city" "NYC"))
+  test10_result = (assoc "name" test10_alist)
+  (if (is test10_result "John") {
+    (println "PASS: assoc finds existing key")
+  } {
+    (println "FAIL: Expected 'John', got" test10_result)
+  })
+
+  (println "Test 11: assoc - Lookup middle key")
+  test11_alist = (list (pair "a" 1) (pair "b" 2) (pair "c" 3))
+  test11_result = (assoc "b" test11_alist)
+  (if (is test11_result 2) {
+    (println "PASS: assoc finds middle key")
+  } {
+    (println "FAIL: Expected 2, got" test11_result)
+  })
+
+  (println "Test 12: assoc - Nonexistent key returns void")
+  test12_alist = (list (pair "x" 10) (pair "y" 20))
+  test12_result = (assoc "z" test12_alist)
+  (if (is test12_result void) {
+    (println "PASS: assoc returns void for missing key")
+  } {
+    (println "FAIL: Expected void, got" test12_result)
+  })
+
+  (println "Test 13: assoc - Empty association list")
+  test13_alist = (list)
+  test13_result = (assoc "any" test13_alist)
+  (if (is test13_result void) {
+    (println "PASS: assoc handles empty list")
+  } {
+    (println "FAIL: Expected void for empty list")
+  })
+
+  (println "Test 14: assoc - Integer keys")
+  test14_alist = (list (pair 1 "one") (pair 2 "two") (pair 3 "three"))
+  test14_result = (assoc 2 test14_alist)
+  (if (is test14_result "two") {
+    (println "PASS: assoc works with integer keys")
+  } {
+    (println "FAIL: Expected 'two', got" test14_result)
+  })
+
+  // ========================================================================
+  // ZIP_WITH TESTS
+  // ========================================================================
+
+  (println "")
+  (println "Test 15: zip_with - Add corresponding elements")
+  test15_list1 = (list 1 2 3)
+  test15_list2 = (list 4 5 6)
+  test15_result = (zip_with add test15_list1 test15_list2)
+  test15_first = (get test15_result 0)
+  test15_second = (get test15_result 1)
+  test15_third = (get test15_result 2)
+  (if (is test15_first 5) {
+    (if (is test15_second 7) {
+      (if (is test15_third 9) {
+        (println "PASS: zip_with adds elements correctly")
+      } {
+        (println "FAIL: Third element incorrect")
+      })
+    } {
+      (println "FAIL: Second element incorrect")
+    })
+  } {
+    (println "FAIL: First element incorrect")
+  })
+
+  (println "Test 16: zip_with - Multiply corresponding elements")
+  test16_list1 = (list 2 3 4)
+  test16_list2 = (list 5 6 7)
+  test16_result = (zip_with multiply test16_list1 test16_list2)
+  test16_first = (get test16_result 0)
+  test16_second = (get test16_result 1)
+  test16_third = (get test16_result 2)
+  (if (is test16_first 10) {
+    (if (is test16_second 18) {
+      (if (is test16_third 28) {
+        (println "PASS: zip_with multiplies elements correctly")
+      } {
+        (println "FAIL: Product calculation wrong")
+      })
+    } {
+      (println "FAIL: Product calculation wrong")
+    })
+  } {
+    (println "FAIL: Product calculation wrong")
+  })
+
+  (println "Test 17: zip_with - Different length lists (shorter wins)")
+  test17_list1 = (list 1 2 3 4 5)
+  test17_list2 = (list 10 20)
+  test17_result = (zip_with add test17_list1 test17_list2)
+  test17_len = (length test17_result)
+  (if (is test17_len 2) {
+    (println "PASS: zip_with stops at shorter list")
+  } {
+    (println "FAIL: Expected length 2, got" test17_len)
+  })
+
+  (println "Test 18: zip_with - Custom function (pair creation)")
+  test18_list1 = (list "a" "b" "c")
+  test18_list2 = (list 1 2 3)
+  test18_result = (zip_with pair test18_list1 test18_list2)
+  test18_first = (get test18_result 0)
+  test18_first_fst = (fst test18_first)
+  test18_first_snd = (snd test18_first)
+  (if (is test18_first_fst "a") {
+    (if (is test18_first_snd 1) {
+      (println "PASS: zip_with works with custom functions")
+    } {
+      (println "FAIL: Second value wrong")
+    })
+  } {
+    (println "FAIL: First value wrong")
+  })
+
+  (println "Test 19: zip_with - Empty lists")
+  test19_list1 = (list)
+  test19_list2 = (list 1 2 3)
+  test19_result = (zip_with add test19_list1 test19_list2)
+  test19_len = (length test19_result)
+  (if (is test19_len 0) {
+    (println "PASS: zip_with handles empty lists")
+  } {
+    (println "FAIL: Expected empty result")
+  })
+
+  // ========================================================================
+  // GROUP_BY TESTS
+  // ========================================================================
+
+  (println "")
+  (println "Test 20: group_by - Group by even/odd")
+  test20_numbers = (list 1 2 3 4 5 6)
+  test20_result = (group_by {x _ -> <- (remainder x 2)} test20_numbers)
+  test20_len = (length test20_result)
+  (if (is test20_len 2) {
+    (println "PASS: group_by creates 2 groups for even/odd")
+  } {
+    (println "FAIL: Expected 2 groups, got" test20_len)
+  })
+
+  (println "Test 21: group_by - Group by string length")
+  test21_words = (list "a" "bb" "ccc" "dd" "eee")
+  test21_result = (group_by {word _ -> <- (length word)} test21_words)
+  test21_len = (length test21_result)
+  (if (is test21_len 3) {
+    (println "PASS: group_by groups by string length")
+  } {
+    (println "FAIL: Expected 3 groups (1,2,3), got" test21_len)
+  })
+
+  (println "Test 22: group_by - Single group (all same)")
+  test22_numbers = (list 2 4 6 8)
+  test22_result = (group_by {x _ -> <- (remainder x 2)} test22_numbers)
+  test22_len = (length test22_result)
+  (if (is test22_len 1) {
+    (println "PASS: group_by creates single group when all same")
+  } {
+    (println "FAIL: Expected 1 group, got" test22_len)
+  })
+
+  (println "Test 23: group_by - Empty list")
+  test23_empty = (list)
+  test23_result = (group_by {x _ -> <- x} test23_empty)
+  test23_len = (length test23_result)
+  (if (is test23_len 0) {
+    (println "PASS: group_by handles empty list")
+  } {
+    (println "FAIL: Expected empty result")
+  })
+
+  (println "Test 24: group_by - Verify group structure (key-value pairs)")
+  test24_numbers = (list 1 2 3)
+  test24_result = (group_by {x _ -> <- (remainder x 2)} test24_numbers)
+  test24_first_group = (get test24_result 0)
+  test24_first_key = (fst test24_first_group)
+  test24_first_values = (snd test24_first_group)
+  test24_is_list = (is (type test24_first_values) "list")
+  (if test24_is_list {
+    (println "PASS: group_by returns proper key-value structure")
+  } {
+    (println "FAIL: Group values should be a list")
+  })
+
+  // ========================================================================
+  // INTEGRATION TESTS
+  // ========================================================================
+
+  (println "")
+  (println "Test 25: Integration - pair + fst + snd")
+  test25_p = (pair "hello" "world")
+  test25_reconstructed = (pair (fst test25_p) (snd test25_p))
+  test25_match = (is (fst test25_reconstructed) "hello")
+  (if test25_match {
+    (println "PASS: fst/snd can deconstruct and reconstruct pairs")
+  } {
+    (println "FAIL: Reconstruction failed")
+  })
+
+  (println "Test 26: Integration - assoc with pair")
+  test26_pairs = (list (pair "x" 10) (pair "y" 20) (pair "z" 30))
+  test26_value = (assoc "y" test26_pairs)
+  (if (is test26_value 20) {
+    (println "PASS: assoc works with pair-created association list")
+  } {
+    (println "FAIL: assoc failed with pair")
+  })
+
+  (println "Test 27: Integration - zip_with + group_by")
+  test27_keys = (list "a" "b" "a" "c" "b")
+  test27_values = (list 1 2 3 4 5)
+  test27_pairs = (zip_with pair test27_keys test27_values)
+  test27_len = (length test27_pairs)
+  (if (is test27_len 5) {
+    (println "PASS: zip_with creates pairs for group_by input")
+  } {
+    (println "FAIL: zip_with pair creation failed")
+  })
+
+  (println "")
+  (println "✓ All 27 data structure utility tests completed!")
+})

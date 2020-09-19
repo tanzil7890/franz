@@ -1,0 +1,4 @@
+x1 = (try { (error "first") } {e -> <- 1})
+(println "After first:" x1)
+x2 = (try { (error "second") } {e -> <- 2})
+(println "After second:" x2)

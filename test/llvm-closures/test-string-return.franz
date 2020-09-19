@@ -1,0 +1,31 @@
+(println "=== Test: String returns from nested if-else ===")
+
+// Simple case: single if-else returning string
+simple_test = {x ->
+  <- (if (greater_than x 50)
+    {<- "high"}
+    {<- "low"})
+}
+
+// Nested case: nested if-else returning strings (like Example 4)
+grade_test = {score ->
+  <- (if (greater_than score 80)
+    {<- "B"}
+    {(if (greater_than score 70)
+      {<- "C"}
+      {<- "F"}
+    )}
+  )
+}
+
+result1 = (simple_test 60)
+(println "Simple test (60): " result1)
+(println "Expected: high")
+
+result2 = (grade_test 85)
+(println "Grade test (85): " result2)
+(println "Expected: B")
+
+result3 = (grade_test 75)
+(println "Grade test (75): " result3)
+(println "Expected: C")

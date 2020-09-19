@@ -1,0 +1,36 @@
+(println "=== Box Drawing Example ===")
+(println "")
+
+// Get terminal dimensions
+width = (columns)
+height = (rows)
+
+// Box dimensions (centered)
+box_width = 60
+box_height = 10
+
+// Draw box
+top_line = (repeat "═" (subtract box_width 2))
+(print "╔")
+(print top_line)
+(println "╗")
+
+// Draw sides
+side_spaces = (repeat " " (subtract box_width 2))
+mut i = 0
+(loop (subtract box_height 2) {idx ->
+  (print "║")
+  (print side_spaces)
+  (println "║")
+  <- 0
+})
+
+// Bottom
+bottom_line = (repeat "═" (subtract box_width 2))
+(print "╚")
+(print bottom_line)
+(println "╝")
+
+(println "")
+(println "Box size:" box_width "x" box_height)
+(println "Terminal size:" width "x" height)

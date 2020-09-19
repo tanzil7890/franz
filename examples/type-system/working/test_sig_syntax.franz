@@ -1,0 +1,20 @@
+// Test sig syntax implementation
+
+// Test 1: Simple function signature
+(sig add_one (integer -> integer))
+add_one = {x -> <- (add x 1)}
+
+// Test 2: Multi-parameter function
+(sig multiply_nums (integer integer -> integer))
+multiply_nums = {a b -> <- (multiply a b)}
+
+// Test 3: Higher-order function with type variables
+(sig apply_twice ((a -> a) a -> a))
+apply_twice = {f x -> <- (f (f x))}
+
+// Test the functions
+(print "Testing typed functions:\n")
+(print "add_one(5) = " (string (add_one 5)) "\n")
+(print "multiply_nums(3, 7) = " (string (multiply_nums 3 7)) "\n")
+(print "apply_twice(add_one, 10) = " (string (apply_twice add_one 10)) "\n")
+

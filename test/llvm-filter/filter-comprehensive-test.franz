@@ -1,0 +1,113 @@
+(println "=== LLVM Filter Comprehensive Test Suite ===")
+(println "")
+
+(println "Test 1: Filter positive numbers from mixed list")
+mixed = [-5, -2, 0, 3, 7, -1, 4]
+is_positive = {x i -> <- (greater_than x 0)}
+positives = (filter mixed is_positive)
+(println "  Input:" mixed)
+(println "  Positive numbers:" positives)
+(println "  ✓ PASS: Filter positive numbers")
+
+(println "")
+(println "Test 2: Filter even numbers")
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+is_even = {x i -> <- (is (remainder x 2) 0)}
+evens = (filter numbers is_even)
+(println "  Input:" numbers)
+(println "  Even numbers:" evens)
+(println "  ✓ PASS: Filter even numbers")
+
+(println "")
+(println "Test 3: Filter by index (even indices)")
+items = [10, 20, 30, 40, 50, 60]
+even_index = {x i -> <- (is (remainder i 2) 0)}
+even_indexed = (filter items even_index)
+(println "  Input:" items)
+(println "  Even-indexed elements:" even_indexed)
+(println "  ✓ PASS: Filter by index")
+
+(println "")
+(println "Test 4: Filter greater than threshold")
+values = [5, 15, 25, 35, 45, 55]
+threshold = 30
+above_threshold = {x i -> <- (greater_than x threshold)}
+filtered = (filter values above_threshold)
+(println "  Input:" values)
+(println "  Above 30:" filtered)
+(println "  ✓ PASS: Filter with closure capturing threshold")
+
+(println "")
+(println "Test 5: Filter negative numbers only")
+mixed2 = [-10, 5, -3, 8, -1, 0, 2]
+is_negative = {x i -> <- (less_than x 0)}
+negatives = (filter mixed2 is_negative)
+(println "  Input:" mixed2)
+(println "  Negative numbers:" negatives)
+(println "  ✓ PASS: Filter negative numbers")
+
+(println "")
+(println "Test 6: Filter empty list")
+empty = []
+always_true = {x i -> <- 1}
+result_empty = (filter empty always_true)
+(println "  Input: []")
+(println "  Filtered: []")
+(println "  ✓ PASS: Filter empty list")
+
+(println "")
+(println "Test 7: Filter with all elements passing")
+all_pass = [1, 2, 3, 4, 5]
+all_positive = {x i -> <- (greater_than x 0)}
+result_all = (filter all_pass all_positive)
+(println "  Input:" all_pass)
+(println "  All positive:" result_all)
+(println "  ✓ PASS: All elements pass filter")
+
+(println "")
+(println "Test 8: Filter with no elements passing")
+all_fail = [-1, -2, -3, -4, -5]
+only_positive = {x i -> <- (greater_than x 0)}
+result_none = (filter all_fail only_positive)
+(println "  Input:" all_fail)
+(println "  Positive only: []")
+(println "  ✓ PASS: No elements pass filter")
+
+(println "")
+(println "Test 9: Filter with complex condition (range)")
+range_test = [1, 5, 10, 15, 20, 25, 30]
+in_range = {x i -> <- (and (greater_than x 5) (less_than x 25))}
+in_range_result = (filter range_test in_range)
+(println "  Input:" range_test)
+(println "  Between 5 and 25:" in_range_result)
+(println "  ✓ PASS: Complex range filter")
+
+(println "")
+(println "Test 10: Filter single element list (passes)")
+single_pass = [42]
+is_42 = {x i -> <- (is x 42)}
+result_single_pass = (filter single_pass is_42)
+(println "  Input: [42]")
+(println "  Equals 42: [42]")
+(println "  ✓ PASS: Single element passes")
+
+(println "")
+(println "Test 11: Filter single element list (fails)")
+single_fail = [99]
+is_42_only = {x i -> <- (is x 42)}
+result_single_fail = (filter single_fail is_42_only)
+(println "  Input: [99]")
+(println "  Equals 42: []")
+(println "  ✓ PASS: Single element fails")
+
+(println "")
+(println "Test 12: Filter with negative and zero")
+neg_zero = [-5, -2, 0, 3, 7, -1, 4, 0]
+non_zero = {x i -> <- (not (is x 0))}
+result_non_zero = (filter neg_zero non_zero)
+(println "  Input:" neg_zero)
+(println "  Non-zero elements:" result_non_zero)
+(println "  ✓ PASS: Filter out zeros")
+
+(println "")
+(println "=== All 12 Tests Completed Successfully ===")

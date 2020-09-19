@@ -1,0 +1,16 @@
+(println "=== Testing Closure Capturing Functions ===")
+
+//Define a function
+add_ten = {x -> <- (add x 10)}
+
+// Test 1: Call it directly
+(println "add_ten(5) =" (add_ten 5))
+
+// Test 2: Capture it in a closure
+wrapper = {x ->
+  result = (add_ten x)
+  <- result
+}
+
+(println "wrapper(5) =" (wrapper 5))
+(println "Expected: 15")

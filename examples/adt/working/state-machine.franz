@@ -1,0 +1,50 @@
+// State Machine Pattern with ADT
+// Model application states using algebraic data types
+
+(println "=== State Machine Example ===")
+(println "")
+
+// Application states
+idle = (variant "Idle")
+loading = (variant "Loading")
+success = (variant "Success" "Data loaded")
+error = (variant "Error" "Network timeout")
+
+// Process state transitions
+(println "State 1: Application Idle")
+r1 = (match idle
+  "Idle" {-> (println "  ✓ Waiting for user action...")}
+  "Loading" {-> (println "  ✗ Loading...")}
+  "Success" {-> (println "  ✗ Success")}
+  "Error" {-> (println "  ✗ Error")}
+)
+
+(println "")
+(println "State 2: Loading Data")
+r2 = (match loading
+  "Idle" {-> (println "  ✗ Waiting for user action...")}
+  "Loading" {-> (println "  ✓ Fetching data from server...")}
+  "Success" {-> (println "  ✗ Success")}
+  "Error" {-> (println "  ✗ Error")}
+)
+
+(println "")
+(println "State 3: Data Loaded Successfully")
+r3 = (match success
+  "Idle" {-> (println "  ✗ Waiting for user action...")}
+  "Loading" {-> (println "  ✗ Loading...")}
+  "Success" {-> (println "  ✓ Data ready for display")}
+  "Error" {-> (println "  ✗ Error")}
+)
+
+(println "")
+(println "State 4: Error Occurred")
+r4 = (match error
+  "Idle" {-> (println "  ✗ Waiting for user action...")}
+  "Loading" {-> (println "  ✗ Loading...")}
+  "Success" {-> (println "  ✗ Success")}
+  "Error" {-> (println "  ✓ Showing error message")}
+)
+
+(println "")
+(println "State machine pattern complete!")

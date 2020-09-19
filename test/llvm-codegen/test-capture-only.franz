@@ -1,0 +1,6 @@
+(println "=== Closure Capture Test ===")
+
+// Test: Closure that captures a variable
+base = 100
+add_base = {x -> <- (add x base)}
+(println "add_base(23) =" (add_base 23))

@@ -1,0 +1,89 @@
+// Comprehensive LLVM Reduce Test Suite
+(println "=== LLVM Reduce Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Sum of integers
+(println "Test 1: Sum of integers [1, 2, 3, 4, 5]")
+nums1 = [1, 2, 3, 4, 5]
+sum_fn1 = {acc item idx -> <- (add acc item)}
+result1 = (reduce nums1 sum_fn1 0)
+(println "  Expected: 15, Got:" result1)
+
+// Test 2: Product of integers
+(println "\nTest 2: Product of integers [1, 2, 3, 4]")
+nums2 = [1, 2, 3, 4]
+prod_fn = {acc item idx -> <- (multiply acc item)}
+result2 = (reduce nums2 prod_fn 1)
+(println "  Expected: 24, Got:" result2)
+
+// Test 3: Find maximum
+(println "\nTest 3: Find maximum in [3, 7, 2, 9, 4]")
+nums3 = [3, 7, 2, 9, 4]
+max_fn = {acc item idx -> <- (if (greater_than item acc) {<- item} {<- acc})}
+result3 = (reduce nums3 max_fn 0)
+(println "  Expected: 9, Got:" result3)
+
+// Test 4: Find minimum
+(println "\nTest 4: Find minimum in [5, 2, 8, 1, 9]")
+nums4 = [5, 2, 8, 1, 9]
+min_fn = {acc item idx -> <- (if (less_than item acc) {<- item} {<- acc})}
+result4 = (reduce nums4 min_fn 100)
+(println "  Expected: 1, Got:" result4)
+
+// Test 5: Count elements
+(println "\nTest 5: Count elements in [10, 20, 30, 40]")
+nums5 = [10, 20, 30, 40]
+count_fn = {acc item idx -> <- (add acc 1)}
+result5 = (reduce nums5 count_fn 0)
+(println "  Expected: 4, Got:" result5)
+
+// Test 6: Sum with index usage
+(println "\nTest 6: Sum of indices [a, b, c, d] (0+1+2+3=6)")
+items6 = [100, 200, 300, 400]
+idx_sum_fn = {acc item idx -> <- (add acc idx)}
+result6 = (reduce items6 idx_sum_fn 0)
+(println "  Expected: 6, Got:" result6)
+
+// Test 7: Single element list
+(println "\nTest 7: Single element list [42]")
+nums7 = [42]
+single_fn = {acc item idx -> <- (add acc item)}
+result7 = (reduce nums7 single_fn 0)
+(println "  Expected: 42, Got:" result7)
+
+// Test 8: Sum of larger list
+(println "\nTest 8: Sum of [1,2,3,4,5,6,7,8,9,10]")
+nums8 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+sum_fn8 = {acc item idx -> <- (add acc item)}
+result8 = (reduce nums8 sum_fn8 0)
+(println "  Expected: 55, Got:" result8)
+
+// Test 9: Factorial using reduce (5! = 120)
+(println "\nTest 9: Factorial 5! using reduce")
+factors = [1, 2, 3, 4, 5]
+fact_fn = {acc item idx -> <- (multiply acc item)}
+result9 = (reduce factors fact_fn 1)
+(println "  Expected: 120, Got:" result9)
+
+// Test 10: Sum with negative numbers
+(println "\nTest 10: Sum with negatives [-5, 10, -3, 8]")
+nums10 = [-5, 10, -3, 8]
+neg_sum_fn = {acc item idx -> <- (add acc item)}
+result10 = (reduce nums10 neg_sum_fn 0)
+(println "  Expected: 10, Got:" result10)
+
+// Test 11: Non-zero initial accumulator
+(println "\nTest 11: Sum starting from 100 [1, 2, 3]")
+nums11 = [1, 2, 3]
+sum_fn11 = {acc item idx -> <- (add acc item)}
+result11 = (reduce nums11 sum_fn11 100)
+(println "  Expected: 106, Got:" result11)
+
+// Test 12: Double each and sum
+(println "\nTest 12: Double each then sum [1, 2, 3]")
+nums12 = [1, 2, 3]
+double_sum_fn = {acc item idx -> <- (add acc (multiply item 2))}
+result12 = (reduce nums12 double_sum_fn 0)
+(println "  Expected: 12, Got:" result12)
+
+(println "\n=== All 12 Tests Complete ===")

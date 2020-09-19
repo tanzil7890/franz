@@ -1,0 +1,33 @@
+(println "=== Dict Print Values Test ===")
+(println "")
+
+// Test 1: Store and print string value
+(println "Test 1: String value")
+user = (dict "name" "Ada Lovelace")
+name = (dict_get user "name")
+(println "Name:" name)
+(println "✓ String value printed")
+(println "")
+
+// Test 2: Store and print integer value
+(println "Test 2: Integer value")
+user2 = (dict "age" 36)
+age = (dict_get user2 "age")
+(println "Age:" age)
+(println "✓ Integer value printed")
+(println "")
+
+// Test 3: Mixed types in one dict
+(println "Test 3: Mixed types")
+person = (dict "name" "Ada" "age" 36 "title" "Mathematician")
+n = (dict_get person "name")
+a = (dict_get person "age")
+t = (dict_get person "title")
+(println "Person:")
+(println "  Name:" n)
+(println "  Age:" a)
+(println "  Title:" t)
+(println "✓ Mixed types printed")
+(println "")
+
+(println "=== All tests passed! ===")

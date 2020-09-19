@@ -1,0 +1,66 @@
+(println "=== Test: Closure Returns in Arithmetic ===")
+(println "")
+
+(println "Test 1: Simple closure arithmetic")
+get_five = {-> <- 5}
+get_ten = {-> <- 10}
+a = (get_five)
+b = (get_ten)
+result = (add a b)
+(println "  (add (get_five) (get_ten)) =" result)
+(println "  Expected: 15")
+(println "")
+
+(println "Test 2: Closure with if-else in arithmetic")
+min_of_two = {x y ->
+  (if (less_than x y)
+    {<- x}
+    {<- y})
+}
+
+min_val = (min_of_two 30 10)
+(println "  min_of_two(30, 10) =" min_val)
+result2 = (add min_val 5)
+(println "  (add min_val 5) =" result2)
+(println "  Expected: 15")
+(println "")
+
+(println "Test 3: Two closures with if-else in arithmetic (EXACT Example 8 pattern)")
+min_of_three = {a b c ->
+  (if (and (less_than a b) (less_than a c))
+    {<- a}
+    {(if (less_than b c) {<- b} {<- c})})
+}
+
+max_of_three = {a b c ->
+  (if (and (greater_than a b) (greater_than a c))
+    {<- a}
+    {(if (greater_than b c) {<- b} {<- c})})
+}
+
+min_result = (min_of_three 30 10 20)
+max_result = (max_of_three 30 10 20)
+(println "  min_of_three(30, 10, 20) =" min_result)
+(println "  max_of_three(30, 10, 20) =" max_result)
+
+sum_result = (add min_result max_result)
+(println "  (add min_result max_result) =" sum_result)
+(println "  Expected: 40 (10 + 30)")
+(println "")
+
+(println "Test 4: Nested arithmetic with closure results (EXACT Example 8 calculation)")
+a_val = 30
+b_val = 10
+c_val = 20
+min_v = (min_of_three a_val b_val c_val)
+max_v = (max_of_three a_val b_val c_val)
+(println "  min =" min_v)
+(println "  max =" max_v)
+
+sum_all = (add a_val (add b_val c_val))
+(println "  sum_all =" sum_all)
+sum_min_max = (add min_v max_v)
+(println "  sum_min_max =" sum_min_max)
+mid_val = (subtract sum_all sum_min_max)
+(println "  mid = sum_all - sum_min_max =" mid_val)
+(println "  Expected: 20 (60 - 40)")

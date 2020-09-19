@@ -1,0 +1,97 @@
+(println "=== Void Type Edge Case Tests ===")
+(println "")
+
+// Edge 1: Multiple Void Assignments
+(println "Edge 1: Multiple void assignments")
+a1 = void
+b1 = void
+c1 = void
+ok1 = (and (is (type a1) "void") (and (is (type b1) "void") (is (type c1) "void")))
+(println (if ok1 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 2: Void Assignment Chain
+(println "Edge 2: Void assignment chain")
+x2 = void
+y2 = x2
+z2 = y2
+ok2 = (is (type z2) "void")
+(println (if ok2 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 3: Nested Functions Returning Void
+(println "Edge 3: Nested functions returning void")
+outer3 = {->
+  inner3 = {-> <- void}
+  <- (inner3)
+}
+r3 = (outer3)
+ok3 = (is (type r3) "void")
+(println (if ok3 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 4: Void in Mixed List
+(println "Edge 4: Void in mixed type list")
+mixed = (list 1 "str" 3.14 void)
+v4 = (get mixed 3)
+ok4 = (is (type v4) "void")
+(println (if ok4 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 5: Type Check on Void
+(println "Edge 5: Type check returns string")
+check5 = (type void)
+ok5 = (is check5 "void")
+(println (if ok5 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 6: Void from Print (No Newline)
+(println "Edge 6: print() returns void")
+r6 = (print "")
+ok6 = (is (type r6) "void")
+(println (if ok6 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 7: Void from Arithmetic Side Effect
+(println "Edge 7: Void from statement sequence")
+seq7 = {->
+  temp = (add 1 2)
+  (println "  Computed: " temp)
+}
+r7 = (seq7)
+ok7 = (is (type r7) "void")
+(println (if ok7 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 8: Void Comparison with Non-Void
+(println "Edge 8: Void not equal to other types")
+ok8_int = (not (is void 0))
+ok8_str = (not (is void ""))
+ok8 = (and ok8_int ok8_str)
+(println (if ok8 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 9: Function Accepting and Returning Void
+(println "Edge 9: Function accepting void, returning void")
+f9 = {v -> (println "  Received void")}
+r9 = (f9 void)
+ok9 = (is (type r9) "void")
+(println (if ok9 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 10: Conditional with Void Branches
+(println "Edge 10: All conditional branches void")
+both_void = (if 1 {<- void} {<- void})
+ok10 = (is (type both_void) "void")
+(println (if ok10 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 11: Void from List Operations
+(println "Edge 11: Void from list operations")
+list11 = (list void void void)
+first11 = (get list11 0)
+ok11 = (is (type first11) "void")
+(println (if ok11 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 12: Multiple Void Returns
+(println "Edge 12: Multiple consecutive void returns")
+multi12 = {->
+  <- void
+}
+r12a = (multi12)
+r12b = (multi12)
+ok12 = (and (is (type r12a) "void") (is (type r12b) "void"))
+(println (if ok12 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "All 12 edge case tests complete!")

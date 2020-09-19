@@ -1,0 +1,24 @@
+// Franz String Library - contains() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== contains() Function Demo ===")
+  (println "")
+
+  (println "1. Check if contains substring")
+  (print "   contains('hello world', 'wor') => ")
+  (println (contains "hello world" "wor"))
+  (println "")
+
+  (println "2. Search for word")
+  (print "   contains('Franz language', 'lang') => ")
+  (println (contains "Franz language" "lang"))
+  (println "")
+
+  (println "3. Check for character")
+  (print "   contains('test@example.com', '@') => ")
+  (println (contains "test@example.com" "@"))
+  (println "")
+
+  (println "Note: Returns 1 for true, 0 for false")
+  (println "contains() demo complete!")
+})

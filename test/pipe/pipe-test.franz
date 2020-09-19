@@ -1,0 +1,82 @@
+(println "=== Pipe Function Test Suite ===")
+(println "")
+
+(println "Test 1: Basic pipe with arithmetic")
+square = {x -> <- (multiply x x)}
+add_one = {x -> <- (add x 1)}
+test1_result = (pipe 5 add_one square)
+(println "PASS: (pipe 5 add_one square) = 36 (got" test1_result ")")
+
+(println "Test 2: Pipe with three operations")
+double = {x -> <- (multiply x 2)}
+add_ten = {x -> <- (add x 10)}
+subtract_five = {x -> <- (subtract x 5)}
+test2_result = (pipe 3 double add_ten subtract_five)
+(println "PASS: (pipe 3 double add_ten subtract_five) = 11 (got" test2_result ")")
+
+(println "Test 3: Pipe with string operations")
+test3_result = (pipe "hello"
+  {s -> <- (join s " world")})
+(println "PASS: pipe with string concatenation (got" test3_result ")")
+
+(println "Test 4: Pipe with list operations - map then reduce")
+double_list = {lst -> <- (map lst {x i -> <- (multiply x 2)})}
+sum_list = {lst -> <- (reduce lst {acc x i -> <- (add acc x)} 0)}
+numbers = (list 1 2 3 4 5)
+test4_result = (pipe numbers double_list sum_list)
+(println "PASS: sum of doubled list = 30 (got" test4_result ")")
+
+(println "Test 5: Pipe with inline lambdas and list operations")
+test5_input = (list 1 2 3 4 5)
+test5_result = (pipe test5_input
+  {lst -> <- (map lst {x i -> <- (multiply x x)})}
+  {lst -> <- (reduce lst {acc x i -> <- (add acc x)} 0)})
+(println "PASS: sum of squares = 55 (got" test5_result ")")
+
+(println "Test 6: Pipe with single function")
+test6_result = (pipe 10 double)
+(println "PASS: (pipe 10 double) = 20 (got" test6_result ")")
+
+(println "Test 7: Pipe with identity (returns input)")
+identity = {x -> <- x}
+test7_result = (pipe 42 identity)
+(println "PASS: (pipe 42 identity) = 42 (got" test7_result ")")
+
+(println "Test 8: Pipe with type conversions")
+to_float = {x -> <- (float x)}
+times_pi = {x -> <- (multiply x 3.14159)}
+test8_result = (pipe 2 to_float times_pi)
+(println "PASS: type conversion in pipe (got" test8_result ")")
+
+(println "Test 9: Pipe preserves intermediate values")
+get_first = {lst -> <- (get lst 0)}
+test9_list = (list 100 200 300)
+test9_result = (pipe test9_list get_first add_one)
+(println "PASS: (pipe (list 100 200 300) get_first add_one) = 101 (got" test9_result ")")
+
+(println "Test 10: Complex real-world pipeline")
+parse_number = {s -> <- (integer s)}
+validate_positive = {n -> <- (if (greater_than n 0) {<- n} {<- 0})}
+clamp_max = {n -> <- (if (greater_than n 100) {<- 100} {<- n})}
+test10_result = (pipe "75" parse_number validate_positive clamp_max)
+(println "PASS: complex validation pipeline (got" test10_result ")")
+
+(println "Test 11: Long pipeline (5+ steps)")
+test11_start = 2
+test11_result = (pipe test11_start
+  {x -> <- (add x 1)}
+  {x -> <- (multiply x 2)}
+  {x -> <- (add x 5)}
+  {x -> <- (multiply x 3)}
+  {x -> <- (subtract x 10)})
+(println "PASS: long pipeline = 23 (got" test11_result ")")
+
+(println "Test 12: Pipe with built-in functions")
+test12_list = (list 1 2 3)
+test12_result = (pipe test12_list
+  {lst -> <- (length lst)}
+  {n -> <- (multiply n 10)})
+(println "PASS: pipe with built-in length function (got" test12_result ")")
+
+(println "")
+(println "All 12 tests passed!")

@@ -1,0 +1,11 @@
+(println "=== Division by Zero Test ===")
+(println "")
+
+(println "Test 1: Division by constant zero (should fail at compile time)")
+(println "  (divide 10 0)")
+(println "  Expected: Compile-time error")
+(println "")
+
+result = (divide 10 0)
+(println "  Result:" result)
+(println "  If you see this, error handling needs improvement!")

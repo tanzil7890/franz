@@ -1,0 +1,55 @@
+// Example 4: Bank Account Simulation
+// Demonstrates: Practical use case with multiple operations on shared mutable state
+
+(println "=== Bank Account Simulation ===")
+(println "")
+
+// Create bank account with initial balance
+balance = (ref 1000)
+(println "Opening account with balance: $1000")
+(println "")
+
+// Deposit function
+deposit = {amount ->
+  current = (deref balance)
+  new_balance = (add current amount)
+  (set! balance new_balance)
+  (println "  Deposited $" amount)
+  (println "  New balance: $" new_balance)
+  <- new_balance
+}
+
+// Withdraw function
+withdraw = {amount ->
+  current = (deref balance)
+  new_balance = (subtract current amount)
+  (set! balance new_balance)
+  (println "  Withdrew $" amount)
+  (println "  New balance: $" new_balance)
+  <- new_balance
+}
+
+// Perform transactions
+(println "Transaction 1: Deposit $500")
+(deposit 500)
+
+(println "")
+(println "Transaction 2: Withdraw $200")
+(withdraw 200)
+
+(println "")
+(println "Transaction 3: Deposit $300")
+(deposit 300)
+
+(println "")
+(println "Transaction 4: Withdraw $100")
+(withdraw 100)
+
+// Check final balance
+(println "")
+final = (deref balance)
+(println "Final balance: $" final)
+(println "Expected: $1000 + $500 - $200 + $300 - $100 = $1500")
+
+(println "")
+(println "✓ Bank account example complete!")

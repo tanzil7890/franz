@@ -1,0 +1,79 @@
+(println "===  Snapshot-Based Closure Test ===")
+(println "")
+(println "Tests verify zero memory leaks with snapshot closures")
+(println "")
+
+// Test 1: Simple closure (no free vars)
+(println "Test 1: Simple closure (no free variables)")
+t1_f = {t1_x -> <- (add t1_x 1)}
+t1_result = (t1_f 41)
+(if (is t1_result 42)
+  {-> (println "  \u2713 PASS: Simple closure")}
+  {-> (println "  \u2717 FAIL")})
+(println "")
+
+// Test 2: Closure with one free variable
+(println "Test 2: Closure with one free variable")
+t2_y = 10
+t2_f = {t2_x -> <- (add t2_x t2_y)}
+t2_result = (t2_f 5)
+(if (is t2_result 15)
+  {-> (println "  \u2713 PASS: Free variable captured")}
+  {-> (println "  \u2717 FAIL")})
+(println "")
+
+// Test 3: Closure with multiple free variables
+(println "Test 3: Closure with multiple free variables")
+t3_a = 1
+t3_b = 2
+t3_c = 3
+t3_f = {t3_x -> <- (add t3_x (add t3_a (add t3_b t3_c)))}
+t3_result = (t3_f 10)
+(if (is t3_result 16)
+  {-> (println "  \u2713 PASS: Multiple free vars")}
+  {-> (println "  \u2717 FAIL")})
+(println "")
+
+// Test 4: Closure with map
+(println "Test 4: Closure with map (higher-order)")
+t4_nums = (range 5)
+t4_multiplier = 3
+t4_triple = {t4_item t4_idx -> <- (multiply t4_item t4_multiplier)}
+t4_result = (map t4_nums t4_triple)
+t4_expected = (list 0 3 6 9 12)
+(if (is t4_result t4_expected)
+  {-> (println "  \u2713 PASS: Map with closure")}
+  {-> (println "  \u2717 FAIL")})
+(println "")
+
+// Test 5: Multiple closures sharing free variable
+(println "Test 5: Multiple closures sharing variable")
+t5_shared = 100
+t5_add = {t5_x -> <- (add t5_x t5_shared)}
+t5_mul = {t5_x -> <- (multiply t5_x t5_shared)}
+t5_r1 = (t5_add 5)
+t5_r2 = (t5_mul 2)
+(if (is t5_r1 105)
+  {-> (if (is t5_r2 200)
+    {-> (println "  \u2713 PASS: Shared variable")}
+    {-> (println "  \u2717 FAIL: mul failed")})}
+  {-> (println "  \u2717 FAIL: add failed")})
+(println "")
+
+// Test 6: Closure reuse
+(println "Test 6: Closure called multiple times")
+t6_base = 7
+t6_f = {t6_n -> <- (multiply t6_n t6_base)}
+t6_r1 = (t6_f 2)
+t6_r2 = (t6_f 3)
+t6_r3 = (t6_f 4)
+t6_sum = (add t6_r1 (add t6_r2 t6_r3))
+(if (is t6_sum 63)
+  {-> (println "  \u2713 PASS: Closure reuse")}
+  {-> (println "  \u2717 FAIL")})
+(println "")
+
+(println "=== All Snapshot Tests Complete ===")
+(println "")
+(println "Check for memory leaks with:")
+(println "leaks -atExit -- ./franz test/closure/snapshot-test.franz")

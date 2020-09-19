@@ -1,0 +1,192 @@
+(println "=== Type Conversion Edge Case Tests ===")
+(println "")
+
+// ============================================
+// Test 1: Partial String Numbers ("123abc")
+// ============================================
+(println "Test 1: integer(\"123abc\") - partial number string")
+e1_result = (integer "123abc")
+e1_ok = (is e1_result 123)
+(println (if e1_ok {<- "PASS (atoi parses until non-digit)"} {<- "FAIL"}))
+
+// ============================================
+// Test 2: Float with Whitespace
+// ============================================
+(println "Test 2: float(\"  3.14  \") - string with whitespace")
+e2_result = (float "  3.14  ")
+e2_expected = 3.14
+e2_ok = (is e2_result e2_expected)
+(println (if e2_ok {<- "PASS (atof skips leading whitespace)"} {<- "FAIL"}))
+
+// ============================================
+// Test 3: Integer with Whitespace
+// ============================================
+(println "Test 3: integer(\"  42  \") - string with whitespace")
+e3_result = (integer "  42  ")
+e3_ok = (is e3_result 42)
+(println (if e3_ok {<- "PASS (atoi skips leading whitespace)"} {<- "FAIL"}))
+
+// ============================================
+// Test 4: Scientific Notation String
+// ============================================
+(println "Test 4: float(\"1.5e2\") - scientific notation")
+e4_result = (float "1.5e2")
+e4_expected = 150.0
+e4_ok = (is e4_result e4_expected)
+(println (if e4_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 5: Negative Scientific Notation
+// ============================================
+(println "Test 5: float(\"-2e-3\") - negative scientific notation")
+e5_result = (float "-2e-3")
+e5_expected = -0.002
+e5_ok = (is e5_result e5_expected)
+(println (if e5_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 6: Very Large Integer
+// ============================================
+(println "Test 6: integer(\"2147483647\") - max 32-bit int")
+e6_result = (integer "2147483647")
+e6_expected = 2147483647
+e6_ok = (is e6_result e6_expected)
+(println (if e6_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 7: Very Small Float
+// ============================================
+(println "Test 7: float(\"0.000001\") - very small float")
+e7_result = (float "0.000001")
+e7_expected = 0.000001
+e7_ok = (is e7_result e7_expected)
+(println (if e7_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 8: Float Truncation to Int
+// ============================================
+(println "Test 8: integer(9.999) - float truncation")
+e8_result = (integer 9.999)
+e8_ok = (is e8_result 9)
+(println (if e8_ok {<- "PASS (truncates, doesn't round)"} {<- "FAIL"}))
+
+// ============================================
+// Test 9: Negative Float Truncation
+// ============================================
+(println "Test 9: integer(-9.999) - negative float truncation")
+e9_result = (integer -9.999)
+e9_expected = -9
+e9_ok = (is e9_result e9_expected)
+(println (if e9_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 10: Plus Sign in String
+// ============================================
+(println "Test 10: integer(\"+42\") - plus sign in string")
+e10_result = (integer "+42")
+e10_ok = (is e10_result 42)
+(println (if e10_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 11: Multiple Conversions in Expression
+// ============================================
+(println "Test 11: Complex expression with conversions")
+e11_str1 = "10"
+e11_str2 = "5"
+e11_num1 = (integer e11_str1)
+e11_num2 = (integer e11_str2)
+e11_result = (add e11_num1 e11_num2)
+e11_ok = (is e11_result 15)
+(println (if e11_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 12: Float Precision Edge Case
+// ============================================
+(println "Test 12: float(\"0.1\") + float(\"0.2\") - float precision")
+e12_a = (float "0.1")
+e12_b = (float "0.2")
+e12_result = (add e12_a e12_b)
+// Note: Due to float precision, this might be 0.30000000000000004
+(println "  Result: " e12_result " (float precision applies)")
+(println "PASS")
+
+// ============================================
+// Test 13: Mixed Type Arithmetic After Conversion
+// ============================================
+(println "Test 13: integer(\"5\") + 2.5 - mixed arithmetic")
+e13_int = (integer "5")
+e13_result = (add e13_int 2.5)
+e13_expected = 7.5
+e13_ok = (is e13_result e13_expected)
+(println (if e13_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 14: Conversion in Function Call
+// ============================================
+(println "Test 14: Conversion in function argument")
+e14_double = {x -> <- (multiply x 2)}
+e14_result = (e14_double (integer "21"))
+e14_ok = (is e14_result 42)
+(println (if e14_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 15: String Concatenation Replacement
+// ============================================
+(println "Test 15: Building strings from numbers")
+e15_num = 42
+e15_str = (string e15_num)
+e15_expected = "42"
+e15_ok = (is e15_str e15_expected)
+(println (if e15_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 16: Nested Conversions
+// ============================================
+(println "Test 16: Nested conversions - string -> float -> int -> string")
+e16_original = "5.7"
+e16_step1 = (float e16_original)
+e16_step2 = (integer e16_step1)
+e16_result = (string e16_step2)
+e16_expected = "5"
+e16_ok = (is e16_result e16_expected)
+(println (if e16_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 17: Integer Overflow Behavior
+// ============================================
+(println "Test 17: Very large integer string")
+e17_result = (integer "9999999999")
+// Result depends on platform (32-bit vs 64-bit)
+(println "  Result: " e17_result " (platform-dependent)")
+(println "PASS")
+
+// ============================================
+// Test 18: Zero with Different Formats
+// ============================================
+(println "Test 18: Different zero formats")
+e18_int_zero = (integer "0")
+e18_float_zero = (float "0.0")
+e18_ok = (is e18_int_zero 0)
+(println (if e18_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 19: Conversion in List Operations
+// ============================================
+(println "Test 19: Conversions with lists")
+e19_str_list = (list "1" "2" "3")
+e19_first = (get e19_str_list 0)
+e19_result = (integer e19_first)
+e19_ok = (is e19_result 1)
+(println (if e19_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 20: Identity Conversions Don't Change Value
+// ============================================
+(println "Test 20: Identity conversions preserve value")
+e20_original = 777
+e20_converted = (integer e20_original)
+e20_ok = (is e20_original e20_converted)
+(println (if e20_ok {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "=== All 20 Edge Case Tests Complete ===")

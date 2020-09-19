@@ -1,0 +1,28 @@
+(println "=== Cond Chains Basic Test ===")
+(println "")
+
+(println "Test 1: Basic cond with two clauses")
+result1 = (cond ((greater_than 15 10) "big") (else "small"))
+(println "Test 1:" result1)
+
+(println "Test 2: Three clauses")
+x = 7
+result2 = (cond ((greater_than x 10) "big") ((greater_than x 5) "medium") (else "small"))
+(println "Test 2:" result2)
+
+(println "Test 3: First clause matches")
+result3 = (cond ((is 5 5) 100) ((is 5 10) 50) (else 0))
+(println "Test 3:" result3)
+
+(println "Test 4: No else, no match")
+result4 = (cond ((greater_than 2 10) 100) ((greater_than 2 5) 50))
+(println "Test 4:" result4)
+
+(println "Test 5: With AND logic")
+a = 7
+b = 8
+result5 = (cond ((and (greater_than a 5) (greater_than b 5)) "both") (else "not both"))
+(println "Test 5:" result5)
+
+(println "")
+(println "All basic tests complete!")

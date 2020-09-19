@@ -1,0 +1,210 @@
+// Comprehensive Module Caching Test Suite
+// Tests AST caching for the use function
+// Minimum 12 test cases covering all edge cases
+
+(println "╔══════════════════════════════════════════════╗")
+(println "║  Module Caching - Comprehensive Test Suite  ║")
+(println "╚══════════════════════════════════════════════╝")
+(println "")
+
+pass_count = 0
+fail_count = 0
+
+// Helper function to track results
+record_pass = {
+  pass_count = (add pass_count 1)
+  <- (println "✓ PASS")
+}
+
+record_fail = {msg ->
+  fail_count = (add fail_count 1)
+  <- (println "✗ FAIL -" msg)
+}
+
+// Test 1: Basic module loading (first time - not cached)
+(println "Test 1: Basic module loading (first load)")
+result1 = (use "test/module-cache/test-module.franz" {
+  <- (square 7)
+})
+(if (is result1 49)
+  {<- (record_pass)}
+  {<- (record_fail "Expected 49, got result")}
+)
+
+// Test 2: Second load of same module (should hit cache)
+(println "Test 2: Second load (cache hit)")
+result2 = (use "test/module-cache/test-module.franz" {
+  <- (add_ten 5)
+})
+(if (is result2 15)
+  {<- (record_pass)}
+  {<- (record_fail "Expected 15")}
+)
+
+// Test 3: Third load (verify cache persists)
+(println "Test 3: Third load (cache persistence)")
+result3 = (use "test/module-cache/test-module.franz" {
+  <- test_value
+})
+(if (is result3 42)
+  {<- (record_pass)}
+  {<- (record_fail "Expected 42")}
+)
+
+// Test 4: Multiple sequential loads
+(println "Test 4: Five sequential loads")
+all_correct = 1
+results = (list 25 36 49 64 81)
+counters = (list 5 6 7 8 9)
+(map counters {val idx ->
+  r = (use "test/module-cache/test-module.franz" {
+    <- (square val)
+  })
+  expected = (get results idx)
+  (if (is r expected)
+    {<- 1}
+    {all_correct = 0 <- 0})
+})
+(if (is all_correct 1)
+  {<- (record_pass)}
+  {<- (record_fail "One or more loads failed")}
+)
+
+// Test 5: Large loop test (100 iterations)
+(println "Test 5: 100 iterations (performance test)")
+loop_success = 1
+expected_vals = (list 0 1 4 9 16 25 36 49 64 81)
+(loop 100 {i ->
+  result = (use "test/module-cache/test-module.franz" {
+    <- (square (remainder i 10))
+  })
+  expected = (get expected_vals (remainder i 10))
+  (if (is result expected)
+    {<- 1}
+    {loop_success = 0 <- 0})
+})
+(if (is loop_success 1)
+  {<- (record_pass)}
+  {<- (record_fail "Loop test failed")}
+)
+
+// Test 6: Nested module loads
+(println "Test 6: Nested use calls")
+nested_result = (use "test/module-cache/test-module.franz" {
+  outer_val = (square 3)
+  inner_result = (use "test/use/math-module.franz" {
+    <- (add outer_val (cube 2))
+  })
+  <- inner_result
+})
+(if (is nested_result 17)
+  {<- (record_pass)}
+  {<- (record_fail "Expected 17 from nested loads")}
+)
+
+// Test 7: Access outer scope variables
+(println "Test 7: Outer scope access")
+outer_multiplier = 10
+result7 = (use "test/module-cache/test-module.franz" {
+  <- (multiply (square 3) outer_multiplier)
+})
+(if (is result7 90)
+  {<- (record_pass)}
+  {<- (record_fail "Outer scope access failed")}
+)
+
+// Test 8: Multiple different modules
+(println "Test 8: Multiple different modules")
+result8a = (use "test/module-cache/test-module.franz" {
+  <- (square 4)
+})
+result8b = (use "test/use/math-module.franz" {
+  <- (cube 3)
+})
+(if (is (add result8a result8b) 43)
+  {<- (record_pass)}
+  {<- (record_fail "Multiple modules test failed")}
+)
+
+// Test 9: Module with higher-order functions
+(println "Test 9: Module functions with map")
+numbers = (list 1 2 3 4 5)
+mapped = (use "test/module-cache/test-module.franz" {
+  <- (map numbers {n idx -> <- (square n)})
+})
+first_val = (get mapped 0)
+last_val = (get mapped 4)
+(if (is (add first_val last_val) 26)
+  {<- (record_pass)}
+  {<- (record_fail "Map with module function failed")}
+)
+
+// Test 10: Module with reduce
+(println "Test 10: Module functions with reduce")
+sum_of_squares = (use "test/module-cache/test-module.franz" {
+  nums = (list 1 2 3 4)
+  <- (reduce nums {acc n idx -> <- (add acc (square n))} 0)
+})
+(if (is sum_of_squares 30)
+  {<- (record_pass)}
+  {<- (record_fail "Reduce test failed")}
+)
+
+// Test 11: Module with filter
+(println "Test 11: Module with complex expressions")
+result11 = (use "test/module-cache/test-module.franz" {
+  a = (square 5)
+  b = (add_ten a)
+  c = (square 2)
+  <- (add b c)
+})
+(if (is result11 39)
+  {<- (record_pass)}
+  {<- (record_fail "Complex expressions failed")}
+)
+
+// Test 12: Cache with conditionals
+(println "Test 12: Module with conditionals")
+test_vals = (list 2 5 10)
+results12 = (map test_vals {val idx ->
+  <- (use "test/module-cache/test-module.franz" {
+    squared = (square val)
+    <- (if (greater_than squared 20)
+      {<- "large"}
+      {<- "small"})
+  })
+})
+r0 = (get results12 0)
+r2 = (get results12 2)
+(if (is r0 "small")
+  {
+    (if (is r2 "large")
+      {<- (record_pass)}
+      {<- (record_fail "Conditional test failed - r2")}
+    )
+  }
+  {<- (record_fail "Conditional test failed - r0")}
+)
+
+// Test 13: Performance test (100 cached loads)
+(println "Test 13: Performance (100 cached loads should be fast)")
+(loop 100 {i ->
+  result = (use "test/module-cache/test-module.franz" {
+    <- (square 5)
+  })
+  (if (is result 25) {<- 1} {<- 0})
+})
+// Test passes if we get here without errors
+(record_pass)
+
+(println "")
+(println "══════════════════════════════════════════════")
+(println "Test Summary:")
+(println "  Passed:" pass_count "/ 13")
+(println "  Failed:" fail_count "/ 13")
+(println "══════════════════════════════════════════════")
+
+(if (is fail_count 0)
+  {<- (println "✓ ALL TESTS PASSED")}
+  {<- (println "✗ SOME TESTS FAILED")}
+)

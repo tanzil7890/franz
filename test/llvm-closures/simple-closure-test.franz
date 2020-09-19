@@ -1,0 +1,28 @@
+(println "=== LLVM Closures - Simple Test ===")
+(println "")
+
+(println "Test 1: Basic closure (captures one variable)")
+make_adder = {n -> <- {x -> <- (add n x)}}
+add5 = (make_adder 5)
+result1 = (add5 10)
+(println "make_adder(5)(10) =" result1)
+(println "Expected: 15")
+
+(println "")
+(println "Test 2: Closure with different captured values")
+add3 = (make_adder 3)
+result2 = (add3 7)
+(println "make_adder(3)(7) =" result2)
+(println "Expected: 10")
+
+(println "")
+(println "Test 3: Multiple closures from same factory")
+add10 = (make_adder 10)
+result3a = (add10 5)
+result3b = (add10 20)
+(println "make_adder(10)(5) =" result3a)
+(println "make_adder(10)(20) =" result3b)
+(println "Expected: 15, 30")
+
+(println "")
+(println "All tests complete!")

@@ -1,0 +1,89 @@
+(println "===  Float Function Tests ===")
+(println "")
+
+(println "Test 1: Float addition function")
+add_floats = {x y -> <- (add x y)}
+result1 = (add_floats 3.14 2.86)
+(println result1)
+(println "Expected: 6.0")
+(println "")
+
+(println "Test 2: Float multiplication function")
+multiply_floats = {x y -> <- (multiply x y)}
+result2 = (multiply_floats 2.5 4.0)
+(println result2)
+(println "Expected: 10.0")
+(println "")
+
+(println "Test 3: Float subtraction function")
+subtract_floats = {x y -> <- (subtract x y)}
+result3 = (subtract_floats 10.5 5.25)
+(println result3)
+(println "Expected: 5.25")
+(println "")
+
+(println "Test 4: Float division function")
+divide_floats = {x y -> <- (divide x y)}
+result4 = (divide_floats 20.0 4.0)
+(println result4)
+(println "Expected: 5.0")
+(println "")
+
+(println "Test 5: Square function (float)")
+square = {x -> <- (multiply x x)}
+result5 = (square 4.5)
+(println result5)
+(println "Expected: 20.25")
+(println "")
+
+(println "Test 6: Mixed float operations in function")
+calc = {a b -> <- (divide (add a b) 2.0)}
+result6 = (calc 10.0 20.0)
+(println result6)
+(println "Expected: 15.0")
+(println "")
+
+(println "Test 7: Three-parameter float function")
+sum3 = {x y z -> <- (add (add x y) z)}
+result7 = (sum3 1.5 2.5 3.0)
+(println result7)
+(println "Expected: 7.0")
+(println "")
+
+(println "Test 8: Nested float function calls")
+double_it = {x -> <- (multiply x 2.0)}
+quad_it = {x -> <- (double_it (double_it x))}
+result8 = (quad_it 3.5)
+(println result8)
+(println "Expected: 14.0")
+(println "")
+
+(println "Test 9: Four-parameter float function")
+avg4 = {a b c d -> <- (divide (add (add (add a b) c) d) 4.0)}
+result9 = (avg4 1.0 2.0 3.0 4.0)
+(println result9)
+(println "Expected: 2.5")
+(println "")
+
+(println "Test 10: Float function with complex expression")
+calc_complex = {x y -> <- (add (multiply x 2.0) (divide y 2.0))}
+result10 = (calc_complex 5.0 10.0)
+(println result10)
+(println "Expected: 15.0")
+(println "")
+
+(println "Test 11: Single-parameter float identity")
+identity = {x -> <- x}
+result11 = (identity 3.14159)
+(println result11)
+(println "Expected: 3.14159")
+(println "")
+
+(println "Test 12: Zero-parameter float function")
+get_pi = {-> <- 3.14159}
+result12 = (get_pi)
+(println result12)
+(println "Expected: 3.14159")
+(println "")
+
+(println "All 12 float function tests completed!")

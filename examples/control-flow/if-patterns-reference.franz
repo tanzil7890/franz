@@ -1,0 +1,100 @@
+// Franz If Statement Patterns - Quick Reference
+// See: docs/control-flow/if-statement-patterns.md for complete documentation
+
+(println "=== Franz If Statement Patterns ===")
+(println "")
+
+// ========================================
+// PATTERN 1: Return Values (Assigned)
+// ========================================
+(println "Pattern 1: If with Return Values")
+
+// Example 1: Simple ternary-like
+a = 10
+b = 5
+max = (if (greater_than a b) {<- a} {<- b})
+(println "  Max of " a " and " b ": " max)
+
+// Example 2: String return
+score = 95
+grade = (if (greater_than score 90) {<- "A"} {<- "B"})
+(println "  Grade for score " score ": " grade)
+
+// Example 3: Expression return
+x = -5
+abs_val = (if (less_than x 0) {<- (multiply x -1)} {<- x})
+(println "  Absolute value of " x ": " abs_val)
+
+(println "")
+
+// ========================================
+// PATTERN 2: Side Effects Only (Not Assigned)
+// ========================================
+(println "Pattern 2: If with Side Effects (No Assignment)")
+
+// Example 1: Conditional printing
+coin = 1
+(if (is coin 0)
+  {
+    (println "  Result: Heads")
+  }
+  {
+    (println "  Result: Tails")
+  }
+)
+
+// Example 2: Conditional side effects
+temperature = 35
+(if (greater_than temperature 30)
+  {(println "  It is hot! Temperature: " temperature " degrees C")}
+  {(println "  It is comfortable. Temperature: " temperature " degrees C")}
+)
+
+(println "")
+
+// ========================================
+// PATTERN 3: Simple Return (No Blocks)
+// ========================================
+(println "Pattern 3: Simple Return Without Blocks")
+
+// Example: Direct value return with explicit syntax
+n = 100
+validated = (if (greater_than n 0) {<- n} {<- 0})
+(println "  Validated value: " validated)
+
+// Note: Always use {<- value} for return values in bytecode mode
+
+(println "")
+
+// ========================================
+// COMMON MISTAKES (What NOT to do)
+// ========================================
+(println "Common Mistakes to Avoid:")
+(println "")
+
+// ❌ WRONG: Assigning side-effect-only if
+(println "❌ WRONG Pattern (commented out - would cause error):")
+(println "  flip_result = (if (is coin 0) (println \"Heads\") (println \"Tails\"))")
+(println "  → ERROR: Attempt to call non-function value")
+(println "")
+
+// ✅ CORRECT Fix 1: Don't assign, just execute
+(println "✅ CORRECT Fix 1: No assignment")
+(println "  (if (is coin 0) {(println \"Heads\")} {(println \"Tails\")})")
+(if (is coin 0)
+  {
+    (println "  Result: Heads")
+  }
+  {
+    (println "  Result: Tails")
+  }
+)
+(println "")
+
+// ✅ CORRECT Fix 2: Return explicit values
+(println "✅ CORRECT Fix 2: Return values, then print")
+flip_result = (if (is coin 0) {<- "Heads"} {<- "Tails"})
+(println "  Result: " flip_result)
+
+(println "")
+(println "=== Reference Complete ===")

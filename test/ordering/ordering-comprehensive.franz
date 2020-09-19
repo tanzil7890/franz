@@ -1,0 +1,87 @@
+(println "=== Ordering Comprehensive Tests ===")
+(println "")
+
+(println "Test 1: Integer less_than - true case")
+ok1 = (less_than 3 5)
+(println (if ok1 {<- "  PASS: 3 < 5 → 1"} {<- "  FAIL"}))
+
+(println "Test 2: Integer less_than - false case")
+ok2 = (is (less_than 5 3) 0)
+(println (if ok2 {<- "  PASS: 5 < 3 → 0"} {<- "  FAIL"}))
+
+(println "Test 3: Integer less_than - equal values")
+ok3 = (is (less_than 5 5) 0)
+(println (if ok3 {<- "  PASS: 5 < 5 → 0"} {<- "  FAIL"}))
+
+(println "Test 4: Integer greater_than - true case")
+ok4 = (greater_than 10 3)
+(println (if ok4 {<- "  PASS: 10 > 3 → 1"} {<- "  FAIL"}))
+
+(println "Test 5: Integer greater_than - false case")
+ok5 = (is (greater_than 3 10) 0)
+(println (if ok5 {<- "  PASS: 3 > 10 → 0"} {<- "  FAIL"}))
+
+(println "Test 6: Integer greater_than - equal values")
+ok6 = (is (greater_than 5 5) 0)
+(println (if ok6 {<- "  PASS: 5 > 5 → 0"} {<- "  FAIL"}))
+
+(println "Test 7: Float less_than - true case")
+ok7 = (less_than 3.5 5.2)
+(println (if ok7 {<- "  PASS: 3.5 < 5.2 → 1"} {<- "  FAIL"}))
+
+(println "Test 8: Float less_than - false case")
+ok8 = (is (less_than 5.2 3.5) 0)
+(println (if ok8 {<- "  PASS: 5.2 < 3.5 → 0"} {<- "  FAIL"}))
+
+(println "Test 9: Float greater_than - true case")
+ok9 = (greater_than 10.5 3.2)
+(println (if ok9 {<- "  PASS: 10.5 > 3.2 → 1"} {<- "  FAIL"}))
+
+(println "Test 10: Float greater_than - false case")
+ok10 = (is (greater_than 3.2 10.5) 0)
+(println (if ok10 {<- "  PASS: 3.2 > 10.5 → 0"} {<- "  FAIL"}))
+
+(println "Test 11: Mixed int/float less_than - int < float")
+ok11 = (less_than 3 5.5)
+(println (if ok11 {<- "  PASS: 3 < 5.5 → 1 (numeric coercion)"} {<- "  FAIL"}))
+
+(println "Test 12: Mixed int/float less_than - float < int")
+ok12 = (less_than 2.5 10)
+(println (if ok12 {<- "  PASS: 2.5 < 10 → 1 (numeric coercion)"} {<- "  FAIL"}))
+
+(println "Test 13: Mixed int/float greater_than - int > float")
+ok13 = (greater_than 10 3.5)
+(println (if ok13 {<- "  PASS: 10 > 3.5 → 1 (numeric coercion)"} {<- "  FAIL"}))
+
+(println "Test 14: Mixed int/float greater_than - float > int")
+ok14 = (greater_than 10.5 3)
+(println (if ok14 {<- "  PASS: 10.5 > 3 → 1 (numeric coercion)"} {<- "  FAIL"}))
+
+(println "Test 15: Negative integers less_than")
+ok15 = (less_than -10 -5)
+(println (if ok15 {<- "  PASS: -10 < -5 → 1"} {<- "  FAIL"}))
+
+(println "Test 16: Negative integers greater_than")
+ok16 = (greater_than -5 -10)
+(println (if ok16 {<- "  PASS: -5 > -10 → 1"} {<- "  FAIL"}))
+
+(println "Test 17: Zero comparisons - less_than")
+ok17 = (less_than 0 5)
+(println (if ok17 {<- "  PASS: 0 < 5 → 1"} {<- "  FAIL"}))
+
+(println "Test 18: Zero comparisons - greater_than")
+ok18 = (greater_than 5 0)
+(println (if ok18 {<- "  PASS: 5 > 0 → 1"} {<- "  FAIL"}))
+
+(println "Test 19: Negative vs positive - less_than")
+ok19 = (less_than -5 5)
+(println (if ok19 {<- "  PASS: -5 < 5 → 1"} {<- "  FAIL"}))
+
+(println "Test 20: Negative vs positive - greater_than")
+ok20 = (greater_than 5 -5)
+(println (if ok20 {<- "  PASS: 5 > -5 → 1"} {<- "  FAIL"}))
+
+(println "")
+total = (add ok1 ok2 ok3 ok4 ok5 ok6 ok7 ok8 ok9 ok10 ok11 ok12 ok13 ok14 ok15 ok16 ok17 ok18 ok19 ok20)
+(println "Tests passed: " total "/20")
+(println (if (is total 20) {<- "✓ All comprehensive tests PASSED!"} {<- "✗ Some tests FAILED"}))

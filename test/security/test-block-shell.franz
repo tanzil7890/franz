@@ -1,0 +1,10 @@
+// Test that shell access is BLOCKED when capability not granted
+(println "=== Test: Shell Access Blocking ===")
+(println "Attempting to load malicious.franz WITHOUT 'shell' capability...")
+(println "Expected: Error - unbound identifier 'shell'")
+(println "")
+
+(use_with (list "print") "examples/security/failing/malicious.franz" {
+  (println "If you see this, the security FAILED")
+  <- void
+})

@@ -1,0 +1,112 @@
+(println "=== Continue Statement Test Suite ===")
+(println "")
+
+(println "Test 1: Skip even numbers")
+(loop 6 {i ->
+  (if (is (remainder i 2) 0)
+    {(continue)}
+    {})
+  (println "Odd:" i)
+})
+(println "")
+
+(println "Test 2: Skip specific value")
+skip_value = 3
+(loop 6 {i ->
+  (if (is i skip_value)
+    {(continue)}
+    {})
+  (println "i=" i)
+})
+(println "")
+
+(println "Test 3: Multiple continues in loop")
+(loop 10 {i ->
+  // Skip multiples of 3
+  (if (is (remainder i 3) 0)
+    {(continue)}
+    {})
+
+  // Skip value 7
+  (if (is i 7)
+    {(continue)}
+    {})
+
+  (println "Passed:" i)
+})
+(println "")
+
+(println "Test 4: Continue with computation")
+(println "Process only values > 2:")
+(loop 6 {i ->
+  (if (less_than i 3)
+    {(continue)}
+    {})
+  square = (multiply i i)
+  (println "i=" i "square=" square)
+})
+(println "")
+
+(println "Test 5: Continue in nested loop - inner")
+(println "2x3 grid, skip inner i=1:")
+(loop 2 {i ->
+  (loop 3 {j ->
+    (if (is j 1)
+      {(continue)}
+      {})
+    (println "  [" i "," j "]")
+  })
+})
+(println "")
+
+(println "Test 6: No continue - full execution")
+(loop 3 {i ->
+  (println "Item:" i)
+})
+(println "")
+
+(println "Test 7: Continue on first iteration")
+(loop 5 {i ->
+  (if (is i 0)
+    {(continue)}
+    {})
+  (println "i=" i)
+})
+(println "")
+
+(println "Test 8: Continue on last iteration")
+(loop 5 {i ->
+  (if (is i 4)
+    {(continue)}
+    {})
+  (println "i=" i)
+})
+(println "")
+
+(println "Test 9: Continue with greater_than")
+(loop 8 {i ->
+  (if (greater_than i 4)
+    {(continue)}
+    {})
+  (println "i=" i)
+})
+(println "")
+
+(println "Test 10: Continue mixed with break")
+result = (loop 10 {i ->
+  // Skip even numbers
+  (if (is (remainder i 2) 0)
+    {(continue)}
+    {})
+
+  // Break on 7
+  (if (is i 7)
+    {(break i)}
+    {})
+
+  (println "Processing:" i)
+})
+(println "Result:" result)
+(println "")
+
+(println "All continue tests complete!")

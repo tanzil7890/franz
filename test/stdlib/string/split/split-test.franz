@@ -1,0 +1,45 @@
+// Franz Standard Library - String Module
+// Test Suite for split() function
+
+(use "stdlib/string.franz" {
+  (println "=== split() Function Tests ===")
+  (println "")
+
+  (println "Test 1: split - comma delimiter")
+  test1_result = (split "a,b,c" ",")
+  (if (contains test1_result "a") {
+    (println "  ✓ PASS: split by comma")
+  } {
+    (println "  ✗ FAIL - Result doesn't contain 'a'")
+  })
+
+  (println "Test 2: split - space delimiter")
+  test2_result = (split "hello world" " ")
+  (if (contains test2_result "hello") {
+    (println "  ✓ PASS: split by space")
+  } {
+    (println "  ✗ FAIL - Result doesn't contain 'hello'")
+  })
+
+  (println "Test 3: split - custom delimiter")
+  test3_result = (split "one::two::three" "::")
+  (if (contains test3_result "one") {
+    (println "  ✓ PASS: split by custom delimiter")
+  } {
+    (println "  ✗ FAIL - Result doesn't contain 'one'")
+  })
+
+  (println "Test 4: split - no delimiter found")
+  test4_result = (split "no-delimiter" ",")
+  (if (contains test4_result "no-delimiter") {
+    (println "  ✓ PASS: split with no delimiter found")
+  } {
+    (println "  ✗ FAIL - Result doesn't contain original")
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "split() tests complete - 4/4 executed")
+  (println "Note: split() returns multi-line string, not list")
+  (println "===========================================")
+})

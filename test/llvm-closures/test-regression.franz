@@ -1,0 +1,77 @@
+(println "=== Regression Test Suite - Ensure Nothing Broke ===")
+(println "")
+
+// Test 1: Simple arithmetic (no closures)
+(println "Test 1: Simple arithmetic")
+x = 10
+y = 20
+sum = (add x y)
+product = (multiply sum 2)
+(println "  (10 + 20) * 2 =" product "| Expected: 60")
+
+// Test 2: Simple function (no closure)
+(println "Test 2: Simple function (no free variables)")
+double = {n -> <- (multiply n 2)}
+result2 = (double 15)
+(println "  double(15) =" result2 "| Expected: 30")
+
+// Test 3: If statement
+(println "Test 3: If statement")
+a = 100
+b = 50
+max = (if (greater_than a b) a b)
+(println "  max(100, 50) =" max "| Expected: 100")
+
+// Test 4: Closure with one level
+(println "Test 4: Closure with one level")
+base = 1000
+add_to_base = {x -> <- (add base x)}
+result4 = (add_to_base 234)
+(println "  add_to_base(234) with base=1000 =" result4 "| Expected: 1234")
+
+// Test 5: Nested closures (2 levels)
+(println "Test 5: Nested closures (2 levels)")
+make_multiplier_2 = {factor -> <- {n -> <- (multiply factor n)}}
+times_7 = (make_multiplier_2 7)
+result5 = (times_7 8)
+(println "  make_multiplier(7)(8) =" result5 "| Expected: 56")
+
+// Test 6: Multiple operations
+(println "Test 6: Multiple operations")
+val = 5
+result6 = (add (multiply val 3) (subtract 20 val))
+(println "  (5*3) + (20-5) =" result6 "| Expected: 30")
+
+// Test 7: Logical operations
+(println "Test 7: Logical operations")
+is_true = (and 1 1 1)
+is_false = (or 0 0 0)
+negated = (not is_false)
+(println "  and(1,1,1)=" is_true "| or(0,0,0)=" is_false "| not(0)=" negated)
+(println "  Expected: 1 | 0 | 1")
+
+// Test 8: Comparisons
+(println "Test 8: Comparisons")
+eq = (is 42 42)
+lt = (less_than 10 20)
+gt = (greater_than 30 15)
+(println "  is(42,42)=" eq "| lt(10,20)=" lt "| gt(30,15)=" gt)
+(println "  Expected: 1 | 1 | 1")
+
+// Test 9: Mixed types (int and float)
+(println "Test 9: Mixed types (int and float)")
+int_val = 10
+float_val = 3.14
+mixed = (add int_val float_val)
+(println "  10 + 3.14 =" mixed "| Expected: 13.14 (approx)")
+
+// Test 10: Deep nesting still works
+(println "Test 10: Deep nesting verification")
+deep = {a -> <- {b -> <- {c -> <- (add (add a b) c)}}}
+d1 = (deep 5)
+d2 = (d1 10)
+result10 = (d2 15)
+(println "  deep(5)(10)(15) =" result10 "| Expected: 30")
+
+(println "")
+(println "=== All 10 regression tests complete! ===")

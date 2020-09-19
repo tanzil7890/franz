@@ -1,0 +1,17 @@
+(println "=== Tracing nested closure execution ===")
+(println "")
+
+(println "Step 1: Define make_adder")
+make_adder = {n -> <- {x -> <- (add n x)}}
+(println "  make_adder defined")
+
+(println "")
+(println "Step 2: Call make_adder(5)")
+add5 = (make_adder 5)
+(println "  add5 received from make_adder(5)")
+
+(println "")
+(println "Step 3: Call add5(10)")
+result = (add5 10)
+(println "  result =", result)
+(println "  Expected: 15")

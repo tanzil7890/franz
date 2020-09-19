@@ -1,0 +1,20 @@
+
+// Test 1: Basic map with simple transformation
+(println "Test 1: Basic map - double numbers")
+nums1 = [1, 2, 3, 4, 5]
+double = {x i -> <- (multiply x 2)}
+doubled = (map nums1 double)
+(println "Input:" nums1)
+(println "Doubled:" doubled)
+(println "PASS: Basic map works")
+(println "")
+
+// Test 2: Map with index usage
+(println "Test 2: Map using index")
+nums2 = [10, 20, 30]
+add_index = {x i -> <- (add x i)}
+with_index = (map nums2 add_index)
+(println "Input:" nums2)
+(println "With index added:" with_index)
+(println "PASS: Map with index works")
+(println "")

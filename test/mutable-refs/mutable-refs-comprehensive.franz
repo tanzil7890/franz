@@ -1,0 +1,160 @@
+(println "=== Mutable References: Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Basic ref creation and deref
+(println "[Test 1] Basic ref creation and deref")
+ref1 = (ref 42)
+val1 = (deref ref1)
+(if (is val1 42)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected 42, got " val1)}
+)
+
+// Test 2: Update ref with set!
+(println "[Test 2] Update ref with set!")
+ref2 = (ref 10)
+(set! ref2 20)
+val2 = (deref ref2)
+(if (is val2 20)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected 20, got " val2)}
+)
+
+// Test 3: Multiple sequential updates
+(println "[Test 3] Multiple sequential updates")
+ref3 = (ref 0)
+(set! ref3 1)
+(set! ref3 2)
+(set! ref3 3)
+val3 = (deref ref3)
+(if (is val3 3)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected 3, got " val3)}
+)
+
+// Test 4: Increment pattern
+(println "[Test 4] Increment pattern")
+ref4 = (ref 5)
+(set! ref4 (add (deref ref4) 1))
+(set! ref4 (add (deref ref4) 1))
+val4 = (deref ref4)
+(if (is val4 7)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected 7, got " val4)}
+)
+
+// Test 5: Ref with string
+(println "[Test 5] Ref with string type")
+ref5 = (ref "hello")
+val5 = (deref ref5)
+(if (is val5 "hello")
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected 'hello', got " val5)}
+)
+
+// Test 6: Update string ref
+(println "[Test 6] Update string ref")
+ref6 = (ref "foo")
+(set! ref6 "bar")
+val6 = (deref ref6)
+(if (is val6 "bar")
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected 'bar', got " val6)}
+)
+
+// Test 7: Ref with list
+(println "[Test 7] Ref with list")
+ref7 = (ref (list 1 2 3))
+val7 = (deref ref7)
+first = (head val7)
+(if (is first 1)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected list with head=1")}
+)
+
+// Test 8: Update list ref
+(println "[Test 8] Update list ref")
+ref8 = (ref (list 1 2))
+(set! ref8 (list 10 20 30))
+val8 = (deref ref8)
+len = (length val8)
+(if (is len 3)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL: Expected length 3, got " len)}
+)
+
+// Test 9: Multiple independent refs
+(println "[Test 9] Multiple independent refs")
+refA = (ref 100)
+refB = (ref 200)
+(set! refA 111)
+(set! refB 222)
+valA = (deref refA)
+valB = (deref refB)
+test9_pass = (is valA 111)
+test9_pass2 = (is valB 222)
+(if test9_pass
+  {-> (println "  ✓ PASS: refA independent")}
+  {-> (println "  ✗ FAIL: refA")}
+)
+(if test9_pass2
+  {-> (println "  ✓ PASS: refB independent")}
+  {-> (println "  ✗ FAIL: refB")}
+)
+
+// Test 10: Ref in closure
+(println "[Test 10] Ref captured in closure")
+counter10 = (ref 0)
+increment = {->
+  current = (deref counter10)
+  (set! counter10 (add current 1))
+  <- (deref counter10)
+}
+res10a = (increment)
+res10b = (increment)
+res10c = (increment)
+(if (is res10c 3)
+  {-> (println "  ✓ PASS: Closure can mutate captured ref")}
+  {-> (println "  ✗ FAIL: Expected 3, got " res10c)}
+)
+
+// Test 11: Ref as accumulator in loop
+(println "[Test 11] Ref as accumulator")
+sum = (ref 0)
+nums = (list 1 2 3 4 5)
+add_to_sum = {x i ->
+  current = (deref sum)
+  (set! sum (add current x))
+  <- x
+}
+(map nums add_to_sum)
+final_sum = (deref sum)
+(if (is final_sum 15)
+  {-> (println "  ✓ PASS: Ref accumulator works")}
+  {-> (println "  ✗ FAIL: Expected 15, got " final_sum)}
+)
+
+// Test 12: Ref type persistence
+(println "[Test 12] Type persistence across updates")
+ref12 = (ref 42)
+(set! ref12 100)
+(set! ref12 999)
+val12 = (deref ref12)
+(if (is val12 999)
+  {-> (println "  ✓ PASS: Updates persist correctly")}
+  {-> (println "  ✗ FAIL: Expected 999, got " val12)}
+)
+
+(println "")
+(println "=== Summary ===")
+(println "All 12 comprehensive tests completed")
+(println "Test coverage:")
+(println "  - Basic ref/deref: ✓")
+(println "  - set! updates: ✓")
+(println "  - Multiple types (int/string/list): ✓")
+(println "  - Independent refs: ✓")
+(println "  - Closure capture: ✓")
+(println "  - Accumulator pattern: ✓")
+(println "")
+(println "Mutable references: VERIFIED")
+(println " validation: COMPLETE")

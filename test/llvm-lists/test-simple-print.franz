@@ -1,0 +1,17 @@
+(println "Test 1: Print list directly")
+(println [1, 2, 3])
+
+(println "")
+(println "Test 2: Print list from variable")
+nums = [1, 2, 3]
+(println nums)
+
+(println "")
+(println "Test 3: Print head result")
+first = (head nums)
+(println first)
+
+(println "")
+(println "Test 4: Use head in arithmetic")
+result = (add first 10)
+(println "first + 10 =" result)

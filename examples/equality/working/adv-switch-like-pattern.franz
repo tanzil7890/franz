@@ -1,0 +1,18 @@
+// Example 5: Switch-Like Pattern
+(println "Example 5: Switch-Like Pattern")
+handle_command = {cmd ->
+  (if (is cmd "start")
+    {(println "    Starting application...")}
+    {(if (is cmd "stop")
+      {(println "    Stopping application...")}
+      {(if (is cmd "restart")
+        {(println "    Restarting application...")}
+        {(println "    Unknown command: " cmd)}
+      )}
+    )}
+  )
+}
+(handle_command "start")
+(handle_command "stop")
+(handle_command "status")
+(println "")

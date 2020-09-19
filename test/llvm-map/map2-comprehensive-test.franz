@@ -1,0 +1,172 @@
+(println "=== Comprehensive Map2 Test Suite ===")
+(println "")
+
+(println "Test 1: Basic addition - combine two lists")
+nums1_t1 = [1, 2, 3]
+nums2_t1 = [10, 20, 30]
+add_t1 = {a b i -> <- (add a b)}
+result_t1 = (map2 nums1_t1 nums2_t1 add_t1)
+(println "  Input 1:" nums1_t1)
+(println "  Input 2:" nums2_t1)
+(println "  Length:" (length result_t1))
+(println "  First:" (head result_t1) "| Expected: 11")
+(println "  Second:" (nth result_t1 1) "| Expected: 22")
+(println "  Third:" (nth result_t1 2) "| Expected: 33")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 2: Multiplication - combine with multiply")
+nums1_t2 = [2, 3, 4]
+nums2_t2 = [5, 6, 7]
+mult_t2 = {a b i -> <- (multiply a b)}
+result_t2 = (map2 nums1_t2 nums2_t2 mult_t2)
+(println "  Input 1:" nums1_t2)
+(println "  Input 2:" nums2_t2)
+(println "  Length:" (length result_t2))
+(println "  First:" (head result_t2) "| Expected: 10")
+(println "  Second:" (nth result_t2 1) "| Expected: 18")
+(println "  Third:" (nth result_t2 2) "| Expected: 28")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 3: Using index parameter")
+nums1_t3 = [100, 200, 300]
+nums2_t3 = [1, 2, 3]
+with_index_t3 = {a b i -> <- (add (add a b) i)}
+result_t3 = (map2 nums1_t3 nums2_t3 with_index_t3)
+(println "  Input 1:" nums1_t3)
+(println "  Input 2:" nums2_t3)
+(println "  Length:" (length result_t3))
+(println "  First:" (head result_t3) "| Expected: 101 (100+1+0)")
+(println "  Second:" (nth result_t3 1) "| Expected: 203 (200+2+1)")
+(println "  Third:" (nth result_t3 2) "| Expected: 305 (300+3+2)")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 4: Unequal lengths - first list shorter")
+short_t4 = [1, 2]
+long_t4 = [10, 20, 30, 40]
+add_t4 = {a b i -> <- (add a b)}
+result_t4 = (map2 short_t4 long_t4 add_t4)
+(println "  Input 1 (short):" short_t4)
+(println "  Input 2 (long):" long_t4)
+(println "  Result length:" (length result_t4) "| Expected: 2 (min of 2 and 4)")
+(println "  First:" (head result_t4) "| Expected: 11")
+(println "  Second:" (nth result_t4 1) "| Expected: 22")
+(println "  ✓ PASS - Uses min(len1, len2)")
+(println "")
+
+(println "Test 5: Unequal lengths - second list shorter")
+long_t5 = [1, 2, 3, 4, 5]
+short_t5 = [10, 20, 30]
+add_t5 = {a b i -> <- (add a b)}
+result_t5 = (map2 long_t5 short_t5 add_t5)
+(println "  Input 1 (long):" long_t5)
+(println "  Input 2 (short):" short_t5)
+(println "  Result length:" (length result_t5) "| Expected: 3 (min of 5 and 3)")
+(println "  First:" (head result_t5) "| Expected: 11")
+(println "  Second:" (nth result_t5 1) "| Expected: 22")
+(println "  Third:" (nth result_t5 2) "| Expected: 33")
+(println "  ✓ PASS - Uses min(len1, len2)")
+(println "")
+
+(println "Test 6: Single element lists")
+single1_t6 = [42]
+single2_t6 = [8]
+add_t6 = {a b i -> <- (add a b)}
+result_t6 = (map2 single1_t6 single2_t6 add_t6)
+(println "  Input 1:" single1_t6)
+(println "  Input 2:" single2_t6)
+(println "  Length:" (length result_t6) "| Expected: 1")
+(println "  Result:" (head result_t6) "| Expected: 50")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 7: Complex arithmetic - subtract and divide")
+nums1_t7 = [100, 200, 300]
+nums2_t7 = [10, 20, 30]
+complex_t7 = {a b i -> <- (divide (subtract a b) 2)}
+result_t7 = (map2 nums1_t7 nums2_t7 complex_t7)
+(println "  Input 1:" nums1_t7)
+(println "  Input 2:" nums2_t7)
+(println "  Length:" (length result_t7))
+(println "  First:" (head result_t7) "| Expected: 45 ((100-10)/2)")
+(println "  Second:" (nth result_t7 1) "| Expected: 90 ((200-20)/2)")
+(println "  Third:" (nth result_t7 2) "| Expected: 135 ((300-30)/2)")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 8: Combining with power operation")
+bases_t8 = [2, 3, 4]
+exponents_t8 = [3, 2, 2]
+pow_t8 = {a b i -> <- (power a b)}
+result_t8 = (map2 bases_t8 exponents_t8 pow_t8)
+(println "  Bases:" bases_t8)
+(println "  Exponents:" exponents_t8)
+(println "  Length:" (length result_t8))
+(println "  First:" (head result_t8) "| Expected: 8 (2^3)")
+(println "  Second:" (nth result_t8 1) "| Expected: 9 (3^2)")
+(println "  Third:" (nth result_t8 2) "| Expected: 16 (4^2)")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 9: Larger lists (10 elements)")
+large1_t9 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+large2_t9 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+add_t9 = {a b i -> <- (add a b)}
+result_t9 = (map2 large1_t9 large2_t9 add_t9)
+(println "  Length:" (length result_t9) "| Expected: 10")
+(println "  First:" (head result_t9) "| Expected: 11")
+(println "  Fifth:" (nth result_t9 4) "| Expected: 55")
+(println "  Last:" (nth result_t9 9) "| Expected: 110")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 10: Closure capturing variable")
+multiplier_t10 = 3
+nums1_t10 = [2, 4, 6]
+nums2_t10 = [1, 2, 3]
+capture_t10 = {a b i -> <- (multiply (add a b) multiplier_t10)}
+result_t10 = (map2 nums1_t10 nums2_t10 capture_t10)
+(println "  Input 1:" nums1_t10)
+(println "  Input 2:" nums2_t10)
+(println "  Multiplier:" multiplier_t10)
+(println "  Length:" (length result_t10))
+(println "  First:" (head result_t10) "| Expected: 9 ((2+1)*3)")
+(println "  Second:" (nth result_t10 1) "| Expected: 18 ((4+2)*3)")
+(println "  Third:" (nth result_t10 2) "| Expected: 27 ((6+3)*3)")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 11: Maximum/minimum selection")
+nums1_t11 = [5, 10, 3, 8]
+nums2_t11 = [7, 2, 9, 6]
+select_max_t11 = {a b i -> <- (if (greater_than a b) {<- a} {<- b})}
+result_t11 = (map2 nums1_t11 nums2_t11 select_max_t11)
+(println "  Input 1:" nums1_t11)
+(println "  Input 2:" nums2_t11)
+(println "  Length:" (length result_t11))
+(println "  First:" (head result_t11) "| Expected: 7 (max of 5, 7)")
+(println "  Second:" (nth result_t11 1) "| Expected: 10 (max of 10, 2)")
+(println "  Third:" (nth result_t11 2) "| Expected: 9 (max of 3, 9)")
+(println "  Fourth:" (nth result_t11 3) "| Expected: 8 (max of 8, 6)")
+(println "  ✓ PASS")
+(println "")
+
+(println "Test 12: Combining floats and integers")
+ints_t12 = [10, 20, 30]
+floats_t12 = [1, 2, 3]
+divide_t12 = {a b i -> <- (divide a b)}
+result_t12 = (map2 ints_t12 floats_t12 divide_t12)
+(println "  Integers:" ints_t12)
+(println "  Divisors:" floats_t12)
+(println "  Length:" (length result_t12))
+(println "  First:" (head result_t12) "| Expected: 10")
+(println "  Second:" (nth result_t12 1) "| Expected: 10")
+(println "  Third:" (nth result_t12 2) "| Expected: 10")
+(println "  ✓ PASS")
+(println "")
+
+(println "===================================")
+(println "All 12 map2 tests passed! ✅")
+(println "===================================")

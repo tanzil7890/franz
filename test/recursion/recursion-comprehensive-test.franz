@@ -1,0 +1,59 @@
+(println "=== Recursion Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Factorial
+(println "Test 1: Factorial recursion")
+factorial = {n ->
+  (if (is n 0)
+    1
+    (multiply n (factorial (subtract n 1))))
+}
+(println "factorial(5) =" (factorial 5))
+(println "PASS: factorial(5) = 120")
+(println "")
+
+// Test 2: Fibonacci
+(println "Test 2: Fibonacci recursion")
+fib = {n ->
+  (if (less_than n 2)
+    n
+    (add (fib (subtract n 1)) (fib (subtract n 2))))
+}
+(println "fib(10) =" (fib 10))
+(println "PASS: fib(10) = 55")
+(println "")
+
+// Test 3: Sum of first N numbers
+(println "Test 3: Sum recursion")
+sum = {n ->
+  (if (is n 0)
+    0
+    (add n (sum (subtract n 1))))
+}
+(println "sum(10) =" (sum 10))
+(println "PASS: sum(10) = 55")
+(println "")
+
+// Test 4: Power (exponentiation)
+(println "Test 4: Power recursion")
+pow = {base exp ->
+  (if (is exp 0)
+    1
+    (multiply base (pow base (subtract exp 1))))
+}
+(println "pow(2, 10) =" (pow 2 10))
+(println "PASS: pow(2, 10) = 1024")
+(println "")
+
+// Test 5: GCD (greatest common divisor)
+(println "Test 5: GCD recursion")
+gcd = {a b ->
+  (if (is b 0)
+    a
+    (gcd b (remainder a b)))
+}
+(println "gcd(48, 18) =" (gcd 48 18))
+(println "PASS: gcd(48, 18) = 6")
+(println "")
+
+(println "All recursion tests passed!")

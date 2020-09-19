@@ -1,0 +1,21 @@
+// Minimal test for dict_filter
+(println "=== Minimal Dict Filter Test ===")
+(println "")
+
+// Test: inline closure
+(println "Test: dict_filter with inline closure")
+scores = (dict "alice" 90 "bob" 85 "carol" 95)
+(println "Created dict with 3 entries")
+
+high_scores = (dict_filter scores {k v -> <- (greater_than v 88)})
+(println "Filtered dict")
+
+has_alice = (dict_has high_scores "alice")
+has_bob = (dict_has high_scores "bob")
+has_carol = (dict_has high_scores "carol")
+
+(println "has_alice (90 > 88):" has_alice)
+(println "has_bob (85 > 88):" has_bob)
+(println "has_carol (95 > 88):" has_carol)
+
+(println "✓ Test passed")

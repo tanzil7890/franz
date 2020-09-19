@@ -1,0 +1,44 @@
+(println "=== Basic Partial Application Examples ===")
+(println "")
+
+(println "Example 1: Creating specialized math functions")
+add_five = (partial add 5)
+double = (partial multiply 2)
+half = (partial divide 2)
+
+(println "(call add_five 10) =" (call add_five 10))
+(println "(call double 21) =" (call double 21))
+(println "(call half 100) =" (call half 100))
+(println "")
+
+(println "Example 2: Reusing partials")
+add_hundred = (partial add 100)
+(println "add_hundred 1 =" (call add_hundred 1))
+(println "add_hundred 50 =" (call add_hundred 50))
+(println "add_hundred 200 =" (call add_hundred 200))
+(println "")
+
+(println "Example 3: Partial with multiple fixed arguments")
+add_many = (partial add 10 20 30)
+(println "(call add_many 40) = 10+20+30+40 =" (call add_many 40))
+(println "(call add_many 5 15) = 10+20+30+5+15 =" (call add_many 5 15))
+(println "")
+
+(println "Example 4: Comparison functions")
+// Note: (partial greater_than 100) creates {x -> <- (greater_than 100 x)} = "is 100 > x?"
+gt_100 = (partial greater_than 100)  // Asks: is 100 > x?
+lt_50 = (partial less_than 50)      // Asks: is 50 < x?
+
+(println "Is 100 > 150? (no)" (call gt_100 150))
+(println "Is 100 > 25? (yes)" (call gt_100 25))
+(println "Is 50 < 30? (no)" (call lt_50 30))
+(println "Is 50 < 75? (yes)" (call lt_50 75))
+(println "")
+
+(println "Example 5: String operations")
+prefix_hello = (partial join "Hello ")
+prefix_goodbye = (partial join "Goodbye ")
+
+(println (call prefix_hello "World"))
+(println (call prefix_hello "Franz"))
+(println (call prefix_goodbye "Friend"))

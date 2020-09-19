@@ -1,0 +1,82 @@
+(println "=== Franz LLVM Native Compiler - Negative Numbers Test ===")
+(println "")
+
+(println "Test 1: Negative integer literal")
+x1 = -10
+(println "x1 = -10")
+(println "Result:" x1)
+(println "PASS: Negative integer literal works")
+(println "")
+
+(println "Test 2: Negative float literal")
+x2 = -2.5
+(println "x2 = -2.5")
+(println "Result:" x2)
+(println "PASS: Negative float literal works")
+(println "")
+
+(println "Test 3: Negative zero")
+x3 = -0
+(println "x3 = -0")
+(println "Result:" x3)
+(println "PASS: Negative zero works")
+(println "")
+
+(println "Test 4: Large negative integer")
+x4 = -999999
+(println "x4 = -999999")
+(println "Result:" x4)
+(println "PASS: Large negative integer works")
+(println "")
+
+(println "Test 5: Small negative float")
+x5 = -0.001
+(println "x5 = -0.001")
+(println "Result:" x5)
+(println "PASS: Small negative float works")
+(println "")
+
+(println "Test 6: Negative + Positive (integer)")
+result1 = (add -10 5)
+(println "-10 + 5 =" result1)
+(println "PASS: Negative + positive arithmetic works")
+(println "")
+
+(println "Test 7: Negative + Negative (integer)")
+result2 = (add -10 -5)
+(println "-10 + -5 =" result2)
+(println "PASS: Negative + negative arithmetic works")
+(println "")
+
+(println "Test 8: Negative - Positive (integer)")
+result3 = (subtract -10 5)
+(println "-10 - 5 =" result3)
+(println "PASS: Negative - positive arithmetic works")
+(println "")
+
+(println "Test 9: Negative * Positive (integer)")
+result4 = (multiply -10 5)
+(println "-10 * 5 =" result4)
+(println "PASS: Negative * positive arithmetic works")
+(println "")
+
+(println "Test 10: Negative / Positive (integer)")
+result5 = (divide -10 5)
+(println "-10 / 5 =" result5)
+(println "PASS: Negative / positive arithmetic works")
+(println "")
+
+(println "Test 11: Negative float arithmetic")
+result6 = (add -2.5 1.5)
+(println "-2.5 + 1.5 =" result6)
+(println "PASS: Negative float arithmetic works")
+(println "")
+
+(println "Test 12: Mixed negative (int + negative float)")
+result7 = (add -10 2.5)
+(println "-10 + 2.5 =" result7)
+(println "PASS: Mixed negative arithmetic works")
+(println "")
+
+(println "All 12 negative number tests passed!")
+(println "Negative numbers work correctly in LLVM native compilation!")

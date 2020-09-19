@@ -1,0 +1,33 @@
+// Test print vs println - NOW BOTH WORK!
+
+(println "=== Print vs Println Test ===")
+(println "")
+
+// Test 1: print (no newline)
+(print "print outputs this WITHOUT newline")
+(println " <- cursor continues here")
+(println "")
+
+// Test 2: println (with newline)
+(println "println outputs this WITH newline")
+(println "Next line starts here")
+(println "")
+
+// Test 3: Building output with print
+(print "Name: ")
+(print "Alice")
+(print ", Age: ")
+(print "25")
+(println "")  // Add newline at end
+(println "")
+
+// Test 4: Progress indicator
+(print "Loading")
+(print ".")
+(print ".")
+(print ".")
+(println " Done!")
+(println "")
+
+// Test 5: Both work correctly now!
+(println "Both print and println work correctly! ✓")

@@ -1,0 +1,14 @@
+(println "=== Testing Nested Function Calls ===")
+
+// Define two functions with different names
+add_ten = {x -> <- (add x 10)}
+times_two = {x -> <- (multiply x 2)}
+
+// Test 1: Call them separately
+(println "add_ten(5) =" (add_ten 5))
+(println "times_two(10) =" (times_two 10))
+
+// Test 2: Call one with result of other (inline)
+result_inline = (times_two (add_ten 5))
+(println "times_two(add_ten(5)) =" result_inline)
+(println "Expected: 30")

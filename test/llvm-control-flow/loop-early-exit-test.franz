@@ -1,0 +1,109 @@
+(println "=== Loop Early Exit Test Suite ===")
+(println "")
+
+(println "Test 1: Early exit when i equals 5")
+result1 = (loop 10 {i ->
+  (if (is i 5)
+    {<- i}
+    {<- 0})
+})
+(println "  Result:" result1 "  Expected: 5")
+
+(println "")
+(println "Test 2: Early exit on first iteration")
+result2 = (loop 10 {i ->
+  (if (is i 0)
+    {<- 99}
+    {<- 0})
+})
+(println "  Result:" result2 "  Expected: 99")
+
+(println "")
+(println "Test 3: No early exit - loop completes")
+result3 = (loop 5 {i ->
+  (println "  i:" i)
+  <- 0
+})
+(println "  Result:" result3 "  Expected: 0")
+
+(println "")
+(println "Test 4: Early exit with first even number")
+result4 = (loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {<- i}
+    {<- 0})
+})
+(println "  Result:" result4 "  Expected: 0")
+
+(println "")
+(println "Test 5: Find first odd number")
+result5 = (loop 10 {i ->
+  (if (is (remainder i 2) 1)
+    {<- i}
+    {<- 0})
+})
+(println "  Result:" result5 "  Expected: 1")
+
+(println "")
+(println "Test 6: Early exit with arithmetic result")
+result6 = (loop 10 {i ->
+  (if (is i 3)
+    {<- (multiply i 10)}
+    {<- 0})
+})
+(println "  Result:" result6 "  Expected: 30")
+
+(println "")
+(println "Test 7: Early exit on last iteration")
+result7 = (loop 10 {i ->
+  (if (is i 9)
+    {<- i}
+    {<- 0})
+})
+(println "  Result:" result7 "  Expected: 9")
+
+(println "")
+(println "Test 8: Multiple conditions - exit on first match")
+result8 = (loop 20 {i ->
+  (if (is i 7)
+    {<- 77}
+    {(if (is i 15)
+      {<- 15}
+      {<- 0})})
+})
+(println "  Result:" result8 "  Expected: 77")
+
+(println "")
+(println "Test 9: Early exit with greater_than comparison")
+result9 = (loop 20 {i ->
+  (if (greater_than i 12)
+    {<- i}
+    {<- 0})
+})
+(println "  Result:" result9 "  Expected: 13")
+
+(println "")
+(println "Test 10: Early exit with less_than comparison")
+result10 = (loop 20 {i ->
+  (if (less_than i 3)
+    {<- 0}
+    {<- i})
+})
+(println "  Result:" result10 "  Expected: 3")
+
+(println "")
+(println "Test 11: Zero count loop (edge case)")
+result11 = (loop 0 {i ->
+  <- 999
+})
+(println "  Result:" result11 "  Expected: 0")
+
+(println "")
+(println "Test 12: Single iteration with exit")
+result12 = (loop 1 {i ->
+  <- 42
+})
+(println "  Result:" result12 "  Expected: 42")
+
+(println "")
+(println "All early exit tests complete!")

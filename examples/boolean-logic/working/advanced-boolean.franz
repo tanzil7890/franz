@@ -1,0 +1,103 @@
+(println "=== Advanced Boolean Logic Examples ===")
+(println "")
+
+(println "Example 1: XOR implementation (exclusive OR)")
+xor = {a b ->
+  <- (and (or a b) (not (and a b)))
+}
+xor_result1 = (xor 1 0)
+xor_result2 = (xor 1 1)
+(println "  XOR(1, 0) = " xor_result1 " (different → true)")
+(println "  XOR(1, 1) = " xor_result2 " (same → false)")
+
+(println "")
+(println "Example 2: NAND implementation (not AND)")
+nand = {a b ->
+  <- (not (and a b))
+}
+nand_result = (nand 1 1)
+(println "  NAND(1, 1) = " nand_result " (opposite of AND)")
+
+(println "")
+(println "Example 3: NOR implementation (not OR)")
+nor = {a b ->
+  <- (not (or a b))
+}
+nor_result = (nor 0 0)
+(println "  NOR(0, 0) = " nor_result " (opposite of OR)")
+
+(println "")
+(println "Example 4: Implies implementation (a → b)")
+implies = {a b ->
+  <- (or (not a) b)
+}
+impl1 = (implies 1 1)
+impl2 = (implies 1 0)
+(println "  Implies(1, 1) = " impl1 " (true implies true)")
+(println "  Implies(1, 0) = " impl2 " (true implies false → false)")
+
+(println "")
+(println "Example 5: De Morgan's Laws verification")
+a = 1
+b = 0
+law1_left = (not (and a b))
+law1_right = (or (not a) (not b))
+law2_left = (not (or a b))
+law2_right = (and (not a) (not b))
+(println "  De Morgan 1: not(a AND b) = (not a) OR (not b)? " (is law1_left law1_right))
+(println "  De Morgan 2: not(a OR b) = (not a) AND (not b)? " (is law2_left law2_right))
+
+(println "")
+(println "Example 6: Three-way AND condition checker")
+all_true = {a b c ->
+  <- (and a b c)
+}
+check1 = (all_true 1 1 1)
+check2 = (all_true 1 0 1)
+(println "  All true (1,1,1)? " (if check1 {<- "Yes"} {<- "No"}))
+(println "  All true (1,0,1)? " (if check2 {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 7: Any true checker (variadic OR)")
+any_true = {a b c d ->
+  <- (or a b c d)
+}
+check3 = (any_true 0 0 1 0)
+check4 = (any_true 0 0 0 0)
+(println "  Any true (0,0,1,0)? " (if check3 {<- "Yes"} {<- "No"}))
+(println "  Any true (0,0,0,0)? " (if check4 {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 8: Validation with multiple AND/OR")
+validate_user = {age is_verified has_email ->
+  age_ok = (greater_than age 13)
+  identity_ok = (or is_verified has_email)
+  <- (and age_ok identity_ok)
+}
+valid1 = (validate_user 25 1 0)
+valid2 = (validate_user 10 1 1)
+(println "  User (age 25, verified, no email)? " (if valid1 {<- "Valid"} {<- "Invalid"}))
+(println "  User (age 10, verified, has email)? " (if valid2 {<- "Valid"} {<- "Invalid"}))
+
+(println "")
+(println "Example 9: Boolean algebra - Distributive law")
+p = 1
+q = 0
+r = 1
+dist_left = (and p (or q r))
+dist_right = (or (and p q) (and p r))
+(println "  Distributive: p AND (q OR r) = (p AND q) OR (p AND r)? " (is dist_left dist_right))
+
+(println "")
+(println "Example 10: Access control with complex logic")
+check_access = {is_admin is_moderator is_owner is_premium ->
+  admin_or_mod = (or is_admin is_moderator)
+  owner_and_premium = (and is_owner is_premium)
+  <- (or admin_or_mod owner_and_premium)
+}
+access1 = (check_access 0 1 0 0)
+access2 = (check_access 0 0 1 1)
+access3 = (check_access 0 0 1 0)
+(println "  Moderator (not admin/owner)? " (if access1 {<- "Access granted"} {<- "Access denied"}))
+(println "  Premium owner? " (if access2 {<- "Access granted"} {<- "Access denied"}))
+(println "  Non-premium owner? " (if access3 {<- "Access granted"} {<- "Access denied"}))

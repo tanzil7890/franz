@@ -1,0 +1,3 @@
+(println "Test: Dict with integer value")
+d = (dict "age" 36)
+(println "✓ Dict created with integer value")

@@ -1,0 +1,101 @@
+// Continue Statement Examples
+// Industry-standard loop control with continue
+
+(println "=== Continue Statement Examples ===")
+(println "")
+
+// Example 1: Skip Invalid Data
+(println "Example 1: Process valid data only")
+(println "Processing items, skip negatives:")
+items = [-3, -1, 1, 2, 3, 4, 5]
+(loop 6 {i ->
+  // Simulate getting value
+  value = (subtract (multiply i 2) 5)
+
+  // Skip negative values
+  (if (less_than value 0)
+    {(continue)}
+    {})
+
+  (println "  Valid:" value)
+})
+(println "")
+
+// Example 2: FizzBuzz with Continue
+(println "Example 2: FizzBuzz (1-15)")
+(loop 15 {i ->
+  n = (add i 1)
+
+  div3 = (is (remainder n 3) 0)
+  div5 = (is (remainder n 5) 0)
+
+  // FizzBuzz
+  (if (and div3 div5)
+    {
+      (println n ": FizzBuzz")
+      (continue)
+    }
+    {})
+
+  // Fizz
+  (if div3
+    {
+      (println n ": Fizz")
+      (continue)
+    }
+    {})
+
+  // Buzz
+  (if div5
+    {
+      (println n ": Buzz")
+      (continue)
+    }
+    {})
+
+  // Regular number
+  (println n)
+})
+(println "")
+
+// Example 3: Filter Pattern
+(println "Example 3: Filter even squares")
+(loop 10 {i ->
+  // Skip odd numbers
+  (if (is (remainder i 2) 1)
+    {(continue)}
+    {})
+
+  square = (multiply i i)
+  (println "i=" i "square=" square)
+})
+(println "")
+
+// Example 4: Skip Range
+(println "Example 4: Skip middle range (3-6)")
+(loop 10 {i ->
+  // Skip 3,4,5,6
+  in_skip_range = (and (greater_than i 2) (less_than i 7))
+  (if in_skip_range
+    {(continue)}
+    {})
+
+  (println "Processing:" i)
+})
+(println "")
+
+// Example 5: Validation Loop
+(println "Example 5: Validate and process")
+(loop 8 {i ->
+  value = (add i 10)
+
+  // Skip values not divisible by 3
+  (if (not (is (remainder value 3) 0))
+    {(continue)}
+    {})
+
+  (println "Valid value:" value)
+})
+(println "")
+
+(println "All examples complete!")

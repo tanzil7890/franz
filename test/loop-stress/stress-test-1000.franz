@@ -1,0 +1,11 @@
+(println "=== Loop Stress Test: 1,000 iterations ===")
+
+mut sum = 0
+(loop 1000 {i ->
+  sum = (add sum i)
+})
+
+(println "Sum of 0..999:" sum)
+expected = 499500
+(println "Expected: 499500")
+(println "Match:" (is sum expected))

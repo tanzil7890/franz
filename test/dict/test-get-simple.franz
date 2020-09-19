@@ -1,0 +1,26 @@
+(println "=== Testing Get Function ===")
+(println "")
+
+// Test 1: String single character
+(println "Test 1: String single character")
+result1 = (get "hello" 0)
+(println "  (get \"hello\" 0) =" result1)
+
+// Test 2: String substring
+(println "Test 2: String substring")
+result2 = (get "hello" 0 3)
+(println "  (get \"hello\" 0 3) =" result2)
+
+// Test 3: String with value from dict
+(println "Test 3: String with value from dict")
+scores = {
+  "alice" "v10"
+  "bob" "v25"
+}
+alice_score = (dict_get scores "alice")
+prefix = (get alice_score 0 2)
+(println "  alice_score =" alice_score)
+(println "  (get alice_score 0 2) =" prefix)
+
+(println "")
+(println "All tests complete!")

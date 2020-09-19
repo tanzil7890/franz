@@ -1,0 +1,211 @@
+// ============================================================================
+// Comprehensive Type Conversion Examples
+// Demonstrates all edge cases and real-world usage patterns
+// ============================================================================
+
+(println "=== Comprehensive Type Conversion Examples ===")
+(println "")
+
+// ============================================================================
+// Section 1: String to Numeric Conversions
+// ============================================================================
+
+(println "--- Section 1: String to Numeric Conversions ---")
+
+// Integer conversion - handles positive, negative, zero
+user_input_age = "25"
+parsed_age = (integer user_input_age)
+(println "Parsed age from string '25':")
+(println parsed_age)
+
+// Negative integers
+temperature_str = "-15"
+temperature = (integer temperature_str)
+(println "Parsed temperature from string '-15':")
+(println temperature)
+
+// Float conversion - decimal numbers
+price_str = "19.99"
+price = (float price_str)
+(println "Parsed price from string '19.99':")
+(println price)
+
+// Scientific notation strings
+distance_str = "1.5e8"
+distance_km = (float distance_str)
+(println "Parsed distance from string '1.5e8':")
+(println distance_km)
+
+// ============================================================================
+// Section 2: Numeric to String Conversions
+// ============================================================================
+
+(println "")
+(println "--- Section 2: Numeric to String Conversions ---")
+
+// Integer to string - for display/logging
+score = 9850
+score_display = (string score)
+(println "Score for display:")
+(println score_display)
+
+// Float to string - preserves decimal places
+celsius = 36.6
+temp_str = (string celsius)
+(println "Temperature as string:")
+(println temp_str)
+
+// Negative numbers
+balance = -150
+balance_str = (string balance)
+(println "Negative balance as string:")
+(println balance_str)
+
+// ============================================================================
+// Section 3: Cross-Type Arithmetic
+// ============================================================================
+
+(println "")
+(println "--- Section 3: Cross-Type Arithmetic ---")
+
+// Parse user input and perform calculations
+input1 = "100"
+input2 = "50"
+sum = (add (integer input1) (integer input2))
+(println "Sum of string inputs '100' + '50':")
+(println sum)
+
+// Mixed type operations
+base = (integer "10")
+multiplier = 2.5
+result = (multiply (float base) multiplier)
+(println "Mixed type multiplication: int(10) * 2.5:")
+(println result)
+
+// ============================================================================
+// Section 4: Type Preservation and Round-Tripping
+// ============================================================================
+
+(println "")
+(println "--- Section 4: Type Preservation and Round-Tripping ---")
+
+// Round-trip conversion (lossless for integers)
+original = 12345
+as_string = (string original)
+back_to_int = (integer as_string)
+(println "Round-trip integer -> string -> integer:")
+(println back_to_int)
+
+// Round-trip with precision loss (floats)
+precise = 3.14159265
+as_str_float = (string precise)
+back_to_float = (float as_str_float)
+(println "Round-trip float -> string -> float:")
+(println back_to_float)
+
+// ============================================================================
+// Section 5: Truncation and Rounding Behavior
+// ============================================================================
+
+(println "")
+(println "--- Section 5: Truncation Behavior ---")
+
+// Float to int truncation (not rounding!)
+value1 = 7.9
+truncated1 = (integer value1)
+(println "Truncate 7.9 to integer (not rounded):")
+(println truncated1)
+
+value2 = -3.7
+truncated2 = (integer value2)
+(println "Truncate -3.7 to integer:")
+(println truncated2)
+
+// ============================================================================
+// Section 6: Edge Cases and Boundary Conditions
+// ============================================================================
+
+(println "")
+(println "--- Section 6: Edge Cases ---")
+
+// Zero conversions
+zero_int = 0
+zero_str = (string zero_int)
+(println "Zero as string:")
+(println zero_str)
+
+zero_string = "0"
+zero_parsed = (integer zero_string)
+(println "String '0' to integer:")
+(println zero_parsed)
+
+// Large numbers
+big_num = 999999
+big_str = (string big_num)
+(println "Large number 999999 as string:")
+(println big_str)
+
+// Very small float
+tiny = 0.00001
+tiny_str = (string tiny)
+(println "Very small float 0.00001 as string:")
+(println tiny_str)
+
+// ============================================================================
+// Section 7: Real-World Use Cases
+// ============================================================================
+
+(println "")
+(println "--- Section 7: Real-World Use Cases ---")
+
+// Use case 1: Data validation - parse and validate range
+age_input = "25"
+age_value = (integer age_input)
+(println "Validated age:")
+(println age_value)
+
+// Use case 2: Currency calculation
+price1 = (float "29.99")
+price2 = (float "15.50")
+total = (add price1 price2)
+total_str = (string total)
+(println "Total price:")
+(println total_str)
+
+// Use case 3: Scientific calculations with conversion
+coefficient = 1.5
+exponent = 8
+scientific_value = (multiply coefficient (float 100000000))
+(println "Scientific calculation result:")
+(println scientific_value)
+
+// Use case 4: Formatting for display
+quantity = 42
+label = "items"
+(println "Display formatting:")
+(println (string quantity))
+
+// ============================================================================
+// Section 8: Chained Conversions
+// ============================================================================
+
+(println "")
+(println "--- Section 8: Chained Conversions ---")
+
+// String -> Float -> Int (multi-step parsing)
+input_str = "99.99"
+as_float = (float input_str)
+as_int = (integer as_float)
+(println "Chained: string '99.99' -> float -> int:")
+(println as_int)
+
+// Int -> Float -> String (type elevation)
+count = 100
+as_float2 = (float count)
+final_str = (string as_float2)
+(println "Chained: int 100 -> float -> string:")
+(println final_str)
+
+(println "")
+(println "=== All Examples Complete ===")
+(println "Type conversions are !")

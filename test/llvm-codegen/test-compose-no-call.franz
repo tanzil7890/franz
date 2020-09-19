@@ -1,0 +1,10 @@
+(println "=== Test: Create composed function only ===")
+
+double = {x -> <- (multiply x 2)}
+add_ten = {x -> <- (add x 10)}
+compose = {f g -> <- {x -> <- (f (g x))}}
+
+(println "Creating composed function...")
+composed_auto = (compose double add_ten)
+
+(println "Composed function created successfully!")

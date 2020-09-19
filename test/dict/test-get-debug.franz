@@ -1,0 +1,8 @@
+(println "=== Debug Get Function ===")
+
+// Test direct string output
+test_str = "hello"
+(println "Original string:" test_str)
+
+// Test get with immediate print
+(println "Get result:" (get "world" 0))

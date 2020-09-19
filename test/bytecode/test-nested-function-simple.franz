@@ -1,0 +1,14 @@
+(println "Testing nested function definition...")
+
+outer = {x ->
+  (println "In outer, x =" x)
+  inner = {y -> <- (add y 10)}
+  (println "Defined inner")
+  result = (inner x)
+  (println "Called inner, result =" result)
+  <- result
+}
+
+(println "About to call outer")
+final = (outer 5)
+(println "Final result:" final)

@@ -1,0 +1,173 @@
+// stdlib/list.franz
+// Franz Standard Library - List Module
+//
+// Advanced list operations beyond basic map/filter/reduce
+// 12 functions for data transformation, filtering, and inspection
+
+// ===== List Transformation Functions =====
+
+// reverse - Reverse the order of elements
+// Returns a new list with elements in reverse order
+// {list -> list}
+reverse = {lst ->
+  <- (reduce lst {acc item index ->
+    <- (cons item acc)
+  } (list))
+}
+
+// unique - Remove duplicates from list
+// Returns a new list with only first occurrence of each element
+// {list -> list}
+unique = {lst ->
+  <- (reduce lst {acc item index ->
+    found = (find acc item)
+    <- (if (is found void) {
+      <- (insert acc item)
+    } {
+      <- acc
+    })
+  } (list))
+}
+
+// flatten - Flatten nested lists one level deep
+// Returns a single list from a list of lists
+// {list -> list}
+flatten = {lst ->
+  <- (reduce lst {acc item index ->
+    <- (if (is (type item) "list") {
+      <- (reduce item {acc2 subitem subindex ->
+        <- (insert acc2 subitem)
+      } acc)
+    } {
+      <- (insert acc item)
+    })
+  } (list))
+}
+
+// zip - Combine two lists element-wise into pairs
+// Returns list of [element1, element2] pairs
+// Stops at the length of the shorter list
+// {list -> list -> list}
+zip = {list1 list2 ->
+  len1 = (length list1)
+  len2 = (length list2)
+  min_len = (if (less_than len1 len2) { <- len1 } { <- len2 })
+
+  <- (map (range min_len) {item index ->
+    <- (list (get list1 index) (get list2 index))
+  })
+}
+
+// ===== List Filtering Functions =====
+
+// take - Take first N elements from list
+// Returns new list with only the first N elements
+// {list -> integer -> list}
+take = {lst n ->
+  <- (filter lst {item index ->
+    <- (less_than index n)
+  })
+}
+
+// drop - Drop first N elements from list
+// Returns new list without the first N elements
+// {list -> integer -> list}
+drop = {lst n ->
+  <- (filter lst {item index ->
+    <- (not (less_than index n))
+  })
+}
+
+// partition - Split list by predicate into [matching, non-matching]
+// Returns a list with two sublists: [matching, non_matching]
+// {list -> function -> list}
+partition = {lst predicate ->
+  matching = (filter lst predicate)
+  non_matching = (filter lst {item index ->
+    pred_result = (predicate item index)
+    <- (not pred_result)
+  })
+  <- (list matching non_matching)
+}
+
+// ===== List Inspection Functions =====
+
+// any - Check if any element matches predicate
+// Returns 1 if at least one element satisfies predicate, 0 otherwise
+// {list -> function -> integer}
+any = {lst predicate ->
+  filtered = (filter lst predicate)
+  <- (if (empty? filtered) {
+    <- 0
+  } {
+    <- 1
+  })
+}
+
+// all - Check if all elements match predicate
+// Returns 1 if all elements satisfy predicate, 0 otherwise
+// Empty list returns 1 (vacuous truth)
+// {list -> function -> integer}
+all = {lst predicate ->
+  filtered = (filter lst predicate)
+  <- (is (length filtered) (length lst))
+}
+
+// ===== List Generation Functions =====
+
+// filled - Create list filled with N copies of value
+// Returns new list containing N identical elements
+// {any -> integer -> list}
+filled = {value count ->
+  <- (map (range count) {item index ->
+    <- value
+  })
+}
+
+// chunk - Split list into chunks of specified size
+// Returns list of sublists, each of size N (last chunk may be smaller)
+// {list -> integer -> list}
+chunk = {lst size ->
+  <- (if (empty? lst) {
+    <- (list)
+  } {
+    <- (if (is size 0) {
+      <- (list)
+    } {
+      first_chunk = (take lst size)
+      rest = (drop lst size)
+      rest_chunks = (chunk rest size)
+      <- (cons first_chunk rest_chunks)
+    })
+  })
+}
+
+// sort - Sort list in ascending order
+// Uses quicksort algorithm for O(n log n) average case
+// {list -> list}
+sort = {lst ->
+  <- (if (empty? lst) {
+    <- (list)
+  } {
+    pivot = (head lst)
+    rest = (tail lst)
+
+    // Partition into less than and greater/equal
+    less_than_pivot = (filter rest {item index ->
+      <- (less_than item pivot)
+    })
+    greater_equal = (filter rest {item index ->
+      <- (not (less_than item pivot))
+    })
+
+    // Recursively sort both partitions
+    sorted_less = (sort less_than_pivot)
+    sorted_greater = (sort greater_equal)
+
+    // Combine: sorted_less + pivot + sorted_greater
+    with_pivot = (insert sorted_less pivot)
+    <- (reduce sorted_greater {acc item index ->
+      <- (insert acc item)
+    } with_pivot)
+  })
+}

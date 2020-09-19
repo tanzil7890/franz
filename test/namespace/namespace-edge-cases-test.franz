@@ -1,0 +1,109 @@
+// Edge case tests for namespace isolation
+
+// Test 1: Namespace doesn't pollute global scope
+(println "Test 1: Namespace doesn't pollute global scope")
+math = (use_as "test/namespace/math-module.franz")
+// Try to access 'square' directly (should fail)
+// We'll just verify math.square works
+result = (math.square 4)
+(if (is result 16)
+  {<- (println "✓ PASS - Namespace isolation works")}
+  {<- (println "✗ FAIL - Expected 16")})
+
+// Test 2: Multiple uses of same module create separate namespaces
+(println)
+(println "Test 2: Same module loaded twice creates separate namespaces")
+math1 = (use_as "test/namespace/math-module.franz")
+math2 = (use_as "test/namespace/math-module.franz")
+r1 = (math1.square 3)
+r2 = (math2.square 3)
+(if (and (is r1 9) (is r2 9))
+  {<- (println "✓ PASS - Multiple namespace instances work")}
+  {<- (println "✗ FAIL - Namespace loading failed")})
+
+// Test 3: Namespace member that is a function
+(println)
+(println "Test 3: Namespace members are callable")
+str = (use_as "test/namespace/string-module.franz")
+shout_result = (str.shout "Franz")
+(println "str.shout(\"Franz\") =" shout_result)
+(if (is shout_result "Franz!!!")
+  {<- (println "✓ PASS - Namespace function calls work")}
+  {<- (println "✗ FAIL - Expected 'Franz!!!', got" shout_result)})
+
+// Test 4: Nested function calls with namespaces
+(println)
+(println "Test 4: Nested calls with namespaces")
+math = (use_as "test/namespace/math-module.franz")
+result = (add (math.square 3) (math.cube 2))
+(println "add(math.square(3), math.cube(2)) =" result)
+(if (is result 17)
+  {<- (println "✓ PASS - Nested namespace calls work")}
+  {<- (println "✗ FAIL - Expected 17, got" result)})
+
+// Test 5: Namespace as function argument
+(println)
+(println "Test 5: Namespace members in higher-order functions")
+math = (use_as "test/namespace/math-module.franz")
+numbers = (list 1 2 3 4 5)
+// Map passes (item, index) so we need a wrapper that ignores index
+squares = (map numbers {item index -> <- (math.square item)})
+(println "Squares:" squares)
+expected = (list 1 4 9 16 25)
+(if (is squares expected)
+  {<- (println "✓ PASS - Namespace functions work with map")}
+  {<- (println "✗ FAIL - Mapping with namespace function failed")})
+
+// Test 6: Chained namespace access
+(println)
+(println "Test 6: Multiple namespace operations in sequence")
+math = (use_as "test/namespace/math-module.franz")
+result = (math.double (math.square 5))
+(println "math.double(math.square(5)) =" result)
+(if (is result 50)
+  {<- (println "✓ PASS - Chained namespace calls work")}
+  {<- (println "✗ FAIL - Expected 50, got" result)})
+
+// Test 7: Namespace with stdlib functions
+(println)
+(println "Test 7: Namespaces work with stdlib")
+math = (use_as "test/namespace/math-module.franz")
+is_equal = (is (math.square 7) 49)
+(if is_equal
+  {<- (println "✓ PASS - Namespaces work with stdlib (is)")}
+  {<- (println "✗ FAIL - Stdlib integration failed")})
+
+// Test 8: Type checking namespace
+(println)
+(println "Test 8: Type of namespace object")
+math = (use_as "test/namespace/math-module.franz")
+math_type = (type math)
+(if (is math_type "namespace")
+  {<- (println "✓ PASS - Namespace has correct type")}
+  {<- (println "✗ FAIL - Expected 'namespace', got" math_type)})
+
+// Test 9: Namespace persists across statements
+(println)
+(println "Test 9: Namespace persists in scope")
+str = (use_as "test/namespace/string-module.franz")
+msg1 = (str.greet "Test")
+msg2 = (str.shout "Hello")
+(if (and (is msg1 "Hello, Test!") (is msg2 "Hello!!!"))
+  {<- (println "✓ PASS - Namespace persists across statements")}
+  {<- (println "✗ FAIL - Namespace state lost")})
+
+// Test 10: Different namespaces with same function names
+(println)
+(println "Test 10: Name isolation between namespaces")
+math = (use_as "test/namespace/math-module.franz")
+str = (use_as "test/namespace/string-module.franz")
+// Both have 'double' function
+math_double = (math.double 10)
+str_double = (str.double "ab")
+test10_pass = (and (is math_double 20) (is str_double "abab"))
+(if test10_pass
+  {<- (println "✓ PASS - Complete isolation: math.double and str.double coexist")}
+  {<- (println "✗ FAIL - Name collision occurred")})
+
+(println)
+(println "All edge case tests complete!")

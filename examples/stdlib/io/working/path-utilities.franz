@@ -1,0 +1,42 @@
+// Path Utilities Example
+// Demonstrates path manipulation functions
+
+(use "stdlib/io.franz" {
+  (println "=== Path Utilities Demo ===")
+  (println "")
+
+  // basename examples
+  (println "Basename (extract filename):")
+  (println "  '/home/user/documents/report.pdf' ->" (basename "/home/user/documents/report.pdf"))
+  (println "  'src/stdlib.c' ->" (basename "src/stdlib.c"))
+  (println "  'README.md' ->" (basename "README.md"))
+  (println "")
+
+  // dirname examples
+  (println "Dirname (extract directory):")
+  (println "  '/home/user/documents/report.pdf' ->" (dirname "/home/user/documents/report.pdf"))
+  (println "  'src/stdlib.c' ->" (dirname "src/stdlib.c"))
+  (println "  'README.md' ->" (dirname "README.md"))
+  (println "")
+
+  // join_path examples
+  (println "Join path (combine components):")
+  path1 = (join_path (list "home" "user" "documents"))
+  (println "  ['home', 'user', 'documents'] ->" path1)
+
+  path2 = (join_path (list "/" "usr" "local" "bin"))
+  (println "  ['/', 'usr', 'local', 'bin'] ->" path2)
+
+  path3 = (join_path (list "docs" "stdlib" "io" "README.md"))
+  (println "  ['docs', 'stdlib', 'io', 'README.md'] ->" path3)
+  (println "")
+
+  // Complex path manipulation
+  (println "Complex example - build and parse path:")
+  components = (list "projects" "franz" "stdlib" "io.franz")
+  full_path = (join_path components)
+  (println "  Components:" components)
+  (println "  Full path:" full_path)
+  (println "  Filename:" (basename full_path))
+  (println "  Directory:" (dirname full_path))
+})

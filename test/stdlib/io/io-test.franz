@@ -1,0 +1,124 @@
+(use "stdlib/io.franz" {
+  (println "=== I/O Module Test Suite ===")
+  (println "")
+
+  // ===== exists Tests =====
+  (println "Testing exists:")
+  (println "  exists('README.md'):" (exists "README.md"))
+  (println "  exists('src'):" (exists "src"))
+  (println "  exists('nonexistent-file-xyz.txt'):" (exists "nonexistent-file-xyz.txt"))
+  (println "  exists('stdlib/io.franz'):" (exists "stdlib/io.franz"))
+  (println "")
+
+  // ===== is_file Tests =====
+  (println "Testing is_file:")
+  (println "  is_file('README.md'):" (is_file "README.md"))
+  (println "  is_file('src'):" (is_file "src"))
+  (println "  is_file('nonexistent.txt'):" (is_file "nonexistent.txt"))
+  (println "  is_file('stdlib/io.franz'):" (is_file "stdlib/io.franz"))
+  (println "  is_file('franz'):" (is_file "franz"))
+  (println "")
+
+  // ===== is_dir Tests =====
+  (println "Testing is_dir:")
+  (println "  is_dir('src'):" (is_dir "src"))
+  (println "  is_dir('stdlib'):" (is_dir "stdlib"))
+  (println "  is_dir('README.md'):" (is_dir "README.md"))
+  (println "  is_dir('nonexistent-dir'):" (is_dir "nonexistent-dir"))
+  (println "  is_dir('docs'):" (is_dir "docs"))
+  (println "")
+
+  // ===== list_dir Tests =====
+  (println "Testing list_dir:")
+  (println "  list_dir('src') - first 5 items:")
+  src_files = (list_dir "src")
+  (println src_files)
+  (println "")
+
+  (println "  list_dir('stdlib'):")
+  stdlib_files = (list_dir "stdlib")
+  (println stdlib_files)
+  (println "")
+
+  (println "  list_dir('nonexistent-dir'):")
+  nonexistent = (list_dir "nonexistent-dir")
+  (println "    Result:" nonexistent)
+  (println "")
+
+  // ===== basename Tests =====
+  (println "Testing basename:")
+  (println "  basename('/home/user/file.txt'):" (basename "/home/user/file.txt"))
+  (println "  basename('src/main.c'):" (basename "src/main.c"))
+  (println "  basename('file.txt'):" (basename "file.txt"))
+  (println "  basename('src/'):" (basename "src/"))
+  (println "  basename('/usr/local/bin/'):" (basename "/usr/local/bin/"))
+  (println "")
+
+  // ===== dirname Tests =====
+  (println "Testing dirname:")
+  (println "  dirname('/home/user/file.txt'):" (dirname "/home/user/file.txt"))
+  (println "  dirname('src/main.c'):" (dirname "src/main.c"))
+  (println "  dirname('file.txt'):" (dirname "file.txt"))
+  (println "  dirname('/file.txt'):" (dirname "/file.txt"))
+  (println "  dirname('path/to/deep/file.txt'):" (dirname "path/to/deep/file.txt"))
+  (println "")
+
+  // ===== join_path Tests =====
+  (println "Testing join_path:")
+  (println "  join_path(['home', 'user', 'file.txt']):" (join_path (list "home" "user" "file.txt")))
+  (println "  join_path(['src', 'main.c']):" (join_path (list "src" "main.c")))
+  (println "  join_path(['/']):" (join_path (list "/")))
+  (println "  join_path(['/', 'home', 'user']):" (join_path (list "/" "home" "user")))
+  (println "  join_path(['path', '', 'file']):" (join_path (list "path" "" "file")))
+  (println "  join_path(['a', 'b', 'c', 'd']):" (join_path (list "a" "b" "c" "d")))
+  (println "")
+
+  // ===== read_lines Tests =====
+  (println "Testing read_lines:")
+  (println "  read_lines('README.md') - first 100 chars:")
+  readme_content = (read_lines "README.md")
+  first_100 = (get readme_content 0 100)
+  (println first_100)
+  (println "")
+
+  (println "  read_lines('stdlib/io.franz') - first 50 chars:")
+  io_content = (read_lines "stdlib/io.franz")
+  first_50 = (get io_content 0 50)
+  (println first_50)
+  (println "")
+
+  (println "  read_lines('nonexistent-file.txt'):")
+  nonexistent_content = (read_lines "nonexistent-file.txt")
+  (println "    Empty result:" (is (length nonexistent_content) 0))
+  (println "")
+
+  // ===== Integration Tests =====
+  (println "=== Integration Tests ===")
+  (println "")
+
+  (println "Test 1: Check if README exists, is a file, and read it")
+  readme_exists = (exists "README.md")
+  readme_is_file = (is_file "README.md")
+  (println "  README exists:" readme_exists)
+  (println "  README is file:" readme_is_file)
+  (println "  Can read:" (not (is (length (read_lines "README.md")) 0)))
+  (println "")
+
+  (println "Test 2: Path manipulation - build and check path")
+  test_path = (join_path (list "stdlib" "io.franz"))
+  (println "  Joined path:" test_path)
+  (println "  Path exists:" (exists test_path))
+  (println "  Basename:" (basename test_path))
+  (println "  Dirname:" (dirname test_path))
+  (println "")
+
+  (println "Test 3: Directory operations")
+  src_is_dir = (is_dir "src")
+  src_is_file = (is_file "src")
+  (println "  'src' is directory:" src_is_dir)
+  (println "  'src' is NOT file:" (is src_is_file 0))
+  (println "  'src' directory exists:" (exists "src"))
+  (println "")
+
+  (println "✓ All 8 I/O functions tested with 40+ test cases!")
+})

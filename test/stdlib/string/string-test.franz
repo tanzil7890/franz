@@ -1,0 +1,152 @@
+// Franz Standard Library - String Module Tests
+// Comprehensive test suite for uppercase and lowercase functions
+
+(use "stdlib/string.franz" {
+  (println "=== Franz String Module Test Suite ===")
+  (println "")
+
+  // ==========================================================================
+  // uppercase() Tests
+  // ==========================================================================
+
+  (println "Testing uppercase() function:")
+  (println "")
+
+  (println "Test 1.1: uppercase - basic lowercase string")
+  test1_result = (uppercase "hello")
+  (if (is test1_result "HELLO\n") {
+    (println "  ✓ PASS: uppercase('hello') = 'HELLO'")
+  } {
+    (println "  ✗ FAIL: Expected 'HELLO', got" test1_result)
+  })
+
+  (println "Test 1.2: uppercase - mixed case string")
+  test2_result = (uppercase "Hello World")
+  (if (is test2_result "HELLO WORLD\n") {
+    (println "  ✓ PASS: uppercase('Hello World') = 'HELLO WORLD'")
+  } {
+    (println "  ✗ FAIL: Expected 'HELLO WORLD', got" test2_result)
+  })
+
+  (println "Test 1.3: uppercase - already uppercase")
+  test3_result = (uppercase "ALREADY")
+  (if (is test3_result "ALREADY\n") {
+    (println "  ✓ PASS: uppercase('ALREADY') = 'ALREADY'")
+  } {
+    (println "  ✗ FAIL: Expected 'ALREADY', got" test3_result)
+  })
+
+  (println "Test 1.4: uppercase - with numbers")
+  test4_result = (uppercase "abc123xyz")
+  (if (is test4_result "ABC123XYZ\n") {
+    (println "  ✓ PASS: uppercase('abc123xyz') = 'ABC123XYZ'")
+  } {
+    (println "  ✗ FAIL: Expected 'ABC123XYZ', got" test4_result)
+  })
+
+  (println "Test 1.5: uppercase - with symbols")
+  test5_result = (uppercase "hello-world!")
+  (if (is test5_result "HELLO-WORLD!\n") {
+    (println "  ✓ PASS: uppercase('hello-world!') = 'HELLO-WORLD!'")
+  } {
+    (println "  ✗ FAIL: Expected 'HELLO-WORLD!', got" test5_result)
+  })
+
+  (println "Test 1.6: uppercase - single character")
+  test6_result = (uppercase "a")
+  (if (is test6_result "A\n") {
+    (println "  ✓ PASS: uppercase('a') = 'A'")
+  } {
+    (println "  ✗ FAIL: Expected 'A', got" test6_result)
+  })
+
+  (println "")
+
+  // ==========================================================================
+  // lowercase() Tests
+  // ==========================================================================
+
+  (println "Testing lowercase() function:")
+  (println "")
+
+  (println "Test 2.1: lowercase - basic uppercase string")
+  test7_result = (lowercase "HELLO")
+  (if (is test7_result "hello\n") {
+    (println "  ✓ PASS: lowercase('HELLO') = 'hello'")
+  } {
+    (println "  ✗ FAIL: Expected 'hello', got" test7_result)
+  })
+
+  (println "Test 2.2: lowercase - mixed case string")
+  test8_result = (lowercase "Hello World")
+  (if (is test8_result "hello world\n") {
+    (println "  ✓ PASS: lowercase('Hello World') = 'hello world'")
+  } {
+    (println "  ✗ FAIL: Expected 'hello world', got" test8_result)
+  })
+
+  (println "Test 2.3: lowercase - already lowercase")
+  test9_result = (lowercase "already")
+  (if (is test9_result "already\n") {
+    (println "  ✓ PASS: lowercase('already') = 'already'")
+  } {
+    (println "  ✗ FAIL: Expected 'already', got" test9_result)
+  })
+
+  (println "Test 2.4: lowercase - with numbers")
+  test10_result = (lowercase "ABC123XYZ")
+  (if (is test10_result "abc123xyz\n") {
+    (println "  ✓ PASS: lowercase('ABC123XYZ') = 'abc123xyz'")
+  } {
+    (println "  ✗ FAIL: Expected 'abc123xyz', got" test10_result)
+  })
+
+  (println "Test 2.5: lowercase - with symbols")
+  test11_result = (lowercase "HELLO-WORLD!")
+  (if (is test11_result "hello-world!\n") {
+    (println "  ✓ PASS: lowercase('HELLO-WORLD!') = 'hello-world!'")
+  } {
+    (println "  ✗ FAIL: Expected 'hello-world!', got" test11_result)
+  })
+
+  (println "Test 2.6: lowercase - single character")
+  test12_result = (lowercase "A")
+  (if (is test12_result "a\n") {
+    (println "  ✓ PASS: lowercase('A') = 'a'")
+  } {
+    (println "  ✗ FAIL: Expected 'a', got" test12_result)
+  })
+
+  (println "")
+
+  // ==========================================================================
+  // Integration Tests
+  // ==========================================================================
+
+  (println "Integration Tests:")
+  (println "")
+
+  (println "Test 3.1: Round-trip conversion (lower -> upper -> lower)")
+  test13_original = "FrAnZ"
+  test13_upper = (uppercase test13_original)
+  test13_final = (lowercase test13_upper)
+  (if (is test13_final "franz\n") {
+    (println "  ✓ PASS: Round-trip conversion works")
+  } {
+    (println "  ✗ FAIL: Round-trip failed, got" test13_final)
+  })
+
+  (println "Test 3.2: Using with join")
+  test14_result = (uppercase (join "hello" " " "world"))
+  (if (is test14_result "HELLO WORLD\n") {
+    (println "  ✓ PASS: uppercase() works with join()")
+  } {
+    (println "  ✗ FAIL: Got" test14_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "String Module Tests Complete!")
+  (println "14/14 tests executed")
+  (println "===========================================")
+})

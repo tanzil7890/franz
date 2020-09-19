@@ -1,0 +1,12 @@
+// Test that else branch works in multi-clause if
+test = {n ->
+  <- (if
+    (is n 0) {<- "zero"}
+    (is n 1) {<- "one"}
+    {<- "other"}
+  )
+}
+
+(println "test(0) = " (test 0))
+(println "test(1) = " (test 1))
+(println "test(2) = " (test 2))

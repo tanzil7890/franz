@@ -1,0 +1,12 @@
+// Minimal test for fib(3) - tests deep recursion
+fibonacci = {n ->
+  <- (if
+    (is n 0) {<- 0}
+    (is n 1) {<- 1}
+    {<- (add (fibonacci (subtract n 1)) (fibonacci (subtract n 2)))}
+  )
+}
+
+(println "Computing fib(3)...")
+result = (fibonacci 3)
+(println "fib(3) = " result)

@@ -1,0 +1,12 @@
+// Malicious library that tries to execute shell commands
+// This should FAIL when loaded with use_with without "shell" capability
+
+(println "Malicious code attempting shell access...")
+
+// Try to steal SSH keys (THIS SHOULD FAIL)
+(shell "echo 'ATTACK: Trying to read SSH keys'")
+
+// Define an innocent-looking function
+get_color = {
+  <- "red"
+}

@@ -1,0 +1,245 @@
+// Multi-Statement Blocks Comprehensive Test Suite
+// Tests parameterless blocks with multiple statements and explicit returns
+
+(println "=== Multi-Statement Blocks Test Suite ===")
+(println "")
+
+// TEST 1: Basic multi-statement block with side effect + return
+(println "TEST 1: Basic multi-statement block")
+result1 = (if 1
+  {
+    (println "  Side effect: executing true branch")
+    <- 42
+  }
+  {
+    <- 0
+  }
+)
+test1_pass = (is result1 42)
+(println "  Result: " result1)
+(println "  PASS: " test1_pass)
+(println "")
+
+// TEST 2: Both branches with multi-statements
+(println "TEST 2: Both branches with multi-statements")
+x = 10
+result2 = (if (greater_than x 5)
+  {
+    (println "  x > 5: true branch")
+    <- (multiply x 2)
+  }
+  {
+    (println "  x <= 5: false branch")
+    <- (multiply x 3)
+  }
+)
+test2_pass = (is result2 20)
+(println "  Result: " result2)
+(println "  PASS: " test2_pass)
+(println "")
+
+// TEST 3: Multiple statements in sequence
+(println "TEST 3: Multiple statements in sequence")
+result3 = (if 1
+  {
+    (println "  Statement 1")
+    (println "  Statement 2")
+    (println "  Statement 3")
+    <- "done"
+  }
+  {
+    <- "skipped"
+  }
+)
+test3_pass = (is result3 "done")
+(println "  Result: " result3)
+(println "  PASS: " test3_pass)
+(println "")
+
+// TEST 4: Nested computations with intermediate values
+(println "TEST 4: Nested computations")
+a = 5
+b = 3
+result4 = (if 1
+  {
+    temp1 = (add a b)
+    temp2 = (multiply temp1 2)
+    (println "  Computed: " temp2)
+    <- temp2
+  }
+  {
+    <- 0
+  }
+)
+test4_pass = (is result4 16)
+(println "  Result: " result4)
+(println "  PASS: " test4_pass)
+(println "")
+
+// TEST 5: Block with only return (no side effects)
+(println "TEST 5: Block with only return statement")
+result5 = (if 1
+  {
+    <- 100
+  }
+  {
+    <- 200
+  }
+)
+test5_pass = (is result5 100)
+(println "  Result: " result5)
+(println "  PASS: " test5_pass)
+(println "")
+
+// TEST 6: False branch execution
+(println "TEST 6: False branch with multi-statements")
+result6 = (if 0
+  {
+    (println "  Should not print")
+    <- "wrong"
+  }
+  {
+    (println "  False branch executed")
+    <- "correct"
+  }
+)
+test6_pass = (is result6 "correct")
+(println "  Result: " result6)
+(println "  PASS: " test6_pass)
+(println "")
+
+// TEST 7: Expression evaluation before return
+(println "TEST 7: Expression evaluation before return")
+n = 7
+result7 = (if (greater_than n 0)
+  {
+    double = (multiply n 2)
+    triple = (multiply n 3)
+    sum = (add double triple)
+    <- sum
+  }
+  {
+    <- 0
+  }
+)
+test7_pass = (is result7 35)
+(println "  Result: " result7)
+(println "  PASS: " test7_pass)
+(println "")
+
+// TEST 8: Multiple if statements with blocks
+(println "TEST 8: Multiple if statements")
+val = 10
+result8a = (if (greater_than val 5)
+  {
+    (println "  First if: val > 5")
+    <- 1
+  }
+  {
+    <- 0
+  }
+)
+result8b = (if (less_than val 20)
+  {
+    (println "  Second if: val < 20")
+    <- 1
+  }
+  {
+    <- 0
+  }
+)
+test8_pass = (and (is result8a 1) (is result8b 1))
+(println "  Both results: " result8a " " result8b)
+(println "  PASS: " test8_pass)
+(println "")
+
+// TEST 9: Deeply nested blocks
+(println "TEST 9: Nested if with multi-statement blocks")
+outer = 1
+inner = 1
+result9 = (if outer
+  {
+    (println "  Outer true")
+    nested = (if inner
+      {
+        (println "  Inner true")
+        <- 99
+      }
+      {
+        <- 0
+      }
+    )
+    <- nested
+  }
+  {
+    <- -1
+  }
+)
+test9_pass = (is result9 99)
+(println "  Result: " result9)
+(println "  PASS: " test9_pass)
+(println "")
+
+// TEST 10: String concatenation in block
+(println "TEST 10: String operations in block")
+name = "Franz"
+result10 = (if 1
+  {
+    (println "  Processing name: " name)
+    greeting = "Hello"
+    <- greeting
+  }
+  {
+    <- "Error"
+  }
+)
+test10_pass = (is result10 "Hello")
+(println "  Result: " result10)
+(println "  PASS: " test10_pass)
+(println "")
+
+// TEST 11: List operations in block
+(println "TEST 11: List operations in block")
+nums = (list 1 2 3)
+result11 = (if 1
+  {
+    first = (head nums)
+    rest = (tail nums)
+    (println "  First: " first " Rest length: " (length rest))
+    <- first
+  }
+  {
+    <- 0
+  }
+)
+test11_pass = (is result11 1)
+(println "  Result: " result11)
+(println "  PASS: " test11_pass)
+(println "")
+
+// TEST 12: Function calls in block
+(println "TEST 12: Function calls in block")
+square = {x -> <- (multiply x x)}
+num = 4
+result12 = (if 1
+  {
+    (println "  Computing square of " num)
+    sq = (square num)
+    <- sq
+  }
+  {
+    <- 0
+  }
+)
+test12_pass = (is result12 16)
+(println "  Result: " result12)
+(println "  PASS: " test12_pass)
+(println "")
+
+// Summary
+(println "")
+(println "=== TEST SUMMARY ===")
+total = (add (add (add test1_pass test2_pass) (add test3_pass test4_pass)) (add (add (add test5_pass test6_pass) (add test7_pass test8_pass)) (add (add test9_pass test10_pass) (add test11_pass test12_pass))))
+(println "Tests passed: " total " / 12")
+all_pass = (is total 12)
+(println "All tests passed: " all_pass)

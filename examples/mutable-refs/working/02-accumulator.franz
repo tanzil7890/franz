@@ -1,0 +1,44 @@
+// Example 2: Accumulator Pattern
+// Demonstrates: Using ref as accumulator in higher-order functions
+
+(println "=== Accumulator Example ===")
+(println "")
+
+// Sum all numbers in a list using ref accumulator
+nums = (list 10 20 30 40 50)
+(println "Numbers: " nums)
+
+sum = (ref 0)
+
+add_to_sum = {x i ->
+  current = (deref sum)
+  (set! sum (add current x))
+  <- x
+}
+
+// Map with side effect (accumulation)
+(map nums add_to_sum)
+
+(println "Sum: " (deref sum))
+(println "")
+
+// Count items passing a test
+numbers = (list 1 5 10 15 3 8 20 2)
+(println "Count how many numbers > 5")
+(println "Numbers: " numbers)
+
+count = (ref 0)
+
+count_if_greater = {x i ->
+  (if (greater_than x 5)
+    {->
+      current = (deref count)
+      (set! count (add current 1))
+    }
+    {-> void}
+  )
+  <- x
+}
+
+(map numbers count_if_greater)
+(println "Count > 5: " (deref count))

@@ -1,0 +1,111 @@
+// Advanced Type Conversion Examples
+// Demonstrates chained conversions, edge cases, and practical patterns
+
+(println "=== Advanced Type Conversion Examples ===")
+(println "")
+
+// Example 1: Calculator from String Input
+(println "Example 1: String Calculator")
+num1_str = "15"
+num2_str = "7"
+num1 = (integer num1_str)
+num2 = (integer num2_str)
+sum = (add num1 num2)
+difference = (subtract num1 num2)
+product = (multiply num1 num2)
+quotient = (divide num1 num2)
+(println "  \"15\" + \"7\" = " sum)
+(println "  \"15\" - \"7\" = " difference)
+(println "  \"15\" * \"7\" = " product)
+(println "  \"15\" / \"7\" = " quotient)
+(println "")
+
+// Example 2: Currency Formatting
+(println "Example 2: Currency Formatting")
+amount = 1234.56
+amount_str = (string amount)
+(println "  Amount: $" amount_str)
+cents = (integer (multiply amount 100))
+(println "  In cents: " cents)
+(println "")
+
+// Example 3: Temperature Converter
+(println "Example 3: Temperature Converter (Celsius to Fahrenheit)")
+celsius_str = "25"
+celsius = (float celsius_str)
+fahrenheit = (add (multiply celsius 1.8) 32.0)
+(println "  " celsius "°C = " fahrenheit "°F")
+(println "")
+
+// Example 4: Scientific Notation Parsing
+(println "Example 4: Scientific Notation")
+large_num_str = "1.5e6"
+large_num = (float large_num_str)
+(println "  \"1.5e6\" = " large_num)
+(println "  (1,500,000 in standard notation)")
+(println "")
+
+// Example 5: Data Validation Pattern
+(println "Example 5: Input Validation")
+inputs = (list "123" "456" "789")
+input1 = (get inputs 0)
+input2 = (get inputs 1)
+input3 = (get inputs 2)
+val1 = (integer input1)
+val2 = (integer input2)
+val3 = (integer input3)
+total = (add val1 (add val2 val3))
+(println "  Processing list of strings: [\"123\", \"456\", \"789\"]")
+(println "  Sum: " total)
+(println "")
+
+// Example 6: Precision Control
+(println "Example 6: Float Precision")
+precise = 3.14159265359
+rounded_str = (string precise)
+(println "  Original: 3.14159265359")
+(println "  As string: " rounded_str)
+truncated = (integer precise)
+(println "  Truncated to int: " truncated)
+(println "")
+
+// Example 7: Round Trip Conversion
+(println "Example 7: Round Trip Conversion")
+original = 999
+step1 = (string original)
+step2 = (integer step1)
+matches = (is original step2)
+(println "  Original: " original)
+(println "  -> string -> integer: " step2)
+(println "  Preserved: " (if matches {<- "YES"} {<- "NO"}))
+(println "")
+
+// Example 8: Mixed Type Arithmetic
+(println "Example 8: Mixed Type Operations")
+int_val = (integer "10")
+float_val = (float "3.5")
+result = (multiply int_val float_val)
+(println "  integer(\"10\") * float(\"3.5\") = " result)
+(println "")
+
+// Example 9: Percentage Calculator
+(println "Example 9: Percentage Calculator")
+total_items = (integer "200")
+completed_items = (integer "75")
+percentage = (multiply (divide (float completed_items) (float total_items)) 100.0)
+(println "  Completed: " completed_items " / " total_items)
+(println "  Progress: " percentage "%")
+(println "")
+
+// Example 10: Format Numbers for Display
+(println "Example 10: Number Formatting")
+values = (list 42 -17 0 999 -500)
+v1 = (string (get values 0))
+v2 = (string (get values 1))
+v3 = (string (get values 2))
+v4 = (string (get values 3))
+v5 = (string (get values 4))
+(println "  Values as strings: [" v1 ", " v2 ", " v3 ", " v4 ", " v5 "]")
+(println "")
+
+(println "=== All Advanced Examples Complete ===")

@@ -1,0 +1,90 @@
+// Basic examples of dictionary (record) functions in Franz
+// Dicts are immutable key-value stores implemented as list-of-pairs
+
+(println "=== Basic Dictionary Examples ===")
+(println "")
+
+// Example 1: Creating a user record
+(println "Example 1: User record")
+user = (dict
+  "name" "Ada Lovelace"
+  "age" 36
+  "occupation" "Mathematician"
+  "country" "England")
+
+(println "User:" user)
+(println "Name:" (dict_get user "name"))
+(println "Age:" (dict_get user "age"))
+(println "")
+
+// Example 2: Updating a record (immutable)
+(println "Example 2: Updating records")
+user_updated = (dict_set user "age" 37)
+
+(println "Original user age:" (dict_get user "age"))
+(println "Updated user age:" (dict_get user_updated "age"))
+(println "")
+
+// Example 3: Configuration object
+(println "Example 3: Configuration")
+config = (dict
+  "debug" 1
+  "port" 8080
+  "host" "localhost"
+  "timeout" 30)
+
+(if (dict_has config "debug") {
+  (println "Debug mode enabled")
+} {
+  (println "Debug mode disabled")
+})
+
+(println "Server will run on" (dict_get config "host") ":" (dict_get config "port"))
+(println "")
+
+// Example 4: Merging configurations
+(println "Example 4: Merging configs")
+defaults = (dict "timeout" 60 "retries" 3 "verbose" 0)
+user_config = (dict "verbose" 1 "port" 3000)
+
+final_config = (dict_merge defaults user_config)
+
+(println "Default timeout:" (dict_get defaults "timeout"))
+(println "Final timeout:" (dict_get final_config "timeout"))
+(println "Final verbose:" (dict_get final_config "verbose"))
+(println "Final port:" (dict_get final_config "port"))
+(println "")
+
+// Example 5: Iterating over keys and values
+(println "Example 5: Iteration")
+person = (dict "first" "Alan" "last" "Turing" "year" 1912)
+
+(println "Keys:" (dict_keys person))
+(println "Values:" (dict_values person))
+
+// Map over keys to print each entry
+(map (dict_keys person) {key i ->
+  value = (dict_get person key)
+  (println "  " key ":" value)
+  <- void
+})
+
+(println "")
+
+// Example 6: Nested dictionaries
+(println "Example 6: Nested records")
+address = (dict
+  "street" "Baker Street"
+  "number" 221
+  "city" "London")
+
+person_with_address = (dict
+  "name" "Sherlock Holmes"
+  "address" address)
+
+addr = (dict_get person_with_address "address")
+street = (dict_get addr "street")
+number = (dict_get addr "number")
+
+(println "Name:" (dict_get person_with_address "name"))
+(println "Address:" number street)

@@ -1,0 +1,74 @@
+// Benchmark Example - Compare Algorithm Performance
+// Demonstrates using (time) to measure and compare execution speed
+
+(println "═══════════════════════════════════════")
+(println "  Algorithm Performance Benchmark")
+(println "═══════════════════════════════════════")
+(println "")
+
+// Algorithm 1: Loop-based sum
+sum_with_loop = {n ->
+  sum = 0
+  (loop n {i ->
+    sum = (add sum i)
+  })
+  <- sum
+}
+
+// Algorithm 2: Reduce-based sum
+sum_with_reduce = {n ->
+  <- (reduce (range n) {acc x i -> <- (add acc x)} 0)
+}
+
+// Algorithm 3: Mathematical formula (n * (n-1) / 2)
+sum_with_formula = {n ->
+  <- (divide (multiply n (subtract n 1)) 2)
+}
+
+// Benchmark function
+benchmark = {name fn iterations ->
+  start = (time)
+  result = (fn iterations)
+  duration = (subtract (time) start)
+
+  rate = (divide iterations duration)
+  (println name ":")
+  (println "  Duration:" duration "seconds")
+  (println "  Rate:" (integer rate) "iterations/sec")
+  (println "  Result:" result)
+  (println "")
+
+  <- (dict
+    "name" name
+    "duration" duration
+    "rate" rate
+    "result" result
+  )
+}
+
+// Run benchmarks
+n = 10000
+
+(println "Computing sum of 0 to" (subtract n 1) "\n")
+
+results = (list
+  (benchmark "Loop-based" sum_with_loop n)
+  (benchmark "Reduce-based" sum_with_reduce n)
+  (benchmark "Formula-based" sum_with_formula n)
+)
+
+// Find fastest
+fastest = (reduce results {best current i ->
+  current_duration = (dict_get current "duration")
+  best_duration = (dict_get best "duration")
+
+  <- (if (less_than current_duration best_duration)
+    {<- current}
+    {<- best}
+  )
+} (get results 0))
+
+(println "═══════════════════════════════════════")
+(println "Fastest:" (dict_get fastest "name"))
+(println "Duration:" (dict_get fastest "duration") "seconds")
+(println "═══════════════════════════════════════")

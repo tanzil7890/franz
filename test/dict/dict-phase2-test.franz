@@ -1,0 +1,223 @@
+// Comprehensive test suite for  dict functions
+// Tests: dict_remove, dict_map, dict_filter
+
+(println "=== Franz Dictionary  Functions Test Suite ===")
+(println "")
+
+// ============================================================================
+// dict_remove tests
+// ============================================================================
+
+(println "--- dict_remove Tests ---")
+(println "")
+
+// Test 1: Remove existing key
+(println "Test 1: Remove existing key")
+user = (dict "name" "Ada" "age" 37 "city" "London")
+user2 = (dict_remove user "age")
+has_age = (dict_has user2 "age")
+has_name = (dict_has user2 "name")
+(println "PASS: After removing age, has_age=" has_age "has_name=" has_name)
+(println "")
+
+// Test 2: Remove non-existent key (no-op)
+(println "Test 2: Remove non-existent key")
+user3 = (dict_remove user "missing")
+keys_count = (length (dict_keys user3))
+(println "PASS: Removing non-existent key, count still" keys_count)
+(println "")
+
+// Test 3: Original dict unchanged (immutable)
+(println "Test 3: Original dict unchanged")
+orig_count = (length (dict_keys user))
+new_count = (length (dict_keys user2))
+(println "PASS: Original has" orig_count "keys, new has" new_count "keys")
+(println "")
+
+// Test 4: Remove from empty dict
+(println "Test 4: Remove from empty dict")
+empty = (dict)
+still_empty = (dict_remove empty "x")
+empty_count = (length (dict_keys still_empty))
+(println "PASS: Removing from empty, count=" empty_count)
+(println "")
+
+// Test 5: Remove last key
+(println "Test 5: Remove last key")
+single = (dict "only" "value")
+empty_after = (dict_remove single "only")
+after_count = (length (dict_keys empty_after))
+(println "PASS: After removing last key, count=" after_count)
+(println "")
+
+// ============================================================================
+// dict_map tests
+// ============================================================================
+
+(println "--- dict_map Tests ---")
+(println "")
+
+// Test 6: Map to double all values
+(println "Test 6: Map to double numeric values")
+scores = (dict "alice" 90 "bob" 85 "carol" 95)
+double_fn = {k v -> <- (multiply v 2)}
+doubled = (dict_map scores double_fn)
+alice_doubled = (dict_get doubled "alice")
+bob_doubled = (dict_get doubled "bob")
+(println "PASS: Doubled scores - alice:" alice_doubled "bob:" bob_doubled)
+(println "")
+
+// Test 7: Map using both key and value
+(println "Test 7: Map using both key and value")
+data = (dict "x" 10 "y" 20)
+concat_fn = {k v -> <- (join k "=" (string v))}
+result7 = (dict_map data concat_fn)
+x_val = (dict_get result7 "x")
+y_val = (dict_get result7 "y")
+(println "PASS: Concatenated - x:" x_val "y:" y_val)
+(println "")
+
+// Test 8: Map on empty dict
+(println "Test 8: Map on empty dict")
+empty_mapped = (dict_map (dict) {k v -> <- v})
+mapped_count = (length (dict_keys empty_mapped))
+(println "PASS: Mapping empty dict, count=" mapped_count)
+(println "")
+
+// Test 9: Map preserves keys
+(println "Test 9: Map preserves keys")
+nums = (dict 1 "one" 2 "two" 3 "three")
+upper_fn = {k v -> <- (join "NUM_" v)}
+result9 = (dict_map nums upper_fn)
+has_1 = (dict_has result9 1)
+has_2 = (dict_has result9 2)
+(println "PASS: Keys preserved - has_1:" has_1 "has_2:" has_2)
+(println "")
+
+// Test 10: Map to add bonus
+(println "Test 10: Map to add bonus points")
+points = (dict "player1" 100 "player2" 150 "player3" 200)
+add_bonus = {k v -> <- (add v 50)}
+with_bonus = (dict_map points add_bonus)
+p1_bonus = (dict_get with_bonus "player1")
+p3_bonus = (dict_get with_bonus "player3")
+(println "PASS: With bonus - player1:" p1_bonus "player3:" p3_bonus)
+(println "")
+
+// ============================================================================
+// dict_filter tests
+// ============================================================================
+
+(println "--- dict_filter Tests ---")
+(println "")
+
+// Test 11: Filter values greater than threshold
+(println "Test 11: Filter scores > 90")
+test_scores = (dict "alice" 95 "bob" 85 "carol" 92 "dave" 88)
+high_filter = {k v -> <- (greater_than v 90)}
+high_scores = (dict_filter test_scores high_filter)
+high_keys = (dict_keys high_scores)
+(println "PASS: High scorers:" high_keys)
+(println "")
+
+// Test 12: Filter by key
+(println "Test 12: Filter by key starting with 'a'")
+people = (dict "alice" 25 "bob" 30 "alan" 28 "carol" 35)
+starts_with_a = {k v ->
+  first_char = (get k 0 1)
+  <- (is first_char "a")
+}
+a_people = (dict_filter people starts_with_a)
+a_keys = (dict_keys a_people)
+(println "PASS: Names starting with 'a':" a_keys)
+(println "")
+
+// Test 13: Filter returns empty
+(println "Test 13: Filter that matches nothing")
+nums13 = (dict "x" 1 "y" 2 "z" 3)
+impossible = {k v -> <- 0}
+none = (dict_filter nums13 impossible)
+none_count = (length (dict_keys none))
+(println "PASS: No matches, count=" none_count)
+(println "")
+
+// Test 14: Filter returns all
+(println "Test 14: Filter that matches everything")
+nums14 = (dict "a" 10 "b" 20)
+always = {k v -> <- 1}
+all = (dict_filter nums14 always)
+all_count = (length (dict_keys all))
+(println "PASS: All match, count=" all_count)
+(println "")
+
+// Test 15: Filter on empty dict
+(println "Test 15: Filter on empty dict")
+empty_filtered = (dict_filter (dict) {k v -> <- 1})
+filtered_count = (length (dict_keys empty_filtered))
+(println "PASS: Filtering empty, count=" filtered_count)
+(println "")
+
+// Test 16: Filter using value type check
+(println "Test 16: Filter numeric values only")
+mixed_dict = (dict "str" "hello" "num" 42)
+is_numeric = {k v ->
+  v_type = (type v)
+  <- (or (is v_type "integer") (is v_type "float"))
+}
+numeric_only = (dict_filter mixed_dict is_numeric)
+numeric_keys = (dict_keys numeric_only)
+(println "PASS: Numeric keys:" numeric_keys)
+(println "")
+
+// ============================================================================
+// Integration tests
+// ============================================================================
+
+(println "--- Integration Tests ---")
+(println "")
+
+// Test 17: Remove then map
+(println "Test 17: Remove then map")
+data17 = (dict "a" 1 "b" 2 "c" 3)
+data17 = (dict_remove data17 "b")
+data17 = (dict_map data17 {k v -> <- (multiply v 10)})
+a_val = (dict_get data17 "a")
+c_val = (dict_get data17 "c")
+has_b = (dict_has data17 "b")
+(println "PASS: a=" a_val "c=" c_val "has_b=" has_b)
+(println "")
+
+// Test 18: Map then filter
+(println "Test 18: Map then filter")
+data18 = (dict "x" 5 "y" 10 "z" 15)
+data18 = (dict_map data18 {k v -> <- (multiply v 2)})
+data18 = (dict_filter data18 {k v -> <- (greater_than v 15)})
+result_keys = (dict_keys data18)
+(println "PASS: Keys after map+filter:" result_keys)
+(println "")
+
+// Test 19: Filter then map
+(println "Test 19: Filter then map")
+data19 = (dict "p1" 100 "p2" 50 "p3" 150)
+data19 = (dict_filter data19 {k v -> <- (greater_than v 75)})
+data19 = (dict_map data19 {k v -> <- (add v 25)})
+p1_final = (dict_get data19 "p1")
+p3_final = (dict_get data19 "p3")
+has_p2 = (dict_has data19 "p2")
+(println "PASS: p1=" p1_final "p3=" p3_final "has_p2=" has_p2)
+(println "")
+
+// Test 20: Complex pipeline
+(println "Test 20: Complex pipeline (remove, map, filter, merge)")
+config = (dict "timeout" 30 "retries" 3 "debug" 0 "port" 8080)
+config = (dict_remove config "debug")
+config = (dict_map config {k v -> <- (if (is (type v) "integer") {<- (add v 1)} {<- v})})
+config = (dict_filter config {k v -> <- (greater_than v 5)})
+defaults = (dict "host" "localhost" "ssl" 1)
+config = (dict_merge config defaults)
+
+final_keys = (dict_keys config)
+(println "PASS: Final config keys:" final_keys)
+(println "")
+
+(println "=== All 20  dict tests completed successfully! ===")

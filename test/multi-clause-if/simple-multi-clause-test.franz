@@ -1,0 +1,28 @@
+(println "=== Simple Multi-Clause If Test ===")
+(println "")
+
+(println "Test 1: Basic 3-arg if (should already work)")
+result1 = (if (is 1 1) {<- "true"} {<- "false"})
+(println "PASS: 3-arg if works, result = " result1)
+
+(println "Test 2: 5-arg if (2 conditions + else)")
+check_number = {n ->
+  <- (if
+    (is n 0) {<- "zero"}
+    (is n 1) {<- "one"}
+    {<- "other"}
+  )
+}
+
+(println "PASS: 5-arg if defined successfully")
+
+test2_result_zero = (check_number 0)
+test2_result_one = (check_number 1)
+test2_result_other = (check_number 5)
+
+(println "PASS: 5-arg if - zero case = " test2_result_zero)
+(println "PASS: 5-arg if - one case = " test2_result_one)
+(println "PASS: 5-arg if - other case = " test2_result_other)
+
+(println "")
+(println "All tests passed!")

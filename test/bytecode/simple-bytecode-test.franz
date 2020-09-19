@@ -1,0 +1,20 @@
+// Simple Bytecode Test
+// Tests basic bytecode compilation and execution
+
+(println "=== Simple Bytecode Test ===")
+(println "")
+
+(println "Test 1: Integer arithmetic")
+x = (add 2 3)
+(println "2 + 3 =" x)
+
+(println "Test 2: Variable assignment and retrieval")
+y = 42
+(println "y =" y)
+
+(println "Test 3: Multiple operations")
+z = (multiply (add 2 3) 4)
+(println "(2 + 3) * 4 =" z)
+
+(println "")
+(println "Basic bytecode tests complete!")

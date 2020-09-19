@@ -1,0 +1,12 @@
+// Test fib(2) only
+fibonacci = {n ->
+  <- (if
+    (is n 0) {<- 0}
+    (is n 1) {<- 1}
+    {<- (add (fibonacci (subtract n 1)) (fibonacci (subtract n 2)))}
+  )
+}
+
+(println "Testing fib(2)...")
+result = (fibonacci 2)
+(println "fib(2) = " result)

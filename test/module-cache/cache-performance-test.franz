@@ -1,0 +1,19 @@
+// Test 1: Module caching performance - should be fast with caching
+(println "=== Test 1: Module Cache Performance ===")
+(println "Loading same module 100 times (should use cache)")
+
+results = (list)
+(loop 100 {i ->
+  (use "test/module-cache/test-module.franz" {
+    result = (square i)
+    results = (cons result results)
+  })
+})
+
+count = (length results)
+(println "Completed" count "iterations")
+(if (is count 100)
+  {<- (println "✓ PASS - All iterations completed")}
+  {<- (println "✗ FAIL - Expected 100, got" count)})
+
+(println "")

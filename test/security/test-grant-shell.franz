@@ -1,0 +1,9 @@
+// Test that shell access WORKS when explicitly granted
+(println "=== Test: Shell Access With Explicit Grant ===")
+(println "Loading code WITH 'shell' capability granted...")
+(println "")
+
+(use_with (list "print" "shell") "examples/security/failing/malicious.franz" {
+  (println "Shell capability was granted - malicious code executed")
+  <- (get_color)
+})

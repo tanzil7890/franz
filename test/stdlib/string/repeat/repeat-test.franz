@@ -1,0 +1,52 @@
+// Franz Standard Library - String Module
+// Test Suite for repeat() function
+
+(use "stdlib/string.franz" {
+  (println "=== repeat() Function Tests ===")
+  (println "")
+
+  (println "Test 1: repeat - basic")
+  test1_result = (repeat "ab" 3)
+  (if (is test1_result "ababab") {
+    (println "  ✓ PASS: repeat basic")
+  } {
+    (println "  ✗ FAIL - Expected 'ababab', got:" test1_result)
+  })
+
+  (println "Test 2: repeat - single character")
+  test2_result = (repeat "x" 5)
+  (if (is test2_result "xxxxx") {
+    (println "  ✓ PASS: repeat single char")
+  } {
+    (println "  ✗ FAIL - Expected 'xxxxx', got:" test2_result)
+  })
+
+  (println "Test 3: repeat - zero times")
+  test3_result = (repeat "test" 0)
+  (if (is test3_result "") {
+    (println "  ✓ PASS: repeat zero times")
+  } {
+    (println "  ✗ FAIL - Expected empty, got:" test3_result)
+  })
+
+  (println "Test 4: repeat - once")
+  test4_result = (repeat "hi" 1)
+  (if (is test4_result "hi") {
+    (println "  ✓ PASS: repeat once")
+  } {
+    (println "  ✗ FAIL - Expected 'hi', got:" test4_result)
+  })
+
+  (println "Test 5: repeat - longer string")
+  test5_result = (repeat "hello" 2)
+  (if (is test5_result "hellohello") {
+    (println "  ✓ PASS: repeat longer string")
+  } {
+    (println "  ✗ FAIL - Expected 'hellohello', got:" test5_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "repeat() tests complete - 5/5 executed")
+  (println "===========================================")
+})

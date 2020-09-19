@@ -1,0 +1,3 @@
+(println "Before input")
+(input)
+(println "After input")

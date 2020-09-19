@@ -1,0 +1,32 @@
+// Example 5: Void Comparison
+(println "Example 5: Void Comparison")
+v1 = void
+v2 = void
+(println "  v1 = void, v2 = void")
+(println "  v1 == v2? " (if (is v1 v2) {<- "Yes (all voids equal)"} {<- "No"}))
+
+(println "  v1 == void? " (if (is v1 void) {<- "Yes"} {<- "No"}))
+(println "  0 == void? " (if (is 0 void) {<- "Yes"} {<- "No"}))
+
+describe_value = {label value ->
+  status = (if (is value void) {<- "void"} {<- "not void"})
+  (println "  " label ": " status)
+}
+
+(describe_value "literal void" void)
+zero_literal = 0
+(describe_value "integer zero" zero_literal)
+just_void = void
+(describe_value "variable assigned to void" just_void)
+
+inspect_param = {input ->
+  (if (is input void)
+    {(println "  closure parameter is void")}
+    {(println "  closure parameter holds: " input)}
+  )
+}
+
+(inspect_param void)
+(inspect_param 42)
+
+(println "")

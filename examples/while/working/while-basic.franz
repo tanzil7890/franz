@@ -1,0 +1,63 @@
+// Basic While Loop Examples
+// Industry-standard condition-based iteration
+
+(println "=== Basic While Loop Examples ===")
+(println "")
+
+// Example 1: Simple countdown
+(println "Example 1: Countdown from 5")
+mut count = 5
+(while (greater_than count 0) {
+  (println "  Count:" count)
+  count = (subtract count 1)
+})
+(println "  Blast off!")
+(println "")
+
+// Example 2: Sum numbers until threshold
+(println "Example 2: Sum numbers until sum >= 20")
+mut sum = 0
+mut num = 1
+(while (less_than sum 20) {
+  (println "  Adding" num "sum=" sum)
+  sum = (add sum num)
+  num = (add num 1)
+})
+(println "Final sum:" sum)
+(println "")
+
+// Example 3: Process until condition
+(println "Example 3: Double until > 100")
+mut value = 1
+(while (less_than value 100) {
+  (println "  value=" value)
+  value = (multiply value 2)
+})
+(println "Final value:" value)
+(println "")
+
+// Example 4: While with break (search pattern)
+(println "Example 4: Find first number divisible by 7")
+mut n = 1
+result = (while 1 {
+  (if (is (remainder n 7) 0)
+    {(break n)}
+    {})
+  n = (add n 1)
+})
+(println "Found:" result)
+(println "")
+
+// Example 5: While with continue (filter pattern)
+(println "Example 5: Print odd numbers from 1-10")
+mut i = 0
+(while (less_than i 10) {
+  i = (add i 1)
+  (if (is (remainder i 2) 0)
+    {(continue)}
+    {})
+  (println "  Odd:" i)
+})
+(println "")
+
+(println "All basic examples complete!")

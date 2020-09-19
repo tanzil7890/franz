@@ -1,0 +1,22 @@
+// Simple Module System Test (No Callback)
+// Tests basic use() functionality without callback
+
+(println "=== Simple Module System Test (No Callback) ===")
+(println "")
+
+(println "Test 1: Load helper module")
+(use "examples/circular-deps/working/helper.franz")
+(println "✓ Module loaded successfully")
+
+(println "")
+(println "Test 2: Use double function from helper module")
+result = (double 5)
+(println "double(5) =" result)
+
+(println "")
+(println "Test 3: Use triple function from helper module")
+result2 = (triple 7)
+(println "triple(7) =" result2)
+
+(println "")
+(println "=== Test Complete ===")

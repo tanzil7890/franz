@@ -1,0 +1,98 @@
+(println "=== Boolean Logic Comprehensive Tests ===")
+(println "")
+
+(println "NOT Tests:")
+(println "")
+
+(println "Test 1: not 0 → 1")
+ok1 = (is (not 0) 1)
+(println (if ok1 {<- "  PASS: (not 0) → 1"} {<- "  FAIL"}))
+
+(println "Test 2: not 1 → 0")
+ok2 = (is (not 1) 0)
+(println (if ok2 {<- "  PASS: (not 1) → 0"} {<- "  FAIL"}))
+
+(println "Test 3: Double negation - not(not 0)")
+ok3 = (is (not (not 0)) 0)
+(println (if ok3 {<- "  PASS: (not (not 0)) → 0"} {<- "  FAIL"}))
+
+(println "Test 4: Double negation - not(not 1)")
+ok4 = (is (not (not 1)) 1)
+(println (if ok4 {<- "  PASS: (not (not 1)) → 1"} {<- "  FAIL"}))
+
+(println "")
+(println "AND Tests:")
+(println "")
+
+(println "Test 5: and with all true (1 1 1)")
+ok5 = (is (and 1 1 1) 1)
+(println (if ok5 {<- "  PASS: (and 1 1 1) → 1"} {<- "  FAIL"}))
+
+(println "Test 6: and with one false (1 0 1)")
+ok6 = (is (and 1 0 1) 0)
+(println (if ok6 {<- "  PASS: (and 1 0 1) → 0"} {<- "  FAIL"}))
+
+(println "Test 7: and with all false (0 0 0)")
+ok7 = (is (and 0 0 0) 0)
+(println (if ok7 {<- "  PASS: (and 0 0 0) → 0"} {<- "  FAIL"}))
+
+(println "Test 8: and with two arguments (1 1)")
+ok8 = (is (and 1 1) 1)
+(println (if ok8 {<- "  PASS: (and 1 1) → 1"} {<- "  FAIL"}))
+
+(println "Test 9: and with two arguments (1 0)")
+ok9 = (is (and 1 0) 0)
+(println (if ok9 {<- "  PASS: (and 1 0) → 0"} {<- "  FAIL"}))
+
+(println "Test 10: and with two arguments (0 0)")
+ok10 = (is (and 0 0) 0)
+(println (if ok10 {<- "  PASS: (and 0 0) → 0"} {<- "  FAIL"}))
+
+(println "Test 11: and with many arguments - all true")
+ok11 = (is (and 1 1 1 1 1) 1)
+(println (if ok11 {<- "  PASS: (and 1 1 1 1 1) → 1"} {<- "  FAIL"}))
+
+(println "Test 12: and with many arguments - one false")
+ok12 = (is (and 1 1 0 1 1) 0)
+(println (if ok12 {<- "  PASS: (and 1 1 0 1 1) → 0"} {<- "  FAIL"}))
+
+(println "")
+(println "OR Tests:")
+(println "")
+
+(println "Test 13: or with at least one true (0 0 1)")
+ok13 = (is (or 0 0 1) 1)
+(println (if ok13 {<- "  PASS: (or 0 0 1) → 1"} {<- "  FAIL"}))
+
+(println "Test 14: or with all false (0 0 0)")
+ok14 = (is (or 0 0 0) 0)
+(println (if ok14 {<- "  PASS: (or 0 0 0) → 0"} {<- "  FAIL"}))
+
+(println "Test 15: or with all true (1 1 1)")
+ok15 = (is (or 1 1 1) 1)
+(println (if ok15 {<- "  PASS: (or 1 1 1) → 1"} {<- "  FAIL"}))
+
+(println "Test 16: or with two arguments (1 0)")
+ok16 = (is (or 1 0) 1)
+(println (if ok16 {<- "  PASS: (or 1 0) → 1"} {<- "  FAIL"}))
+
+(println "Test 17: or with two arguments (0 1)")
+ok17 = (is (or 0 1) 1)
+(println (if ok17 {<- "  PASS: (or 0 1) → 1"} {<- "  FAIL"}))
+
+(println "Test 18: or with two arguments (0 0)")
+ok18 = (is (or 0 0) 0)
+(println (if ok18 {<- "  PASS: (or 0 0) → 0"} {<- "  FAIL"}))
+
+(println "Test 19: or with many arguments - one true")
+ok19 = (is (or 0 0 0 1 0) 1)
+(println (if ok19 {<- "  PASS: (or 0 0 0 1 0) → 1"} {<- "  FAIL"}))
+
+(println "Test 20: or with many arguments - all false")
+ok20 = (is (or 0 0 0 0 0) 0)
+(println (if ok20 {<- "  PASS: (or 0 0 0 0 0) → 0"} {<- "  FAIL"}))
+
+(println "")
+total = (add ok1 ok2 ok3 ok4 ok5 ok6 ok7 ok8 ok9 ok10 ok11 ok12 ok13 ok14 ok15 ok16 ok17 ok18 ok19 ok20)
+(println "Tests passed: " total "/20")
+(println (if (is total 20) {<- "✓ All comprehensive tests PASSED!"} {<- "✗ Some tests FAILED"}))

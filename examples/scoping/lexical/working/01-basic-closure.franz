@@ -1,0 +1,48 @@
+// Basic closure demonstrating lexical scope capture
+// Run with: ./franz --scoping=lexical examples/scoping/lexical/working/01-basic-closure.franz
+
+(println "=== Basic Lexical Closure ===")
+(println "")
+
+// Example 1: Simple variable capture
+(println "Example 1: Simple capture")
+x = 10
+get_x = {-> <- x}
+
+(println "  x defined as: " x)
+(println "  get_x returns: " (get_x))
+(println "  ✓ Closure captures x=10 at definition time")
+(println "")
+
+// Example 2: Closure isolates from caller
+(println "Example 2: Isolation from caller")
+y = 100
+get_y = {-> <- y}
+
+test = {->
+  y = 999
+  (println "  Inside test, local y = " y)
+  result = (get_y)
+  (println "  get_y() returns: " result " (captured y=100, not local y=999)")
+  <- result
+}
+
+final = (test)
+(println "  ✓ Lexical scoping: closure uses captured environment")
+(println "")
+
+// Example 3: Multiple closures, separate environments
+(println "Example 3: Independent closures")
+make_adder = {n ->
+  <- {x -> <- (add x n)}
+}
+
+add5 = (make_adder 5)
+add10 = (make_adder 10)
+
+(println "  add5(3) = " (add5 3) " (expected: 8)")
+(println "  add10(3) = " (add10 3) " (expected: 13)")
+(println "  ✓ Each closure has independent captured environment")
+(println "")
+
+(println "=== All examples demonstrate lexical scoping ===")

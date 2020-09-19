@@ -1,0 +1,187 @@
+(println "===  Enhanced Math Functions Test ===")
+(println "")
+
+// ============================================================================
+// Test Category 1: remainder (modulo)
+// ============================================================================
+
+(println "Category 1: remainder() function")
+(println "")
+
+(println "Test 1.1: Integer remainder")
+result1 = (remainder 10 3)
+(println "  remainder(10, 3) =" result1 "  (expected: 1)")
+
+(println "Test 1.2: Remainder with negative")
+result2 = (remainder -10 3)
+(println "  remainder(-10, 3) =" result2 "  (expected: -1)")
+
+(println "Test 1.3: Float remainder")
+result3 = (remainder 10.5 3.0)
+(println "  remainder(10.5, 3.0) =" result3 "  (expected: 1.5)")
+
+(println "")
+
+// ============================================================================
+// Test Category 2: power (exponentiation)
+// ============================================================================
+
+(println "Category 2: power() function")
+(println "")
+
+(println "Test 2.1: Integer power")
+result4 = (power 2 8)
+(println "  power(2, 8) =" result4 "  (expected: 256)")
+
+(println "Test 2.2: Power with 0 exponent")
+result5 = (power 5 0)
+(println "  power(5, 0) =" result5 "  (expected: 1)")
+
+(println "Test 2.3: Float power")
+result6 = (power 2.0 0.5)
+(println "  power(2.0, 0.5) =" result6 "  (expected: 1.414...)")
+
+(println "")
+
+// ============================================================================
+// Test Category 3: random
+// ============================================================================
+
+(println "Category 3: random() function")
+(println "")
+
+(println "Test 3.1: Random number generation")
+result7 = (random)
+(println "  random() =" result7 "  (expected: 0.0-1.0)")
+
+(println "Test 3.2: Multiple random calls")
+result8 = (random)
+result9 = (random)
+(println "  random() =" result8)
+(println "  random() =" result9 "  (should be different)")
+
+(println "")
+
+// ============================================================================
+// Test Category 4: floor, ceil, round
+// ============================================================================
+
+(println "Category 4: Rounding functions")
+(println "")
+
+(println "Test 4.1: floor()")
+result10 = (floor 3.7)
+(println "  floor(3.7) =" result10 "  (expected: 3)")
+
+(println "Test 4.2: floor() with negative")
+result11 = (floor -2.3)
+(println "  floor(-2.3) =" result11 "  (expected: -3)")
+
+(println "Test 4.3: ceil()")
+result12 = (ceil 3.2)
+(println "  ceil(3.2) =" result12 "  (expected: 4)")
+
+(println "Test 4.4: ceil() with negative")
+result13 = (ceil -2.7)
+(println "  ceil(-2.7) =" result13 "  (expected: -2)")
+
+(println "Test 4.5: round()")
+result14 = (round 3.5)
+(println "  round(3.5) =" result14 "  (expected: 4)")
+
+(println "Test 4.6: round() down")
+result15 = (round 3.4)
+(println "  round(3.4) =" result15 "  (expected: 3)")
+
+(println "")
+
+// ============================================================================
+// Test Category 5: abs
+// ============================================================================
+
+(println "Category 5: abs() function")
+(println "")
+
+(println "Test 5.1: Integer abs - positive")
+result16 = (abs 42)
+(println "  abs(42) =" result16 "  (expected: 42)")
+
+(println "Test 5.2: Integer abs - negative")
+result17 = (abs -42)
+(println "  abs(-42) =" result17 "  (expected: 42)")
+
+(println "Test 5.3: Float abs")
+result18 = (abs -3.14)
+(println "  abs(-3.14) =" result18 "  (expected: 3.14)")
+
+(println "")
+
+// ============================================================================
+// Test Category 6: min and max (variadic)
+// ============================================================================
+
+(println "Category 6: min() and max() functions")
+(println "")
+
+(println "Test 6.1: min with 2 arguments")
+result19 = (min 5 2)
+(println "  min(5, 2) =" result19 "  (expected: 2)")
+
+(println "Test 6.2: min with 4 arguments")
+result20 = (min 5 2 8 1)
+(println "  min(5, 2, 8, 1) =" result20 "  (expected: 1)")
+
+(println "Test 6.3: min with floats")
+result21 = (min 3.5 1.2 4.8 2.1)
+(println "  min(3.5, 1.2, 4.8, 2.1) =" result21 "  (expected: 1.2)")
+
+(println "Test 6.4: max with 2 arguments")
+result22 = (max 5 2)
+(println "  max(5, 2) =" result22 "  (expected: 5)")
+
+(println "Test 6.5: max with 4 arguments")
+result23 = (max 5 2 8 1)
+(println "  max(5, 2, 8, 1) =" result23 "  (expected: 8)")
+
+(println "Test 6.6: max with mixed types")
+result24 = (max 5 2.5 8 1.0)
+(println "  max(5, 2.5, 8, 1.0) =" result24 "  (expected: 8.0)")
+
+(println "")
+
+// ============================================================================
+// Test Category 7: sqrt
+// ============================================================================
+
+(println "Category 7: sqrt() function")
+(println "")
+
+(println "Test 7.1: Perfect square")
+result25 = (sqrt 16)
+(println "  sqrt(16) =" result25 "  (expected: 4.0)")
+
+(println "Test 7.2: Non-perfect square")
+result26 = (sqrt 2.0)
+(println "  sqrt(2.0) =" result26 "  (expected: 1.414...)")
+
+(println "Test 7.3: Large number")
+result27 = (sqrt 100.0)
+(println "  sqrt(100.0) =" result27 "  (expected: 10.0)")
+
+(println "")
+
+// ============================================================================
+// Test Summary
+// ============================================================================
+
+(println "===========================================")
+(println " Math Functions Test Complete!")
+(println "  - remainder: 3 tests")
+(println "  - power: 3 tests")
+(println "  - random: 3 tests")
+(println "  - floor/ceil/round: 6 tests")
+(println "  - abs: 3 tests")
+(println "  - min/max: 6 tests")
+(println "  - sqrt: 3 tests")
+(println "  Total: 27 tests executed")
+(println "===========================================")

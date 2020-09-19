@@ -1,0 +1,44 @@
+(println "=== Data Processing Pipeline Example ===")
+(println "")
+
+(println "Example 1: User Input Validation")
+(println "Transform user input: parse -> validate -> clamp")
+
+parse_number = {s -> <- (integer s)}
+validate_positive = {n ->
+  result = (if (greater_than n 0) {<- n} {<- 0})
+  <- result
+}
+clamp_max = {n ->
+  result = (if (greater_than n 100) {<- 100} {<- n})
+  <- result
+}
+
+user_input = "75"
+validated_number = (pipe user_input parse_number validate_positive clamp_max)
+(println "Input:" user_input "-> Output:" validated_number)
+(println "")
+
+(println "Example 2: List Processing Pipeline")
+(println "Process numbers: double each -> sum all")
+
+numbers = (list 1 2 3 4 5)
+double_all = {lst -> <- (map lst {x i -> <- (multiply x 2)})}
+sum_all = {lst -> <- (reduce lst {acc x i -> <- (add acc x)} 0)}
+
+result = (pipe numbers double_all sum_all)
+(println "Original:" numbers)
+(println "After doubling: (2 4 6 8 10)")
+(println "Sum:" result)
+(println "")
+
+(println "Example 3: Mathematical Transformations")
+(println "Calculate area of circle: radius -> to_float -> square -> multiply_by_pi")
+
+radius = 5
+to_float_fn = {x -> <- (float x)}
+square = {x -> <- (multiply x x)}
+multiply_by_pi = {x -> <- (multiply x 3.14159)}
+
+area = (pipe radius to_float_fn square multiply_by_pi)
+(println "Circle with radius" radius "has area:" area)

@@ -1,0 +1,19 @@
+(println "=== List Creation Test ===")
+
+// Create empty list
+x = []
+(println "Created empty list")
+
+// Create integer list
+nums = [1, 2, 3]
+(println "Created integer list [1, 2, 3]")
+
+// Create mixed list
+data = [1, "hello", 3.14]
+(println "Created mixed list [1, hello, 3.14]")
+
+// Create nested list
+matrix = [[1, 2], [3, 4]]
+(println "Created nested list [[1, 2], [3, 4]]")
+
+(println "All tests passed!")

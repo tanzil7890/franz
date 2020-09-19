@@ -1,0 +1,64 @@
+// Partial application pattern with lexical closures
+// Run with: ./franz --scoping=lexical examples/scoping/lexical/patterns/01-partial-application.franz
+
+(println "=== Partial Application Pattern ===")
+(println "")
+
+// Pattern 1: Manual partial application
+(println "Pattern 1: Manual partial application")
+add = {a b -> <- (add a b)}
+add5_manual = {x -> <- (add 5 x)}
+result1 = (add5_manual 10)
+(println "  add5_manual(10) = " result1 " (5+10=15)")
+(println "  ✓ Closure captures first argument")
+(println "")
+
+// Pattern 2: Partial application factory
+(println "Pattern 2: Partial application factory")
+make_partial = {fn arg1 ->
+  <- {arg2 -> <- (fn arg1 arg2)}
+}
+multiply = {a b -> <- (multiply a b)}
+times10 = (make_partial multiply 10)
+result2 = (times10 5)
+(println "  times10(5) = " result2 " (10*5=50)")
+(println "  ✓ Factory creates partial application")
+(println "")
+
+// Pattern 3: Multiple argument capture
+(println "Pattern 3: Multiple argument capture")
+make_range_checker = {min max ->
+  <- {val ->
+    <- (if (less_than val min)
+      {-> <- 0}
+      {-> <- (if (greater_than val max)
+        {-> <- 0}
+        {-> <- 1}
+      )}
+    )
+  }
+}
+in_range_10_20 = (make_range_checker 10 20)
+(println "  in_range_10_20(5) = " (in_range_10_20 5) " (expected: 0)")
+(println "  in_range_10_20(15) = " (in_range_10_20 15) " (expected: 1)")
+(println "  in_range_10_20(25) = " (in_range_10_20 25) " (expected: 0)")
+(println "  ✓ Closure captures both min and max")
+(println "")
+
+// Pattern 4: Curried functions
+(println "Pattern 4: Curried functions")
+curry_add = {a ->
+  <- {b ->
+    <- {c ->
+      <- (add (add a b) c)
+    }
+  }
+}
+add1 = (curry_add 1)
+add1_2 = (add1 2)
+result4 = (add1_2 3)
+(println "  curry_add(1)(2)(3) = " result4 " (1+2+3=6)")
+(println "  ✓ Each stage captures its argument")
+(println "")
+
+(println "=== Partial application pattern complete ===")

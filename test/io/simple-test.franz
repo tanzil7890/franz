@@ -1,0 +1,4 @@
+(println "Starting test")
+x = 42
+(println "x=" x)
+(println "Test complete")

@@ -1,0 +1,9 @@
+// Example 2: String Comparison
+(println "Example 2: String Comparison")
+name1 = "Alice"
+name2 = "Alice"
+name3 = "Bob"
+(println "  name1 = \"Alice\", name2 = \"Alice\", name3 = \"Bob\"")
+(println "  name1 == name2? " (if (is name1 name2) {<- "Yes"} {<- "No"}))
+(println "  name1 == name3? " (if (is name1 name3) {<- "Yes"} {<- "No"}))
+(println "")

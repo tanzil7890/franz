@@ -1,0 +1,38 @@
+(println "=== Testing  Current Capabilities ===")
+(println "")
+
+(println "Test 1: Basic function ( baseline)")
+add_ten = {x -> <- (add x 10)}
+result1 = (add_ten 5)
+(println "add_ten(5) =" result1)
+(println "Expected: 15 (native int)")
+(println "")
+
+(println "Test 2: Manual composition - nested calls")
+double = {x -> <- (multiply x 2)}
+manual_composed = {x ->
+  step1 = (add_ten x)
+  step2 = (double step1)
+  <- step2
+}
+result2 = (manual_composed 5)
+(println "manual_composed(5) =" result2)
+(println "Expected: 30 (should  infer this?)")
+(println "")
+
+(println "Test 3: User-defined compose function")
+compose = {f g -> <- {x -> <- (f (g x))}}
+composed_auto = (compose double add_ten)
+result3 = (composed_auto 5)
+(println "composed_auto(5) =" result3)
+(println "Expected: 30 ( would optimize this)")
+(println "")
+
+(println "Test 4: Inline composition call")
+add_five = {x -> <- (add x 5)}
+result4 = (double (add_five 10))
+(println "double(add_five(10)) =" result4)
+(println "Expected: 30")
+(println "")
+
+(println "All tests complete!")

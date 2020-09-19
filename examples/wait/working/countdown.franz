@@ -1,0 +1,25 @@
+// Countdown Timer Example
+// Demonstrates using (wait) for timed sequences
+
+(println "╔════════════════════════════════════╗")
+(println "║        Countdown Timer             ║")
+(println "╚════════════════════════════════════╝")
+(println "")
+
+// Simple countdown
+countdown = {seconds ->
+  (println "Starting countdown from" seconds "...")
+  (println "")
+
+  (loop seconds {i ->
+    remaining = (subtract (subtract seconds i) 1)
+    (println "  " remaining "...")
+    (wait 1)
+  })
+
+  (println "")
+  (println "🚀 Blast off!")
+}
+
+// Run 5 second countdown
+(countdown 5)

@@ -1,0 +1,36 @@
+// Type inference example
+// NO type annotations - all types inferred automatically
+
+// Simple functions - types inferred from operations
+add_one = {x -> <- (add x 1)}
+double = {x -> <- (multiply x 2)}
+
+// Composition - type checker infers composite type
+add_one_then_double = {x -> <- (double (add_one x))}
+
+// Lists - element type inferred
+numbers = (list 1 2 3 4 5)
+
+// Higher-order - function type inferred from usage
+apply_twice = {f x -> <- (f (f x))}
+
+// Results - all types inferred
+result1 = (add_one 5)
+result2 = (apply_twice double 3)
+result3 = (map numbers add_one)
+
+// Print results
+(print "add_one 5 = " result1 "\n")
+(print "apply_twice double 3 = " result2 "\n")
+(print "map add_one = " result3 "\n")
+
+// Type checker should infer:
+// add_one: integer -> integer
+// double: integer -> integer
+// add_one_then_double: integer -> integer
+// numbers: (list integer)
+// apply_twice: (a -> a) a -> a
+// result1: integer
+// result2: integer
+// result3: (list integer)
+

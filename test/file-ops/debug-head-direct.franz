@@ -1,0 +1,6 @@
+(println "=== Direct Head Print Test ===")
+
+nums = [100, 200, 300]
+(println "Direct head call:")
+(println (head nums))
+(println "Expected: 100")

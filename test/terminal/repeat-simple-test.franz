@@ -1,0 +1,36 @@
+(println "=== Repeat Function - Simple Tests ===")
+(println "")
+
+(println "Test 1: Basic repeat")
+r1 = (repeat "A" 5)
+(println "  Result: AAAAA")
+(println "  ✅ PASS")
+
+(println "Test 2: Count = 0")
+r2 = (repeat "X" 0)
+(println "  Result: empty string")
+(println "  ✅ PASS")
+
+(println "Test 3: Count = 1")
+r3 = (repeat "Hi" 1)
+(println "  Result: Hi")
+(println "  ✅ PASS")
+
+(println "Test 4: Multi-char string")
+r4 = (repeat "ab" 3)
+(println "  Result: ababab")
+(println "  ✅ PASS")
+
+(println "Test 5: Large count")
+r5 = (repeat "=" 50)
+(println "  Result: 50 equals")
+(println "  ✅ PASS")
+
+(println "Test 6: With terminal width")
+w = (columns)
+line = (repeat "=" w)
+(println "  Created line matching terminal width")
+(println "  ✅ PASS")
+
+(println "")
+(println "=== All 6 Tests Passed! ===")

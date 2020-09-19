@@ -1,0 +1,28 @@
+(println "=== Loop Early Exit Correct Pattern Test ===")
+(println "")
+
+(println "Test 1: Exit with void vs value")
+result1 = (loop 10 {i ->
+  (if (is i 5)
+    {<- i}
+    {<- void})
+})
+(println "Result:" result1 "Expected: 5")
+(println "")
+
+(println "Test 2: Exit on first even")
+result2 = (loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {<- i}
+    {<- void})
+})
+(println "Result:" result2 "Expected: 0")
+(println "")
+
+(println "Test 3: Find first odd")
+result3 = (loop 10 {i ->
+  (if (is (remainder i 2) 1)
+    {<- i}
+    {<- void})
+})
+(println "Result:" result3 "Expected: 1")

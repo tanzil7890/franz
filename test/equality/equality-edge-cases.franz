@@ -1,0 +1,110 @@
+(println "=== Equality Edge Case Tests ===")
+(println "")
+
+// Edge 1: Large Numbers
+(println "Edge 1: Large numbers")
+ok1 = (is 999999 999999)
+(println (if ok1 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 2: Negative Zero
+(println "Edge 2: Negative vs positive zero")
+ok2 = (is -0 0)
+(println (if ok2 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 3: Float Precision
+(println "Edge 3: Float precision")
+ok3 = (is 0.1 0.1)
+(println (if ok3 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 4: Mixed Negative Numbers
+(println "Edge 4: Mixed negative (−1.0 == −1)")
+ok4 = (is -1.0 -1)
+(println (if ok4 {<- "PASS (numeric coercion)"} {<- "FAIL"}))
+
+// Edge 5: String Case Sensitivity
+(println "Edge 5: String case sensitivity")
+ok5 = (not (is "Hello" "hello"))
+(println "  \"Hello\" != \"hello\": " ok5)
+(println (if ok5 {<- "PASS (case sensitive)"} {<- "FAIL"}))
+
+// Edge 6: String with Escape Sequences
+(println "Edge 6: Strings with escapes")
+ok6 = (is "hello\nworld" "hello\nworld")
+(println (if ok6 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 7: List with Mixed Types
+(println "Edge 7: List with mixed types")
+ok7 = (is (list 1 "hello" 3.14) (list 1 "hello" 3.14))
+(println (if ok7 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 8: List Length Difference
+(println "Edge 8: Lists with different lengths")
+ok8 = (not (is (list 1 2) (list 1 2 3)))
+(println (if ok8 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 9: List Order Matters
+(println "Edge 9: List order matters")
+ok9 = (not (is (list 1 2 3) (list 3 2 1)))
+(println (if ok9 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 10: Void in List
+(println "Edge 10: Lists with void")
+ok10 = (is (list void 1) (list void 1))
+(println (if ok10 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 11: Self Comparison
+(println "Edge 11: Variable self-comparison")
+x11 = 42
+ok11 = (is x11 x11)
+(println (if ok11 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 12: Function Comparison
+(println "Edge 12: Function comparison")
+f12 = {x -> <- (add x 1)}
+ok12 = (is f12 f12)
+(println (if ok12 {<- "PASS (same ref)"} {<- "FAIL"}))
+
+// Edge 13: Different Functions
+(println "Edge 13: Different functions")
+f13a = {x -> <- x}
+f13b = {x -> <- x}
+ok13 = (not (is f13a f13b))
+(println (if ok13 {<- "PASS (different refs)"} {<- "FAIL"}))
+
+// Edge 14: Zero Float vs Int
+(println "Edge 14: Zero float vs int")
+ok14 = (is 0.0 0)
+(println (if ok14 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 15: Numeric Boundary (Int/Float)
+(println "Edge 15: Numeric coercion boundary")
+ok15 = (is 100.0 100)
+(println (if ok15 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 16: String Number vs Number
+(println "Edge 16: String number vs actual number")
+ok16 = (not (is "42" 42))
+(println (if ok16 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 17: Empty vs Non-Empty
+(println "Edge 17: Empty vs non-empty string")
+ok17 = (not (is "" "a"))
+(println (if ok17 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 18: Nested List Depth
+(println "Edge 18: Deeply nested lists")
+ok18 = (is (list (list (list 1))) (list (list (list 1))))
+(println (if ok18 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 19: List with Strings
+(println "Edge 19: List with strings")
+ok19 = (is (list "a" "b") (list "a" "b"))
+(println (if ok19 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 20: Multiple Comparisons
+(println "Edge 20: Chain comparisons")
+ok20 = (and (is 5 5) (and (is "hi" "hi") (is void void)))
+(println (if ok20 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "All 20 edge case tests complete!")

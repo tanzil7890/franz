@@ -1,0 +1,113 @@
+(println "=== Boolean Logic Edge Case Tests ===")
+(println "")
+
+(println "Edge 1: Triple negation")
+ok1 = (is (not (not (not 1))) 0)
+(println (if ok1 {<- "  PASS: (not (not (not 1))) → 0"} {<- "  FAIL"}))
+
+(println "Edge 2: Quadruple negation")
+ok2 = (is (not (not (not (not 1)))) 1)
+(println (if ok2 {<- "  PASS: (not (not (not (not 1)))) → 1"} {<- "  FAIL"}))
+
+(println "Edge 3: and with comparison results")
+cmp1 = (less_than 3 5)
+cmp2 = (greater_than 10 3)
+ok3 = (is (and cmp1 cmp2) 1)
+(println (if ok3 {<- "  PASS: (and (less_than 3 5) (greater_than 10 3)) → 1"} {<- "  FAIL"}))
+
+(println "Edge 4: or with comparison results")
+cmp3 = (is 5 10)
+cmp4 = (is 5 5)
+ok4 = (is (or cmp3 cmp4) 1)
+(println (if ok4 {<- "  PASS: (or (is 5 10) (is 5 5)) → 1"} {<- "  FAIL"}))
+
+(println "Edge 5: Nested and/or - (and (or 1 0) 1)")
+ok5 = (is (and (or 1 0) 1) 1)
+(println (if ok5 {<- "  PASS: (and (or 1 0) 1) → 1"} {<- "  FAIL"}))
+
+(println "Edge 6: Nested and/or - (or (and 0 1) 1)")
+ok6 = (is (or (and 0 1) 1) 1)
+(println (if ok6 {<- "  PASS: (or (and 0 1) 1) → 1"} {<- "  FAIL"}))
+
+(println "Edge 7: Nested and/or - (and (or 0 0) 1)")
+ok7 = (is (and (or 0 0) 1) 0)
+(println (if ok7 {<- "  PASS: (and (or 0 0) 1) → 0"} {<- "  FAIL"}))
+
+(println "Edge 8: not with and result")
+ok8 = (is (not (and 1 0)) 1)
+(println (if ok8 {<- "  PASS: (not (and 1 0)) → 1"} {<- "  FAIL"}))
+
+(println "Edge 9: not with or result")
+ok9 = (is (not (or 0 0)) 1)
+(println (if ok9 {<- "  PASS: (not (or 0 0)) → 1"} {<- "  FAIL"}))
+
+(println "Edge 10: De Morgan's Law - not(and a b) vs (or (not a) (not b))")
+edge10_a = 1
+edge10_b = 0
+edge10_left = (not (and edge10_a edge10_b))
+edge10_right = (or (not edge10_a) (not edge10_b))
+ok10 = (is edge10_left edge10_right)
+(println (if ok10 {<- "  PASS: De Morgan's Law verified"} {<- "  FAIL"}))
+
+(println "Edge 11: De Morgan's Law - not(or a b) vs (and (not a) (not b))")
+edge11_a = 1
+edge11_b = 0
+edge11_left = (not (or edge11_a edge11_b))
+edge11_right = (and (not edge11_a) (not edge11_b))
+ok11 = (is edge11_left edge11_right)
+(println (if ok11 {<- "  PASS: De Morgan's Law verified"} {<- "  FAIL"}))
+
+(println "Edge 12: and with variable references")
+edge12_x = 1
+edge12_y = 1
+edge12_z = 1
+ok12 = (is (and edge12_x edge12_y edge12_z) 1)
+(println (if ok12 {<- "  PASS: (and x y z) with all 1 → 1"} {<- "  FAIL"}))
+
+(println "Edge 13: or with variable references - all false")
+edge13_a = 0
+edge13_b = 0
+edge13_c = 0
+ok13 = (is (or edge13_a edge13_b edge13_c) 0)
+(println (if ok13 {<- "  PASS: (or a b c) with all 0 → 0"} {<- "  FAIL"}))
+
+(println "Edge 14: Chained comparisons - (and (< a b) (< b c))")
+edge14_a = 5
+edge14_b = 10
+edge14_c = 15
+ok14 = (and (less_than edge14_a edge14_b) (less_than edge14_b edge14_c))
+(println (if ok14 {<- "  PASS: (and (< 5 10) (< 10 15)) → 1"} {<- "  FAIL"}))
+
+(println "Edge 15: Complex nested - (not (and (or 0 1) (or 0 0)))")
+ok15 = (is (not (and (or 0 1) (or 0 0))) 1)
+(println (if ok15 {<- "  PASS: (not (and (or 0 1) (or 0 0))) → 1"} {<- "  FAIL"}))
+
+(println "Edge 16: and with many zeros")
+ok16 = (is (and 0 0 0 0 0 0 0) 0)
+(println (if ok16 {<- "  PASS: (and 0 0 0 0 0 0 0) → 0"} {<- "  FAIL"}))
+
+(println "Edge 17: or with many ones")
+ok17 = (is (or 1 1 1 1 1 1 1) 1)
+(println (if ok17 {<- "  PASS: (or 1 1 1 1 1 1 1) → 1"} {<- "  FAIL"}))
+
+(println "Edge 18: Identity law - (and 1 x) == x")
+edge18_x = 1
+ok18 = (is (and 1 edge18_x) edge18_x)
+(println (if ok18 {<- "  PASS: (and 1 x) == x (identity law)"} {<- "  FAIL"}))
+
+(println "Edge 19: Identity law - (or 0 x) == x")
+edge19_x = 1
+ok19 = (is (or 0 edge19_x) edge19_x)
+(println (if ok19 {<- "  PASS: (or 0 x) == x (identity law)"} {<- "  FAIL"}))
+
+(println "Edge 20: Absorption law - (and x (or x y)) == x")
+edge20_x = 1
+edge20_y = 0
+edge20_result = (and edge20_x (or edge20_x edge20_y))
+ok20 = (is edge20_result edge20_x)
+(println (if ok20 {<- "  PASS: (and x (or x y)) == x (absorption)"} {<- "  FAIL"}))
+
+(println "")
+total = (add ok1 ok2 ok3 ok4 ok5 ok6 ok7 ok8 ok9 ok10 ok11 ok12 ok13 ok14 ok15 ok16 ok17 ok18 ok19 ok20)
+(println "Edge cases passed: " total "/20")
+(println (if (is total 20) {<- "✓ All edge case tests PASSED!"} {<- "✗ Some edge cases FAILED"}))

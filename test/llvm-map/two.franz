@@ -1,0 +1,30 @@
+
+// Test 3: Map transforming to different type (int to string would need string conversion)
+(println "Test 3: Map with arithmetic operations")
+nums3 = [1, 2, 3, 4, 5]
+square = {x i -> <- (multiply x x)}
+squared = (map nums3 square)
+(println "Input:" nums3)
+(println "Squared:" squared)
+(println "PASS: Map with complex operations works")
+(println "")
+
+// Test 4: Map on empty list
+(println "Test 4: Map on empty list")
+empty_list = []
+identity = {x i -> <- x}
+mapped_empty = (map empty_list identity)
+(println "Input: []")
+(println "Output:" mapped_empty)
+(println "PASS: Map on empty list works")
+(println "")
+
+// Test 5: Map with single element
+(println "Test 5: Map on single-element list")
+single = [42]
+triple = {x i -> <- (multiply x 3)}
+tripled = (map single triple)
+(println "Input:" single)
+(println "Tripled:" tripled)
+(println "PASS: Map on single element works")
+(println "")

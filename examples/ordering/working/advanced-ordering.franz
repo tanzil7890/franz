@@ -1,0 +1,125 @@
+(println "=== Advanced Ordering Examples ===")
+(println "")
+
+(println "Example 1: Bubble sort comparison function")
+compare_and_swap = {a b ->
+  first = (if (greater_than a b) {<- b} {<- a})
+  second = (if (greater_than a b) {<- a} {<- b})
+  result = [first, second]
+  <- result
+}
+swapped = (compare_and_swap 8 3)
+(println "  Compare and swap (8, 3): " swapped)
+
+(println "")
+(println "Example 2: Three-way comparison (min of three)")
+min_of_three = {a b c ->
+  temp = (if (less_than a b) {<- a} {<- b})
+  <- (if (less_than temp c) {<- temp} {<- c})
+}
+min3 = (min_of_three 15 8 23)
+(println "  Minimum of (15, 8, 23): " min3)
+
+(println "")
+(println "Example 3: Three-way comparison (max of three)")
+max_of_three = {a b c ->
+  temp = (if (greater_than a b) {<- a} {<- b})
+  <- (if (greater_than temp c) {<- temp} {<- c})
+}
+max3 = (max_of_three 15 8 23)
+(println "  Maximum of (15, 8, 23): " max3)
+
+(println "")
+(println "Example 4: Grade classification")
+classify_grade = {score ->
+  <- (if (greater_than score 90)
+    {<- "A"}
+    {(if (greater_than score 80)
+      {<- "B"}
+      {(if (greater_than score 70)
+        {<- "C"}
+        {(if (greater_than score 60)
+          {<- "D"}
+          {<- "F"}
+        )}
+      )}
+    )}
+  )
+}
+grade85 = (classify_grade 85)
+grade72 = (classify_grade 72)
+(println "  Score 85 → Grade: " grade85)
+(println "  Score 72 → Grade: " grade72)
+
+(println "")
+(println "Example 5: Clamp function (limit value to range)")
+clamp = {val min_v max_v ->
+  <- (if (less_than val min_v)
+    {<- min_v}
+    {(if (greater_than val max_v)
+      {<- max_v}
+      {<- val}
+    )}
+  )
+}
+clamped = (clamp 150 0 100)
+(println "  Clamp 150 to [0, 100]: " clamped)
+
+(println "")
+(println "Example 6: Binary search step (is target in left or right?)")
+binary_search_direction = {target mid ->
+  <- (if (less_than target mid)
+    {<- "left"}
+    {(if (greater_than target mid)
+      {<- "right"}
+      {<- "found"}
+    )}
+  )
+}
+direction = (binary_search_direction 42 50)
+(println "  Search for 42 with midpoint 50: go " direction)
+
+(println "")
+(println "Example 7: Price comparison with tolerance")
+price_within_budget = {price budget tolerance ->
+  max_price = (add budget tolerance)
+  <- (less_than price max_price)
+}
+item_price = 49.99
+budget = 50.00
+within = (price_within_budget item_price budget 5.0)
+(println "  Price $49.99 within budget $50 ± $5? " (if within {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 8: Sorting three numbers")
+sort_three = {a b c ->
+  min_val = (min_of_three a b c)
+  max_val = (max_of_three a b c)
+  mid = (subtract (add a b c) (add min_val max_val))
+  result = [min_val, mid, max_val]
+  <- result
+}
+sorted3 = (sort_three 30 10 20)
+(println "  Sort [30, 10, 20]: " sorted3)
+
+(println "")
+(println "Example 9: Validation chain (all conditions must pass)")
+validate_age = {age ->
+  too_young = (less_than age 18)
+  too_old = (greater_than age 65)
+  <- (not (or too_young too_old))
+}
+valid_age = (validate_age 25)
+invalid_age = (validate_age 70)
+(println "  Age 25 valid (18-65)? " (if valid_age {<- "Yes"} {<- "No"}))
+(println "  Age 70 valid (18-65)? " (if invalid_age {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 10: Comparison chaining (is list sorted?)")
+is_sorted_three = {a b c ->
+  <- (and (less_than a b) (less_than b c))
+}
+check1 = (is_sorted_three 1 5 10)
+check2 = (is_sorted_three 10 5 1)
+(println "  Is [1, 5, 10] sorted? " (if check1 {<- "Yes"} {<- "No"}))
+(println "  Is [10, 5, 1] sorted? " (if check2 {<- "Yes"} {<- "No"}))

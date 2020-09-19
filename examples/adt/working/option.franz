@@ -1,0 +1,14 @@
+// Variants: Option example using (variant) and (match)
+
+some = (variant "Some" 42)
+none = (variant "None")
+
+(match some
+  "Some" {x -> (println "Some:" x)}
+  "None" {-> (println "None")}
+)
+
+(match none
+  "Some" {x -> (println "Some:" x)}
+  "None" {-> (println "None")}
+)

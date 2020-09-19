@@ -1,0 +1,68 @@
+// Basic Equality Examples
+// Demonstrates the is() function for comparing values
+
+(println "=== Basic Equality Examples ===")
+(println "")
+
+// Example 1: Integer Comparison
+(println "Example 1: Integer Comparison")
+x = 42
+y = 42
+z = 100
+(println "  x = 42, y = 42, z = 100")
+(println "  x == y? " (if (is x y) {<- "Yes"} {<- "No"}))
+(println "  x == z? " (if (is x z) {<- "Yes"} {<- "No"}))
+(println "")
+
+// Example 2: String Comparison
+(println "Example 2: String Comparison")
+name1 = "Alice"
+name2 = "Alice"
+name3 = "Bob"
+(println "  name1 = \"Alice\", name2 = \"Alice\", name3 = \"Bob\"")
+(println "  name1 == name2? " (if (is name1 name2) {<- "Yes"} {<- "No"}))
+(println "  name1 == name3? " (if (is name1 name3) {<- "Yes"} {<- "No"}))
+(println "")
+
+// Example 3: Numeric Type Coercion
+(println "Example 3: Numeric Type Coercion")
+int_val = 5
+float_val = 5.0
+(println "  int_val = 5, float_val = 5.0")
+(println "  5 == 5.0? " (if (is int_val float_val) {<- "Yes (numeric coercion)"} {<- "No"}))
+(println "")
+
+// Example 4: List Comparison
+(println "Example 4: List Comparison")
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+list3 = [3, 2, 1]
+(println "  list1 = [1, 2, 3]")
+(println "  list2 = [1, 2, 3]")
+(println "  list3 = [3, 2, 1]")
+(println "  list1 == list2? " (if (is list1 list2) {<- "Yes"} {<- "No"}))
+(println "  list1 == list3? " (if (is list1 list3) {<- "Yes"} {<- "No"}))
+(println "")
+
+// Example 5: Void Comparison
+(println "Example 5: Void Comparison")
+v1 = void
+v2 = void
+(println "  v1 = void, v2 = void")
+(println "  v1 == v2? " (if (is v1 v2) {<- "Yes (all voids equal)"} {<- "No"}))
+(println "")
+
+// Example 6: Type Checking Pattern
+(println "Example 6: Type Checking Pattern")
+check_value = {val expected ->
+  (if (is val expected)
+    {(println "  ✓ Value matches expected: " expected)}
+    {(println "  ✗ Value mismatch! Expected: " expected ", Got: " val)}
+  )
+}
+(check_value 42 42)
+(check_value "hello" "hello")
+(check_value 10 20)
+(println "")
+
+(println "=== All Basic Examples Complete ===")

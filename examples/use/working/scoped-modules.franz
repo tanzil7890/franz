@@ -1,0 +1,43 @@
+// Scoped Modules Example
+// Demonstrates scope isolation and return values
+
+(println "=== Scoped Modules Example ===")
+(println "")
+
+// Example 1: Return value from module
+(println "Example 1: Return values")
+result = (use "test/use/math-module.franz" {
+  computation = (square (double 5))
+  (println "  Computing: square(double(5)) = square(10)")
+  <- computation
+})
+(println "  Result returned from use block:" result)
+
+(println "")
+
+// Example 2: Scope isolation
+(println "Example 2: Scope isolation")
+outer_value = 100
+
+calculate = {
+  <- (use "test/use/math-module.franz" {
+    // Can access outer_value from enclosing scope
+    result = (add outer_value (square 5))
+    <- result
+  })
+}
+
+final_result = (calculate)
+(println "  outer_value (100) + square(5) =" final_result)
+
+(println "")
+
+// Example 3: Module functions NOT available outside use block
+(println "Example 3: Functions only available in use scope")
+(use "test/use/math-module.franz" {
+  (println "  ✓ Inside use: square(8) =" (square 8))
+})
+(println "  ✓ Outside use: square function is not accessible")
+
+(println "")
+(println "✓ Scope demonstration complete")

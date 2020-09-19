@@ -1,0 +1,233 @@
+// ============================================================================
+// Comprehensive Scientific Notation Examples
+// Demonstrates all forms, edge cases, and real-world scientific computing
+// ============================================================================
+
+(println "=== Comprehensive Scientific Notation Examples ===")
+(println "")
+
+// ============================================================================
+// Section 1: Basic Scientific Notation Syntax
+// ============================================================================
+
+(println "--- Section 1: Basic Syntax Forms ---")
+
+// Lowercase 'e' notation
+speed_of_light = 3e8
+(println "Speed of light (lowercase e): 3e8 m/s")
+(println speed_of_light)
+
+// Uppercase 'E' notation (equivalent)
+avogadro = 6.022E23
+(println "Avogadro's number (uppercase E): 6.022E23")
+(println avogadro)
+
+// Explicit positive exponent
+large_num = 1.5E+6
+(println "Explicit positive: 1.5E+6")
+(println large_num)
+
+// Negative exponent
+planck = 6.626e-34
+(println "Planck constant: 6.626e-34")
+(println planck)
+
+// ============================================================================
+// Section 2: Scientific Computing Use Cases
+// ============================================================================
+
+(println "")
+(println "--- Section 2: Scientific Computing ---")
+
+// Astronomy: distances in meters
+earth_sun_distance = 1.496e11
+(println "Earth-Sun distance: 1.496e11 meters")
+(println earth_sun_distance)
+
+// Physics: electron mass in kg
+electron_mass = 9.109e-31
+(println "Electron mass: 9.109e-31 kg")
+(println electron_mass)
+
+// Chemistry: molecular scale
+angstrom = 1e-10
+(println "One angstrom: 1e-10 meters")
+(println angstrom)
+
+// Finance: large monetary values
+national_debt = 3.5e13
+(println "Example national debt: 3.5e13")
+(println national_debt)
+
+// ============================================================================
+// Section 3: Arithmetic with Scientific Notation
+// ============================================================================
+
+(println "")
+(println "--- Section 3: Arithmetic Operations ---")
+
+// Addition
+num1 = 1e3
+num2 = 5e2
+sum = (add num1 num2)
+(println "1e3 + 5e2 =")
+(println sum)
+
+// Multiplication
+base = 2e5
+multiplier = 3e2
+product = (multiply base multiplier)
+(println "2e5 * 3e2 =")
+(println product)
+
+// Division
+dividend = 6e10
+divisor = 2e5
+quotient = (divide dividend divisor)
+(println "6e10 / 2e5 =")
+(println quotient)
+
+// Subtraction
+large = 5e6
+small = 2.5e6
+difference = (subtract large small)
+(println "5e6 - 2.5e6 =")
+(println difference)
+
+// ============================================================================
+// Section 4: Mixing Regular and Scientific Notation
+// ============================================================================
+
+(println "")
+(println "--- Section 4: Mixed Notation ---")
+
+// Regular float + scientific notation
+regular = 100.5
+scientific = 1e2
+mixed_sum = (add regular scientific)
+(println "100.5 + 1e2 =")
+(println mixed_sum)
+
+// Integer + scientific notation
+int_val = 50
+sci_val = 1.5e2
+mixed_result = (multiply (float int_val) sci_val)
+(println "50 * 1.5e2 =")
+(println mixed_result)
+
+// ============================================================================
+// Section 5: Edge Cases and Boundaries
+// ============================================================================
+
+(println "")
+(println "--- Section 5: Edge Cases ---")
+
+// Zero exponent (equals the mantissa)
+zero_exp = 42e0
+(println "Zero exponent: 42e0 =")
+(println zero_exp)
+
+// Exponent of 1
+exp_one = 7.5e1
+(println "Exponent of 1: 7.5e1 =")
+(println exp_one)
+
+// Single digit mantissa
+single = 5e6
+(println "Single digit: 5e6 =")
+(println single)
+
+// Negative number with scientific notation
+negative_sci = -1.23e4
+(println "Negative: -1.23e4 =")
+(println negative_sci)
+
+// Very small (near zero)
+tiny = 1e-15
+(println "Very small: 1e-15 =")
+(println tiny)
+
+// Very large
+huge = 9.999e20
+(println "Very large: 9.999e20 =")
+(println huge)
+
+// ============================================================================
+// Section 6: Type Conversions with Scientific Notation
+// ============================================================================
+
+(println "")
+(println "--- Section 6: Type Conversions ---")
+
+// Scientific notation to integer (truncation)
+sci_float = 2.5e2
+as_integer = (integer sci_float)
+(println "Scientific to int: (integer 2.5e2) =")
+(println as_integer)
+
+// Scientific notation to string
+notation_val = 1.5e3
+as_string = (string notation_val)
+(println "Scientific to string: (string 1.5e3) =")
+(println as_string)
+
+// String with scientific notation to float
+str_sci = "3.14e2"
+parsed = (float str_sci)
+(println "String '3.14e2' to float:")
+(println parsed)
+
+// ============================================================================
+// Section 7: Real-World Scientific Calculations
+// ============================================================================
+
+(println "")
+(println "--- Section 7: Real-World Calculations ---")
+
+// Physics: Energy calculation (E = mc^2 approximation)
+mass = 1e-10
+c_squared = 9e16
+energy = (multiply mass c_squared)
+(println "Energy calculation (E=mc^2 approximation):")
+(println energy)
+
+// Astronomy: Light year in meters
+light_speed = 3e8
+seconds_per_year = 3.156e7
+light_year = (multiply light_speed seconds_per_year)
+(println "Light year in meters:")
+(println light_year)
+
+// Chemistry: Moles to molecules
+moles = 0.5
+avogadro_num = 6.022e23
+molecules = (multiply (float moles) avogadro_num)
+(println "0.5 moles to molecules:")
+(println molecules)
+
+// ============================================================================
+// Section 8: Precision and Limits
+// ============================================================================
+
+(println "")
+(println "--- Section 8: Precision Handling ---")
+
+// High precision mantissa
+precise = 1.23456789e10
+(println "High precision: 1.23456789e10")
+(println precise)
+
+// Multiple decimal places
+detailed = 3.141592653e5
+(println "Detailed: 3.141592653e5")
+(println detailed)
+
+// Negative exponent precision
+micro = 5.5e-6
+(println "Micro scale: 5.5e-6")
+(println micro)
+
+(println "")
+(println "=== All Scientific Notation Examples Complete ===")
+(println "Scientific notation is !")
+(println "Supports: e/E notation, +/- exponents, full arithmetic")

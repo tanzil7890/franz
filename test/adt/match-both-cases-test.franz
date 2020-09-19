@@ -1,0 +1,24 @@
+(println "Testing match with both Some and None cases...")
+
+// Create variants
+some = (variant "Some" 42)
+none = (variant "None")
+
+// Test matching Some
+(println "")
+(println "Test 1: Match Some variant")
+result1 = (match some
+  "Some" {-> (println "✓ Matched Some")}
+  "None" {-> (println "✗ Matched None (wrong)")}
+)
+
+// Test matching None
+(println "")
+(println "Test 2: Match None variant")
+result2 = (match none
+  "Some" {-> (println "✗ Matched Some (wrong)")}
+  "None" {-> (println "✓ Matched None")}
+)
+
+(println "")
+(println "All match tests passed!")

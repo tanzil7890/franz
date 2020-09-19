@@ -1,0 +1,23 @@
+// Higher-order function typing example (working version)
+// Type signatures are comments until franz-check is implemented
+
+// Note: map in Franz passes (item, index) to callback
+// TODO: When franz-check is ready, use proper signatures:
+// (sig double (integer integer -> integer))
+double = {x _ -> <- (multiply x 2)}
+
+// (sig square (integer integer -> integer))
+square = {x _ -> <- (multiply x x)}
+
+// (sig numbers (list integer))
+numbers = (list 1 2 3 4 5)
+
+// map is polymorphic: ((list a) (a integer -> b) -> (list b))
+doubled = (map numbers double)
+squared = (map numbers square)
+
+// Print results
+(print "Original: " numbers "\n")
+(print "Doubled: " doubled "\n")
+(print "Squared: " squared "\n")
+

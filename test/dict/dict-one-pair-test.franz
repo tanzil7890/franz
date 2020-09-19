@@ -1,0 +1,3 @@
+(println "Test: Dict with one string pair")
+d = (dict "name" "Ada")
+(println "✓ Dict created with string pair")

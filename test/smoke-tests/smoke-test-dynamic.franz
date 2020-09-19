@@ -1,0 +1,92 @@
+// Smoke tests for dynamic scoping
+// Run with: ./franz --scoping=dynamic test/smoke-tests/smoke-test-dynamic.franz
+
+(println "=== Dynamic Scoping Smoke Tests ===")
+(println "")
+
+passed = 0
+failed = 0
+
+// Test 1: Basic dynamic lookup
+x1 = 10
+get_x1 = {-> <- x1}
+test1 = {->
+  x1 = 20
+  <- (get_x1)
+}
+result1 = (test1)
+(if (is result1 20)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 1: Dynamic lookup")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 1: Expected 20, got " result1)
+  }
+)
+
+// Test 2: Nested dynamic lookup
+y2 = 100
+inner2 = {-> <- y2}
+outer2 = {->
+  y2 = 200
+  <- (inner2)
+}
+result2 = (outer2)
+(if (is result2 200)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 2: Nested dynamic")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 2: Expected 200, got " result2)
+  }
+)
+
+// Test 3: Global fallback
+global_var = 999
+get_global = {-> <- global_var}
+test3 = {-> <- (get_global)}
+result3 = (test3)
+(if (is result3 999)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 3: Global fallback")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 3: Expected 999, got " result3)
+  }
+)
+
+// Test 4: Map with dynamic context
+multiplier = 3
+times_n = {item index -> <- (multiply item multiplier)}
+test4 = {->
+  multiplier = 5
+  nums = (list 1 2 3)
+  <- (map nums times_n)
+}
+result4 = (test4)
+(if (is result4 (list 5 10 15))
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 4: Map with dynamic context")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 4: Expected (5 10 15), got " result4)
+  }
+)
+
+(println "")
+(println "=== Smoke Test Summary ===")
+(println "Passed: " passed "/4")
+(println "Failed: " failed "/4")
+
+(if (is failed 0)
+  {-> (println "✓ All smoke tests PASSED")}
+  {-> (println "✗ Some tests FAILED")}
+)

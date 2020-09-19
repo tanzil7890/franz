@@ -1,0 +1,143 @@
+(println "=== Bytecode Closure Edge Cases ===")
+(println "")
+
+(println "Test 1: No captured variables (simple nested function)")
+outer1 = {x ->
+  inner1 = {y -> <- (add y 10)}
+  <- (inner1 x)
+}
+result1 = (outer1 5)
+(println "Result:" result1 "Expected: 15" (if (is result1 15) "PASS" "FAIL"))
+(println "")
+
+(println "Test 2: Capture single variable")
+makeAdder = {x -> <- {y -> <- (add x y)}}
+add5 = (makeAdder 5)
+result2 = (add5 10)
+(println "Result:" result2 "Expected: 15" (if (is result2 15) "PASS" "FAIL"))
+(println "")
+
+(println "Test 3: Capture multiple variables")
+makeCalc = {a b ->
+  <- {x -> <- (add (multiply x a) b)}
+}
+calc = (makeCalc 3 10)
+result3 = (calc 5)
+(println "Result:" result3 "Expected: 25" (if (is result3 25) "PASS" "FAIL"))
+(println "")
+
+(println "Test 4: Three-level nested closures")
+outer4 = {a ->
+  middle4 = {b ->
+    <- {c -> <- (add (add a b) c)}
+  }
+  <- (middle4 10)
+}
+fn4 = (outer4 5)
+result4 = (fn4 20)
+(println "Result:" result4 "Expected: 35" (if (is result4 35) "PASS" "FAIL"))
+(println "")
+
+(println "Test 5: Closure with recursion")
+makeCounter = {start ->
+  counter = {n ->
+    <- (if (is n 0)
+      start
+      (add start (counter (subtract n 1)))
+    )
+  }
+  <- counter
+}
+count5 = (makeCounter 10)
+result5 = (count5 3)
+(println "Result:" result5 "Expected: 40" (if (is result5 40) "PASS" "FAIL"))
+(println "")
+
+(println "Test 6: Multiple closures from same outer function")
+makeMultiplier = {factor -> <- {n -> <- (multiply n factor)}}
+double = (makeMultiplier 2)
+triple = (makeMultiplier 3)
+result6a = (double 5)
+result6b = (triple 5)
+(println "Double:" result6a "Expected: 10" (if (is result6a 10) "PASS" "FAIL"))
+(println "Triple:" result6b "Expected: 15" (if (is result6b 15) "PASS" "FAIL"))
+(println "")
+
+(println "Test 7: Closure capturing another closure")
+outer7 = {x ->
+  inner7 = {y -> <- (add x y)}
+  <- {z -> <- (add (inner7 z) x)}
+}
+fn7 = (outer7 5)
+result7 = (fn7 10)
+(println "Result:" result7 "Expected: 20" (if (is result7 20) "PASS" "FAIL"))
+(println "")
+
+(println "Test 8: Closure with no parameters capturing variable")
+makeConstant = {val -> <- {-> <- val}}
+get42 = (makeConstant 42)
+result8 = (get42)
+(println "Result:" result8 "Expected: 42" (if (is result8 42) "PASS" "FAIL"))
+(println "")
+
+(println "Test 9: Closure capturing same variable name at different levels")
+outer9 = {x ->
+  middle9 = {x -> <- {y -> <- (add x y)}}
+  <- (middle9 100)
+}
+fn9 = (outer9 5)
+result9 = (fn9 50)
+(println "Result:" result9 "Expected: 150" (if (is result9 150) "PASS" "FAIL"))
+(println "")
+
+(println "Test 10: Complex - closure with multiple captured vars and recursion")
+makeFibonacci = {a b ->
+  fib = {n ->
+    <- (if (is n 0)
+      a
+      (if (is n 1)
+        b
+        (add (fib (subtract n 1)) (fib (subtract n 2)))
+      )
+    )
+  }
+  <- fib
+}
+fib = (makeFibonacci 0 1)
+result10 = (fib 6)
+(println "Result:" result10 "Expected: 8" (if (is result10 8) "PASS" "FAIL"))
+(println "")
+
+(println "Test 11: Closure returning multiple closures")
+makePair = {x ->
+  getter = {-> <- x}
+  doubler = {-> <- (multiply x 2)}
+  <- (list getter doubler)
+}
+pair = (makePair 7)
+getter11 = (get pair 0)
+doubler11 = (get pair 1)
+result11a = (getter11)
+result11b = (doubler11)
+(println "Getter:" result11a "Expected: 7" (if (is result11a 7) "PASS" "FAIL"))
+(println "Doubler:" result11b "Expected: 14" (if (is result11b 14) "PASS" "FAIL"))
+(println "")
+
+(println "Test 12: Deeply nested (4 levels)")
+level1 = {a ->
+  level2 = {b ->
+    level3 = {c ->
+      <- {d -> <- (add (add (add a b) c) d)}
+    }
+    <- (level3 30)
+  }
+  <- (level2 20)
+}
+fn12 = (level1 10)
+result12 = (fn12 40)
+(println "Result:" result12 "Expected: 100" (if (is result12 100) "PASS" "FAIL"))
+(println "")
+
+(println "=== Summary ===")
+(println "All edge case tests completed!")
+(println "Check each test individually for PASS/FAIL status")

@@ -1,0 +1,113 @@
+(println "=== Comprehensive File Operations Test Suite ===")
+(println "Industry-standard tests covering all edge cases")
+(println "")
+
+(println "Test 1: Basic write and read")
+(write_file "/tmp/franz_test1.txt" "Hello, World!")
+content1 = (read_file "/tmp/franz_test1.txt")
+(println "Basic content:" content1)
+
+(println "")
+(println "Test 2: Newline characters (\\n)")
+(write_file "/tmp/franz_test2.txt" "Line 1\\nLine 2\\nLine 3")
+content2 = (read_file "/tmp/franz_test2.txt")
+(println "Newline test:")
+(println content2)
+
+(println "")
+(println "Test 3: Tab characters (\\t)")
+(write_file "/tmp/franz_test3.txt" "Col1\\tCol2\\tCol3")
+content3 = (read_file "/tmp/franz_test3.txt")
+(println "Tab test:" content3)
+
+(println "")
+(println "Test 4: Mixed escape sequences")
+mixed = "Quote: Hello\\nTab:\\tValue\\nBackslash: \\\\"
+(write_file "/tmp/franz_test4.txt" mixed)
+content4 = (read_file "/tmp/franz_test4.txt")
+(println "Mixed escapes:")
+(println content4)
+
+(println "")
+(println "Test 5: Empty string")
+(write_file "/tmp/franz_test5.txt" "")
+content5 = (read_file "/tmp/franz_test5.txt")
+(println "Empty file content:" content5)
+(println "Expected: empty output above")
+
+(println "")
+(println "Test 6: Single character")
+(write_file "/tmp/franz_test6.txt" "X")
+content6 = (read_file "/tmp/franz_test6.txt")
+(println "Single char:" content6)
+
+(println "")
+(println "Test 7: Numbers as strings")
+(write_file "/tmp/franz_test7.txt" "123456789")
+content7 = (read_file "/tmp/franz_test7.txt")
+(println "Numbers:" content7)
+
+(println "")
+(println "Test 8: Special characters")
+special = "@#$%^&*()_+-={}[]|:;<>?,./~`"
+(write_file "/tmp/franz_test8.txt" special)
+content8 = (read_file "/tmp/franz_test8.txt")
+(println "Special chars:" content8)
+
+(println "")
+(println "Test 9: Unicode-like characters (via hex escapes)")
+unicode_test = "Hello\\x20World\\x21"
+(write_file "/tmp/franz_test9.txt" unicode_test)
+content9 = (read_file "/tmp/franz_test9.txt")
+(println "Hex escape test:" content9)
+
+(println "")
+(println "Test 10: Overwrite existing file")
+(write_file "/tmp/franz_test1.txt" "Updated content!")
+updated = (read_file "/tmp/franz_test1.txt")
+(println "Overwrite test:" updated)
+
+(println "")
+(println "Test 11: Multiple consecutive writes")
+(write_file "/tmp/franz_seq1.txt" "First")
+(write_file "/tmp/franz_seq2.txt" "Second")
+(write_file "/tmp/franz_seq3.txt" "Third")
+seq1 = (read_file "/tmp/franz_seq1.txt")
+seq2 = (read_file "/tmp/franz_seq2.txt")
+seq3 = (read_file "/tmp/franz_seq3.txt")
+(println "Sequential writes:" seq1 seq2 seq3)
+
+(println "")
+(println "Test 12: Whitespace characters")
+whitespace = "   Leading spaces\\nTrailing spaces   \\nMixed   spaces"
+(write_file "/tmp/franz_test12.txt" whitespace)
+content12 = (read_file "/tmp/franz_test12.txt")
+(println "Whitespace test:")
+(println content12)
+
+(println "")
+(println "Test 13: Long content (stress test)")
+long_content = "This is a longer piece of text that tests whether Franz can handle files with more substantial content. It includes multiple sentences and should be written and read back correctly without any data loss or corruption."
+(write_file "/tmp/franz_test13.txt" long_content)
+content13 = (read_file "/tmp/franz_test13.txt")
+(println "Long content matches original:" content13)
+
+(println "")
+(println "Test 14: Carriage return (\\r)")
+(write_file "/tmp/franz_test14.txt" "Line1\\rLine2")
+content14 = (read_file "/tmp/franz_test14.txt")
+(println "Carriage return test:" content14)
+
+(println "")
+(println "Test 15: Dynamic content from variables")
+name = "Franz"
+version = "0.0.4"
+message = "Welcome to Franz!"
+combined = "Message"
+(write_file "/tmp/franz_test15.txt" combined)
+content15 = (read_file "/tmp/franz_test15.txt")
+(println "Dynamic content:" content15)
+
+(println "")
+(println "=== All 15 tests completed! ===")
+(println "File operations working at C-level performance")

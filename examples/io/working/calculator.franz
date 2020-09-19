@@ -1,0 +1,22 @@
+// Simple calculator using input()
+// Demonstrates type conversion with input
+
+(println "=== Simple Calculator ===")
+(println "")
+
+(println "Enter first number:")
+mut input1 = (input)
+num1 = (integer input1)
+
+(println "Enter second number:")
+mut input2 = (input)
+num2 = (integer input2)
+
+sum = (add num1 num2)
+product = (multiply num1 num2)
+
+(println "")
+(println "Results:")
+(println "  Sum:" sum)
+(println "  Product:" product)
+

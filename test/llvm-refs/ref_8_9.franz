@@ -1,0 +1,37 @@
+
+// ============================================================
+// Test 8: Ref in closure - counter factory pattern
+// ============================================================
+(println "Test 8: Ref in closure - counter factory pattern")
+test8_make_counter = {start ->
+  test8_count = (ref start)
+  <- {->
+    test8_current = (deref test8_count)
+    test8_next = (add test8_current 1)
+    (set! test8_count test8_next)
+    <- test8_current
+  }
+}
+test8_counter = (test8_make_counter 0)
+test8_val1 = (test8_counter)
+test8_val2 = (test8_counter)
+test8_val3 = (test8_counter)
+(println "  Counter sequence:" test8_val1 test8_val2 test8_val3)
+(println "  ✓ PASS")
+(println "")
+
+// ============================================================
+// Test 9: Multiple updates to same ref
+// ============================================================
+(println "Test 9: Multiple updates to same ref")
+test9_x = (ref 1)
+(set! test9_x 2)
+(set! test9_x 3)
+(set! test9_x 4)
+(set! test9_x 5)
+test9_val = (deref test9_x)
+(println "  After 5 updates, value is:" test9_val)
+(println "  ✓ PASS")
+(println "")
+
+

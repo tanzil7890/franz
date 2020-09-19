@@ -1,0 +1,18 @@
+// Example 3: Type-Safe Comparison
+(println "Example 3: Type-Safe Comparison")
+safe_compare = {a b ->
+  type_a = (type a)
+  type_b = (type b)
+  <- (if (is type_a type_b)
+    {<- (is a b)}
+    {
+      (println "    Warning: Comparing different types (" type_a " vs " type_b ")")
+      <- 0
+    }
+  )
+}
+(println "  Compare 5 and 5:")
+(println "    Result: " (safe_compare 5 5))
+(println "  Compare 5 and \"5\":")
+(println "    Result: " (safe_compare 5 "5"))
+(println "")

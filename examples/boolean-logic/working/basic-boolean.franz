@@ -1,0 +1,51 @@
+(println "=== Basic Boolean Logic Examples ===")
+(println "")
+
+(println "Example 1: Simple NOT operation")
+value = 0
+result = (not value)
+(println "  not 0 = " result)
+(println "  not 1 = " (not 1))
+
+(println "")
+(println "Example 2: AND with two conditions")
+age = 25
+has_license = 1
+can_drive = (and (greater_than age 18) has_license)
+(println "  Age 25, has license? " (if can_drive {<- "Can drive"} {<- "Cannot drive"}))
+
+(println "")
+(println "Example 3: OR for multiple valid options")
+is_weekend = 0
+is_holiday = 1
+can_relax = (or is_weekend is_holiday)
+(println "  Weekend or holiday? " (if can_relax {<- "Can relax!"} {<- "Work day"}))
+
+(println "")
+(println "Example 4: Range validation with AND")
+temperature = 72
+is_comfortable = (and (greater_than temperature 60) (less_than temperature 80))
+(println "  Temperature 72°F comfortable (60-80)? " (if is_comfortable {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 5: Multiple OR conditions")
+color = "red"
+is_red = (is color "red")
+is_blue = (is color "blue")
+is_green = (is color "green")
+is_valid_color = (or is_red is_blue is_green)
+(println "  Color 'red' valid? " (if is_valid_color {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 6: Negating a comparison")
+score = 85
+failed = (not (greater_than score 60))
+(println "  Score 85 failed (< 60)? " (if failed {<- "Failed"} {<- "Passed"}))
+
+(println "")
+(println "Example 7: Complex condition - (AND + OR)")
+has_experience = 1
+has_degree = 0
+has_certification = 1
+is_qualified = (or has_degree (and has_experience has_certification))
+(println "  Has experience + cert (no degree)? " (if is_qualified {<- "Qualified"} {<- "Not qualified"}))

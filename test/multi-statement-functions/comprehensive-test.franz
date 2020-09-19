@@ -1,0 +1,147 @@
+(println "=== COMPREHENSIVE MULTI-STATEMENT FUNCTION TEST SUITE ===")
+(println "")
+
+// TEST 1: Simple multi-statement function
+(println "Test 1: Simple multi-statement arithmetic")
+calc = {a b c ->
+  sum_ab = (add a b)
+  result = (add sum_ab c)
+  <- result
+}
+t1 = (calc 10 20 30)
+(println "  Result:" t1 "(expected: 60)")
+
+// TEST 2: Multi-statement with conditionals
+(println "")
+(println "Test 2: Multi-statement with if conditions")
+validate_age = {age min_age max_age ->
+  is_old_enough = (greater_than age min_age)
+  is_young_enough = (less_than age max_age)
+  is_valid = (and is_old_enough is_young_enough)
+  <- is_valid
+}
+t2a = (validate_age 25 18 65)
+t2b = (validate_age 10 18 65)
+(println "  validate_age(25,18,65):" t2a "(expected: 1)")
+(println "  validate_age(10,18,65):" t2b "(expected: 0)")
+
+// TEST 3: Multi-statement complex boolean logic
+(println "")
+(println "Test 3: Complex boolean logic")
+access_control = {is_admin is_owner is_premium ->
+  admin_access = is_admin
+  owner_access = (and is_owner is_premium)
+  has_access = (or admin_access owner_access)
+  <- has_access
+}
+t3a = (access_control 0 1 1)
+t3b = (access_control 0 1 0)
+t3c = (access_control 1 0 0)
+(println "  access(0,1,1):" t3a "(expected: 1)")
+(println "  access(0,1,0):" t3b "(expected: 0)")
+(println "  access(1,0,0):" t3c "(expected: 1)")
+
+// TEST 4: Multi-statement with math
+(println "")
+(println "Test 4: Multi-statement math operations")
+circle_area = {radius ->
+  pi = 3.14159
+  radius_squared = (power radius 2)
+  area = (multiply pi radius_squared)
+  <- area
+}
+t4 = (circle_area 5.0)
+(println "  circle_area(5.0):" t4)
+
+// TEST 5: Multi-statement with nested calls
+(println "")
+(println "Test 5: Nested function calls")
+complex_calc = {a b c d ->
+  step1 = (add a b)
+  step2 = (multiply step1 c)
+  step3 = (subtract step2 d)
+  final = (abs step3)
+  <- final
+}
+t5 = (complex_calc 5 10 3 50)
+(println "  complex_calc(5,10,3,50):" t5 "(expected: 5)")
+
+// TEST 6: Recursive with multi-statement
+(println "")
+(println "Test 6: Recursive fibonacci")
+fib = {n ->
+  is_base = (less_than n 2)
+  result = (if is_base
+    {<- n}
+    {
+      n1 = (subtract n 1)
+      n2 = (subtract n 2)
+      f1 = (fib n1)
+      f2 = (fib n2)
+      <- (add f1 f2)
+    }
+  )
+  <- result
+}
+t6 = (fib 8)
+(println "  fib(8):" t6 "(expected: 21)")
+
+// TEST 7: Six parameters
+(println "")
+(println "Test 7: Six parameters")
+six_param = {a b c d e f ->
+  sum1 = (add a b)
+  sum2 = (add c d)
+  sum3 = (add e f)
+  total1 = (add sum1 sum2)
+  total2 = (add total1 sum3)
+  <- total2
+}
+t7 = (six_param 1 2 3 4 5 6)
+(println "  six_param(1,2,3,4,5,6):" t7 "(expected: 21)")
+
+// TEST 8: Variadic logic operations
+(println "")
+(println "Test 8: Variadic AND/OR")
+check_all = {a b c d ->
+  pair1 = (and a b)
+  pair2 = (and c d)
+  result = (and pair1 pair2)
+  <- result
+}
+t8a = (check_all 1 1 1 1)
+t8b = (check_all 1 0 1 1)
+(println "  check_all(1,1,1,1):" t8a "(expected: 1)")
+(println "  check_all(1,0,1,1):" t8b "(expected: 0)")
+
+// TEST 9: Min/Max operations
+(println "")
+(println "Test 9: Min/Max with multi-statement")
+range_calc = {a b c d e ->
+  minimum = (min a b c d e)
+  maximum = (max a b c d e)
+  range = (subtract maximum minimum)
+  <- range
+}
+t9 = (range_calc 5 12 3 8 20)
+(println "  range_calc(5,12,3,8,20):" t9 "(expected: 17)")
+
+// TEST 10: XOR implementation (from advanced-boolean.franz)
+(println "")
+(println "Test 10: XOR with multi-statement")
+xor = {a b ->
+  both = (and a b)
+  either = (or a b)
+  not_both = (not both)
+  result = (and either not_both)
+  <- result
+}
+t10a = (xor 1 0)
+t10b = (xor 1 1)
+t10c = (xor 0 0)
+(println "  xor(1,0):" t10a "(expected: 1)")
+(println "  xor(1,1):" t10b "(expected: 0)")
+(println "  xor(0,0):" t10c "(expected: 0)")
+
+(println "")
+(println "=== ALL 10 TESTS COMPLETE ===")

@@ -1,0 +1,150 @@
+// Time Function Test Suite
+// Tests the (time) function for getting current time
+
+(println "╔══════════════════════════════════════════════╗")
+(println "║         Time Function Test Suite            ║")
+(println "╚══════════════════════════════════════════════╝")
+(println "")
+
+// Test 1: Basic time call
+(println "Test 1: Basic time call")
+t1 = (time)
+test1_pass = (is (type t1) "float")
+(if test1_pass
+  {<- (println "✓ PASS - Returns float")}
+  {<- (println "✗ FAIL - Should return float, got" (type t1))}
+)
+
+// Test 2: Time advances
+(println "Test 2: Time advances")
+start = (time)
+(loop 1000 {i -> x = (add i 1)})  // Do some work
+end = (time)
+test2_pass = (greater_than end start)
+(if test2_pass
+  {<- (println "✓ PASS - Time advances")}
+  {<- (println "✗ FAIL - Time should advance")}
+)
+
+// Test 3: Multiple time calls
+(println "Test 3: Multiple time calls")
+t1 = (time)
+(loop 100 {i -> x = (add i 1)})  // Small delay
+t2 = (time)
+(loop 100 {i -> x = (add i 1)})  // Small delay
+t3 = (time)
+test3_pass = (and
+  (or (greater_than t2 t1) (is t2 t1))
+  (or (greater_than t3 t2) (is t3 t2))
+)
+(if test3_pass
+  {<- (println "✓ PASS - Multiple calls work correctly")}
+  {<- (println "✗ FAIL - Time calls not sequential")}
+)
+
+// Test 4: Benchmarking use case
+(println "Test 4: Benchmarking use case")
+start_bench = (time)
+(loop 100 {i -> x = (multiply i i)})
+duration = (subtract (time) start_bench)
+test4_pass = (and
+  (greater_than duration 0)
+  (less_than duration 1)  // Should be very fast
+)
+(if test4_pass
+  {<- (println "✓ PASS - Benchmark works (duration:" duration "s)")}
+  {<- (println "✗ FAIL - Duration out of expected range")}
+)
+
+// Test 5: Timer helper function
+(println "Test 5: Timer helper function")
+timer = {->
+  start = (time)
+  <- {-> <- (subtract (time) start)}
+}
+t = (timer)
+(loop 500 {i -> x = (add i 1)})
+elapsed = (t)
+test5_pass = (greater_than elapsed 0)
+(if test5_pass
+  {<- (println "✓ PASS - Timer helper works (elapsed:" elapsed "s)")}
+  {<- (println "✗ FAIL - Timer helper failed")}
+)
+
+// Test 6: Time difference calculation
+(println "Test 6: Time difference calculation")
+t1 = (time)
+(loop 100 {i -> x = (multiply i 2)})
+t2 = (time)
+diff = (subtract t2 t1)
+test6_pass = (and
+  (is (type diff) "float")
+  (greater_than diff 0)
+)
+(if test6_pass
+  {<- (println "✓ PASS - Time difference calculation works")}
+  {<- (println "✗ FAIL - Time difference calculation failed")}
+)
+
+// Test 7: Zero arguments required
+(println "Test 7: Zero arguments required")
+test7_pass = 1
+// This should work (0 args)
+t = (time)
+(if (is (type t) "float")
+  {test7_pass = 1}
+  {test7_pass = 0}
+)
+(if (is test7_pass 1)
+  {<- (println "✓ PASS - Accepts zero arguments")}
+  {<- (println "✗ FAIL - Should accept zero arguments")}
+)
+
+// Test 8: Time is non-negative
+(println "Test 8: Time is non-negative")
+t = (time)
+test8_pass = (or
+  (greater_than t 0)
+  (is t 0)
+)
+(if test8_pass
+  {<- (println "✓ PASS - Time is non-negative (" t ")")}
+  {<- (println "✗ FAIL - Time should be non-negative")}
+)
+
+// Test 9: Precision check (microsecond range)
+(println "Test 9: Precision check")
+t = (time)
+// Time should be a valid float
+test9_pass = (is (type t) "float")
+(if test9_pass
+  {<- (println "✓ PASS - Returns float with precision (value:" t ")")}
+  {<- (println "✗ FAIL - Should return float")}
+)
+
+// Test 10: Performance measurement pattern
+(println "Test 10: Performance measurement pattern")
+measure_performance = {fn iterations ->
+  start = (time)
+  (loop iterations {i -> (fn i)})
+  duration = (subtract (time) start)
+  rate = (divide iterations duration)
+  <- (dict
+    "duration" duration
+    "rate" rate
+  )
+}
+
+result = (measure_performance {i -> x = (multiply i i)} 1000)
+duration = (dict_get result "duration")
+rate = (dict_get result "rate")
+test10_pass = (greater_than rate 0)
+(if test10_pass
+  {<- (println "✓ PASS - Performance measurement works")}
+  {<- (println "✗ FAIL - Performance measurement failed")}
+)
+
+(println "")
+(println "══════════════════════════════════════════════")
+(println "✓ All 10 time function tests completed")
+(println "══════════════════════════════════════════════")

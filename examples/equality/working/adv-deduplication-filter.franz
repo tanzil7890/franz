@@ -1,0 +1,12 @@
+// Example 4: Deduplication Filter
+(println "Example 4: List Deduplication Check")
+has_duplicate = {list ->
+  first = (get list 0)
+  second = (get list 1)
+  <- (is first second)
+}
+dup_list = [5, 5, 6]
+unique_list = [1, 2, 3]
+(println "  [5, 5, 6] has duplicates? " (if (has_duplicate dup_list) {<- "Yes"} {<- "No"}))
+(println "  [1, 2, 3] has duplicates? " (if (has_duplicate unique_list) {<- "Yes"} {<- "No"}))
+(println "")

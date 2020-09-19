@@ -1,0 +1,12 @@
+(println "=== Simple Map2 Test ===")
+
+list1 = [1, 2, 3]
+list2 = [10, 20, 30]
+(println "List1:" list1)
+(println "List2:" list2)
+
+add_both = {a b i -> <- (add a b)}
+result = (map2 list1 list2 add_both)
+
+(println "Result:" result)
+(println "Test completed!")

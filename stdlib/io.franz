@@ -1,0 +1,101 @@
+// stdlib/io.franz
+// Franz Standard Library - I/O Module
+//
+// File system and I/O utilities beyond basic read/write
+// 8 functions for path manipulation and file inspection
+
+// ===== File Inspection Functions =====
+
+// exists - Check if file or directory exists
+// Returns 1 if path exists, 0 otherwise
+// {string -> integer}
+exists = {path ->
+  result = (shell (join "test -e " path " && echo '1' || echo '0'"))
+  trimmed = (shell (join "echo '" result "' | tr -d '\\n'"))
+  <- (integer trimmed)
+}
+
+// is_file - Check if path is a regular file
+// Returns 1 if path is a file, 0 otherwise
+// {string -> integer}
+is_file = {path ->
+  result = (shell (join "test -f " path " && echo '1' || echo '0'"))
+  trimmed = (shell (join "echo '" result "' | tr -d '\\n'"))
+  <- (integer trimmed)
+}
+
+// is_dir - Check if path is a directory
+// Returns 1 if path is a directory, 0 otherwise
+// {string -> integer}
+is_dir = {path ->
+  result = (shell (join "test -d " path " && echo '1' || echo '0'"))
+  trimmed = (shell (join "echo '" result "' | tr -d '\\n'"))
+  <- (integer trimmed)
+}
+
+// ===== Directory Operations =====
+
+// list_dir - List files and directories in a directory
+// Returns a string with newline-separated filenames
+// {string -> string}
+list_dir = {path ->
+  <- (shell (join "ls -1 " path " 2>/dev/null || echo ''"))
+}
+
+// ===== Path Manipulation Functions =====
+
+// basename - Extract filename from path
+// Returns the last component of the path
+// {string -> string}
+basename = {path ->
+  result = (shell (join "basename " path))
+  <- (shell (join "echo '" result "' | tr -d '\\n'"))
+}
+
+// dirname - Extract directory from path
+// Returns the directory component of the path
+// {string -> string}
+dirname = {path ->
+  result = (shell (join "dirname " path))
+  <- (shell (join "echo '" result "' | tr -d '\\n'"))
+}
+
+// join_path - Join path components with proper separators
+// Returns a single path string
+// {list -> string}
+join_path = {parts ->
+  <- (reduce parts {acc item index ->
+    <- (if (is index 0) {
+      <- item
+    } {
+      // Remove trailing slash from accumulator if present
+      last_char_index = (subtract (length acc) 1)
+      last_char = (if (greater_than (length acc) 0) {
+        <- (get acc last_char_index)
+      } {
+        <- ""
+      })
+
+      // Add separator only if needed
+      <- (if (is last_char "/") {
+        <- (join acc item)
+      } {
+        <- (join acc "/" item)
+      })
+    })
+  } "")
+}
+
+// ===== File Reading =====
+
+// read_lines - Read file as list of lines (newline-separated string)
+// Returns a string with newline-separated lines
+// {string -> string}
+read_lines = {path ->
+  content = (read_file path)
+  <- (if (is content void) {
+    <- ""
+  } {
+    <- content
+  })
+}

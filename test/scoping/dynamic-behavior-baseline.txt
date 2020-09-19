@@ -1,0 +1,50 @@
+=== Scoping Behavior Test Matrix ( 0) ===
+
+This test documents CURRENT BEHAVIOR (Dynamic Scoping)
+Results will change after  3 (Lexical Scoping Implementation)
+
+Test 1: Closure capture semantics
+  Result:  20
+  Current (dynamic): 20
+  After  3 (lexical): 10
+
+Test 2: Nested closure capture
+  Note: This test demonstrates a LIMITATION of dynamic scoping
+  Current (dynamic): ERROR - n is not defined
+  After  3 (lexical): 15
+  Status: Test skipped (known failure in dynamic mode)
+
+Test 3: Mutual recursion
+  Result:  [Void]
+  Current (dynamic): 1
+  After  3 (lexical): 1
+  Note: Works in both modes (top-level bindings)
+
+Test 4: Map with closure (free variable)
+  Result:  [List: 3, 6, 9, 12, 15]
+  Current (dynamic):  [List: 3, 6, 9, 12, 15]
+  After  3 (lexical): (3 6 9 12 15)
+  Note: Works in both modes (multiplier in parent scope)
+
+Test 5: Variable shadowing
+  Result:  200
+  Current (dynamic): 200
+  After  3 (lexical): 100 (if inner5 defined before shadow)
+
+Test 6: Scope isolation
+  Result:  100
+  global_var accessible: yes
+  local_var accessible outside: no
+  Note: Local scope isolation works in both modes
+
+=== Test Matrix Complete ===
+
+Summary:
+  - Test 1: WILL CHANGE (20 -> 10)
+  - Test 2: WILL START WORKING (currently fails)
+  - Test 3: NO CHANGE (works in both)
+  - Test 4: NO CHANGE (works in both)
+  - Test 5: WILL CHANGE (depends on definition order)
+  - Test 6: NO CHANGE (isolation works in both)
+
+Save these results for comparison with  3

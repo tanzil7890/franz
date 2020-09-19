@@ -1,0 +1,275 @@
+(println "===========================================")
+(println "===  Upstream Tagging Test Suite ===")
+(println "===========================================")
+(println "")
+(println "This test verifies that stdlib int/bool-returning")
+(println "functions are NOT treated as Generic* pointers.")
+(println "")
+(println "EXPECTED BEHAVIOR:")
+(println "- BEFORE fix: [BOX POINTER SMART] messages appear")
+(println "- AFTER fix: No [BOX POINTER SMART] for stdlib ints")
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 1: Arithmetic Functions
+// ============================================================================
+
+(println "--- Test Category 1: Arithmetic Functions ---")
+
+test_add = {a b -> <- (add a b)}
+result_add = (test_add 5 10)
+(println "Test 1.1 - add result:" result_add)  // Expected: 15
+
+test_subtract = {a b -> <- (subtract a b)}
+result_sub = (test_subtract 20 7)
+(println "Test 1.2 - subtract result:" result_sub)  // Expected: 13
+
+test_multiply = {a b -> <- (multiply a b)}
+result_mul = (test_multiply 7 3)
+(println "Test 1.3 - multiply result:" result_mul)  // Expected: 21
+
+test_divide = {a b -> <- (divide a b)}
+result_div = (test_divide 20 4)
+(println "Test 1.4 - divide result:" result_div)  // Expected: 5
+
+test_remainder = {a b -> <- (remainder a b)}
+result_rem = (test_remainder 17 5)
+(println "Test 1.5 - remainder result:" result_rem)  // Expected: 2
+
+test_abs = {n -> <- (abs n)}
+result_abs = (test_abs -42)
+(println "Test 1.6 - abs result:" result_abs)  // Expected: 42
+
+test_min = {a b c -> <- (min a b c)}
+result_min = (test_min 15 8 23)
+(println "Test 1.7 - min result:" result_min)  // Expected: 8
+
+test_max = {a b c -> <- (max a b c)}
+result_max = (test_max 15 8 23)
+(println "Test 1.8 - max result:" result_max)  // Expected: 23
+
+test_power = {a b -> <- (power a b)}
+result_pow = (test_power 2 8)
+(println "Test 1.9 - power result:" result_pow)  // Expected: 256
+
+test_sqrt = {n -> <- (sqrt n)}
+result_sqrt = (test_sqrt 16)
+(println "Test 1.10 - sqrt result:" result_sqrt)  // Expected: 4
+
+test_floor = {n -> <- (floor n)}
+result_floor = (test_floor 3.7)
+(println "Test 1.11 - floor result:" result_floor)  // Expected: 3
+
+test_ceil = {n -> <- (ceil n)}
+result_ceil = (test_ceil 3.2)
+(println "Test 1.12 - ceil result:" result_ceil)  // Expected: 4
+
+test_round = {n -> <- (round n)}
+result_round = (test_round 3.5)
+(println "Test 1.13 - round result:" result_round)  // Expected: 4
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 2: Comparison Functions
+// ============================================================================
+
+(println "--- Test Category 2: Comparison Functions ---")
+
+test_is = {a b -> <- (is a b)}
+result_is = (test_is 42 42)
+(println "Test 2.1 - is (equality) result:" result_is)  // Expected: 1
+
+test_less_than = {a b -> <- (less_than a b)}
+result_lt = (test_less_than 5 10)
+(println "Test 2.2 - less_than result:" result_lt)  // Expected: 1
+
+test_greater_than = {a b -> <- (greater_than a b)}
+result_gt = (test_greater_than 10 5)
+(println "Test 2.3 - greater_than result:" result_gt)  // Expected: 1
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 3: Logical Functions
+// ============================================================================
+
+(println "--- Test Category 3: Logical Functions ---")
+
+test_not = {x -> <- (not x)}
+result_not = (test_not 0)
+(println "Test 3.1 - not result:" result_not)  // Expected: 1
+
+test_and = {a b -> <- (and a b)}
+result_and = (test_and 1 1)
+(println "Test 3.2 - and result:" result_and)  // Expected: 1
+
+test_or = {a b -> <- (or 0 1)}
+result_or = (test_or 0 1)
+(println "Test 3.3 - or result:" result_or)  // Expected: 1
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 4: Type Checking Functions
+// ============================================================================
+
+(println "--- Test Category 4: Type Checking Functions ---")
+
+test_is_int = {x -> <- (is_int x)}
+result_is_int = (test_is_int 42)
+(println "Test 4.1 - is_int result:" result_is_int)  // Expected: 1
+
+test_is_float = {x -> <- (is_float x)}
+result_is_float = (test_is_float 3.14)
+(println "Test 4.2 - is_float result:" result_is_float)  // Expected: 1
+
+test_is_string = {x -> <- (is_string x)}
+result_is_string = (test_is_string "hello")
+(println "Test 4.3 - is_string result:" result_is_string)  // Expected: 1
+
+test_is_list = {x -> <- (is_list x)}
+test_list = [1, 2, 3]
+result_is_list = (test_is_list test_list)
+(println "Test 4.4 - is_list result:" result_is_list)  // Expected: 1
+
+test_is_function = {x -> <- (is_function x)}
+dummy_func = {-> <- 42}
+result_is_func = (test_is_function dummy_func)
+(println "Test 4.5 - is_function result:" result_is_func)  // Expected: 1
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 5: List Query Functions
+// ============================================================================
+
+(println "--- Test Category 5: List Query Functions ---")
+
+test_length = {lst -> <- (length lst)}
+test_nums = [10, 20, 30, 40, 50]
+result_length = (test_length test_nums)
+(println "Test 5.1 - length result:" result_length)  // Expected: 5
+
+test_empty = {lst -> <- (empty? lst)}
+empty_list = []
+result_empty = (test_empty empty_list)
+(println "Test 5.2 - empty? result:" result_empty)  // Expected: 1
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 6: Random Functions
+// ============================================================================
+
+(println "--- Test Category 6: Random Functions ---")
+
+(random_seed 42)
+test_random_int = {n -> <- (random_int n)}
+result_random_int = (test_random_int 100)
+(println "Test 6.1 - random_int result:" result_random_int)  // Expected: int between 0-99
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 7: Terminal Functions
+// ============================================================================
+
+(println "--- Test Category 7: Terminal Functions ---")
+
+test_rows = {-> <- (rows)}
+result_rows = (test_rows)
+(println "Test 7.1 - rows result:" result_rows)  // Expected: terminal height
+
+test_columns = {-> <- (columns)}
+result_columns = (test_columns)
+(println "Test 7.2 - columns result:" result_columns)  // Expected: terminal width
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 8: Complex Expressions (Multi-level)
+// ============================================================================
+
+(println "--- Test Category 8: Complex Multi-level Expressions ---")
+
+// Test 8.1: Nested arithmetic
+calc = {a b c -> <- (add (multiply a b) c)}
+result_calc = (calc 3 4 5)
+(println "Test 8.1 - nested arithmetic:" result_calc)  // Expected: 17
+
+// Test 8.2: Comparison in conditional
+check_range = {x min_val max_val ->
+  in_range = (and (greater_than x min_val) (less_than x max_val))
+  <- in_range
+}
+result_range = (check_range 50 10 100)
+(println "Test 8.2 - range check:" result_range)  // Expected: 1
+
+// Test 8.3: Multiple comparisons
+find_max = {a b c ->
+  max_ab = (if (greater_than a b) {<- a} {<- b})
+  max_all = (if (greater_than max_ab c) {<- max_ab} {<- c})
+  <- max_all
+}
+result_find_max = (find_max 25 18 30)
+(println "Test 8.3 - find_max:" result_find_max)  // Expected: 30
+
+// Test 8.4: Logical combination
+validate = {age has_license ->
+  can_drive = (and (greater_than age 17) has_license)
+  <- can_drive
+}
+result_validate = (validate 25 1)
+(println "Test 8.4 - validate:" result_validate)  // Expected: 1
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 9: Regression Tests (Must Still Work)
+// ============================================================================
+
+(println "--- Test Category 9: Regression Tests ---")
+
+// Test 9.1: Real closures should still work
+make_adder = {n -> <- {x -> <- (add n x)}}
+add5 = (make_adder 5)
+result_closure = (add5 10)
+(println "Test 9.1 - closure (factory pattern):" result_closure)  // Expected: 15
+
+// Test 9.2: Nested closures
+make_mult = {a -> <- {b -> <- (multiply a b)}}
+mult3 = (make_mult 3)
+result_nested = (mult3 7)
+(println "Test 9.2 - nested closure:" result_nested)  // Expected: 21
+
+// Test 9.3: List operations with closures (Generic* path)
+nums = [10, 20, 30]
+double = {x i -> <- (multiply x 2)}
+doubled = (map nums double)
+(println "Test 9.3 - map with closure:" doubled)  // Expected: [20, 40, 60]
+
+// Test 9.4: Identity function (polymorphic)
+identity = {x -> <- x}
+id_result = (identity 42)
+(println "Test 9.4 - identity function:" id_result)  // Expected: 42
+
+(println "")
+
+// ============================================================================
+// TEST SUMMARY
+// ============================================================================
+
+(println "===========================================")
+(println "=== TEST SUITE COMPLETE ===")
+(println "===========================================")
+(println "")
+(println "Total Test Categories: 9")
+(println "Total Individual Tests: 35+")
+(println "")
+(println "VERIFICATION STEPS:")
+(println "1. Check stderr for [BOX POINTER SMART] messages")
+(println "2. Count occurrences before vs after fix")
+(println "3. Verify all numeric results are correct")
+(println "4. Ensure regression tests (9.1-9.4) still pass")
+(println "")

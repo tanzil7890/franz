@@ -1,0 +1,64 @@
+// Example 4: Practical Applications
+// Real-world use cases for random functions
+
+(println "=== Practical Applications ===")
+(println "")
+
+// Application 1: Random Color Generator
+(println "Application 1: Random Color Generator")
+red = (random_int 256)
+green = (random_int 256)
+blue = (random_int 256)
+(println "  RGB Color: (" red "," green "," blue ")")
+hex_valid = (and (and (less_than red 256) (less_than green 256)) (less_than blue 256))
+(println "  Valid RGB:" hex_valid)
+(println "")
+
+// Application 2: Random Port Assignment
+(println "Application 2: Dynamic Port Assignment")
+base_port = 8000
+port_range = 1000
+port = (add base_port (random_int port_range))
+(println "  Assigned Port:" port)
+port_valid = (and (greater_than port 7999) (less_than port 9000))
+(println "  Valid Port:" port_valid)
+(println "")
+
+// Application 3: Coin Flip Decision
+(println "Application 3: Coin Flip Decision Maker")
+flip = (random_int 2)
+(if (is flip 0)
+  {
+    (println "  Result: Heads - Choose Option A")
+  }
+  {
+    (println "  Result: Tails - Choose Option B")
+  }
+)
+(println "")
+
+// Application 4: Random Delay Simulation (milliseconds)
+(println "Application 4: Network Latency Simulation")
+min_latency = 10
+max_latency = 100
+latency = (random_range min_latency max_latency)
+(println "  Network Latency:" latency "ms")
+latency_ok = (less_than latency 150)
+(println "  Acceptable:" latency_ok)
+(println "")
+
+// Application 5: Random Percentage
+(println "Application 5: Random Percentage Generator")
+percent = (random_range 0 100)
+(println "  Percentage:" percent "%")
+(println "")
+
+// Application 6: Weighted Random Selection
+(println "Application 6: Weighted Random (60% threshold)")
+value = (random_range 0 100)
+selected = (less_than value 60)
+(println "  Random Value:" value)
+(println "  Selected (60% chance):" selected)
+(println "")
+
+(println "All applications demonstrated!")

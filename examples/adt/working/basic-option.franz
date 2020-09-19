@@ -1,0 +1,27 @@
+// Basic Option Type Example
+//  No-argument handlers only
+
+(println "=== Basic Option Type Example ===")
+(println "")
+
+// Create Some and None variants
+some_value = (variant "Some" 42)
+none_value = (variant "None")
+
+// Match on Some
+(println "Matching Some(42):")
+r1 = (match some_value
+  "Some" {-> (println "  ✓ We have a value!")}
+  "None" {-> (println "  ✗ No value")}
+)
+
+// Match on None
+(println "")
+(println "Matching None:")
+r2 = (match none_value
+  "Some" {-> (println "  ✗ We have a value")}
+  "None" {-> (println "  ✓ No value found")}
+)
+
+(println "")
+(println "Basic option type complete!")

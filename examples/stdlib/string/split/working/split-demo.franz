@@ -1,0 +1,24 @@
+// Franz String Library - split() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== split() Function Demo ===")
+  (println "")
+
+  (println "1. Split by comma")
+  (println "   split('a,b,c', ',') =>")
+  (print (split "a,b,c" ","))
+  (println "")
+
+  (println "2. Split by space")
+  (println "   split('hello world', ' ') =>")
+  (print (split "hello world" " "))
+  (println "")
+
+  (println "3. Split by custom delimiter")
+  (println "   split('one::two::three', '::') =>")
+  (print (split "one::two::three" "::"))
+  (println "")
+
+  (println "Note: Returns multi-line string")
+  (println "split() demo complete!")
+})

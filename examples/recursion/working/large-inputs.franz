@@ -1,0 +1,39 @@
+// Large input recursion test
+// Tests recursion with larger values to verify stack handling
+
+factorial = {n ->
+  (if (is n 0)
+    {<- 1}
+    {<- (multiply n (factorial (subtract n 1)))})
+}
+
+fib = {n ->
+  (if (less_than n 2)
+    {<- n}
+    {<- (add (fib (subtract n 1)) (fib (subtract n 2)))})
+}
+
+sum = {n ->
+  (if (is n 0)
+    {<- 0}
+    {<- (add n (sum (subtract n 1)))})
+}
+
+(println "=== Large Input Recursion Test ===")
+(println "")
+
+(println "factorial(10) =" (factorial 10))
+(println "factorial(15) =" (factorial 15))
+(println "factorial(20) =" (factorial 20))
+
+(println "")
+(println "fib(15) =" (fib 15))
+(println "fib(20) =" (fib 20))
+
+(println "")
+(println "sum(100) =" (sum 100))
+(println "sum(500) =" (sum 500))
+(println "sum(1000) =" (sum 1000))
+
+(println "")
+(println "Large input test completed!")

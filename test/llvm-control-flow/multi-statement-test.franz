@@ -1,0 +1,66 @@
+(println "=== Multi-Statement Block Test ===")
+(println "")
+
+// Test 1: Multi-statement block in then branch
+(println "Test 1: Multi-statement block with side effects + return")
+result1 = (if 1
+  {
+    (println "Debug: In then branch")
+    temp = 10
+    <- temp
+  }
+  {<- 0}
+)
+(println "Result1:" result1)
+(println "Expected: 10")
+(println "")
+
+// Test 2: Multi-statement block in else branch
+(println "Test 2: Multi-statement block in else branch")
+result2 = (if 0
+  {<- 999}
+  {
+    (println "Debug: In else branch")
+    temp = 20
+    <- temp
+  }
+)
+(println "Result2:" result2)
+(println "Expected: 20")
+(println "")
+
+// Test 3: Multi-statement blocks in both branches
+(println "Test 3: Multi-statement blocks in both branches")
+x = 5
+y = 3
+result3 = (if (greater_than x y)
+  {
+    (println "x is greater")
+    <- x
+  }
+  {
+    (println "y is greater or equal")
+    <- y
+  }
+)
+(println "Result3:" result3)
+(println "Expected: 5")
+(println "")
+
+// Test 4: Complex multi-statement computation
+(println "Test 4: Complex multi-statement computation")
+n = 10
+result4 = (if (greater_than n 5)
+  {
+    a = (multiply n 2)
+    b = (add a 5)
+    c = (divide b 5)
+    <- c
+  }
+  {<- 0}
+)
+(println "Result4:" result4)
+(println "Expected: 5")
+(println "")
+
+(println "=== All Multi-Statement Tests Complete ===")

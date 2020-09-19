@@ -1,0 +1,6 @@
+// Echo program - repeats user input
+// Demonstrates direct usage of input() in expressions
+
+(println "Echo Program - Type something and press Enter:")
+(println (input))
+

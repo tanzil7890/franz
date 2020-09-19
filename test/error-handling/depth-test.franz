@@ -1,0 +1,9 @@
+(println "First try:")
+x1 = (try { <- 1 } {e -> <- 0})
+(println "Result 1:" x1)
+
+(println "Second try:")
+x2 = (try { <- 2 } {e -> <- 0})
+(println "Result 2:" x2)
+
+(println "Done")

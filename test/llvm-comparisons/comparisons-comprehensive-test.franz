@@ -1,0 +1,256 @@
+(println "===  Comparison Operators Comprehensive Test ===")
+(println "")
+
+// ============================================================================
+// Category 1: Integer Equality (is)
+// ============================================================================
+(println "Category 1: Integer Equality (is)")
+(println "")
+
+(println "Test 1.1: Equal integers")
+test1_result = (is 5 5)
+(println "  (is 5 5) =" test1_result "  (expected: 1)")
+
+(println "Test 1.2: Unequal integers")
+test2_result = (is 5 3)
+(println "  (is 5 3) =" test2_result "  (expected: 0)")
+
+(println "Test 1.3: Zero comparison")
+test3_result = (is 0 0)
+(println "  (is 0 0) =" test3_result "  (expected: 1)")
+
+(println "Test 1.4: Negative integers")
+test4_result = (is -5 -5)
+(println "  (is -5 -5) =" test4_result "  (expected: 1)")
+
+(println "Test 1.5: Positive vs negative")
+test5_result = (is 5 -5)
+(println "  (is 5 -5) =" test5_result "  (expected: 0)")
+
+(println "")
+
+// ============================================================================
+// Category 2: Float Equality (is)
+// ============================================================================
+(println "Category 2: Float Equality (is)")
+(println "")
+
+(println "Test 2.1: Equal floats")
+test6_result = (is 3.14 3.14)
+(println "  (is 3.14 3.14) =" test6_result "  (expected: 1)")
+
+(println "Test 2.2: Unequal floats")
+test7_result = (is 3.14 2.71)
+(println "  (is 3.14 2.71) =" test7_result "  (expected: 0)")
+
+(println "Test 2.3: Zero float")
+test8_result = (is 0.0 0.0)
+(println "  (is 0.0 0.0) =" test8_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 3: Mixed Int/Float Equality (is)
+// ============================================================================
+(println "Category 3: Mixed Int/Float Equality (is)")
+(println "")
+
+(println "Test 3.1: Int equals float")
+test9_result = (is 5 5.0)
+(println "  (is 5 5.0) =" test9_result "  (expected: 1)")
+
+(println "Test 3.2: Int not equals float")
+test10_result = (is 5 5.5)
+(println "  (is 5 5.5) =" test10_result "  (expected: 0)")
+
+(println "Test 3.3: Float equals int")
+test11_result = (is 3.0 3)
+(println "  (is 3.0 3) =" test11_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 4: String Equality (is)
+// ============================================================================
+(println "Category 4: String Equality (is)")
+(println "")
+
+(println "Test 4.1: Equal strings")
+test12_result = (is "hello" "hello")
+(println "  (is \"hello\" \"hello\") =" test12_result "  (expected: 1)")
+
+(println "Test 4.2: Unequal strings")
+test13_result = (is "hello" "world")
+(println "  (is \"hello\" \"world\") =" test13_result "  (expected: 0)")
+
+(println "Test 4.3: Empty strings")
+test14_result = (is "" "")
+(println "  (is \"\" \"\") =" test14_result "  (expected: 1)")
+
+(println "Test 4.4: Case sensitivity")
+test15_result = (is "Hello" "hello")
+(println "  (is \"Hello\" \"hello\") =" test15_result "  (expected: 0)")
+
+(println "")
+
+// ============================================================================
+// Category 5: Integer Less Than (less_than)
+// ============================================================================
+(println "Category 5: Integer Less Than (less_than)")
+(println "")
+
+(println "Test 5.1: Less than true")
+test16_result = (less_than 3 5)
+(println "  (less_than 3 5) =" test16_result "  (expected: 1)")
+
+(println "Test 5.2: Less than false")
+test17_result = (less_than 10 5)
+(println "  (less_than 10 5) =" test17_result "  (expected: 0)")
+
+(println "Test 5.3: Equal values")
+test18_result = (less_than 5 5)
+(println "  (less_than 5 5) =" test18_result "  (expected: 0)")
+
+(println "Test 5.4: Negative numbers")
+test19_result = (less_than -10 -5)
+(println "  (less_than -10 -5) =" test19_result "  (expected: 1)")
+
+(println "Test 5.5: Negative vs positive")
+test20_result = (less_than -5 5)
+(println "  (less_than -5 5) =" test20_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 6: Float Less Than (less_than)
+// ============================================================================
+(println "Category 6: Float Less Than (less_than)")
+(println "")
+
+(println "Test 6.1: Float less than true")
+test21_result = (less_than 3.5 5.2)
+(println "  (less_than 3.5 5.2) =" test21_result "  (expected: 1)")
+
+(println "Test 6.2: Float less than false")
+test22_result = (less_than 7.8 3.2)
+(println "  (less_than 7.8 3.2) =" test22_result "  (expected: 0)")
+
+(println "Test 6.3: Mixed int/float less than")
+test23_result = (less_than 3 5.5)
+(println "  (less_than 3 5.5) =" test23_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 7: Integer Greater Than (greater_than)
+// ============================================================================
+(println "Category 7: Integer Greater Than (greater_than)")
+(println "")
+
+(println "Test 7.1: Greater than true")
+test24_result = (greater_than 10 3)
+(println "  (greater_than 10 3) =" test24_result "  (expected: 1)")
+
+(println "Test 7.2: Greater than false")
+test25_result = (greater_than 3 10)
+(println "  (greater_than 3 10) =" test25_result "  (expected: 0)")
+
+(println "Test 7.3: Equal values")
+test26_result = (greater_than 5 5)
+(println "  (greater_than 5 5) =" test26_result "  (expected: 0)")
+
+(println "Test 7.4: Negative numbers")
+test27_result = (greater_than -5 -10)
+(println "  (greater_than -5 -10) =" test27_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 8: Float Greater Than (greater_than)
+// ============================================================================
+(println "Category 8: Float Greater Than (greater_than)")
+(println "")
+
+(println "Test 8.1: Float greater than true")
+test28_result = (greater_than 7.5 3.2)
+(println "  (greater_than 7.5 3.2) =" test28_result "  (expected: 1)")
+
+(println "Test 8.2: Float greater than false")
+test29_result = (greater_than 2.1 8.9)
+(println "  (greater_than 2.1 8.9) =" test29_result "  (expected: 0)")
+
+(println "Test 8.3: Mixed int/float greater than")
+test30_result = (greater_than 10 3.5)
+(println "  (greater_than 10 3.5) =" test30_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 9: Comparison Chaining
+// ============================================================================
+(println "Category 9: Comparison Chaining")
+(println "")
+
+(println "Test 9.1: Multiple comparisons (AND)")
+a = 10
+b = 20
+c = 30
+test31_result1 = (less_than a b)
+test31_result2 = (less_than b c)
+(println "  (less_than 10 20) =" test31_result1 "  (expected: 1)")
+(println "  (less_than 20 30) =" test31_result2 "  (expected: 1)")
+
+(println "Test 9.2: Range check")
+value = 15
+lower = 10
+upper = 20
+test32_result1 = (greater_than value lower)
+test32_result2 = (less_than value upper)
+(println "  (greater_than 15 10) =" test32_result1 "  (expected: 1)")
+(println "  (less_than 15 20) =" test32_result2 "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Category 10: Variable Comparisons
+// ============================================================================
+(println "Category 10: Variable Comparisons")
+(println "")
+
+(println "Test 10.1: Variables with is")
+var1_x = 42
+var1_y = 42
+test33_result = (is var1_x var1_y)
+(println "  x = 42, y = 42, (is x y) =" test33_result "  (expected: 1)")
+
+(println "Test 10.2: Variables with less_than")
+var2_a = 5
+var2_b = 10
+test34_result = (less_than var2_a var2_b)
+(println "  a = 5, b = 10, (less_than a b) =" test34_result "  (expected: 1)")
+
+(println "Test 10.3: Variables with greater_than")
+var3_m = 100
+var3_n = 50
+test35_result = (greater_than var3_m var3_n)
+(println "  m = 100, n = 50, (greater_than m n) =" test35_result "  (expected: 1)")
+
+(println "")
+
+// ============================================================================
+// Summary
+// ============================================================================
+(println "===========================================")
+(println " Comparison Operators Test Complete!")
+(println "  - Integer equality (is): 5 tests")
+(println "  - Float equality (is): 3 tests")
+(println "  - Mixed type equality (is): 3 tests")
+(println "  - String equality (is): 4 tests")
+(println "  - Integer less_than: 5 tests")
+(println "  - Float less_than: 3 tests")
+(println "  - Integer greater_than: 4 tests")
+(println "  - Float greater_than: 3 tests")
+(println "  - Comparison chaining: 2 tests")
+(println "  - Variable comparisons: 3 tests")
+(println "  Total: 35 tests executed")
+(println "===========================================")

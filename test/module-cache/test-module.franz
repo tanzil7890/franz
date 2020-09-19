@@ -1,0 +1,4 @@
+// Simple test module for caching tests
+test_value = 42
+square = {x -> <- (multiply x x)}
+add_ten = {x -> <- (add x 10)}

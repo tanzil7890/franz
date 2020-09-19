@@ -1,0 +1,109 @@
+// Comprehensive Test Suite for type() Function
+//  Runtime type introspection
+
+(println "=== type() Function Comprehensive Tests ===")
+(println "")
+
+// Test 1: Integer type
+(println "Test 1: Integer type")
+int_var = 42
+result = (type int_var)
+(println "  type(42) = " result)
+(println "  Expected: integer")
+(println "")
+
+// Test 2: Float type
+(println "Test 2: Float type")
+float_var = 3.14
+result2 = (type float_var)
+(println "  type(3.14) = " result2)
+(println "  Expected: float")
+(println "")
+
+// Test 3: String type
+(println "Test 3: String type")
+str_var = "hello"
+result3 = (type str_var)
+(println "  type(\"hello\") = " result3)
+(println "  Expected: string")
+(println "")
+
+// Test 4: List type
+(println "Test 4: List type")
+list_var = [1, 2, 3]
+result4 = (type list_var)
+(println "  type([1, 2, 3]) = " result4)
+(println "  Expected: list")
+(println "")
+
+// Test 5: Function type
+(println "Test 5: Function type")
+func_var = {x -> <- (add x 1)}
+result5 = (type func_var)
+(println "  type({x -> <- (add x 1)}) = " result5)
+(println "  Expected: closure")
+(println "")
+
+// Test 6: Void type
+(println "Test 6: Void type")
+void_var = void
+result6 = (type void_var)
+(println "  type(void) = " result6)
+(println "  Expected: void")
+(println "")
+
+// Test 7: Type comparison - same types
+(println "Test 7: Type comparison - same types")
+a = 10
+b = 20
+type_a = (type a)
+type_b = (type b)
+(println "  type(10) vs type(20): " type_a " == " type_b)
+same = (is type_a type_b)
+(println "  Are they the same type? " (if same {<- "Yes"} {<- "No"}))
+(println "")
+
+// Test 8: Type comparison - different types
+(println "Test 8: Type comparison - different types")
+x = 5
+y = 5.0
+type_x = (type x)
+type_y = (type y)
+(println "  type(5) vs type(5.0): " type_x " == " type_y)
+different = (is type_x type_y)
+(println "  Are they the same type? " (if different {<- "Yes"} {<- "No"}))
+(println "")
+
+// Test 9: Empty list type
+(println "Test 9: Empty list type")
+empty = []
+result9 = (type empty)
+(println "  type([]) = " result9)
+(println "  Expected: list")
+(println "")
+
+// Test 10: Nested list type
+(println "Test 10: Nested list type")
+nested = [[1, 2], [3, 4]]
+result10 = (type nested)
+(println "  type([[1, 2], [3, 4]]) = " result10)
+(println "  Expected: list")
+(println "")
+
+// Test 11: Zero integer
+(println "Test 11: Zero integer")
+zero = 0
+result11 = (type zero)
+(println "  type(0) = " result11)
+(println "  Expected: integer")
+(println "")
+
+// Test 12: Negative number
+(println "Test 12: Negative number")
+neg = (subtract 0 5)
+result12 = (type neg)
+(println "  type(-5) = " result12)
+(println "  Expected: integer")
+(println "")
+
+(println "=== All 12 Tests Complete ===")

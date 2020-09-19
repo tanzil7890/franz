@@ -1,0 +1,104 @@
+(println "=== Scoping Behavior Test Matrix () ===")
+(println "")
+(println "This test documents CURRENT BEHAVIOR (Dynamic Scoping)")
+(println "Results will change after  (Lexical Scoping Implementation)")
+(println "")
+
+// Test 1: Closure captures definition-time vs call-time binding
+(println "Test 1: Closure capture semantics")
+x = 10
+get_x = {-> <- x}
+test1 = {->
+  x = 20
+  <- (get_x)
+}
+result1 = (test1)
+(println "  Result: " result1)
+(println "  Current (dynamic): 20")
+(println "  After  (lexical): 10")
+(println "")
+
+// Test 2: Nested closure capture (WILL FAIL IN DYNAMIC SCOPING)
+(println "Test 2: Nested closure capture")
+(println "  Note: This test demonstrates a LIMITATION of dynamic scoping")
+// Commented out because it fails in current implementation
+// make_adder = {n ->
+//   <- {x -> <- (add x n)}
+// }
+// add5 = (make_adder 5)
+// result2 = (add5 10)
+(println "  Current (dynamic): ERROR - n is not defined")
+(println "  After  (lexical): 15")
+(println "  Status: Test skipped (known failure in dynamic mode)")
+(println "")
+
+// Test 3: Mutual recursion (works with dynamic scoping due to late binding)
+(println "Test 3: Mutual recursion")
+even = {n ->
+  (if (is n 0) {-> <- 1} {->
+    <- (odd (subtract n 1))
+  })
+}
+odd = {n ->
+  (if (is n 0) {-> <- 0} {->
+    <- (even (subtract n 1))
+  })
+}
+result3 = (even 10)
+(println "  Result: " result3)
+(println "  Current (dynamic): 1")
+(println "  After  (lexical): 1")
+(println "  Note: Works in both modes (top-level bindings)")
+(println "")
+
+// Test 4: Higher-order function with free variables
+(println "Test 4: Map with closure (free variable)")
+multiplier = 3
+times_n = {x i -> <- (multiply x multiplier)}
+nums = (list 1 2 3 4 5)
+result4 = (map nums times_n)
+(println "  Result: " result4)
+(println "  Current (dynamic): " result4)
+(println "  After  (lexical): (3 6 9 12 15)")
+(println "  Note: Works in both modes (multiplier in parent scope)")
+(println "")
+
+// Test 5: Variable shadowing
+(println "Test 5: Variable shadowing")
+shadow_x = 100
+test5 = {->
+  shadow_x = 200  // Shadows outer shadow_x in dynamic scope
+  inner5 = {-> <- shadow_x}
+  <- (inner5)
+}
+result5 = (test5)
+(println "  Result: " result5)
+(println "  Current (dynamic): 200")
+(println "  After  (lexical): 100 (if inner5 defined before shadow)")
+(println "")
+
+// Test 6: Scope isolation in functions
+(println "Test 6: Scope isolation")
+global_var = 42
+isolated_test = {->
+  local_var = 100
+  <- local_var
+}
+result6 = (isolated_test)
+(println "  Result: " result6)
+(println "  global_var accessible: yes")
+(println "  local_var accessible outside: no")
+(println "  Note: Local scope isolation works in both modes")
+(println "")
+
+(println "=== Test Matrix Complete ===")
+(println "")
+(println "Summary:")
+(println "  - Test 1: WILL CHANGE (20 -> 10)")
+(println "  - Test 2: WILL START WORKING (currently fails)")
+(println "  - Test 3: NO CHANGE (works in both)")
+(println "  - Test 4: NO CHANGE (works in both)")
+(println "  - Test 5: WILL CHANGE (depends on definition order)")
+(println "  - Test 6: NO CHANGE (isolation works in both)")
+(println "")
+(println "Save these results for comparison with ")

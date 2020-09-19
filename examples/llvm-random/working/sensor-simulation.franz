@@ -1,0 +1,43 @@
+// Example 2: Sensor Simulation
+// Demonstrates random_range for realistic sensor data
+
+(println "=== Sensor Simulation ===")
+(println "")
+
+// Temperature sensor (realistic range)
+(println "Temperature Sensor (°C):")
+temp1 = (random_range 18 26)
+temp2 = (random_range 18 26)
+temp3 = (random_range 18 26)
+temp_avg = (divide (add (add temp1 temp2) temp3) 3)
+(println "  Reading 1:" temp1 "°C")
+(println "  Reading 2:" temp2 "°C")
+(println "  Reading 3:" temp3 "°C")
+(println "  Average:" temp_avg "°C")
+(println "")
+
+// Voltage sensor (0-5V range)
+(println "Voltage Sensor (V):")
+v1 = (random_range 0 5)
+v2 = (random_range 0 5)
+v3 = (random_range 0 5)
+v_avg = (divide (add (add v1 v2) v3) 3)
+(println "  Reading 1:" v1 "V")
+(println "  Reading 2:" v2 "V")
+(println "  Reading 3:" v3 "V")
+(println "  Average:" v_avg "V")
+(println "")
+
+// Pressure sensor (bar)
+(println "Pressure Sensor (bar):")
+pressure = (random_range 0 2)
+(println "  Pressure:" pressure "bar")
+(println "")
+
+// Humidity sensor (%)
+(println "Humidity Sensor (%):")
+humidity = (random_range 30 70)
+(println "  Humidity:" humidity "%")
+(println "")
+
+(println "Sensor readings complete!")

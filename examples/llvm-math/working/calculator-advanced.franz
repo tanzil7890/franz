@@ -1,0 +1,59 @@
+(println "=== Advanced Calculator with Enhanced Math Functions ===")
+(println "")
+
+// Scientific calculator functions
+(println "1. Square Root Calculator")
+side = 25
+diagonal = (sqrt (add (power side 2) (power side 2)))
+(println "  Square with side" side "has diagonal:" diagonal)
+
+(println "")
+(println "2. Circle Calculator")
+radius = 5.0
+pi = 3.14159
+area = (multiply pi (power radius 2))
+circumference = (multiply 2.0 (multiply pi radius))
+(println "  Circle with radius" radius)
+(println "    Area:" area)
+(println "    Circumference:" circumference)
+
+(println "")
+(println "3. Temperature Statistics")
+day1 = 72
+day2 = 68
+day3 = 75
+day4 = 71
+day5 = 69
+lowest = (min day1 day2 day3 day4 day5)
+highest = (max day1 day2 day3 day4 day5)
+(println "  Temperatures:" day1 day2 day3 day4 day5)
+(println "  Min:" lowest)
+(println "  Max:" highest)
+
+(println "")
+(println "4. Financial Calculations")
+principal = 1000.0
+rate = 0.05
+years = 10.0
+compound = (multiply principal (power (add 1.0 rate) years))
+(println "  Investment: $" principal)
+(println "  Rate: 5% per year")
+(println "  After" years "years: $" compound)
+
+(println "")
+(println "5. Rounding for Display")
+value = 3.14159265
+(println "  Original:" value)
+(println "  Rounded:" (round value))
+(println "  Floor:" (floor value))
+(println "  Ceil:" (ceil value))
+
+(println "")
+(println "6. Absolute Difference")
+a = 10
+b = 25
+diff = (abs (subtract a b))
+(println "  Distance between" a "and" b "is" diff)
+
+(println "")
+(println "=== Calculator Complete! ===")

@@ -1,0 +1,88 @@
+// Advanced Escape Sequence Examples
+// Demonstrates hex escapes, ANSI codes, and complex patterns
+
+(println "=== Advanced Escape Sequence Examples ===")
+(println "")
+
+// Example 1: Hexadecimal Character Codes
+(println "Example 1: Hex Escapes (\\xHH)")
+greeting = "\x48\x65\x6c\x6c\x6f"
+(println "Hex encoded: " greeting " (Hello)")
+(println "")
+
+// Example 2: ANSI Color Codes
+(println "Example 2: ANSI Color Codes")
+red_text = "\e[31mThis text is red\e[0m"
+green_text = "\e[32mThis text is green\e[0m"
+blue_text = "\e[34mThis text is blue\e[0m"
+(println red_text)
+(println green_text)
+(println blue_text)
+(println "")
+
+// Example 3: Bold and Underline
+(println "Example 3: ANSI Text Formatting")
+bold = "\e[1mBold text\e[0m"
+underline = "\e[4mUnderlined text\e[0m"
+(println bold)
+(println underline)
+(println "")
+
+// Example 4: CSV/TSV Data
+(println "Example 4: Tab-Separated Values (TSV)")
+data = ["Name\tAge\tScore", "Alice\t25\t95", "Bob\t30\t87", "Carol\t28\t92"]
+row1 = (get data 0)
+row2 = (get data 1)
+row3 = (get data 2)
+row4 = (get data 3)
+(println row1)
+(println row2)
+(println row3)
+(println row4)
+(println "")
+
+// Example 5: Regex Patterns (as strings)
+(println "Example 5: Regex-like Patterns")
+pattern1 = "\\d+\\.\\d+"
+pattern2 = "\\w+@\\w+\\.com"
+(println "Decimal pattern: " pattern1)
+(println "Email pattern: " pattern2)
+(println "")
+
+// Example 6: URL Encoding with Hex
+(println "Example 6: URL Path Components")
+path = "\x2Fapi\x2Fusers\x2F123"
+(println "Hex-encoded path: " path " (/api/users/123)")
+(println "")
+
+// Example 7: Multi-line JSON-like Structure
+(println "Example 7: Multi-line Data Structure")
+json_like = "{\n  \"name\": \"Alice\",\n  \"age\": 30,\n  \"city\": \"NYC\"\n}"
+(println json_like)
+(println "")
+
+// Example 8: File Path Examples
+(println "Example 8: Cross-Platform Paths")
+win_path = "C:\\Program Files\\MyApp\\data.db"
+description = "Windows path: " win_path ""
+(println description)
+(println "")
+
+// Example 9: Escape Character Showcase
+(println "Example 9: All Standard Escapes")
+(println "Alert (\\a): \a(bell sound)")
+(println "Backspace (\\b): ABC\bD")
+(println "Form Feed (\\f): Page1\fPage2")
+(println "Newline (\\n): Line1\nLine2")
+(println "Carriage Return (\\r): Before\rAfter")
+(println "Tab (\\t): Col1\tCol2")
+(println "Vertical Tab (\\v): Line1\vLine2")
+(println "")
+
+// Example 10: Complex Mixed Escapes
+(println "Example 10: Complex String Building")
+log_entry = "[ERROR]\tFile: \"config.txt\"\n\tPath: C:\\data\\config.txt\n\tReason: Permission denied"
+(println log_entry)
+(println "")
+
+(println "=== All Advanced Examples Complete ===")

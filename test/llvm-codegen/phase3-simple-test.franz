@@ -1,0 +1,15 @@
+(println "=== Simple  Test ===")
+(println "")
+
+// Define a simple user function that returns int
+add_ten = {x -> <- (add x 10)}
+
+// Call it
+result = (add_ten 5)
+
+// Print result
+(println "add_ten(5) =" result)
+
+(println "")
+(println "Expected: 15")
+(println "Expected: NO [BOX POINTER SMART] messages for add_ten call")

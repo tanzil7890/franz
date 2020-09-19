@@ -1,0 +1,27 @@
+// Demo: print vs println formatting
+
+(println "=== Franz Print Formatting Demo ===")
+(println "")
+
+(println "1. Using println (recommended for most cases):")
+(println "   This line ends with a newline")
+(println "   This line also ends with a newline")
+(println "")
+
+(println "2. Using print with manual newline:")
+(print "   This line uses print\n")
+(print "   This line also uses print\n")
+(println "")
+
+(println "3. Using print without newline (for inline output):")
+(print "   Name: ")
+(print "Alice")
+(println "")  // Add newline after inline prints
+(println "")
+
+(println "4. Combining print and println:")
+(print "   Result: ")
+(println "42")
+(println "")
+
+(println "=== Demo Complete ===")

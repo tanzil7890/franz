@@ -1,0 +1,12 @@
+(println "Start")
+x = (try {
+  (println "In try block")
+  (error "test error")
+  (println "Should not print")
+  <- 5
+} {e ->
+  (println "In error handler with:" e)
+  <- 999
+})
+(println "Result:" x)
+(println "Done")

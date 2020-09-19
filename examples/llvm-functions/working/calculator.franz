@@ -1,0 +1,26 @@
+(println "=== Simple Calculator with Functions ===")
+(println "")
+
+add_op = {a b -> <- (add a b)}
+sub_op = {a b -> <- (subtract a b)}
+mul_op = {a b -> <- (multiply a b)}
+div_op = {a b -> <- (divide a b)}
+
+(println "Addition: 15 + 7 =")
+(println (add_op 15 7))
+
+(println "")
+(println "Subtraction: 20 - 8 =")
+(println (sub_op 20 8))
+
+(println "")
+(println "Multiplication: 6 * 7 =")
+(println (mul_op 6 7))
+
+(println "")
+(println "Division: 100 / 4 =")
+(println (div_op 100 4))
+
+(println "")
+(println "Complex: (10 + 5) * 2 =")
+(println (mul_op (add_op 10 5) 2))

@@ -1,0 +1,193 @@
+// stdlib/math.franz
+// Franz Standard Library - Math Module
+//
+// Mathematical constants, utilities, and statistical functions
+// 15 functions for scientific computing and data analysis
+
+// ===== Mathematical Constants =====
+
+// PI - Mathematical constant π (pi)
+// Ratio of circle's circumference to diameter
+PI = 3.141592653589793
+
+// E - Mathematical constant e (Euler's number)
+// Base of natural logarithms
+E = 2.718281828459045
+
+// ===== Basic Math Functions =====
+
+// abs - Absolute value
+// Returns the absolute value of a number (always positive)
+// {number -> number}
+abs = {x ->
+  <- (if (less_than x 0) {
+    <- (multiply x -1)
+  } {
+    <- x
+  })
+}
+
+// sqrt - Square root
+// Returns the square root of a number
+// {number -> float}
+sqrt = {x ->
+  <- (power x 0.5)
+}
+
+// floor - Floor function
+// Returns the largest integer less than or equal to x
+// {number -> integer}
+floor = {x ->
+  <- (integer x)
+}
+
+// ceil - Ceiling function
+// Returns the smallest integer greater than or equal to x
+// {number -> integer}
+ceil = {x ->
+  <- (if (is x (integer x)) {
+    <- (integer x)
+  } {
+    <- (if (less_than x 0) {
+      <- (integer x)
+    } {
+      <- (add (integer x) 1)
+    })
+  })
+}
+
+// round - Round to nearest integer
+// Rounds a number to the nearest integer (0.5 rounds up)
+// {number -> integer}
+round = {x ->
+  <- (floor (add x 0.5))
+}
+
+// max - Maximum of two numbers
+// Returns the larger of two numbers
+// {number -> number -> number}
+max = {a b ->
+  <- (if (greater_than a b) {
+    <- a
+  } {
+    <- b
+  })
+}
+
+// min - Minimum of two numbers
+// Returns the smaller of two numbers
+// {number -> number -> number}
+min = {a b ->
+  <- (if (less_than a b) {
+    <- a
+  } {
+    <- b
+  })
+}
+
+// clamp - Clamp value between bounds
+// Restricts a value to be within a specified range
+// {number -> number -> number -> number}
+clamp = {value low high ->
+  <- (max low (min high value))
+}
+
+// ===== Statistical Functions =====
+
+// sum - Sum of list elements
+// Adds all numbers in a list
+// {list -> number}
+sum = {lst ->
+  <- (reduce lst {acc item index ->
+    <- (add acc item)
+  } 0)
+}
+
+// average - Average (mean) of list elements
+// Calculates the arithmetic mean of numbers in a list
+// {list -> float}
+average = {lst ->
+  <- (divide (sum lst) (length lst))
+}
+
+// median - Median of list elements
+// Returns the middle value when list is sorted
+// For even-length lists, returns average of two middle values
+// {list -> number}
+median = {lst ->
+  len = (length lst)
+
+  // Sort the list using bubble sort
+  sorted = (until 0 {state iteration ->
+    swapped = 0
+
+    // Perform one pass of bubble sort
+    result = (loop (subtract len 1) {i ->
+      current = (get state i)
+      next = (get state (add i 1))
+
+      <- (if (greater_than current next) {
+        // Swap elements
+        state = (set state next i)
+        state = (set state current (add i 1))
+        swapped = 1
+        <- void
+      } {
+        <- void
+      })
+    })
+
+    // If no swaps, we're done
+    <- (if (is swapped 0) {
+      <- 0
+    } {
+      <- state
+    })
+  } lst)
+
+  // Find median
+  <- (if (is (remainder len 2) 1) {
+    // Odd length - return middle element
+    mid_index = (integer (divide len 2))
+    <- (get sorted mid_index)
+  } {
+    // Even length - return average of two middle elements
+    mid_index = (integer (divide len 2))
+    mid1 = (get sorted (subtract mid_index 1))
+    mid2 = (get sorted mid_index)
+    <- (divide (add mid1 mid2) 2)
+  })
+}
+
+// ===== Number Theory Functions =====
+
+// factorial - Factorial function
+// Returns n! = n × (n-1) × (n-2) × ... × 1
+// {integer -> integer}
+factorial = {n ->
+  <- (if (is n 0) {
+    <- 1
+  } {
+    <- (if (is n 1) {
+      <- 1
+    } {
+      <- (multiply n (factorial (subtract n 1)))
+    })
+  })
+}
+
+// gcd - Greatest Common Divisor
+// Returns the largest positive integer that divides both numbers
+// Uses Euclidean algorithm
+// {integer -> integer -> integer}
+gcd = {a b ->
+  // Make both numbers positive
+  a_pos = (abs a)
+  b_pos = (abs b)
+
+  <- (if (is b_pos 0) {
+    <- a_pos
+  } {
+    <- (gcd b_pos (remainder a_pos b_pos))
+  })
+}

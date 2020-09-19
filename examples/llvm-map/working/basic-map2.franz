@@ -1,0 +1,69 @@
+(println "=== Map2 Basic Examples ===")
+(println "")
+
+(println "Example 1: Adding two lists element-wise")
+prices = [100, 200, 150, 300]
+taxes = [10, 20, 15, 30]
+add_values = {price tax i -> <- (add price tax)}
+totals = (map2 prices taxes add_values)
+(println "Prices:" prices)
+(println "Taxes:" taxes)
+(println "Total for item 0:" (nth totals 0))
+(println "Total for item 1:" (nth totals 1))
+(println "Total for item 2:" (nth totals 2))
+(println "Total for item 3:" (nth totals 3))
+(println "")
+
+(println "Example 2: Calculating areas (width * height)")
+widths = [5, 10, 8, 12]
+heights = [3, 4, 6, 5]
+calc_area = {w h i -> <- (multiply w h)}
+areas = (map2 widths heights calc_area)
+(println "Widths:" widths)
+(println "Heights:" heights)
+(println "Area 0:" (nth areas 0) "square units")
+(println "Area 1:" (nth areas 1) "square units")
+(println "Area 2:" (nth areas 2) "square units")
+(println "Area 3:" (nth areas 3) "square units")
+(println "")
+
+(println "Example 3: Calculating percentages")
+scores = [45, 38, 42, 50]
+max_scores = [50, 40, 50, 50]
+calc_percent = {score max i -> <- (multiply (divide score max) 100)}
+percentages = (map2 scores max_scores calc_percent)
+(println "Scores:" scores)
+(println "Max Scores:" max_scores)
+(println "Percentage 0:" (nth percentages 0) "%")
+(println "Percentage 1:" (nth percentages 1) "%")
+(println "Percentage 2:" (nth percentages 2) "%")
+(println "Percentage 3:" (nth percentages 3) "%")
+(println "")
+
+(println "Example 4: Finding maximum of two lists")
+team1_scores = [85, 72, 90, 68]
+team2_scores = [78, 88, 75, 92]
+select_max = {a b i -> <- (if (greater_than a b) {<- a} {<- b})}
+max_scores_result = (map2 team1_scores team2_scores select_max)
+(println "Team 1 Scores:" team1_scores)
+(println "Team 2 Scores:" team2_scores)
+(println "Max Score 0:" (nth max_scores_result 0))
+(println "Max Score 1:" (nth max_scores_result 1))
+(println "Max Score 2:" (nth max_scores_result 2))
+(println "Max Score 3:" (nth max_scores_result 3))
+(println "")
+
+(println "Example 5: Temperature conversion with offset")
+celsius_temps = [0, 10, 20, 30]
+offsets = [2, 1, 0, 3]
+to_fahrenheit = {c offset i -> <- (add (multiply (add c offset) 9 5) 32)}
+fahrenheit_temps = (map2 celsius_temps offsets to_fahrenheit)
+(println "Celsius (with offsets):" celsius_temps)
+(println "Offsets:" offsets)
+(println "Fahrenheit 0:" (nth fahrenheit_temps 0))
+(println "Fahrenheit 1:" (nth fahrenheit_temps 1))
+(println "Fahrenheit 2:" (nth fahrenheit_temps 2))
+(println "Fahrenheit 3:" (nth fahrenheit_temps 3))
+(println "")
+
+(println "All map2 examples completed!")

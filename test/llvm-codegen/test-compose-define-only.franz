@@ -1,0 +1,5 @@
+(println "=== Test: Define compose function only ===")
+
+compose = {f g -> <- {x -> <- (f (g x))}}
+
+(println "Compose function defined successfully!")

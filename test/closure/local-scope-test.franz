@@ -1,0 +1,29 @@
+(println "=== Local Scope Closure Test ===")
+(println "Testing closures in local scope (should have zero leaks)")
+(println "")
+
+// Wrapper function that creates closures in LOCAL scope
+wrapper = {->
+  t1_y = 10
+  t1_f = {t1_x -> <- (add t1_x t1_y)}
+  t1_result = (t1_f 5)
+
+  t2_a = 1
+  t2_b = 2
+  t2_f = {t2_x -> <- (add t2_x (add t2_a t2_b))}
+  t2_result = (t2_f 10)
+
+  t3_nums = (range 5)
+  t3_mult = 3
+  t3_triple = {t3_item t3_idx -> <- (multiply t3_item t3_mult)}
+  t3_result = (map t3_nums t3_triple)
+
+  <- (add t1_result (add t2_result (head t3_result)))
+}
+
+// Call wrapper - closures created in local scope, freed when wrapper returns
+result = (wrapper)
+(println "Result:")
+(println result)
+(println "")
+(println "All closures were in LOCAL scope - should have zero leaks")

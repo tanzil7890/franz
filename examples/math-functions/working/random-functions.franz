@@ -1,0 +1,77 @@
+// Random Functions Examples
+// Demonstrates random_int, random_range, and random_seed
+
+(println "=== Random Functions Examples ===")
+(println "")
+
+// Example 1: Simple dice roll
+(println "Example 1: Dice Roll (1-6)")
+dice = (add (random_int 6) 1)
+(println "  You rolled: " dice)
+(println "")
+
+// Example 2: Multiple dice rolls
+(println "Example 2: Roll 3 Dice")
+d1 = (add (random_int 6) 1)
+d2 = (add (random_int 6) 1)
+d3 = (add (random_int 6) 1)
+total = (add (add d1 d2) d3)
+(println "  Dice: " d1 ", " d2 ", " d3)
+(println "  Total: " total)
+(println "")
+
+// Example 3: Random temperature range
+(println "Example 3: Temperature Sensor (-10°C to 40°C)")
+temp = (random_range -10 40)
+(println "  Temperature: " temp "°C")
+(println "")
+
+// Example 4: Reproducible sequence for testing
+(println "Example 4: Reproducible Sequence (seed=42)")
+(random_seed 42)
+r1 = (random)
+r2 = (random)
+r3 = (random)
+(println "  First run:  " r1 ", " r2 ", " r3)
+
+(random_seed 42)
+r4 = (random)
+r5 = (random)
+r6 = (random)
+(println "  Second run: " r4 ", " r5 ", " r6)
+(println "  Match: " (and (and (is r1 r4) (is r2 r5)) (is r3 r6)))
+(println "")
+
+// Example 5: Random RGB color
+(println "Example 5: Random RGB Color")
+red = (random_int 256)
+green = (random_int 256)
+blue = (random_int 256)
+(println "  RGB(" red ", " green ", " blue ")")
+(println "")
+
+// Example 6: Random selection from range
+(println "Example 6: Random Port Number (8000-9000)")
+port = (add 8000 (random_int 1000))
+(println "  Port: " port)
+(println "")
+
+// Example 7: Random float in custom range
+(println "Example 7: Random Voltage (0.0V to 5.0V)")
+voltage = (random_range 0 5)
+(println "  Voltage: " voltage "V")
+(println "")
+
+// Example 8: Coin flip
+(println "Example 8: Coin Flip")
+coin = (random_int 2)
+(if (is coin 0)
+  {
+    (println "  Result: Heads")
+  }
+  {
+    (println "  Result: Tails")
+  }
+)
+(println "")
+(println "Examples complete!")

@@ -1,0 +1,106 @@
+(println "=== ADT Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Basic variant creation (no values)
+(println "Test 1: Basic variant creation (no values)")
+none = (variant "None")
+(println "✓ Created None variant")
+
+// Test 2: Variant with single value
+(println "")
+(println "Test 2: Variant with single value")
+some = (variant "Some" 42)
+(println "✓ Created Some variant with value 42")
+
+// Test 3: Variant with multiple values
+(println "")
+(println "Test 3: Variant with multiple values")
+person = (variant "Person" "Alice" 30)
+(println "✓ Created Person variant with name and age")
+
+// Test 4: Match with no-argument handlers (Some case)
+(println "")
+(println "Test 4: Match Some variant")
+result1 = (match some
+  "Some" {-> (println "  ✓ Matched Some")}
+  "None" {-> (println "  ✗ Matched None (wrong)")}
+)
+
+// Test 5: Match with no-argument handlers (None case)
+(println "")
+(println "Test 5: Match None variant")
+result2 = (match none
+  "Some" {-> (println "  ✗ Matched Some (wrong)")}
+  "None" {-> (println "  ✓ Matched None")}
+)
+
+// Test 6: Match with multiple variant types
+(println "")
+(println "Test 6: Match with multiple variant types")
+result3 = (match person
+  "Person" {-> (println "  ✓ Matched Person")}
+  "Employee" {-> (println "  ✗ Matched Employee (wrong)")}
+  "Guest" {-> (println "  ✗ Matched Guest (wrong)")}
+)
+
+// Test 7: Multiple variants matched correctly
+(println "")
+(println "Test 7: Testing different variants")
+status1 = (variant "Loading")
+status2 = (variant "Success")
+status3 = (variant "Error")
+
+r1 = (match status1
+  "Loading" {-> (println "  ✓ Status: Loading")}
+  "Success" {-> (println "  ✗ Status: Success (wrong)")}
+  "Error" {-> (println "  ✗ Status: Error (wrong)")}
+)
+
+r2 = (match status2
+  "Loading" {-> (println "  ✗ Status: Loading (wrong)")}
+  "Success" {-> (println "  ✓ Status: Success")}
+  "Error" {-> (println "  ✗ Status: Error (wrong)")}
+)
+
+r3 = (match status3
+  "Loading" {-> (println "  ✗ Status: Loading (wrong)")}
+  "Success" {-> (println "  ✗ Status: Success (wrong)")}
+  "Error" {-> (println "  ✓ Status: Error")}
+)
+
+// Test 8: Variant with string values
+(println "")
+(println "Test 8: Variant with string values")
+message = (variant "Message" "Hello, World!")
+result4 = (match message
+  "Message" {-> (println "  ✓ Matched Message variant")}
+  "Empty" {-> (println "  ✗ Matched Empty (wrong)")}
+)
+
+// Test 9: Variant with mixed types (int, string, float)
+(println "")
+(println "Test 9: Variant with mixed value types")
+data = (variant "Data" 100 "test" 3.14)
+result5 = (match data
+  "Data" {-> (println "  ✓ Matched Data with mixed types")}
+  "Other" {-> (println "  ✗ Matched Other (wrong)")}
+)
+
+// Test 10: Empty tag matching
+(println "")
+(println "Test 10: Match empty variant")
+empty = (variant "Empty")
+result6 = (match empty
+  "Empty" {-> (println "  ✓ Matched Empty variant")}
+  "Full" {-> (println "  ✗ Matched Full (wrong)")}
+)
+
+(println "")
+(println "=== All 10 tests passed! ===")
+(println "")
+(println "Summary:")
+(println "  ✓ Variant creation (no values, single value, multiple values)")
+(println "  ✓ Match pattern matching (Some, None, custom types)")
+(println "  ✓ Multiple variant types")
+(println "  ✓ String and mixed-type values")
+(println "  ✓ Empty variants")

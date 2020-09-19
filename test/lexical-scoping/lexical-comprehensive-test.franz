@@ -1,0 +1,196 @@
+(println "===  Lexical Scoping Comprehensive Test Suite ===")
+(println "")
+
+(println "Test 1: Basic variable capture (lexical)")
+x = 10
+get_x = {-> <- x}
+test1 = {->
+  x = 20
+  <- (get_x)
+}
+result1 = (test1)
+(if (is result1 10)
+  {-> (println "PASS: Captured x=10, not caller's x=20")}
+  {-> (println "FAIL: Expected 10, got " result1)}
+)
+
+(println "")
+(println "Test 2: Nested closures with capture")
+outer = {->
+  y = 100
+  inner = {-> <- y}
+  <- inner
+}
+get_y = (outer)
+test2 = {->
+  y = 200
+  <- (get_y)
+}
+result2 = (test2)
+(if (is result2 100)
+  {-> (println "PASS: Nested closure captured outer y=100")}
+  {-> (println "FAIL: Expected 100, got " result2)}
+)
+
+(println "")
+(println "Test 3: Multiple variable capture")
+a = 1
+b = 2
+c = 3
+sum_abc = {-> <- (add (add a b) c)}
+test3 = {->
+  a = 10
+  b = 20
+  c = 30
+  <- (sum_abc)
+}
+result3 = (test3)
+(if (is result3 6)
+  {-> (println "PASS: Captured a=1, b=2, c=3, sum=6")}
+  {-> (println "FAIL: Expected 6, got " result3)}
+)
+
+(println "")
+(println "Test 4: Closure with parameters")
+make_adder = {n ->
+  <- {x -> <- (add n x)}
+}
+add5 = (make_adder 5)
+result4a = (add5 10)
+result4b = (add5 20)
+(if (is result4a 15)
+  {-> (println "PASS: add5(10) = 15")}
+  {-> (println "FAIL: Expected 15, got " result4a)}
+)
+(if (is result4b 25)
+  {-> (println "PASS: add5(20) = 25")}
+  {-> (println "FAIL: Expected 25, got " result4b)}
+)
+
+(println "")
+(println "Test 5: Closure in list with map")
+multiplier = 3
+triple = {item index -> <- (multiply item multiplier)}
+numbers = (list 1 2 3 4)
+result5 = (map numbers triple)
+expected5 = (list 3 6 9 12)
+(if (is result5 expected5)
+  {-> (println "PASS: Map with closure works")}
+  {-> (println "FAIL: Expected " expected5 " got " result5)}
+)
+
+(println "")
+(println "Test 6: Recursive closure")
+factorial_inner = {n ->
+  <- (if (less_than n 2)
+    {-> <- 1}
+    {-> <- (multiply n (factorial_inner (subtract n 1)))}
+  )
+}
+result6 = (factorial_inner 5)
+(if (is result6 120)
+  {-> (println "PASS: Recursive closure works, 5! = 120")}
+  {-> (println "FAIL: Expected 120, got " result6)}
+)
+
+(println "")
+(println "Test 7: Builtin access from closure")
+get_pi = {-> <- 3.14159}
+test7 = {->
+  <- (add (get_pi) 1.0)
+}
+result7 = (test7)
+(if (greater_than result7 4.0)
+  {-> (println "PASS: Closure can access builtins and compute")}
+  {-> (println "FAIL: Expected > 4.0, got " result7)}
+)
+
+(println "")
+(println "Test 8: Shadowing in lexical scope")
+shadow_var = 5
+get_shadow = {-> <- shadow_var}
+test8 = {->
+  shadow_var = 999
+  local_get = {-> <- shadow_var}
+  outer_val = (get_shadow)
+  inner_val = (local_get)
+  <- (list outer_val inner_val)
+}
+result8 = (test8)
+outer8 = (head result8)
+inner8 = (head (tail result8))
+(if (is outer8 5)
+  {-> (println "PASS: Outer closure captured shadow_var=5")}
+  {-> (println "FAIL: Expected 5, got " outer8)}
+)
+(if (is inner8 999)
+  {-> (println "PASS: Inner closure captured shadow_var=999")}
+  {-> (println "FAIL: Expected 999, got " inner8)}
+)
+
+(println "")
+(println "Test 9: Closure with computation")
+base_val = 100
+compute = {x ->
+  <- (add x base_val)
+}
+result9a = (compute 10)
+result9b = (compute 20)
+(if (is result9a 110)
+  {-> (println "PASS: compute(10) + base_val = 110")}
+  {-> (println "FAIL: Expected 110, got " result9a)}
+)
+(if (is result9b 120)
+  {-> (println "PASS: compute(20) + base_val = 120")}
+  {-> (println "FAIL: Expected 120, got " result9b)}
+)
+
+(println "")
+(println "Test 10: Multiple independent closures")
+make_multiplier = {factor ->
+  <- {val -> <- (multiply val factor)}
+}
+times2 = (make_multiplier 2)
+times3 = (make_multiplier 3)
+result10a = (times2 5)
+result10b = (times3 5)
+(if (is result10a 10)
+  {-> (println "PASS: times2(5) = 10")}
+  {-> (println "FAIL: Expected 10, got " result10a)}
+)
+(if (is result10b 15)
+  {-> (println "PASS: times3(5) = 15")}
+  {-> (println "FAIL: Expected 15, got " result10b)}
+)
+
+(println "")
+(println "Test 11: Filter with closure")
+threshold = 5
+above_threshold = {item index -> <- (greater_than item threshold)}
+test_list = (list 1 3 5 7 9)
+result11 = (filter test_list above_threshold)
+expected11 = (list 7 9)
+(if (is result11 expected11)
+  {-> (println "PASS: Filter with closure works")}
+  {-> (println "FAIL: Expected " expected11 " got " result11)}
+)
+
+(println "")
+(println "Test 12: Closure returning closure")
+outer_val = 42
+make_getter = {->
+  <- {-> <- outer_val}
+}
+getter = (make_getter)
+test12 = {->
+  outer_val = 999
+  <- (getter)
+}
+result12 = (test12)
+(if (is result12 42)
+  {-> (println "PASS: Nested closure-returning-closure captured outer_val=42")}
+  {-> (println "FAIL: Expected 42, got " result12)}
+)
+
+(println "")
+(println "=== All 12+ lexical scoping tests completed ===")

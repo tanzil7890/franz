@@ -1,0 +1,39 @@
+// Simple Module System Test
+// Tests basic use() functionality with helper.franz
+
+(println "=== Simple Module System Test ===")
+(println "")
+
+(println "Test 1: Load helper module without callback")
+(use "examples/circular-deps/working/helper.franz")
+(println "✓ Module loaded successfully")
+
+(println "")
+(println "Test 2: Use double function from helper module")
+result = (double 5)
+(println "double(5) =" result)
+expected = 10
+(if (is result expected)
+  {(println "✓ PASS: double(5) = 10")}
+  {(println "✗ FAIL: Expected" expected "but got" result)})
+
+(println "")
+(println "Test 3: Use triple function from helper module")
+result2 = (triple 5)
+(println "triple(5) =" result2)
+expected2 = 15
+(if (is result2 expected2)
+  {(println "✓ PASS: triple(5) = 15")}
+  {(println "✗ FAIL: Expected" expected2 "but got" result2)})
+
+(println "")
+(println "Test 4: Load helper module with callback")
+(use "examples/circular-deps/working/helper.franz" {
+  (println "Inside callback - module symbols are available")
+  x = (double 10)
+  (println "  double(10) =" x)
+})
+(println "✓ Callback executed successfully")
+
+(println "")
+(println "=== All Tests Complete ===")

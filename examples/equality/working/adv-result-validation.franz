@@ -1,0 +1,21 @@
+// Example 6: Result Validation
+(println "Example 6: Result Validation")
+validate_result = {result expected_type ->
+  actual_type = (type result)
+  <- (if (is actual_type expected_type)
+    {
+      (println "    ✓ Type check passed")
+      <- 1
+    }
+    {
+      (println "    ✗ Type check failed: expected " expected_type ", got " actual_type)
+      <- 0
+    }
+  )
+}
+test_val = 42
+(println "  Validating integer:")
+(validate_result test_val "integer")
+(println "  Validating as string:")
+(validate_result test_val "string")
+(println "")

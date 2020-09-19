@@ -1,0 +1,10 @@
+// Minimal test: println in if branch
+(println "Test: println in if with empty else")
+
+(loop 5 {i ->
+  (if (is i 2)
+    {(println "Hit:" i)}
+    {})
+})
+
+(println "Done!")

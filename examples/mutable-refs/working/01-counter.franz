@@ -1,0 +1,26 @@
+// Example 1: Counter with Mutable Reference
+// Demonstrates: Basic ref, deref, and set! operations
+
+(println "=== Counter Example ===")
+(println "")
+
+// Create a mutable counter starting at 0
+counter = (ref 0)
+(println "Created counter = (ref 0)")
+
+// Define increment function
+increment = {->
+  current = (deref counter)
+  (set! counter (add current 1))
+  <- (deref counter)
+}
+
+// Use the counter
+(println "Call 1: " (increment))
+(println "Call 2: " (increment))
+(println "Call 3: " (increment))
+(println "Call 4: " (increment))
+(println "Call 5: " (increment))
+
+(println "")
+(println "Final counter value: " (deref counter))

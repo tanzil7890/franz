@@ -1,0 +1,5 @@
+// Simple filter test
+nums = [1, 2, 3, 4, 5]
+is_even = {x i -> <- (is (remainder x 2) 0)}
+evens = (filter nums is_even)
+(println evens)

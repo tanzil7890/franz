@@ -1,0 +1,75 @@
+(println "=== String Builder Example ===")
+(println "Demonstrates  String Functions with join()")
+(println "")
+
+(println "1. Email Template Builder")
+make_email = {to subject body -> <- (join "To: " to "\nSubject: " subject "\n\n" body)}
+email = (make_email "user@example.com" "Welcome!" "Thank you for joining Franz.")
+(println email)
+(println "")
+
+(println "2. HTML Tag Builder")
+make_tag = {tag content -> <- (join "<" tag ">" content "</" tag ">")}
+html = (make_tag "h1" "Welcome to Franz")
+(println html)
+(println "Expected: <h1>Welcome to Franz</h1>")
+(println "")
+
+(println "3. SQL Query Builder (simple)")
+select_query = {table column value -> <- (join "SELECT * FROM " table " WHERE " column " = '" value "';")}
+query = (select_query "users" "name" "Alice")
+(println query)
+(println "Expected: SELECT * FROM users WHERE name = 'Alice';")
+(println "")
+
+(println "4. Path Builder")
+make_path = {dir file ext -> <- (join dir "/" file "." ext)}
+path = (make_path "/home/user" "document" "txt")
+(println path)
+(println "Expected: /home/user/document.txt")
+(println "")
+
+(println "5. CSV Row Builder")
+make_csv_row = {id name age -> <- (join id "," name "," age)}
+csv = (make_csv_row "1" "Alice" "30")
+(println csv)
+(println "Expected: 1,Alice,30")
+(println "")
+
+(println "6. Log Message Builder")
+log_msg = {timestamp level module message -> <- (join "[" timestamp "] " level " [" module "] " message)}
+log = (log_msg "2025-10-12 14:30:00" "INFO" "Auth" "User logged in successfully")
+(println log)
+(println "")
+
+(println "7. URL Parameter Builder")
+make_url_params = {key1 val1 key2 val2 -> <- (join "?" key1 "=" val1 "&" key2 "=" val2)}
+params = (make_url_params "page" "1" "limit" "10")
+(println params)
+(println "Expected: ?page=1&limit=10")
+(println "")
+
+(println "8. JSON Object Builder (simple)")
+make_json = {key value -> <- (join "{\"" key "\": \"" value "\"}")}
+json = (make_json "name" "Franz")
+(println json)
+(println "Expected: {\"name\": \"Franz\"}")
+(println "")
+
+(println "9. Markdown Link Builder")
+make_link = {text url -> <- (join "[" text "](" url ")")}
+link = (make_link "Franz Documentation" "https://franz-lang.org/docs")
+(println link)
+(println "Expected: [Franz Documentation](https://franz-lang.org/docs)")
+(println "")
+
+(println "10. CLI Command Builder")
+make_command = {cmd arg1 arg2 flag -> <- (join cmd " " arg1 " " arg2 " " flag)}
+command = (make_command "docker" "run" "nginx" "--detach")
+(println command)
+(println "Expected: docker run nginx --detach")
+(println "")
+
+(println "=== String Builder Example Complete ===")
+(println "All string operations use join() with user-defined functions!")
+(println "This enables the entire stdlib/string.franz library in LLVM mode!")

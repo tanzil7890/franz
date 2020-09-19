@@ -1,0 +1,51 @@
+// Basic Escape Sequence Examples
+// Demonstrates common escape sequences in Franz strings
+
+(println "=== Basic Escape Sequence Examples ===")
+(println "")
+
+// Example 1: Newline for Multi-line Text
+(println "Example 1: Newline Escape (\\n)")
+poem = "Roses are red,\nViolets are blue,\nFranz is fast,\nAnd elegant too!"
+(println poem)
+(println "")
+
+// Example 2: Tab for Aligned Output
+(println "Example 2: Tab Escape (\\t)")
+(println "Name\tAge\tCity")
+(println "Alice\t30\tNew York")
+(println "Bob\t25\tSan Francisco")
+(println "Carol\t28\tBoston")
+(println "")
+
+// Example 3: Escaped Quotes in Strings
+(println "Example 3: Quote Escape (\\\")")
+message = "She said \"Hello, World!\" enthusiastically"
+(println message)
+(println "")
+
+// Example 4: Windows File Paths
+(println "Example 4: Backslash Escape (\\\\)")
+path = "C:\\Users\\Admin\\Documents\\file.txt"
+(println "File path: " path)
+(println "")
+
+// Example 5: Formatted Table
+(println "Example 5: Tab-Separated Table")
+header = "ID\tProduct\t\tPrice"
+row1 = "1\tLaptop\t\t$999"
+row2 = "2\tMouse\t\t$25"
+row3 = "3\tKeyboard\t$75"
+(println header)
+(println row1)
+(println row2)
+(println row3)
+(println "")
+
+// Example 6: Multi-line Messages
+(println "Example 6: Error Messages with Newlines")
+error = "Error: File not found\n  Path: /data/config.txt\n  Suggestion: Check the file path"
+(println error)
+(println "")
+
+(println "=== All Basic Examples Complete ===")

@@ -1,0 +1,141 @@
+(println "=== Escape Sequence Edge Case Tests ===")
+(println "")
+
+// Edge 1: Consecutive Newlines
+(println "Edge 1: Consecutive Newlines")
+edge1 = "A\n\n\nB"
+len_edge1 = (length edge1)
+ok_edge1 = (is len_edge1 5)
+(println (if ok_edge1 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 2: String Starting with Escape
+(println "Edge 2: Start with Escape")
+edge2 = "\nStart"
+len_edge2 = (length edge2)
+ok_edge2 = (is len_edge2 6)
+(println (if ok_edge2 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 3: String Ending with Escape
+(println "Edge 3: End with Escape")
+edge3 = "End\n"
+len_edge3 = (length edge3)
+ok_edge3 = (is len_edge3 4)
+(println (if ok_edge3 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 4: Hex at String Boundary
+(println "Edge 4: Hex at Boundary")
+edge4 = "\x41"
+len_edge4 = (length edge4)
+ok_edge4 = (is len_edge4 1)
+(println (if ok_edge4 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 5: Hex with Lowercase
+(println "Edge 5: Hex Lowercase")
+edge5 = "\x61\x62\x63"
+ok_edge5 = (is edge5 "abc")
+(println (if ok_edge5 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 6: Hex with Mixed Case
+(println "Edge 6: Hex Mixed Case")
+edge6 = "\x4a\x4B"
+ok_edge6 = (is edge6 "JK")
+(println (if ok_edge6 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 7: Invalid Hex (Incomplete)
+(println "Edge 7: Incomplete Hex at End")
+edge7 = "Test\x"
+len_edge7 = (length edge7)
+ok_edge7 = (is len_edge7 5)
+(println (if ok_edge7 {<- "PASS (treats \\x as literal x)"} {<- "FAIL"}))
+
+// Edge 8: All Standard Escapes Together
+(println "Edge 8: All Standard Escapes")
+edge8 = "\a\b\f\n\r\t\v\e"
+len_edge8 = (length edge8)
+ok_edge8 = (is len_edge8 8)
+(println (if ok_edge8 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 9: Escaped Quote in Middle
+(println "Edge 9: Quote in Middle")
+edge9 = "He said \"stop\" loudly"
+len_edge9 = (length edge9)
+ok_edge9 = (is len_edge9 21)
+(println (if ok_edge9 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 10: Multiple Quotes
+(println "Edge 10: Multiple Quotes")
+edge10 = "\"A\" \"B\" \"C\""
+len_edge10 = (length edge10)
+ok_edge10 = (is len_edge10 11)
+(println (if ok_edge10 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 11: Backslash before Regular Char
+(println "Edge 11: Backslash Before Regular Char")
+edge11 = "Test\\d"
+len_edge11 = (length edge11)
+ok_edge11 = (is len_edge11 6)
+(println (if ok_edge11 {<- "PASS (\\d becomes d)"} {<- "FAIL"}))
+
+// Edge 12: Triple Backslash
+(println "Edge 12: Triple Backslash")
+edge12 = "\\\\\\"
+len_edge12 = (length edge12)
+ok_edge12 = (is len_edge12 3)
+(println (if ok_edge12 {<- "PASS (6 chars → 3 backslashes)"} {<- "FAIL"}))
+
+// Edge 13: ANSI Color Code
+(println "Edge 13: ANSI Color Code")
+edge13 = "\e[31mRed\e[0m"
+len_edge13 = (length edge13)
+ok_edge13 = (is len_edge13 12)
+(println (if ok_edge13 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 14: Tab-Separated Data
+(println "Edge 14: TSV Format")
+edge14 = "Name\tAge\tCity\nAlice\t30\tNY"
+len_edge14 = (length edge14)
+ok_edge14 = (is len_edge14 25)
+(println (if ok_edge14 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 15: Windows Path with Backslashes
+(println "Edge 15: Windows Path")
+edge15 = "C:\\Program Files\\App\\data.txt"
+len_edge15 = (length edge15)
+ok_edge15 = (is len_edge15 29)
+(println (if ok_edge15 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 16: Regex-like Pattern
+(println "Edge 16: Regex Pattern")
+edge16 = "\\d+\\s*\\w+"
+len_edge16 = (length edge16)
+ok_edge16 = (is len_edge16 9)
+(println (if ok_edge16 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 17: URL with Encoded Chars
+(println "Edge 17: Hex for Special Chars")
+edge17 = "\x2Fpath\x2Fto\x2Ffile"
+ok_edge17 = (is edge17 "/path/to/file")
+(println (if ok_edge17 {<- "PASS (\\x2F = /)"} {<- "FAIL"}))
+
+// Edge 18: String with Only Hex Escapes
+(println "Edge 18: Only Hex Escapes")
+edge18 = "\x54\x65\x73\x74"
+ok_edge18 = (is edge18 "Test")
+(println (if ok_edge18 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 19: Whitespace Combo
+(println "Edge 19: Whitespace Combination")
+edge19 = " \t \n \r "
+len_edge19 = (length edge19)
+ok_edge19 = (is len_edge19 7)
+(println (if ok_edge19 {<- "PASS"} {<- "FAIL"}))
+
+// Edge 20: Escape at Every Position
+(println "Edge 20: Escape Every Position")
+edge20 = "\tA\nB\rC\"D\\E"
+len_edge20 = (length edge20)
+ok_edge20 = (is len_edge20 10)
+(println (if ok_edge20 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "All 20 edge case tests complete!")

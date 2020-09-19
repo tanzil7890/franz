@@ -1,0 +1,35 @@
+(println "=== LLVM Map with Closure Capture ===")
+(println "")
+
+// Example 1: Closure capturing a multiplier
+(println "Example 1: Captured multiplier")
+multiplier = 3
+scale = {x i -> <- (multiply x multiplier)}
+numbers = [5, 10, 15, 20]
+scaled = (map numbers scale)
+(println "Numbers:" numbers)
+(println "Multiplier:" multiplier)
+(println "Scaled:" scaled)
+(println "")
+
+// Example 2: Factory pattern - creating custom transformers
+(println "Example 2: Factory pattern")
+make_adder = {n -> <- {x i -> <- (add x n)}}
+add_hundred = (make_adder 100)
+values = [1, 2, 3, 4, 5]
+transformed = (map values add_hundred)
+(println "Values:" values)
+(println "With 100 added:" transformed)
+(println "")
+
+// Example 3: Using index in transformation
+(println "Example 3: Index-based transformation")
+data = [10, 20, 30, 40]
+add_position = {x i -> <- (add x i)}
+result = (map data add_position)
+(println "Data:" data)
+(println "With index added:" result)
+(println "(10+0=10, 20+1=21, 30+2=32, 40+3=43)")
+(println "")
+
+(println "=== All closure examples completed! ===")

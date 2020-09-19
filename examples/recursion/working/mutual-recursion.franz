@@ -1,0 +1,31 @@
+// Mutual recursion - even/odd pattern
+// Tests functions calling each other recursively
+
+is_even = {n ->
+  (if (is n 0)
+    {<- 1}
+    {<- (is_odd (subtract n 1))})
+}
+
+is_odd = {n ->
+  (if (is n 0)
+    {<- 0}
+    {<- (is_even (subtract n 1))})
+}
+
+(println "=== Mutual Recursion Test ===")
+(println "")
+
+(println "is_even(0) =" (is_even 0))
+(println "is_odd(0) =" (is_odd 0))
+(println "is_even(1) =" (is_even 1))
+(println "is_odd(1) =" (is_odd 1))
+(println "is_even(4) =" (is_even 4))
+(println "is_odd(4) =" (is_odd 4))
+(println "is_even(7) =" (is_even 7))
+(println "is_odd(7) =" (is_odd 7))
+(println "is_even(10) =" (is_even 10))
+(println "is_odd(10) =" (is_odd 10))
+
+(println "")
+(println "Mutual recursion test completed!")

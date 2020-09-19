@@ -1,0 +1,44 @@
+// Franz String Library - Basic Demo
+// Demonstrates uppercase and lowercase functions
+
+(use "stdlib/string.franz" {
+  (println "=== Franz String Library Demo ===")
+  (println "")
+
+  (println "1. uppercase() - Convert to UPPERCASE")
+  (println "   Input: \"hello franz\"")
+  (print "   Output: ")
+  (print (uppercase "hello franz"))
+  (println "")
+
+  (println "2. lowercase() - Convert to lowercase")
+  (println "   Input: \"HELLO FRANZ\"")
+  (print "   Output: ")
+  (print (lowercase "HELLO FRANZ"))
+  (println "")
+
+  (println "3. Mixed case normalization")
+  (println "   Input: \"FrAnZ LaNgUaGe\"")
+  (print "   Uppercase: ")
+  (print (uppercase "FrAnZ LaNgUaGe"))
+  (print "   Lowercase: ")
+  (print (lowercase "FrAnZ LaNgUaGe"))
+  (println "")
+
+  (println "4. Preserves numbers and symbols")
+  (println "   Input: \"Franz-v0.0.4!\"")
+  (print "   Uppercase: ")
+  (print (uppercase "Franz-v0.0.4!"))
+  (print "   Lowercase: ")
+  (print (lowercase "Franz-v0.0.4!"))
+  (println "")
+
+  (println "5. Works with join()")
+  greeting = (join "hello" " " "world")
+  (println "   Joined: \"hello world\"")
+  (print "   Uppercase: ")
+  (print (uppercase greeting))
+  (println "")
+
+  (println "Demo complete!")
+})

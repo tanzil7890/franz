@@ -1,0 +1,111 @@
+// Demonstration of OCaml-style records using Franz dictionaries
+// Records are implemented via native hash table dicts with O(1) access
+
+(println "=== Franz Records Demo (via Dictionaries) ===")
+(println "")
+
+// OCaml equivalent: type point = {x: int; y: int}
+(println "1. Creating a Point record:")
+point = (dict "x" 10 "y" 20)
+(println "   point =" point)
+(println "")
+
+// OCaml: point.x and point.y
+(println "2. Accessing record fields (O(1)):")
+(println "   point.x =" (dict_get point "x"))
+(println "   point.y =" (dict_get point "y"))
+(println "")
+
+// OCaml: {point with x = 30}
+(println "3. Immutable record update:")
+point2 = (dict_set point "x" 30)
+(println "   Original point =" point)
+(println "   Updated point =" point2)
+(println "")
+
+// Complex record example
+(println "4. Complex record (User):")
+user = (dict
+  "name" "Ada Lovelace"
+  "age" 36
+  "email" "ada@example.com"
+  "active" 1)
+(println "   user =" user)
+(println "   user.name =" (dict_get user "name"))
+(println "   user.age =" (dict_get user "age"))
+(println "")
+
+// Nested records
+(println "5. Nested records:")
+address = (dict "street" "123 Main St" "city" "London" "zip" "SW1A")
+person = (dict
+  "name" "Charles Babbage"
+  "address" address)
+(println "   person =" person)
+(println "   person.name =" (dict_get person "name"))
+(println "   person.address =" (dict_get person "address"))
+(println "   person.address.city =" (dict_get (dict_get person "address") "city"))
+(println "")
+
+// Record transformation
+(println "6. Record transformation with dict_map:")
+scores = (dict "math" 85 "physics" 90 "chemistry" 88)
+(println "   Original scores:" scores)
+boosted = (dict_map scores {subject score -> <- (add score 5)})
+(println "   Boosted scores:" boosted)
+(println "")
+
+// Record filtering
+(println "7. Record filtering:")
+config = (dict "timeout" 30 "retries" 3 "debug" 0 "port" 8080)
+(println "   Full config:" config)
+non_zero = (dict_filter config {k v -> <- (greater_than v 0)})
+(println "   Non-zero values:" non_zero)
+(println "")
+
+// Record merging (like OCaml record update)
+(println "8. Record merging:")
+defaults = (dict "timeout" 60 "debug" 0 "retries" 5)
+user_prefs = (dict "timeout" 30 "theme" "dark")
+final_config = (dict_merge defaults user_prefs)
+(println "   Defaults:" defaults)
+(println "   User prefs:" user_prefs)
+(println "   Final config:" final_config)
+(println "")
+
+// Function operating on records
+(println "9. Functions with record parameters:")
+distance_from_origin = {point ->
+  x = (dict_get point "x")
+  y = (dict_get point "y")
+  <- (add (multiply x x) (multiply y y))  // x² + y²
+}
+
+p1 = (dict "x" 3 "y" 4)
+p2 = (dict "x" 5 "y" 12)
+(println "   Point p1:" p1 "Distance²:" (distance_from_origin p1))
+(println "   Point p2:" p2 "Distance²:" (distance_from_origin p2))
+(println "")
+
+// Record constructor pattern
+(println "10. Record constructor pattern:")
+make_rectangle = {x y width height ->
+  <- (dict "x" x "y" y "width" width "height" height)
+}
+
+rect = (make_rectangle 0 0 100 50)
+(println "    Rectangle:" rect)
+
+area = {r ->
+  <- (multiply (dict_get r "width") (dict_get r "height"))
+}
+(println "    Area:" (area rect))
+(println "")
+
+(println "=== Key Features ===")
+(println "✅ O(1) field access (hash table)")
+(println "✅ Immutable updates return new records")
+(println "✅ Pretty printing as {key: value}")
+(println "✅ Dynamic field addition/removal")
+(println "✅ Type signatures: (sig point (dict string integer))")
+(println "✅ Transformation with dict_map/dict_filter")

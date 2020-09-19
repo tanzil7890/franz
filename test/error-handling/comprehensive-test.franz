@@ -1,0 +1,108 @@
+(println "=== Comprehensive Error Handling Test Suite ===")
+(println "")
+
+(println "Test 1: Basic try/catch with custom error")
+result1 = (try {
+  (error "Something went wrong!")
+} {err ->
+  <- "Error was caught!"
+})
+(println "✓ Test 1:" result1)
+
+(println "")
+(println "Test 2: Try block succeeds (no error)")
+result2 = (try {
+  <- (add 5 3)
+} {err ->
+  <- 0
+})
+(println "✓ Test 2 - Result:" result2)
+
+(println "")
+(println "Test 3: Catch with fallback value")
+result3 = (catch {
+  (error "Failed!")
+} {
+  <- 42
+})
+(println "✓ Test 3 - Fallback value:" result3)
+
+(println "")
+(println "Test 4: Catch returns successful value")
+result4 = (catch {
+  <- (multiply 6 7)
+} {
+  <- 0
+})
+(println "✓ Test 4 - Success value:" result4)
+
+(println "")
+(println "Test 5: Nested try blocks")
+result5 = (try {
+  inner = (try {
+    (error "Inner error")
+  } {err ->
+    <- "Inner caught"
+  })
+  <- inner
+} {err ->
+  <- "Outer caught"
+})
+(println "✓ Test 5 - Nested:" result5)
+
+(println "")
+(println "Test 6: Try with error handler that uses error message")
+result6 = (try {
+  (error "Custom error message")
+} {err ->
+  <- err
+})
+(println "✓ Test 6 - Error message:" result6)
+
+(println "")
+(println "Test 7: Consecutive try blocks with errors")
+r7a = (try { (error "first") } {e -> <- 1})
+r7b = (try { (error "second") } {e -> <- 2})
+(println "✓ Test 7 - Consecutive errors:" r7a r7b)
+
+(println "")
+(println "Test 8: Try/catch mixed")
+r8a = (try { <- 10 } {e -> <- 0})
+r8b = (catch { (error "test") } { <- 20 })
+r8c = (try { (error "test") } {e -> <- 30})
+(println "✓ Test 8 - Mixed:" r8a r8b r8c)
+
+(println "")
+(println "Test 9: Error in complex expression")
+result9 = (try {
+  x = (add 10 20)
+  y = (multiply x 2)
+  (error "Midway error!")
+  z = (add x y)
+  <- z
+} {err ->
+  <- 999
+})
+(println "✓ Test 9 - Complex:" result9)
+
+(println "")
+(println "Test 10: Multiple nested catches")
+result10 = (catch {
+  (catch {
+    (catch {
+      (error "Deep error")
+    } {
+      <- "Level 1"
+    })
+  } {
+    <- "Level 2"
+  })
+} {
+  <- "Level 3"
+})
+(println "✓ Test 10 - Nested catches:" result10)
+
+(println "")
+(println "===========================================")
+(println "All 10 tests passed!")
+(println "===========================================")

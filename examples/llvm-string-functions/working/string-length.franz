@@ -1,0 +1,17 @@
+(println "=== String Length Demo ===")
+(println "")
+
+(println "Example 1: direct length calls")
+tagline = "Functional Franz"
+tagline_len = (length tagline)
+(println (format "\"%s\" has %s characters" tagline tagline_len))
+
+(println "")
+(println "Example 2: filter strings by length")
+words = (list "hi" "world" "Franz" "native" "fx")
+is_long = {word i -> <- (greater_than (length word) 3)}
+long_words = (filter words is_long)
+(println (format "Words longer than 3 chars: %s" long_words))
+
+(println "")
+(println "=== length() now accepts strings and lists ===")

@@ -1,0 +1,117 @@
+(println "=== While Loop Test Suite ===")
+(println "")
+
+(println "Test 1: Basic while loop with counter")
+mut counter1 = 0
+(while (less_than counter1 5) {
+  (println "  counter1=" counter1)
+  counter1 = (add counter1 1)
+})
+(println "Final counter1=" counter1)
+(println "")
+
+(println "Test 2: While loop with condition becoming false")
+mut x2 = 10
+(while (greater_than x2 5) {
+  (println "  x2=" x2)
+  x2 = (subtract x2 1)
+})
+(println "Final x2=" x2)
+(println "")
+
+(println "Test 3: While loop with break")
+mut counter3 = 0
+result3 = (while 1 {
+  (if (is counter3 3)
+    {(break counter3)}
+    {})
+  (println "  counter3=" counter3)
+  counter3 = (add counter3 1)
+})
+(println "Broke with result3=" result3)
+(println "")
+
+(println "Test 4: While loop with continue")
+mut counter4 = 0
+(while (less_than counter4 5) {
+  counter4 = (add counter4 1)
+  (if (is (remainder counter4 2) 0)
+    {(continue)}
+    {})
+  (println "  Odd:" counter4)
+})
+(println "")
+
+(println "Test 5: While loop that never executes")
+(println "Starting Test 5 (should not print loop body)")
+(while 0 {
+  (println "  This should NOT print")
+})
+(println "Test 5 complete (skipped loop body)")
+(println "")
+
+(println "Test 6: While loop with multiple statements in body")
+mut sum6 = 0
+mut i6 = 1
+(while (less_than i6 4) {
+  (println "  Adding" i6 "to sum")
+  sum6 = (add sum6 i6)
+  i6 = (add i6 1)
+})
+(println "Final sum6=" sum6)
+(println "")
+
+(println "Test 7: Nested while loops")
+mut outer7 = 0
+(while (less_than outer7 3) {
+  (println "Outer outer7=" outer7)
+  mut inner7 = 0
+  (while (less_than inner7 2) {
+    (println "  Inner inner7=" inner7)
+    inner7 = (add inner7 1)
+  })
+  outer7 = (add outer7 1)
+})
+(println "")
+
+(println "Test 8: While with break in nested loop (inner)")
+mut outer8 = 0
+(while (less_than outer8 3) {
+  (println "Outer outer8=" outer8)
+  mut inner8 = 0
+  innerResult8 = (while 1 {
+    (if (is inner8 2)
+      {(break inner8)}
+      {})
+    (println "  Inner inner8=" inner8)
+    inner8 = (add inner8 1)
+  })
+  (println "  Inner broke with" innerResult8)
+  outer8 = (add outer8 1)
+})
+(println "")
+
+(println "Test 9: While with continue and condition")
+mut n9 = 0
+mut count9 = 0
+(while (less_than n9 10) {
+  n9 = (add n9 1)
+  (if (is (remainder n9 3) 0)
+    {(continue)}
+    {})
+  (println "  n9=" n9 "(not divisible by 3)")
+  count9 = (add count9 1)
+})
+(println "Counted" count9 "numbers not divisible by 3")
+(println "")
+
+(println "Test 10: While loop returns 0 when completes normally")
+mut k10 = 0
+result10 = (while (less_than k10 3) {
+  (println "  k10=" k10)
+  k10 = (add k10 1)
+})
+(println "result10=" result10 "(should be 0)")
+(println "")
+
+(println "All while loop tests complete!")

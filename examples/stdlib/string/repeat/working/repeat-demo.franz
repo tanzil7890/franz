@@ -1,0 +1,23 @@
+// Franz String Library - repeat() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== repeat() Function Demo ===")
+  (println "")
+
+  (println "1. Repeat pattern")
+  (print "   repeat('ab', 3) => ")
+  (println (repeat "ab" 3))
+  (println "")
+
+  (println "2. Create separator line")
+  (print "   repeat('-', 20) => ")
+  (println (repeat "-" 20))
+  (println "")
+
+  (println "3. Repeat single character")
+  (print "   repeat('x', 5) => ")
+  (println (repeat "x" 5))
+  (println "")
+
+  (println "repeat() demo complete!")
+})

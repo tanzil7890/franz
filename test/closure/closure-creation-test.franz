@@ -1,0 +1,153 @@
+(println "===  Closure Creation Test ===")
+(println "")
+(println "Tests verify that closures are created successfully")
+(println "Note: Lexical scoping behavior will be enabled in ")
+(println "")
+
+// Test 1: Simple closure creation
+(println "Test 1: Simple closure creation")
+test1_f = {test1_x -> <- (add test1_x 1)}
+test1_result = (test1_f 41)
+(println "  Expected: 42")
+(println "  Actual: " test1_result)
+(if (is test1_result 42)
+  {-> (println "  \u2713 PASS: Simple closure works")}
+  {-> (println "  \u2717 FAIL: Expected 42")})
+(println "")
+
+// Test 2: Closure with free variable (dynamic scoping for now)
+(println "Test 2: Closure with free variable")
+test2_y = 10
+test2_f = {test2_x -> <- (add test2_x test2_y)}
+test2_result = (test2_f 5)
+(println "  Expected: 15 (dynamic scoping)")
+(println "  Actual: " test2_result)
+(if (is test2_result 15)
+  {-> (println "  \u2713 PASS: Free variable access works")}
+  {-> (println "  \u2717 FAIL: Expected 15")})
+(println "")
+
+// Test 3: Multiple closures
+(println "Test 3: Multiple closure creation")
+test3_f1 = {-> <- 1}
+test3_f2 = {-> <- 2}
+test3_f3 = {-> <- 3}
+test3_r1 = (test3_f1)
+test3_r2 = (test3_f2)
+test3_r3 = (test3_f3)
+test3_sum = (add test3_r1 (add test3_r2 test3_r3))
+(println "  Expected: 6")
+(println "  Actual: " test3_sum)
+(if (is test3_sum 6)
+  {-> (println "  \u2713 PASS: Multiple closures work")}
+  {-> (println "  \u2717 FAIL: Expected 6")})
+(println "")
+
+// Test 4: Closure with multiple arguments
+(println "Test 4: Closure with multiple arguments")
+test4_f = {test4_a test4_b test4_c -> <- (add test4_a (add test4_b test4_c))}
+test4_result = (test4_f 1 2 3)
+(println "  Expected: 6")
+(println "  Actual: " test4_result)
+(if (is test4_result 6)
+  {-> (println "  \u2713 PASS: Multi-arg closure works")}
+  {-> (println "  \u2717 FAIL: Expected 6")})
+(println "")
+
+// Test 5: Closure stored in variable and called multiple times
+(println "Test 5: Closure called multiple times")
+test5_double = {test5_n -> <- (multiply test5_n 2)}
+test5_r1 = (test5_double 5)
+test5_r2 = (test5_double 10)
+test5_r3 = (test5_double 7)
+test5_sum = (add test5_r1 (add test5_r2 test5_r3))
+(println "  Expected: 44 (10 + 20 + 14)")
+(println "  Actual: " test5_sum)
+(if (is test5_sum 44)
+  {-> (println "  \u2713 PASS: Reusable closure works")}
+  {-> (println "  \u2717 FAIL: Expected 44")})
+(println "")
+
+// Test 6: Closure with string comparison
+(println "Test 6: Closure with string operations")
+test6_f = {test6_name -> <- (is test6_name "Franz")}
+test6_result = (test6_f "Franz")
+(println "  Expected: 1")
+(println "  Actual: " test6_result)
+(if (is test6_result 1)
+  {-> (println "  \u2713 PASS: String closure works")}
+  {-> (println "  \u2717 FAIL: Expected 1")})
+(println "")
+
+// Test 7: Closure with list operations
+(println "Test 7: Closure with list operations")
+test7_nums = (range 5)
+test7_double = {test7_item test7_idx -> <- (multiply test7_item 2)}
+test7_result = (map test7_nums test7_double)
+test7_expected = (list 0 2 4 6 8)
+(println "  Expected: (0 2 4 6 8)")
+(println "  Actual: " test7_result)
+(if (is test7_result test7_expected)
+  {-> (println "  \u2713 PASS: Closure with map works")}
+  {-> (println "  \u2717 FAIL: List mismatch")})
+(println "")
+
+// Test 8: Closure with conditional logic
+(println "Test 8: Closure with conditional logic")
+test8_abs = {test8_n ->
+  <- (if (less_than test8_n 0)
+    {-> <- (multiply test8_n -1)}
+    {-> <- test8_n})
+}
+test8_r1 = (test8_abs -5)
+test8_r2 = (test8_abs 7)
+test8_sum = (add test8_r1 test8_r2)
+(println "  Expected: 12 (5 + 7)")
+(println "  Actual: " test8_sum)
+(if (is test8_sum 12)
+  {-> (println "  \u2713 PASS: Conditional closure works")}
+  {-> (println "  \u2717 FAIL: Expected 12")})
+(println "")
+
+// Test 9: Nested closure creation (will fail with lexical scoping - demonstrates  need)
+(println "Test 9: Nested closure creation (dynamic scoping)")
+test9_outer = {test9_n ->
+  test9_inner = {test9_x -> <- (add test9_x test9_n)}
+  <- (test9_inner 5)
+}
+test9_result = (test9_outer 10)
+(println "  Expected: 15 (with dynamic scoping)")
+(println "  Actual: " test9_result)
+(println "  Note: This works now due to dynamic scoping")
+(if (is test9_result 15)
+  {-> (println "  \u2713 PASS: Nested closure works (dynamic)")}
+  {-> (println "  \u2717 FAIL: Expected 15")})
+(println "")
+
+// Test 10: Closure type verification
+(println "Test 10: Closure type check")
+test10_f = {test10_x -> <- test10_x}
+test10_type = (type test10_f)
+(println "  Expected type: closure")
+(println "  Actual type: " test10_type)
+(if (is test10_type "closure")
+  {-> (println "  \u2713 PASS: Type is 'closure'")}
+  {-> (println "  \u2717 FAIL: Expected 'closure'")})
+(println "")
+
+(println "===  Closure Creation Tests Complete ===")
+(println "")
+(println "Summary:")
+(println "  - Test 1: Simple closure creation \u2713")
+(println "  - Test 2: Closure with free variable \u2713")
+(println "  - Test 3: Multiple closures \u2713")
+(println "  - Test 4: Multi-arg closure \u2713")
+(println "  - Test 5: Reusable closure \u2713")
+(println "  - Test 6: String operations \u2713")
+(println "  - Test 7: List/map operations \u2713")
+(println "  - Test 8: Conditional logic \u2713")
+(println "  - Test 9: Nested closures (dynamic) \u2713")
+(println "  - Test 10: Type verification \u2713")
+(println "")
+(println "If all tests pass,  closure creation is working!")
+(println " will enable true lexical scoping behavior.")

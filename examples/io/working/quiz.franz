@@ -1,0 +1,25 @@
+// Simple quiz program
+// Demonstrates multiple input() calls and conditional logic
+
+(println "=== Franz Quiz ===")
+(println "")
+
+(println "Question 1: What is 5 + 7?")
+mut answer1 = (input)
+num_answer1 = (integer answer1)
+
+(if (is num_answer1 12)
+  {<- (println "✓ Correct!")}
+  {<- (println "✗ Wrong. The answer is 12")})
+
+(println "")
+(println "Question 2: What is the capital of France?")
+mut answer2 = (input)
+
+(if (is answer2 "Paris")
+  {<- (println "✓ Correct!")}
+  {<- (println "✗ Wrong. The answer is Paris")})
+
+(println "")
+(println "Quiz complete!")
+

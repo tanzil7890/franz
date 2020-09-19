@@ -1,0 +1,182 @@
+(println "=== When/Unless Comprehensive Test Suite ===")
+(println "")
+
+(println "Part 1: When Statement Tests")
+(println "--------------------------------")
+
+(println "Test 1: When with true condition (1)")
+test1_result = (when 1 42)
+test1_pass = (is test1_result 42)
+(println "Result:" test1_result "| Expected: 42 | Pass:" test1_pass)
+
+(println "Test 2: When with false condition (0)")
+test2_result = (when 0 99)
+test2_pass = (is test2_result 0)
+(println "Result:" test2_result "| Expected: 0 | Pass:" test2_pass)
+
+(println "Test 3: When with truthy value (5)")
+test3_result = (when 5 100)
+test3_pass = (is test3_result 100)
+(println "Result:" test3_result "| Expected: 100 | Pass:" test3_pass)
+
+(println "Test 4: When with negative truthy (-1)")
+test4_result = (when -1 77)
+test4_pass = (is test4_result 77)
+(println "Result:" test4_result "| Expected: 77 | Pass:" test4_pass)
+
+(println "Test 5: When with arithmetic expression in condition")
+test5_cond = (add 2 3)
+test5_result = (when test5_cond 200)
+test5_pass = (is test5_result 200)
+(println "Result:" test5_result "| Expected: 200 | Pass:" test5_pass)
+
+(println "Test 6: When with comparison in condition")
+test6_result = (when (greater_than 10 5) 300)
+test6_pass = (is test6_result 300)
+(println "Result:" test6_result "| Expected: 300 | Pass:" test6_pass)
+
+(println "Test 7: When with failed comparison")
+test7_result = (when (less_than 10 5) 999)
+test7_pass = (is test7_result 0)
+(println "Result:" test7_result "| Expected: 0 | Pass:" test7_pass)
+
+(println "Test 8: When with logical AND condition (true)")
+test8_result = (when (and 1 1) 88)
+test8_pass = (is test8_result 88)
+(println "Result:" test8_result "| Expected: 88 | Pass:" test8_pass)
+
+(println "Test 9: When with logical AND condition (false)")
+test9_result = (when (and 1 0) 123)
+test9_pass = (is test9_result 0)
+(println "Result:" test9_result "| Expected: 0 | Pass:" test9_pass)
+
+(println "Test 10: When with variable in action")
+test10_x = 42
+test10_result = (when 1 test10_x)
+test10_pass = (is test10_result 42)
+(println "Result:" test10_result "| Expected: 42 | Pass:" test10_pass)
+
+(println "")
+(println "Part 2: Unless Statement Tests")
+(println "--------------------------------")
+
+(println "Test 11: Unless with false condition (0)")
+test11_result = (unless 0 55)
+test11_pass = (is test11_result 55)
+(println "Result:" test11_result "| Expected: 55 | Pass:" test11_pass)
+
+(println "Test 12: Unless with true condition (1)")
+test12_result = (unless 1 99)
+test12_pass = (is test12_result 0)
+(println "Result:" test12_result "| Expected: 0 | Pass:" test12_pass)
+
+(println "Test 13: Unless with truthy value (5)")
+test13_result = (unless 5 100)
+test13_pass = (is test13_result 0)
+(println "Result:" test13_result "| Expected: 0 | Pass:" test13_pass)
+
+(println "Test 14: Unless with negative truthy (-1)")
+test14_result = (unless -1 77)
+test14_pass = (is test14_result 0)
+(println "Result:" test14_result "| Expected: 0 | Pass:" test14_pass)
+
+(println "Test 15: Unless with arithmetic expression in condition")
+test15_cond = (subtract 5 5)
+test15_result = (unless test15_cond 200)
+test15_pass = (is test15_result 200)
+(println "Result:" test15_result "| Expected: 200 | Pass:" test15_pass)
+
+(println "Test 16: Unless with comparison in condition (false)")
+test16_result = (unless (greater_than 3 10) 300)
+test16_pass = (is test16_result 300)
+(println "Result:" test16_result "| Expected: 300 | Pass:" test16_pass)
+
+(println "Test 17: Unless with comparison in condition (true)")
+test17_result = (unless (greater_than 10 3) 999)
+test17_pass = (is test17_result 0)
+(println "Result:" test17_result "| Expected: 0 | Pass:" test17_pass)
+
+(println "Test 18: Unless with logical OR condition (false)")
+test18_result = (unless (or 0 0) 88)
+test18_pass = (is test18_result 88)
+(println "Result:" test18_result "| Expected: 88 | Pass:" test18_pass)
+
+(println "Test 19: Unless with logical OR condition (true)")
+test19_result = (unless (or 1 0) 123)
+test19_pass = (is test19_result 0)
+(println "Result:" test19_result "| Expected: 0 | Pass:" test19_pass)
+
+(println "Test 20: Unless with NOT condition")
+test20_result = (unless (not 1) 456)
+test20_pass = (is test20_result 456)
+(println "Result:" test20_result "| Expected: 456 | Pass:" test20_pass)
+
+(println "")
+(println "Part 3: When/Unless with Expressions in Action")
+(println "------------------------------------------------")
+
+(println "Test 21: When with arithmetic in action")
+test21_result = (when 1 (multiply 6 7))
+test21_pass = (is test21_result 42)
+(println "Result:" test21_result "| Expected: 42 | Pass:" test21_pass)
+
+(println "Test 22: Unless with arithmetic in action")
+test22_result = (unless 0 (add 10 20))
+test22_pass = (is test22_result 30)
+(println "Result:" test22_result "| Expected: 30 | Pass:" test22_pass)
+
+(println "Test 23: When with nested arithmetic")
+test23_result = (when 1 (add (multiply 2 3) 4))
+test23_pass = (is test23_result 10)
+(println "Result:" test23_result "| Expected: 10 | Pass:" test23_pass)
+
+(println "Test 24: Unless with nested arithmetic")
+test24_result = (unless 0 (multiply (add 1 2) 3))
+test24_pass = (is test24_result 9)
+(println "Result:" test24_result "| Expected: 9 | Pass:" test24_pass)
+
+(println "")
+(println "Part 4: Real-World Use Cases")
+(println "-----------------------------")
+
+(println "Test 25: When for positive numbers only")
+test25_num = 10
+test25_result = (when (greater_than test25_num 0) test25_num)
+test25_pass = (is test25_result 10)
+(println "Result:" test25_result "| Expected: 10 | Pass:" test25_pass)
+
+(println "Test 26: When for negative numbers (should return 0)")
+test26_num = -5
+test26_result = (when (greater_than test26_num 0) test26_num)
+test26_pass = (is test26_result 0)
+(println "Result:" test26_result "| Expected: 0 | Pass:" test26_pass)
+
+(println "Test 27: Unless for error handling (valid case)")
+test27_val = 42
+test27_result = (unless (is test27_val 0) test27_val)
+test27_pass = (is test27_result 42)
+(println "Result:" test27_result "| Expected: 42 | Pass:" test27_pass)
+
+(println "Test 28: Unless for error handling (invalid case)")
+test28_val = 0
+test28_result = (unless (is test28_val 0) test28_val)
+test28_pass = (is test28_result 0)
+(println "Result:" test28_result "| Expected: 0 | Pass:" test28_pass)
+
+(println "Test 29: When with age verification")
+test29_age = 25
+test29_min = 18
+test29_result = (when (greater_than test29_age test29_min) 1)
+test29_pass = (is test29_result 1)
+(println "Result:" test29_result "| Expected: 1 | Pass:" test29_pass)
+
+(println "Test 30: Unless with negative check")
+test30_score = 85
+test30_result = (unless (less_than test30_score 50) test30_score)
+test30_pass = (is test30_result 85)
+(println "Result:" test30_result "| Expected: 85 | Pass:" test30_pass)
+
+(println "")
+(println "=== Summary ===")
+(println "All 30 tests completed!")
+(println "When/Unless Implementation Complete")

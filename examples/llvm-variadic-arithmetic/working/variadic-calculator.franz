@@ -1,0 +1,50 @@
+(println "=== Variadic Arithmetic Calculator Example ===")
+(println "")
+
+(println "1. Sum of multiple numbers:")
+total = (add 10 20 30 40 50)
+(println "   10 + 20 + 30 + 40 + 50 =" total)
+(println "")
+
+(println "2. Sequential subtraction:")
+remaining = (subtract 100 15 10 5)
+(println "   100 - 15 - 10 - 5 =" remaining)
+(println "")
+
+(println "3. Product of multiple factors:")
+product = (multiply 2 3 4 5)
+(println "   2 * 3 * 4 * 5 =" product)
+(println "")
+
+(println "4. Sequential division:")
+quotient = (divide 1000 10 5 2)
+(println "   1000 / 10 / 5 / 2 =" quotient)
+(println "")
+
+(println "5. Mixed operations:")
+result = (add (multiply 2 3 4) (subtract 50 10 5) (divide 100 5))
+(println "   (2*3*4) + (50-10-5) + (100/5) =" result)
+(println "")
+
+(println "6. Averaging numbers:")
+sum = (add 10 20 30 40 50)
+count = 5
+average = (divide sum count)
+(println "   Average of 10,20,30,40,50 =" average)
+(println "")
+
+(println "7. Factorial-style calculation:")
+factorial_like = (multiply 1 2 3 4 5 6)
+(println "   1 * 2 * 3 * 4 * 5 * 6 =" factorial_like)
+(println "")
+
+(println "8. Complex financial calculation:")
+revenue = (add 1000 2000 1500 3000)
+costs = (add 500 300 200 100)
+profit = (subtract revenue costs)
+(println "   Revenue: $" revenue)
+(println "   Costs: $" costs)
+(println "   Profit: $" profit)
+(println "")
+
+(println "=== Variadic arithmetic enables concise, powerful calculations! ===")

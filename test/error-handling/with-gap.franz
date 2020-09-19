@@ -1,0 +1,6 @@
+x1 = (try { (error "first") } {e -> <- 1})
+(println "After first")
+y = (add 2 3)
+z = (multiply 4 5)
+x2 = (try { <- 99 } {e -> <- 0})
+(println "After second")

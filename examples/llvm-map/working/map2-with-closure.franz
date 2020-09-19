@@ -1,0 +1,83 @@
+(println "=== Map2 Advanced Examples with Closures ===")
+(println "")
+
+(println "Example 1: Closure capturing external variable")
+discount_rate = 10
+base_prices = [100, 200, 300, 400]
+quantities = [2, 3, 1, 4]
+calc_total = {price qty i ->
+  subtotal = (multiply price qty)
+  discount = (divide (multiply subtotal discount_rate) 100)
+  <- (subtract subtotal discount)
+}
+totals = (map2 base_prices quantities calc_total)
+(println "Base Prices:" base_prices)
+(println "Quantities:" quantities)
+(println "Discount Rate:" discount_rate "%")
+(println "Total 0 (with discount):" (nth totals 0))
+(println "Total 1 (with discount):" (nth totals 1))
+(println "Total 2 (with discount):" (nth totals 2))
+(println "Total 3 (with discount):" (nth totals 3))
+(println "")
+
+(println "Example 2: Using index in complex calculation")
+values1 = [10, 20, 30, 40]
+values2 = [5, 10, 15, 20]
+weighted_sum = {a b i ->
+  weight = (add i 1)
+  <- (multiply (add a b) weight)
+}
+weighted = (map2 values1 values2 weighted_sum)
+(println "Values 1:" values1)
+(println "Values 2:" values2)
+(println "Weighted 0 (weight=1):" (nth weighted 0))
+(println "Weighted 1 (weight=2):" (nth weighted 1))
+(println "Weighted 2 (weight=3):" (nth weighted 2))
+(println "Weighted 3 (weight=4):" (nth weighted 3))
+(println "")
+
+(println "Example 3: Multiple closures with same data")
+nums1 = [12, 24, 36]
+nums2 = [3, 4, 6]
+
+sum_closure = {a b i -> <- (add a b)}
+sums = (map2 nums1 nums2 sum_closure)
+
+product_closure = {a b i -> <- (multiply a b)}
+products = (map2 nums1 nums2 product_closure)
+
+(println "Numbers 1:" nums1)
+(println "Numbers 2:" nums2)
+(println "Sums:" (nth sums 0) (nth sums 1) (nth sums 2))
+(println "Products:" (nth products 0) (nth products 1) (nth products 2))
+(println "")
+
+(println "Example 4: Combining map2 with conditionals")
+student_scores = [85, 72, 90, 65]
+bonus_points = [5, 10, 0, 15]
+apply_bonus = {score bonus i ->
+  new_score = (add score bonus)
+  <- (if (greater_than new_score 100) {<- 100} {<- new_score})
+}
+final_scores = (map2 student_scores bonus_points apply_bonus)
+(println "Original Scores:" student_scores)
+(println "Bonus Points:" bonus_points)
+(println "Final Score 0:" (nth final_scores 0))
+(println "Final Score 1:" (nth final_scores 1))
+(println "Final Score 2:" (nth final_scores 2))
+(println "Final Score 3:" (nth final_scores 3))
+(println "")
+
+(println "Example 5: Parallel iteration with different lengths")
+(println "Demonstrating min(len1, len2) behavior")
+long_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+short_list = [100, 200, 300]
+combine = {a b i -> <- (add a b)}
+result = (map2 long_list short_list combine)
+(println "Long list length:" (length long_list))
+(println "Short list length:" (length short_list))
+(println "Result length:" (length result) "| Uses min(10, 3) = 3")
+(println "Result:" (nth result 0) (nth result 1) (nth result 2))
+(println "")
+
+(println "All advanced map2 examples completed!")

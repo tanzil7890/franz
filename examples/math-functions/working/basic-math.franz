@@ -1,0 +1,54 @@
+// Basic Math Functions Examples
+// Demonstrates remainder, power, and random
+
+(println "=== Remainder Examples ===")
+(println "Clock arithmetic (24-hour to 12-hour):")
+hour = 14
+hour_12 = (remainder hour 12)
+(println "  14:00 in 12-hour format: " hour_12 ":00")
+
+(println "")
+(println "Check if number is even/odd:")
+num = 17
+is_even = (is (remainder num 2) 0)
+(println "  Is " num " even? " (if is_even {<- "yes"} {<- "no"}))
+
+(println "")
+(println "=== Power Examples ===")
+(println "Calculate area of square:")
+side = 5
+area = (power side 2)
+(println "  Square with side " side " has area " area)
+
+(println "")
+(println "Compound interest calculation:")
+principal = 1000
+rate = 1.05
+years = 10
+amount = (multiply principal (power rate years))
+(println "  $" principal " at 5% for " years " years = $" amount)
+
+(println "")
+(println "Square root using fractional exponent:")
+number = 16
+sqrt = (power number 0.5)
+(println "  Square root of " number " = " sqrt)
+
+(println "")
+(println "=== Random Examples ===")
+(println "Generate 5 random numbers:")
+(println "  1: " (random))
+(println "  2: " (random))
+(println "  3: " (random))
+(println "  4: " (random))
+(println "  5: " (random))
+
+(println "")
+(println "Simple coin flip:")
+coin = (if (less_than (random) 0.5) {<- "heads"} {<- "tails"})
+(println "  Result: " coin)
+
+(println "")
+(println "Random number in custom range [0, 100):")
+random_100 = (multiply (random) 100)
+(println "  Random value: " random_100)

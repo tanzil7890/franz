@@ -1,0 +1,27 @@
+(println "=== Quick Error Handling Tests ===")
+
+(println "Test 1: Custom error with try")
+r1 = (try { (error "test") } {e -> <- "caught"})
+(println "✓ Test 1:" r1)
+
+(println "Test 2: Success in try")
+r2 = (try { <- (add 5 3) } {e -> <- 0})
+(println "✓ Test 2:" r2)
+
+(println "Test 3: Catch with fallback")
+r3 = (catch { (error "fail") } { <- 42 })
+(println "✓ Test 3:" r3)
+
+(println "Test 4: Catch success")
+r4 = (catch { <- (multiply 6 7) } { <- 0 })
+(println "✓ Test 4:" r4)
+
+(println "Test 5: Nested try")
+r5 = (try {
+  i = (try { (error "inner") } {e -> <- "inner-caught"})
+  <- i
+} {e -> <- "outer-caught"})
+(println "✓ Test 5:" r5)
+
+(println "")
+(println "All tests passed!")

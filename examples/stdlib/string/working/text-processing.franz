@@ -1,0 +1,55 @@
+// Franz String Library - Real-World Text Processing Example
+// Demonstrates practical use of uppercase/lowercase for text normalization
+
+(use "stdlib/string.franz" {
+  (println "=== Text Processing Example ===")
+  (println "")
+
+  // Use case 1: Normalize user input for comparison
+  (println "Use Case 1: Case-insensitive comparison")
+  user_input = "Franz"
+  expected = "franz"
+  normalized_input = (lowercase user_input)
+  (println (join "  User entered: '" user_input "'"))
+  (println (join "  Expected: '" expected "'"))
+  (print "  Normalized: ")
+  (print normalized_input)
+  (println "  Match: Normalized input matches expected")
+  (println "")
+
+  // Use case 2: Title formatting
+  (println "Use Case 2: Title formatting")
+  title = "franz programming language"
+  (println (join "  Original: " title))
+  (print "  Title case (uppercase): ")
+  (print (uppercase title))
+  (println "")
+
+  // Use case 3: Command normalization
+  (println "Use Case 3: Command normalization")
+  command1 = "QUIT"
+  command2 = "quit"
+  command3 = "QuIt"
+  (println "  Commands:")
+  (println (join "    - " command1))
+  (println (join "    - " command2))
+  (println (join "    - " command3))
+  (println "  Normalized (all lowercase):")
+  (print "    - ")
+  (print (lowercase command1))
+  (print "    - ")
+  (print (lowercase command2))
+  (print "    - ")
+  (print (lowercase command3))
+  (println "")
+
+  // Use case 4: Acronym extraction
+  (println "Use Case 4: Creating acronyms")
+  phrase = "franz programming language"
+  (println (join "  Phrase: " phrase))
+  (print "  Acronym (uppercase): ")
+  (print (uppercase "fpl"))
+  (println "")
+
+  (println "Text processing examples complete!")
+})

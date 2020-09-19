@@ -1,0 +1,35 @@
+// Example 1: Basic Counter with Mutable Reference
+// Demonstrates: ref, deref, and set! operations in LLVM mode
+
+(println "=== Basic Counter Example ===")
+(println "")
+
+// Create a mutable counter starting at 0
+counter = (ref 0)
+(println "Created counter = (ref 0)")
+
+// Read the counter value
+val1 = (deref counter)
+(println "Initial value:" val1)
+
+// Increment the counter
+old_val = (deref counter)
+new_val = (add old_val 1)
+(set! counter new_val)
+(println "After increment:" (deref counter))
+
+// Increment again
+old_val2 = (deref counter)
+new_val2 = (add old_val2 1)
+(set! counter new_val2)
+(println "After second increment:" (deref counter))
+
+// Increment again
+old_val3 = (deref counter)
+new_val3 = (add old_val3 1)
+(set! counter new_val3)
+(println "After third increment:" (deref counter))
+
+(println "")
+(println "Final counter value:" (deref counter))
+(println "✓ Counter example complete!")

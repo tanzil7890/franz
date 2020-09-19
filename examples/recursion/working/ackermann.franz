@@ -1,0 +1,27 @@
+// Ackermann function - tests deep recursion
+// A(m, n) grows extremely fast, so we use small inputs
+
+ackermann = {m n ->
+  (if (is m 0)
+    {<- (add n 1)}
+    {
+      (if (is n 0)
+        {<- (ackermann (subtract m 1) 1)}
+        {<- (ackermann (subtract m 1) (ackermann m (subtract n 1)))})
+    })
+}
+
+(println "=== Ackermann Function (Deep Recursion) ===")
+(println "")
+
+(println "A(0, 0) =" (ackermann 0 0))
+(println "A(0, 5) =" (ackermann 0 5))
+(println "A(1, 0) =" (ackermann 1 0))
+(println "A(1, 5) =" (ackermann 1 5))
+(println "A(2, 0) =" (ackermann 2 0))
+(println "A(2, 5) =" (ackermann 2 5))
+(println "A(3, 0) =" (ackermann 3 0))
+(println "A(3, 3) =" (ackermann 3 3))
+
+(println "")
+(println "Deep recursion test completed!")

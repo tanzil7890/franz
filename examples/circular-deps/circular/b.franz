@@ -1,0 +1,15 @@
+// b.franz - imports a.franz
+// This creates a circular dependency: b -> a -> b
+
+(println "Loading b.franz...")
+
+// This will cause circular dependency error
+(use "examples/circular-deps/circular/a.franz" {
+  (println "In b.franz, calling a_function")
+  (a_function)
+})
+
+b_function = {
+  (println "b_function called")
+  <- "from_b"
+}

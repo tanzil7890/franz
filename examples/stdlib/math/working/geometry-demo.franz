@@ -1,0 +1,70 @@
+// Geometry Demo - Geometric Calculations with Math Module
+
+(use "stdlib/math.franz" {
+  (println "=== Geometric Calculations with Franz Math Module ===")
+  (println "")
+
+  // Circle calculations
+  (println "Circle Calculations:")
+  radius1 = 7
+  circumference = (multiply 2 (multiply PI radius1))
+  area_circle = (multiply PI (multiply radius1 radius1))
+
+  (println "  Radius:" radius1)
+  (println "  Circumference: 2πr =" circumference)
+  (println "  Area: πr² =" area_circle)
+  (println "")
+
+  // Right triangle - Pythagorean theorem
+  (println "Right Triangle (Pythagorean Theorem):")
+  side_a = 3
+  side_b = 4
+  hypotenuse = (sqrt (add (power side_a 2) (power side_b 2)))
+
+  (println "  Side a:" side_a)
+  (println "  Side b:" side_b)
+  (println "  Hypotenuse: √(a² + b²) =" hypotenuse)
+  (println "")
+
+  // Rectangle area and perimeter
+  (println "Rectangle Calculations:")
+  length = 12
+  width = 8
+  area_rect = (multiply length width)
+  perimeter = (multiply 2 (add length width))
+
+  (println "  Length:" length)
+  (println "  Width:" width)
+  (println "  Area:" area_rect)
+  (println "  Perimeter:" perimeter)
+  (println "")
+
+  // Distance between two points
+  (println "Distance Between Points:")
+  x1 = 1
+  y1 = 2
+  x2 = 4
+  y2 = 6
+
+  dx = (abs (subtract x2 x1))
+  dy = (abs (subtract y2 y1))
+  distance = (sqrt (add (power dx 2) (power dy 2)))
+
+  (println "  Point 1: (" (integer x1) "," (integer y1) ")")
+  (println "  Point 2: (" (integer x2) "," (integer y2) ")")
+  (println "  Distance: √((x2-x1)² + (y2-y1)²) =" distance)
+  (println "")
+
+  // Sphere volume
+  (println "Sphere Calculations:")
+  radius_sphere = 5
+  volume = (multiply (divide 4 3) (multiply PI (power radius_sphere 3)))
+  surface_area = (multiply 4 (multiply PI (power radius_sphere 2)))
+
+  (println "  Radius:" radius_sphere)
+  (println "  Volume: (4/3)πr³ =" volume)
+  (println "  Surface Area: 4πr² =" surface_area)
+  (println "")
+
+  (println "✓ Geometry calculations complete!")
+})

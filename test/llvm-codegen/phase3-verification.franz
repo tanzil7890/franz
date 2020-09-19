@@ -1,0 +1,127 @@
+(println "==========================================")
+(println "===  Type Inference Integration ===")
+(println "==========================================")
+(println "")
+(println "This test verifies that user-defined functions with")
+(println "inferred int/float return types are NOT routed through")
+(println "Generic* pointer boxing (Type inference optimization)")
+(println "")
+(println "EXPECTED BEHAVIOR:")
+(println "- User functions returning int/float: NO [BOX POINTER SMART]")
+(println "- User functions returning closures/lists: YES [BOX POINTER SMART]")
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 1: User Functions Returning Int (Type Inference Should Optimize)
+// ============================================================================
+
+(println "--- Test Category 1: User Functions Returning Int ---")
+
+// Test 1.1: Simple arithmetic user function
+add_ten = {x -> <- (add x 10)}
+result_add_ten = (add_ten 5)
+(println "Test 1.1 - add_ten(5):" result_add_ten)  // Expected: 15, NO BOX
+
+// Test 1.2: User function with comparison (returns int 0/1)
+is_positive = {x -> <- (greater_than x 0)}
+result_positive = (is_positive 42)
+(println "Test 1.2 - is_positive(42):" result_positive)  // Expected: 1, NO BOX
+
+// Test 1.3: User function with logical operation
+both_positive = {a b -> <- (and (greater_than a 0) (greater_than b 0))}
+result_both = (both_positive 5 10)
+(println "Test 1.3 - both_positive(5,10):" result_both)  // Expected: 1, NO BOX
+
+// Test 1.4: User function calling another int-returning function
+double = {x -> <- (multiply x 2)}
+quadruple = {x -> <- (double (double x))}
+result_quad = (quadruple 5)
+(println "Test 1.4 - quadruple(5):" result_quad)  // Expected: 20, NO BOX
+
+// Test 1.5: User function with min/max
+find_min = {a b c -> <- (min a b c)}
+result_min = (find_min 15 8 23)
+(println "Test 1.5 - find_min(15,8,23):" result_min)  // Expected: 8, NO BOX
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 2: User Functions Returning Float (Type Inference Should Optimize)
+// ============================================================================
+
+(println "--- Test Category 2: User Functions Returning Float ---")
+
+// Test 2.1: Simple float arithmetic
+add_pi = {x -> <- (add x 3.14)}
+result_pi = (add_pi 1.0)
+(println "Test 2.1 - add_pi(1.0):" result_pi)  // Expected: 4.14, NO BOX
+
+// Test 2.2: Float math function
+square = {x -> <- (multiply x x)}
+result_square = (square 4.5)
+(println "Test 2.2 - square(4.5):" result_square)  // Expected: 20.25, NO BOX
+
+// Test 2.3: Floor/ceil operations
+my_floor = {x -> <- (floor x)}
+result_floor = (my_floor 3.9)
+(println "Test 2.3 - my_floor(3.9):" result_floor)  // Expected: 3, NO BOX
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 3: User Functions Returning Closures (SHOULD Box)
+// ============================================================================
+
+(println "--- Test Category 3: User Functions Returning Closures (Expected BOX) ---")
+
+// Test 3.1: Closure factory (returns closure, SHOULD box)
+make_adder = {n -> <- {x -> <- (add n x)}}
+add5 = (make_adder 5)
+result_closure = (add5 10)
+(println "Test 3.1 - Closure factory result:" result_closure)  // Expected: 15, YES BOX for make_adder
+
+(println "")
+
+// ============================================================================
+// TEST CATEGORY 4: Mixed Scenarios (Regression)
+// ============================================================================
+
+(println "--- Test Category 4: Mixed Scenarios (Regression) ---")
+
+// Test 4.1: Int function passed to if statement
+max_of_two = {a b -> <- (if (greater_than a b) {<- a} {<- b})}
+result_max = (max_of_two 42 17)
+(println "Test 4.1 - max_of_two(42,17):" result_max)  // Expected: 42, NO BOX
+
+// Test 4.2: Nested user functions
+add_one = {x -> <- (add x 1)}
+add_two = {x -> <- (add_one (add_one x))}
+result_nested = (add_two 10)
+(println "Test 4.2 - add_two(10):" result_nested)  // Expected: 12, NO BOX
+
+// Test 4.3: User function with stdlib chain
+calculate = {x -> <- (add (multiply x 2) 5)}
+result_calc = (calculate 10)
+(println "Test 4.3 - calculate(10):" result_calc)  // Expected: 25, NO BOX
+
+(println "")
+
+// ============================================================================
+// TEST SUMMARY
+// ============================================================================
+
+(println "==========================================")
+(println "===  VERIFICATION COMPLETE ===")
+(println "==========================================")
+(println "")
+(println "Total Test Categories: 4")
+(println "Total Individual Tests: 13")
+(println "")
+(println "VERIFICATION STEPS:")
+(println "1. Check stderr for [BOX POINTER SMART] messages")
+(println "2. Category 1 & 2 (int/float returns): Should have ZERO BOX messages")
+(println "3. Category 3 (closure returns): Should have BOX messages")
+(println "4. All numeric outputs should be correct")
+(println "")
+(println " Type Inference Integration: Active")
+(println "")

@@ -1,0 +1,216 @@
+(println "=== Void Type Comprehensive Tests ===")
+(println "")
+
+// ============================================
+// Test 1: Void Literal Assignment
+// ============================================
+(println "Test 1: Void literal assignment")
+x = void
+type_x = (type x)
+ok1 = (is type_x "void")
+(println "  Type: " type_x)
+(println (if ok1 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 2: Void Type String
+// ============================================
+(println "Test 2: Void type string comparison")
+y = void
+type_y = (type y)
+ok2 = (is type_y "void")
+(println (if ok2 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 3: Function Without Explicit Return
+// ============================================
+(println "Test 3: Function without explicit return")
+side_effect = {x -> (println "  Side effect: " x)}
+result3 = (side_effect 42)
+type3 = (type result3)
+ok3 = (is type3 "void")
+(println "  Return type: " type3)
+(println (if ok3 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 4: Function with Only Side Effects
+// ============================================
+(println "Test 4: Function with only side effects")
+no_return = {-> (println "  No return value")}
+result4 = (no_return)
+type4 = (type result4)
+ok4 = (is type4 "void")
+(println (if ok4 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 5: println Returns Void
+// ============================================
+(println "Test 5: println returns void")
+result5 = (println "  Testing println return")
+type5 = (type result5)
+ok5 = (is type5 "void")
+(println "  println return type: " type5)
+(println (if ok5 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 6: print Returns Void
+// ============================================
+(println "Test 6: print returns void")
+result6 = (print "")
+type6 = (type result6)
+ok6 = (is type6 "void")
+(println "  print return type: " type6)
+(println (if ok6 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 7: Void Comparison with is
+// ============================================
+(println "Test 7: Void comparison")
+v1 = void
+v2 = void
+ok7 = (is v1 v2)
+(println "  void == void: " (if ok7 {<- "true"} {<- "false"}))
+(println (if ok7 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 8: Void in List
+// ============================================
+(println "Test 8: Void in list")
+list8 = (list void 1 void 2)
+elem8 = (get list8 0)
+type8 = (type elem8)
+ok8 = (is type8 "void")
+(println "  First element type: " type8)
+(println (if ok8 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 9: Function Returning Void Explicitly
+// ============================================
+(println "Test 9: Function returning void explicitly")
+explicit_void = {-> <- void}
+result9 = (explicit_void)
+type9 = (type result9)
+ok9 = (is type9 "void")
+(println (if ok9 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 10: Conditional Returning Void
+// ============================================
+(println "Test 10: Conditional returning void")
+cond_void = (if 1 {<- void} {<- void})
+type10 = (type cond_void)
+ok10 = (is type10 "void")
+(println "  Type: " type10)
+(println (if ok10 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 11: Variable Reassignment to Void
+// ============================================
+(println "Test 11: Variable reassignment to void")
+var11 = 42
+var11 = void
+type11 = (type var11)
+ok11 = (is type11 "void")
+(println "  After reassignment: " type11)
+(println (if ok11 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 12: Void as Function Argument
+// ============================================
+(println "Test 12: Void as function argument")
+accept_void = {v -> <- (type v)}
+result12 = (accept_void void)
+ok12 = (is result12 "void")
+(println "  Arg type: " result12)
+(println (if ok12 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 13: Multiple Void Variables
+// ============================================
+(println "Test 13: Multiple void variables")
+a13 = void
+b13 = void
+c13 = void
+ok13_a = (is (type a13) "void")
+ok13_b = (is (type b13) "void")
+ok13_c = (is (type c13) "void")
+ok13 = (and ok13_a (and ok13_b ok13_c))
+(println (if ok13 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 14: Void from Statement-Only Function
+// ============================================
+(println "Test 14: Void from statement-only function")
+stmt_only = {x -> (println "  Got: " x)}
+result14 = (stmt_only 42)
+type14 = (type result14)
+ok14 = (is type14 "void")
+(println "  Statement-only return: " type14)
+(println (if ok14 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 15: Void Type Check
+// ============================================
+(println "Test 15: Type check function")
+check_void = {v -> <- (is (type v) "void")}
+ok15 = (check_void void)
+(println "  Is void: " (if ok15 {<- "yes"} {<- "no"}))
+(println (if ok15 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 16: Void from Sequence of Side Effects
+// ============================================
+(println "Test 16: Void from side effect sequence")
+seq_side = {->
+  (println "  Effect 1")
+  (println "  Effect 2")
+  (println "  Effect 3")
+}
+result16 = (seq_side)
+type16 = (type result16)
+ok16 = (is type16 "void")
+(println (if ok16 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 17: Void Returned from Built-in
+// ============================================
+(println "Test 17: Void from built-in functions")
+result17 = (println "  Built-in test")
+type17 = (type result17)
+ok17 = (is type17 "void")
+(println (if ok17 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 18: Void in Nested Function
+// ============================================
+(println "Test 18: Void in nested function")
+outer = {->
+  inner = {-> <- void}
+  <- (inner)
+}
+result18 = (outer)
+type18 = (type result18)
+ok18 = (is type18 "void")
+(println (if ok18 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 19: Void Assignment Chain
+// ============================================
+(println "Test 19: Void assignment chain")
+chain_a = void
+chain_b = chain_a
+chain_c = chain_b
+type19 = (type chain_c)
+ok19 = (is type19 "void")
+(println (if ok19 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 20: Void Global Variable
+// ============================================
+(println "Test 20: Void as global identifier")
+global_void = void
+type20 = (type global_void)
+ok20 = (is type20 "void")
+(println (if ok20 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "=== All 20 Void Type Tests Complete ===")

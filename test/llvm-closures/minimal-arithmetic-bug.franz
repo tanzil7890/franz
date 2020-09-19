@@ -1,0 +1,17 @@
+(println "=== Minimal test for Issue #2 ===")
+
+// Define a simple function that returns a value
+get_ten = {-> <- 10}
+get_twenty = {-> <- 20}
+
+// Call inside a closure and use in arithmetic
+test_closure = {->
+  x = (get_ten)
+  y = (get_twenty)
+  sum = (add x y)
+  <- sum
+}
+
+result = (test_closure)
+(println "Result:" result)
+(println "Expected: 30")

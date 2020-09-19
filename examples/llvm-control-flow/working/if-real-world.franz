@@ -1,0 +1,97 @@
+(println "=== Franz If Statement - Real-World Use Cases ===")
+(println "")
+
+// Use Case 1: Temperature converter with conditional
+(println "Use Case 1: Temperature Warning System")
+celsius = 35
+is_hot = (if (greater_than celsius 30) 1 0)
+warning = (if is_hot "WARNING: High temperature!" "Temperature normal")
+(println "Temperature:" celsius "C")
+(println warning)
+(println "")
+
+// Use Case 2: Age-based ticket pricing
+(println "Use Case 2: Ticket Pricing System")
+visitor_age = 25
+base_price = 100
+ticket_price = (if (less_than visitor_age 18)
+  (multiply base_price 0.5)
+  (if (greater_than visitor_age 64)
+    (multiply base_price 0.7)
+    base_price))
+(println "Age:" visitor_age "years")
+(println "Ticket price:" ticket_price)
+(println "")
+
+// Use Case 3: BMI calculator with categories
+(println "Use Case 3: BMI Health Check")
+bmi = 24
+category = (if (less_than bmi 18)
+  "Underweight"
+  (if (less_than bmi 25)
+    "Normal"
+    (if (less_than bmi 30)
+      "Overweight"
+      "Obese")))
+(println "BMI:" bmi "-> Category:" category)
+(println "")
+
+// Use Case 4: Salary tax bracket
+(println "Use Case 4: Tax Calculation")
+salary = 75000
+tax_rate = (if (less_than salary 50000)
+  0.10
+  (if (less_than salary 100000)
+    0.20
+    0.30))
+tax = (multiply salary tax_rate)
+(println "Salary:" salary)
+(println "Tax rate:" tax_rate)
+(println "Tax amount:" tax)
+(println "")
+
+// Use Case 5: Shipping cost calculator
+(println "Use Case 5: Shipping Cost")
+order_total = 120
+shipping = (if (greater_than order_total 100) 0 15)
+final_total = (add order_total shipping)
+(println "Order total:" order_total)
+(println "Shipping:" shipping)
+(println "Final total:" final_total)
+(println "")
+
+// Use Case 6: Password strength checker
+(println "Use Case 6: Password Strength")
+password_length = 12
+has_special = 1
+is_strong = (if (and (greater_than password_length 7) has_special) 1 0)
+strength = (if is_strong "STRONG" "WEAK")
+(println "Password length:" password_length)
+(println "Has special chars:" has_special)
+(println "Strength:" strength)
+(println "")
+
+// Use Case 7: Credit score evaluation
+(println "Use Case 7: Loan Approval")
+credit_score = 720
+income = 60000
+approved = (if (and (greater_than credit_score 650) (greater_than income 40000)) 1 0)
+status = (if approved "APPROVED" "DENIED")
+(println "Credit score:" credit_score)
+(println "Income:" income)
+(println "Loan status:" status)
+(println "")
+
+// Use Case 8: Distance-based delivery time
+(println "Use Case 8: Delivery Time Estimation")
+distance_km = 45
+delivery_days = (if (less_than distance_km 20)
+  1
+  (if (less_than distance_km 50)
+    2
+    3))
+(println "Distance:" distance_km "km")
+(println "Delivery days:" delivery_days)
+(println "")
+
+(println "=== All Real-World Use Cases Complete ===")

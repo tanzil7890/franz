@@ -1,0 +1,66 @@
+(println "=== Polymorphic Identity Closure Test ===")
+(println "")
+
+(println "Test 1: Create polymorphic identity closure")
+identity = {x -> <- x}
+(println "PASS: Created identity closure")
+
+(println "Test 2: Identity with integer")
+result_int = (identity 42)
+(println "identity(42):" result_int)
+(println "PASS: Identity works with integers")
+
+(println "Test 3: Identity with float")
+result_float = (identity 3.14)
+(println "identity(3.14):" result_float)
+(println "PASS: Identity works with floats")
+
+(println "Test 4: Identity with string")
+result_str = (identity "hello world")
+(println "identity('hello world'):" result_str)
+(println "PASS: Identity works with strings")
+
+(println "Test 5: Identity with list")
+result_list = (identity [1, 2, 3])
+(println "identity([1,2,3]):" result_list)
+(println "PASS: Identity works with lists")
+
+(println "Test 6: Multiple identity closures")
+id1 = {a -> <- a}
+id2 = {b -> <- b}
+val1 = (id1 100)
+val2 = (id2 "test")
+(println "id1(100):" val1)
+(println "id2('test'):" val2)
+(println "PASS: Multiple identity closures work independently")
+
+(println "Test 7: Identity in composition")
+double = {n -> <- (multiply n 2)}
+result_comp = (double (identity 21))
+(println "double(identity(21)):" result_comp)
+(println "PASS: Identity works in function composition")
+
+(println "Test 8: Polymorphic pair selector")
+first = {a b -> <- a}
+second = {a b -> <- b}
+x = (first 42 "hello")
+y = (second 42 "hello")
+(println "first(42, 'hello'):" x)
+(println "second(42, 'hello'):" y)
+(println "PASS: Polymorphic pair selectors work")
+
+(println "Test 9: Identity preserves type through pipeline")
+nums = [1, 2, 3]
+result_pipe = (identity (identity (identity nums)))
+(println "triple-identity([1,2,3]):" result_pipe)
+(println "PASS: Identity preserves type through nested calls")
+
+(println "Test 10: Different types in sequence")
+(println "(identity 1):" (identity 1))
+(println "(identity 2.5):" (identity 2.5))
+(println "(identity 'abc'):" (identity "abc"))
+(println "(identity [4,5]):" (identity [4, 5]))
+(println "PASS: Identity handles different types in sequence")
+
+(println "")
+(println "All 10 polymorphic identity tests passed!")

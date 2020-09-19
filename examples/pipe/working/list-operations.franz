@@ -1,0 +1,54 @@
+(println "=== List Processing Pipeline Examples ===")
+(println "")
+
+(println "Example 1: Sum of squares")
+(println "Take a list, square each element, then sum them all")
+
+numbers = (list 1 2 3 4 5)
+square_all = {lst -> <- (map lst {x i -> <- (multiply x x)})}
+sum = {lst -> <- (reduce lst {acc x i -> <- (add acc x)} 0)}
+
+result1 = (pipe numbers square_all sum)
+(println "List:" numbers)
+(println "Squares: (1 4 9 16 25)")
+(println "Sum of squares:" result1)
+(println "")
+
+(println "Example 2: Average calculation")
+(println "Sum all elements, then divide by length")
+
+data = (list 10 20 30 40 50)
+sum_fn = {lst -> <- (reduce lst {acc x i -> <- (add acc x)} 0)}
+get_length = {lst -> <- (length lst)}
+
+total = (pipe data sum_fn)
+count = (pipe data get_length)
+average = (divide total count)
+(println "Data:" data)
+(println "Sum:" total "Count:" count)
+(println "Average:" average)
+(println "")
+
+(println "Example 3: Nested list operations")
+(println "Double all numbers, then calculate product")
+
+nums = (list 2 3 4)
+double_list = {lst -> <- (map lst {x i -> <- (multiply x 2)})}
+product = {lst -> <- (reduce lst {acc x i -> <- (multiply acc x)} 1)}
+
+result3 = (pipe nums double_list product)
+(println "Original:" nums)
+(println "Doubled: (4 6 8)")
+(println "Product:" result3)
+(println "")
+
+(println "Example 4: Extract and transform")
+(println "Get first element, then transform it")
+
+my_list = (list 100 200 300)
+get_first = {lst -> <- (get lst 0)}
+add_fifty = {x -> <- (add x 50)}
+
+result4 = (pipe my_list get_first add_fifty)
+(println "List:" my_list)
+(println "First element + 50:" result4)

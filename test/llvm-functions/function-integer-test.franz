@@ -1,0 +1,85 @@
+(println "=== LLVM Integer Function Tests ===")
+(println "")
+
+(println "Test 1: Simple function with 1 parameter")
+add10 = {x -> <- (add x 10)}
+result1 = (add10 5)
+(println "add10(5) =")
+(println result1)
+(println "Expected: 15")
+(println "")
+
+(println "Test 2: Multi-parameter function")
+sum = {x y -> <- (add x y)}
+result2 = (sum 3 7)
+(println "sum(3, 7) =")
+(println result2)
+(println "Expected: 10")
+(println "")
+
+(println "Test 3: No-parameter function")
+get_answer = {-> <- 42}
+result3 = (get_answer)
+(println "get_answer() =")
+(println result3)
+(println "Expected: 42")
+(println "")
+
+(println "Test 4: Function with subtraction")
+subtract5 = {x -> <- (subtract x 5)}
+result4 = (subtract5 20)
+(println "subtract5(20) =")
+(println result4)
+(println "Expected: 15")
+(println "")
+
+(println "Test 5: Function with multiplication")
+double = {x -> <- (multiply x 2)}
+result5 = (double 21)
+(println "double(21) =")
+(println result5)
+(println "Expected: 42")
+(println "")
+
+(println "Test 6: Function with division")
+half = {x -> <- (divide x 2)}
+result6 = (half 84)
+(println "half(84) =")
+(println result6)
+(println "Expected: 42")
+(println "")
+
+(println "Test 7: Multi-operation function")
+calc = {a b -> <- (multiply (add a b) 2)}
+result7 = (calc 3 4)
+(println "calc(3, 4) = (3+4)*2 =")
+(println result7)
+(println "Expected: 14")
+(println "")
+
+(println "Test 8: Three parameters")
+sum3 = {x y z -> <- (add (add x y) z)}
+result8 = (sum3 1 2 3)
+(println "sum3(1, 2, 3) =")
+(println result8)
+(println "Expected: 6")
+(println "")
+
+(println "Test 9: Nested calls")
+inc = {x -> <- (add x 1)}
+result9 = (inc (inc (inc 0)))
+(println "inc(inc(inc(0))) =")
+(println result9)
+(println "Expected: 3")
+(println "")
+
+(println "Test 10: Four parameters")
+sum4 = {a b c d -> <- (add (add (add a b) c) d)}
+result10 = (sum4 1 2 3 4)
+(println "sum4(1,2,3,4) =")
+(println result10)
+(println "Expected: 10")
+(println "")
+
+(println "")
+(println "=== All 10 Integer Function Tests Complete ===")

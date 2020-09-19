@@ -1,0 +1,2 @@
+(println "Testing LLVM type kinds...")
+(println "This should show what kind numbers mean")

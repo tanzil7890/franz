@@ -1,0 +1,124 @@
+(println "=== Random Functions Complete Test Suite ===")
+(println "Testing: random_int, random_range, random_seed")
+(println "")
+
+// TEST 1-5: random_int
+(println "Random Int Tests:")
+t1 = (random_int 10)
+t1_ok = (and (greater_than t1 -1) (less_than t1 10))
+
+t2 = (random_int 100)
+t3 = (random_int 100)
+t2_ok = (is (is t2 t3) 0)
+
+t3 = (random_int 1)
+t3_ok = (is t3 0)
+
+t4 = (random_int 1)
+t4_ok = (is t4 0)
+
+t5 = (random_int 5)
+t5_ok = (and (greater_than t5 -1) (less_than t5 5))
+
+(println "  Range test: " t1_ok)
+(println "  Variety test: " t2_ok)
+(println "  Edge case [0,1) duplicate: " t3_ok)
+(println "  Edge case [0,1): " t4_ok)
+(println "  Small range: " t5_ok)
+
+// TEST 6-10: random_range
+(println "")
+(println "Random Range Tests:")
+t6 = (random_range 5 15)
+t6_ok = (and (greater_than t6 4.99) (less_than t6 15.01))
+
+t7 = (random_range 1.5 2.5)
+t7_ok = (and (greater_than t7 1.49) (less_than t7 2.51))
+
+t8 = (random_range 0 100.0)
+t8_ok = (and (greater_than t8 -0.01) (less_than t8 100.01))
+
+t9 = (random_range -10 -5)
+t9_ok = (and (greater_than t9 -10.01) (less_than t9 -4.99))
+
+t10 = (random_range 0 0.1)
+t10_ok = (and (greater_than t10 -0.01) (less_than t10 0.11))
+
+(println "  Basic range: " t6_ok)
+(println "  Float args: " t7_ok)
+(println "  Mixed types: " t8_ok)
+(println "  Negative range: " t9_ok)
+(println "  Tiny range: " t10_ok)
+
+// TEST 11-13: random_seed
+(println "")
+(println "Random Seed Tests:")
+
+(random_seed 42)
+s1a = (random)
+s1b = (random)
+
+(random_seed 42)
+s1c = (random)
+s1d = (random)
+
+t11_ok = (and (is s1a s1c) (is s1b s1d))
+
+(random_seed 100)
+s2a = (random)
+
+(random_seed 200)
+s2b = (random)
+
+t12_ok = (is (is s2a s2b) 0)
+
+(random_seed 0)
+s3a = (random)
+
+(random_seed 0)
+s3b = (random)
+
+t13_ok = (is s3a s3b)
+
+(println "  Reproducibility: " t11_ok)
+(println "  Different seeds: " t12_ok)
+(println "  Seed zero: " t13_ok)
+
+// TEST 14-16: Integration
+(println "")
+(println "Integration Tests:")
+
+(random_seed 12345)
+i1a = (random_int 100)
+i1b = (random_int 100)
+
+(random_seed 12345)
+i1c = (random_int 100)
+i1d = (random_int 100)
+
+t14_ok = (and (is i1a i1c) (is i1b i1d))
+
+(random_seed 54321)
+i2a = (random_range 0 100)
+i2b = (random_range 0 100)
+
+(random_seed 54321)
+i2c = (random_range 0 100)
+i2d = (random_range 0 100)
+
+t15_ok = (and (is i2a i2c) (is i2b i2d))
+
+i3 = (random_int 10000)
+t16_ok = (and (greater_than i3 -1) (less_than i3 10000))
+
+(println "  random_int with seed: " t14_ok)
+(println "  random_range with seed: " t15_ok)
+(println "  Large range: " t16_ok)
+
+// Summary
+(println "")
+(println "=== SUMMARY ===")
+total_pass = (add (add (add (add t1_ok t2_ok) (add t3_ok t4_ok)) (add (add t5_ok t6_ok) (add t7_ok t8_ok))) (add (add (add t9_ok t10_ok) (add t11_ok t12_ok)) (add (add t13_ok t14_ok) (add t15_ok t16_ok))))
+(println "Passed: " total_pass " / 16 tests")
+all_pass = (is total_pass 16)
+(println "All tests passed: " all_pass)

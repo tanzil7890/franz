@@ -1,0 +1,140 @@
+// Module Cache Edge Cases Test
+// Tests unusual scenarios and boundary conditions
+
+(println "╔════════════════════════════════════╗")
+(println "║  Module Cache - Edge Case Tests   ║")
+(println "╚════════════════════════════════════╝")
+(println "")
+
+// Edge Case 1: Empty module usage
+(println "Edge 1: Module loaded but not used")
+result1 = (use "test/module-cache/test-module.franz" {
+  // Load module but don't call any functions
+  <- 999
+})
+(if (is result1 999)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Edge Case 2: Same module in different scopes
+(println "Edge 2: Same module in nested scopes")
+outer_result = (use "test/module-cache/test-module.franz" {
+  a = (square 3)
+  inner_result = (use "test/module-cache/test-module.franz" {
+    b = (square 4)
+    <- b
+  })
+  <- (add a inner_result)
+})
+(if (is outer_result 25)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL - Expected 25")}
+)
+
+// Edge Case 3: Very large loop (stress test)
+(println "Edge 3: 1000 iterations (stress test)")
+stress_pass = 1
+(loop 1000 {i ->
+  r = (use "test/module-cache/test-module.franz" {
+    <- (add_ten i)
+  })
+  (if (is r (add i 10))
+    {<- 1}
+    {stress_pass = 0 <- 0})
+})
+(if (is stress_pass 1)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Edge Case 4: Module with all 6 types
+(println "Edge 4: Module returning different types")
+int_result = (use "test/module-cache/test-module.franz" {
+  <- (square 3)
+})
+str_result = (use "test/module-cache/test-module.franz" {
+  <- "string"
+})
+float_result = (use "test/module-cache/test-module.franz" {
+  <- 3.14
+})
+fn_result = (use "test/module-cache/test-module.franz" {
+  <- square
+})
+list_result = (use "test/module-cache/test-module.franz" {
+  <- (list 1 2 3)
+})
+all_types_pass = (is (add (length list_result) int_result) 12)
+(if all_types_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Edge Case 5: Module in recursive function
+(println "Edge 5: Module in recursive function")
+recursive_test = {n ->
+  <- (if (less_than n 1)
+    {<- 0}
+    {
+      val = (use "test/module-cache/test-module.franz" {
+        <- (square n)
+      })
+      <- (add val (recursive_test (subtract n 1)))
+    })
+}
+result5 = (recursive_test 5)
+// 25 + 16 + 9 + 4 + 1 = 55
+(if (is result5 55)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL - Expected 55, got" result5)}
+)
+
+// Edge Case 6: Multiple modules loaded simultaneously
+(println "Edge 6: Multiple modules in single scope")
+result6 = (use "test/module-cache/test-module.franz" "test/use/math-module.franz" {
+  // Both modules loaded - can use functions from both
+  a = (add_ten 5)  // From test-module
+  b = (cube 2)     // From math-module
+  <- (add a b)
+})
+(if (is result6 23)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL - Expected 23")}
+)
+
+// Edge Case 7: Module with void return
+(println "Edge 7: Module returning void")
+result7 = (use "test/module-cache/test-module.franz" {
+  x = 5
+  // No explicit return - should be void
+})
+(println "✓ PASS - Void return handled")
+
+// Edge Case 8: Interleaved module loads
+(println "Edge 8: Alternating module loads")
+test8_pass = 1
+(loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {
+      r = (use "test/module-cache/test-module.franz" {
+        <- (square 2)
+      })
+      (if (is r 4) {<- 1} {test8_pass = 0 <- 0})
+    }
+    {
+      r = (use "test/use/math-module.franz" {
+        <- (cube 2)
+      })
+      (if (is r 8) {<- 1} {test8_pass = 0 <- 0})
+    })
+})
+// Should alternate correctly between cached modules
+(if (is test8_pass 1)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL - Wrong alternating values")}
+)
+
+(println "")
+(println "════════════════════════════════════")
+(println "✓ Edge case tests complete")

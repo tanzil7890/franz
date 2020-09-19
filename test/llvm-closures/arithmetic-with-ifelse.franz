@@ -1,0 +1,26 @@
+(println "=== Test: Arithmetic with if-else closure returns ===")
+
+// Closures with if-else (like min_of_three)
+min_of_two = {a b ->
+  (if (less_than a b)
+    {<- a}
+    {<- b})
+}
+
+max_of_two = {a b ->
+  (if (greater_than a b)
+    {<- a}
+    {<- b})
+}
+
+// Use inside another closure
+test = {->
+  x = (min_of_two 30 10)
+  y = (max_of_two 30 10)
+  sum = (add x y)
+  <- sum
+}
+
+result = (test)
+(println "Result:" result)
+(println "Expected: 40 (10 + 30)")

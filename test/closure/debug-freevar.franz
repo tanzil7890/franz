@@ -1,0 +1,11 @@
+(println "=== Debug Free Variable Analysis ===")
+
+// Create a closure with one free variable
+outer_var = 42
+my_closure = {inner_param -> <- (add inner_param outer_var)}
+
+(println "Closure created successfully")
+result = (my_closure 8)
+(println "Expected: 50")
+(println "Got:")
+(println result)

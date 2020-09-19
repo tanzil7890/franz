@@ -1,0 +1,3 @@
+// Minimal test - single closure
+f = {x -> <- (add x 1)}
+(println (f 5))

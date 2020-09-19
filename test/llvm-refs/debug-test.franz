@@ -1,0 +1,25 @@
+// Debug test - first 3 tests only
+
+(println "=== LLVM Refs Debug Test ===")
+
+// Test 1: Basic ref/deref with integer
+(println "Test 1: Basic ref/deref with integer")
+test1_x = (ref 42)
+test1_val = (deref test1_x)
+(println "  Value:" test1_val)
+
+// Test 2: Basic set! with integer
+(println "Test 2: Basic set! with integer")
+test2_x = (ref 10)
+test2_before = (deref test2_x)
+(set! test2_x 20)
+test2_after = (deref test2_x)
+(println "  Before:" test2_before "After:" test2_after)
+
+// Test 3: Ref with float value
+(println "Test 3: Ref with float value")
+test3_pi = (ref 3.14159)
+test3_val = (deref test3_pi)
+(println "  Value:" test3_val)
+
+(println "Done!")

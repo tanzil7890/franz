@@ -1,0 +1,17 @@
+// Typed factorial example (working version)
+// Type signatures are comments until franz-check is implemented
+
+// TODO: When franz-check is ready, uncomment:
+// (sig factorial (integer -> integer))
+
+// Implementation
+factorial = {n ->
+  <- (if (is n 0) {<- 1} {
+    <- (multiply n (factorial (subtract n 1)))
+  })
+}
+
+// Test the function
+(print "Factorial of 5: " (factorial 5) "\n")
+(print "Factorial of 10: " (factorial 10) "\n")
+

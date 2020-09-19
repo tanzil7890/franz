@@ -1,0 +1,16 @@
+// Type error demonstration
+// This file SHOULD FAIL type checking
+
+// Correct signature
+(sig add_one (integer -> integer))
+add_one = {x -> <- (add x 1)}
+
+// This line causes a type error:
+// add_one expects integer but receives string
+(print (add_one "hello") "\n")
+
+// Expected error:
+// Type Error @ Line 8: Type mismatch in argument 1
+// Expected: integer
+// Got: string
+

@@ -1,0 +1,43 @@
+// Higher-Order Functions with Modules
+// Shows using module functions with map, reduce, filter
+
+(println "=== Higher-Order Functions with Modules ===")
+(println "")
+
+(use "test/use/math-module.franz" {
+  numbers = (list 1 2 3 4 5 6 7 8 9 10)
+
+  (println "Original numbers:")
+  (println "  " numbers)
+  (println "")
+
+  // Map with module function
+  (println "Map - square each number:")
+  squared = (map numbers {n _ -> <- (square n)})
+  (println "  " squared)
+  (println "")
+
+  // Map with composition
+  (println "Map - double then square:")
+  transformed = (map numbers {n _ -> <- (square (double n))})
+  (println "  " transformed)
+  (println "")
+
+  // Reduce with module function
+  (println "Reduce - sum of squares:")
+  sum_of_squares = (reduce numbers {acc n _ ->
+    <- (add acc (square n))
+  } 0)
+  (println "  " sum_of_squares)
+  (println "")
+
+  // Filter then map
+  (println "Filter numbers > 5, then square:")
+  filtered = (filter numbers {n _ -> <- (greater_than n 5)})
+  filtered_squared = (map filtered {n _ -> <- (square n)})
+  (println "  Filtered:" filtered)
+  (println "  Squared:" filtered_squared)
+  (println "")
+
+  (println "✓ Higher-order function integration complete")
+})

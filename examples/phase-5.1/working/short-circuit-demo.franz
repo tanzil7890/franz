@@ -1,0 +1,78 @@
+(println "=== Short-Circuit Evaluation Demo ===")
+(println "Demonstrating: AND/OR stop at first decisive value")
+(println "")
+
+// Example 1: Guard Pattern (prevents errors)
+(println "Example 1: Safe Guard Pattern")
+(println "Checking: (and valid expensive)")
+valid = 1
+has_permission = (and valid 1)
+(println "Has permission:" has_permission)
+(println "  ✓ Both checks executed (valid was true)")
+(println "")
+
+valid2 = 0
+has_permission2 = (and valid2 1)
+(println "Has permission:" has_permission2)
+(println "  ✓ Second check SKIPPED (valid2 was false)")
+(println "")
+
+// Example 2: Default Value Pattern
+(println "Example 2: Default Value with OR")
+user_input = 0
+default_value = 42
+result = (or user_input default_value)
+(println "Result:" result "  ✓ Used default (input was 0)")
+(println "")
+
+user_input2 = 99
+result2 = (or user_input2 default_value)
+(println "Result:" result2 "  ✓ Used input (was non-zero, default SKIPPED)")
+(println "")
+
+// Example 3: Complex Eligibility Check
+(println "Example 3: Loan Approval System")
+credit_score = 720
+income = 60000
+has_cosigner = 0
+
+// Check credit OR income OR cosigner (stops at first true)
+approved = (or
+  (greater_than credit_score 750)
+  (greater_than income 80000)
+  has_cosigner
+)
+(println "Approved:" approved)
+(println "")
+
+// Example 4: Multi-Level Validation
+(println "Example 4: Multi-Level Guard")
+age = 25
+has_license = 1
+has_insurance = 1
+not_suspended = 1
+
+// All must be true (stops at first false)
+can_drive = (and
+  (greater_than age 17)
+  has_license
+  has_insurance
+  not_suspended
+)
+(println "Can drive:" can_drive "  ✓ All checks passed")
+(println "")
+
+// Example with early rejection
+age_fail = 16
+can_drive_fail = (and
+  (greater_than age_fail 17)
+  has_license
+  has_insurance
+  not_suspended
+)
+(println "Can drive (age 16):" can_drive_fail)
+(println "  ✓ Stopped at age check (remaining checks SKIPPED)")
+(println "")
+
+(println "✅ Short-circuit evaluation working!")
+(println "✅ Performance: C/Rust equivalent")

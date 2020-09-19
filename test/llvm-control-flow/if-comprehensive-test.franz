@@ -1,0 +1,298 @@
+(println "=== Franz LLVM If Statement - Comprehensive Test Suite ===")
+(println "Testing: if statement with branch/PHI nodes ()")
+(println "")
+
+// ============================================================================
+// Category 1: Basic If Statements
+// ============================================================================
+(println "Category 1: Basic If Statements")
+(println "")
+
+// Test 1.1: True condition with integers
+(println "Test 1.1: (if 1 10 20) should be 10")
+result_1_1 = (if 1 10 20)
+(println "Result:" result_1_1)
+(println "")
+
+// Test 1.2: False condition with integers
+(println "Test 1.2: (if 0 10 20) should be 20")
+result_1_2 = (if 0 10 20)
+(println "Result:" result_1_2)
+(println "")
+
+// Test 1.3: Truthy value (non-zero)
+(println "Test 1.3: (if 5 100 200) should be 100")
+result_1_3 = (if 5 100 200)
+(println "Result:" result_1_3)
+(println "")
+
+// Test 1.4: Negative condition (truthy)
+(println "Test 1.4: (if -1 30 40) should be 30")
+result_1_4 = (if -1 30 40)
+(println "Result:" result_1_4)
+(println "")
+
+// ============================================================================
+// Category 2: If with Comparisons
+// ============================================================================
+(println "Category 2: If with Comparisons")
+(println "")
+
+// Test 2.1: Greater than comparison
+(println "Test 2.1: (if (greater_than 10 5) 1 0) should be 1")
+result_2_1 = (if (greater_than 10 5) 1 0)
+(println "Result:" result_2_1)
+(println "")
+
+// Test 2.2: Less than comparison
+(println "Test 2.2: (if (less_than 3 10) 1 0) should be 1")
+result_2_2 = (if (less_than 3 10) 1 0)
+(println "Result:" result_2_2)
+(println "")
+
+// Test 2.3: Equality comparison
+(println "Test 2.3: (if (is 5 5) 42 99) should be 42")
+result_2_3 = (if (is 5 5) 42 99)
+(println "Result:" result_2_3)
+(println "")
+
+// Test 2.4: Inequality comparison
+(println "Test 2.4: (if (is 3 7) 10 20) should be 20")
+result_2_4 = (if (is 3 7) 10 20)
+(println "Result:" result_2_4)
+(println "")
+
+// ============================================================================
+// Category 3: If with Logical Operators
+// ============================================================================
+(println "Category 3: If with Logical Operators")
+(println "")
+
+// Test 3.1: AND condition (true)
+(println "Test 3.1: (if (and 1 1) 100 200) should be 100")
+result_3_1 = (if (and 1 1) 100 200)
+(println "Result:" result_3_1)
+(println "")
+
+// Test 3.2: AND condition (false)
+(println "Test 3.2: (if (and 1 0) 100 200) should be 200")
+result_3_2 = (if (and 1 0) 100 200)
+(println "Result:" result_3_2)
+(println "")
+
+// Test 3.3: OR condition (true)
+(println "Test 3.3: (if (or 0 1) 50 60) should be 50")
+result_3_3 = (if (or 0 1) 50 60)
+(println "Result:" result_3_3)
+(println "")
+
+// Test 3.4: OR condition (false)
+(println "Test 3.4: (if (or 0 0) 50 60) should be 60")
+result_3_4 = (if (or 0 0) 50 60)
+(println "Result:" result_3_4)
+(println "")
+
+// Test 3.5: NOT condition
+(println "Test 3.5: (if (not 0) 1 0) should be 1")
+result_3_5 = (if (not 0) 1 0)
+(println "Result:" result_3_5)
+(println "")
+
+// ============================================================================
+// Category 4: If with Variables
+// ============================================================================
+(println "Category 4: If with Variables")
+(println "")
+
+// Test 4.1: Variable in condition
+(println "Test 4.1: If with variable condition")
+var_4_1_x = 1
+result_4_1 = (if var_4_1_x 10 20)
+(println "Result:" result_4_1)
+(println "")
+
+// Test 4.2: Variables in branches
+(println "Test 4.2: Variables in branches")
+var_4_2_a = 100
+var_4_2_b = 200
+result_4_2 = (if 1 var_4_2_a var_4_2_b)
+(println "Result:" result_4_2)
+(println "")
+
+// Test 4.3: Variable comparison
+(println "Test 4.3: Variable comparison")
+var_4_3_age = 25
+result_4_3 = (if (greater_than var_4_3_age 18) 1 0)
+(println "Is adult:" result_4_3)
+(println "")
+
+// Test 4.4: Max of two variables
+(println "Test 4.4: Max of two variables")
+var_4_4_x = 15
+var_4_4_y = 10
+result_4_4 = (if (greater_than var_4_4_x var_4_4_y) var_4_4_x var_4_4_y)
+(println "Max:" result_4_4)
+(println "")
+
+// ============================================================================
+// Category 5: If with Expressions
+// ============================================================================
+(println "Category 5: If with Expressions")
+(println "")
+
+// Test 5.1: Arithmetic in then branch
+(println "Test 5.1: (if 1 (add 10 5) 0) should be 15")
+result_5_1 = (if 1 (add 10 5) 0)
+(println "Result:" result_5_1)
+(println "")
+
+// Test 5.2: Arithmetic in else branch
+(println "Test 5.2: (if 0 0 (multiply 3 4)) should be 12")
+result_5_2 = (if 0 0 (multiply 3 4))
+(println "Result:" result_5_2)
+(println "")
+
+// Test 5.3: Arithmetic in both branches
+(println "Test 5.3: (if 1 (add 2 3) (subtract 10 5)) should be 5")
+result_5_3 = (if 1 (add 2 3) (subtract 10 5))
+(println "Result:" result_5_3)
+(println "")
+
+// Test 5.4: Complex expression
+(println "Test 5.4: Complex arithmetic expression")
+result_5_4 = (if 1 (multiply (add 2 3) 2) (divide 100 10))
+(println "Result:" result_5_4)
+(println "")
+
+// ============================================================================
+// Category 6: Nested If Statements
+// ============================================================================
+(println "Category 6: Nested If Statements")
+(println "")
+
+// Test 6.1: If in then branch
+(println "Test 6.1: (if 1 (if 1 10 20) 30) should be 10")
+result_6_1 = (if 1 (if 1 10 20) 30)
+(println "Result:" result_6_1)
+(println "")
+
+// Test 6.2: If in else branch
+(println "Test 6.2: (if 0 30 (if 1 40 50)) should be 40")
+result_6_2 = (if 0 30 (if 1 40 50))
+(println "Result:" result_6_2)
+(println "")
+
+// Test 6.3: If in both branches
+(println "Test 6.3: (if 1 (if 1 10 20) (if 0 30 40)) should be 10")
+result_6_3 = (if 1 (if 1 10 20) (if 0 30 40))
+(println "Result:" result_6_3)
+(println "")
+
+// Test 6.4: Three levels deep
+(println "Test 6.4: Triple nested if")
+result_6_4 = (if 1 (if 1 (if 1 100 200) 300) 400)
+(println "Result:" result_6_4)
+(println "")
+
+// ============================================================================
+// Category 7: Mixed Types
+// ============================================================================
+(println "Category 7: Mixed Types")
+(println "")
+
+// Test 7.1: Integer and float
+(println "Test 7.1: (if 1 5 3.14) should be 5")
+result_7_1 = (if 1 5 3.14)
+(println "Result:" result_7_1)
+(println "")
+
+// Test 7.2: Float and integer
+(println "Test 7.2: (if 0 5 3.14) should be 3.14")
+result_7_2 = (if 0 5 3.14)
+(println "Result:" result_7_2)
+(println "")
+
+// Test 7.3: Float arithmetic
+(println "Test 7.3: (if 1 2.5 7.8) should be 2.5")
+result_7_3 = (if 1 2.5 7.8)
+(println "Result:" result_7_3)
+(println "")
+
+// ============================================================================
+// Category 8: String Results
+// ============================================================================
+(println "Category 8: String Results")
+(println "")
+
+// Test 8.1: String in then branch
+(println "Test 8.1: (if 1 \"yes\" \"no\") should be yes")
+result_8_1 = (if 1 "yes" "no")
+(println "Result:" result_8_1)
+(println "")
+
+// Test 8.2: String in else branch
+(println "Test 8.2: (if 0 \"yes\" \"no\") should be no")
+result_8_2 = (if 0 "yes" "no")
+(println "Result:" result_8_2)
+(println "")
+
+// Test 8.3: String with variable
+(println "Test 8.3: String with variable condition")
+var_8_3_flag = 1
+result_8_3 = (if var_8_3_flag "success" "failure")
+(println "Result:" result_8_3)
+(println "")
+
+// ============================================================================
+// Category 9: Real-World Use Cases
+// ============================================================================
+(println "Category 9: Real-World Use Cases")
+(println "")
+
+// Test 9.1: Age verification
+(println "Test 9.1: Age verification (age=25, adult if >=18)")
+var_9_1_age = 25
+result_9_1 = (if (greater_than var_9_1_age 17) "adult" "minor")
+(println "Status:" result_9_1)
+(println "")
+
+// Test 9.2: Max of two numbers
+(println "Test 9.2: Max function using if")
+var_9_2_a = 42
+var_9_2_b = 17
+result_9_2 = (if (greater_than var_9_2_a var_9_2_b) var_9_2_a var_9_2_b)
+(println "Max of 42 and 17:" result_9_2)
+(println "")
+
+// Test 9.3: Min of two numbers
+(println "Test 9.3: Min function using if")
+var_9_3_x = 8
+var_9_3_y = 15
+result_9_3 = (if (less_than var_9_3_x var_9_3_y) var_9_3_x var_9_3_y)
+(println "Min of 8 and 15:" result_9_3)
+(println "")
+
+// Test 9.4: Absolute value
+(println "Test 9.4: Absolute value using if")
+var_9_4_num = -5
+result_9_4 = (if (less_than var_9_4_num 0) (multiply var_9_4_num -1) var_9_4_num)
+(println "Abs of -5:" result_9_4)
+(println "")
+
+// Test 9.5: Sign function
+(println "Test 9.5: Sign function (-1, 0, 1)")
+var_9_5_num = 10
+result_9_5 = (if (greater_than var_9_5_num 0) 1 (if (less_than var_9_5_num 0) -1 0))
+(println "Sign of 10:" result_9_5)
+(println "")
+
+// Test 9.6: Discount calculation
+(println "Test 9.6: Discount (10% if >100, else 5%)")
+var_9_6_amount = 150
+result_9_6 = (if (greater_than var_9_6_amount 100) (multiply var_9_6_amount 0.9) (multiply var_9_6_amount 0.95))
+(println "Price after discount:" result_9_6)
+(println "")
+
+(println "")
+(println "=== All 45 Tests Complete ===")
+(println "Review results above to verify correctness")

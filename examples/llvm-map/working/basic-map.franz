@@ -1,0 +1,31 @@
+(println "=== Basic LLVM Map Example ===")
+(println "")
+
+// Example 1: Double all numbers
+(println "Example 1: Double numbers")
+numbers = [1, 2, 3, 4, 5]
+double = {x i -> <- (multiply x 2)}
+doubled = (map numbers double)
+(println "Original:" numbers)
+(println "Doubled:" doubled)
+(println "")
+
+// Example 2: Square all numbers
+(println "Example 2: Square numbers")
+nums = [2, 3, 4, 5]
+square = {x i -> <- (multiply x x)}
+squared = (map nums square)
+(println "Original:" nums)
+(println "Squared:" squared)
+(println "")
+
+// Example 3: Add constant to each element
+(println "Example 3: Add 10 to each")
+values = [5, 15, 25, 35]
+add_ten = {x i -> <- (add x 10)}
+added = (map values add_ten)
+(println "Original:" values)
+(println "With 10 added:" added)
+(println "")
+
+(println "=== All examples completed! ===")

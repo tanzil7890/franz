@@ -1,0 +1,130 @@
+// stdlib/data.franz
+// Data Structure Utilities Module
+//
+// Provides 6 essential data structure utility functions for working with
+// pairs, tuples, association lists, and data grouping operations.
+//
+// Functions:
+//   pair(a, b) -> list           - Create a 2-element pair/tuple
+//   fst(pair) -> any             - Get first element of pair
+//   snd(pair) -> any             - Get second element of pair
+//   assoc(key, alist) -> any     - Lookup value by key in association list
+//   zip_with(fn, list1, list2) -> list  - Zip two lists with combining function
+//   group_by(fn, list) -> list   - Group list elements by key function
+//
+// Usage:
+//   (use "stdlib/data.franz" {
+//     p = (pair 1 2)
+//     (println "First:" (fst p))   // First: 1
+//     (println "Second:" (snd p))  // Second: 2
+//   })
+
+// ============================================================================
+// PAIRS / TUPLES
+// ============================================================================
+
+// pair: Create a 2-element pair/tuple
+// Signature: {a b -> (list a b)}
+// Example: (pair 1 2) -> [1, 2]
+pair = {a b ->
+  <- (list a b)
+}
+
+// fst: Get first element of pair
+// Signature: {(list a b) -> a}
+// Example: (fst (list 1 2)) -> 1
+fst = {pair ->
+  <- (head pair)
+}
+
+// snd: Get second element of pair
+// Signature: {(list a b) -> b}
+// Example: (snd (list 1 2)) -> 2
+snd = {pair ->
+  <- (head (tail pair))
+}
+
+// ============================================================================
+// ASSOCIATION LISTS (key-value pairs)
+// ============================================================================
+
+// assoc: Lookup value by key in association list
+// Signature: {key (list (list key value)) -> value | void}
+// Example: (assoc "name" (list (list "name" "John") (list "age" 30))) -> "John"
+//
+// Association lists are lists of pairs where first element is key, second is value
+// Returns value if key found, void otherwise
+assoc = {key alist ->
+  // Manually search through association list
+  <- (reduce alist {acc pair index ->
+    pair_key = (fst pair)
+    <- (if (is pair_key key) {
+      <- (snd pair)
+    } {
+      <- acc
+    })
+  } void)
+}
+
+// ============================================================================
+// ZIP WITH FUNCTION
+// ============================================================================
+
+// zip_with: Zip two lists with a combining function
+// Signature: {(a b -> c) (list a) (list b) -> (list c)}
+// Example: (zip_with add (list 1 2 3) (list 4 5 6)) -> [5, 7, 9]
+//
+// Applies function to corresponding elements from both lists
+// Stops at the length of the shorter list
+zip_with = {fn list1 list2 ->
+  len1 = (length list1)
+  len2 = (length list2)
+  min_len = (if (less_than len1 len2) { <- len1 } { <- len2 })
+
+  <- (map (range min_len) {_ index ->
+    item1 = (get list1 index)
+    item2 = (get list2 index)
+    <- (fn item1 item2)
+  })
+}
+
+// ============================================================================
+// GROUP BY
+// ============================================================================
+
+// group_by: Group list elements by a key function
+// Signature: {(a -> key) (list a) -> (list (list key (list a)))}
+// Example: (group_by {x _ -> <- (remainder x 2)} (list 1 2 3 4 5))
+//          -> [[0, [2, 4]], [1, [1, 3, 5]]]
+//
+// Groups elements by the result of applying the key function
+// Returns association list of (key, [elements]) pairs
+group_by = {key_fn lst ->
+  // Use reduce to build groups
+  <- (reduce lst {acc item index ->
+    key = (key_fn item index)
+
+    // Find existing group for this key (using assoc for lookup)
+    existing_values = (assoc key acc)
+
+    <- (if (is existing_values void) {
+      // No group exists, create new one
+      new_group = (pair key (list item))
+      <- (insert acc new_group)
+    } {
+      // Group exists, add item to it
+      <- (map acc {group _ ->
+        group_key = (fst group)
+        <- (if (is group_key key) {
+          // This is the group we want to update
+          current_items = (snd group)
+          updated_items = (insert current_items item)
+          <- (pair key updated_items)
+        } {
+          // Not the group, keep as-is
+          <- group
+        })
+      })
+    })
+  } (list))
+}

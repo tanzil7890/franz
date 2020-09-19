@@ -1,0 +1,12 @@
+// Test simple recursion with multi-clause if
+countdown = {n ->
+  <- (if
+    (is n 0) {<- "done"}
+    (is n 1) {<- "almost"}
+    {<- (countdown (subtract n 1))}
+  )
+}
+
+(println "countdown(0) = " (countdown 0))
+(println "countdown(1) = " (countdown 1))
+(println "countdown(2) = " (countdown 2))

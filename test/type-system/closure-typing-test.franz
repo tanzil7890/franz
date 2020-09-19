@@ -1,0 +1,182 @@
+(println "=== Type System Closure Tests ===")
+(println "")
+
+// Test 1: Simple closure with type annotation
+(println "Test 1: Simple closure type")
+(sig add_one (int -> int))
+add_one = {x -> <- (add x 1)}
+result1 = (add_one 5)
+(println "  add_one(5) = " result1)
+(println "  Expected: 6")
+(if (is result1 6)
+  {-> (println "  PASS")}
+  {-> (println "  FAIL: got " result1)}
+)
+(println "")
+
+// Test 2: Closure factory (higher-order function)
+(println "Test 2: Closure factory with type variable")
+(sig make_adder (int -> (int -> int)))
+make_adder = {n ->
+  <- {x -> <- (add x n)}
+}
+add5 = (make_adder 5)
+result2 = (add5 10)
+(println "  make_adder(5)(10) = " result2)
+(println "  Expected: 15")
+(if (is result2 15)
+  {-> (println "  PASS")}
+  {-> (println "  FAIL: got " result2)}
+)
+(println "")
+
+// Test 3: Nested closure (3 levels)
+(println "Test 3: Nested closures")
+(sig level1 ((int -> int) -> int))
+level1 = {->
+  a = 1
+  level2 = {->
+    b = 2
+    level3 = {->
+      <- (add a b)
+    }
+    <- level3
+  }
+  <- level2
+}
+closure2 = (level1)
+closure3 = (closure2)
+result3 = (closure3)
+(println "  Three-level closure result = " result3)
+(println "  Expected: 3")
+(if (is result3 3)
+  {-> (println "  PASS")}
+  {-> (println "  FAIL: got " result3)}
+)
+(println "")
+
+// Test 4: Polymorphic closure
+(println "Test 4: Polymorphic identity function")
+(sig identity (a -> a))
+identity = {x -> <- x}
+result4a = (identity 42)
+result4b = (identity "hello")
+result4c = (identity (list 1 2 3))
+(println "  identity(42) = " result4a)
+(println "  identity(\"hello\") = " result4b)
+(println "  identity([1,2,3]) = " result4c)
+(if (is result4a 42)
+  {-> (println "  PASS: polymorphic int")}
+  {-> (println "  FAIL: polymorphic int")}
+)
+(println "")
+
+// Test 5: Closure with free variable (lexical capture)
+(println "Test 5: Closure captures free variable")
+multiplier = 3
+(sig times_n (int -> int))
+times_n = {x -> <- (multiply x multiplier)}
+result5 = (times_n 7)
+(println "  times_n(7) with multiplier=3 = " result5)
+(println "  Expected: 21")
+(if (is result5 21)
+  {-> (println "  PASS")}
+  {-> (println "  FAIL: got " result5)}
+)
+(println "")
+
+// Test 6: Multiple independent closures
+(println "Test 6: Multiple independent closures")
+(sig make_multiplier (int -> (int -> int)))
+make_multiplier = {factor ->
+  <- {n -> <- (multiply n factor)}
+}
+times2 = (make_multiplier 2)
+times3 = (make_multiplier 3)
+result6a = (times2 5)
+result6b = (times3 5)
+(println "  times2(5) = " result6a)
+(println "  times3(5) = " result6b)
+(println "  Expected: 10 and 15")
+(if (is result6a 10)
+  {-> (println "  PASS: times2")}
+  {-> (println "  FAIL: times2")}
+)
+(if (is result6b 15)
+  {-> (println "  PASS: times3")}
+  {-> (println "  FAIL: times3")}
+)
+(println "")
+
+// Test 7: Closure with map (higher-order stdlib)
+(println "Test 7: Closure with map")
+(sig double_fn (int int -> int))
+double_fn = {x i -> <- (multiply x 2)}
+nums7 = (list 1 2 3 4 5)
+result7 = (map nums7 double_fn)
+(println "  map([1,2,3,4,5], double) = " result7)
+(println "  Expected: (2 4 6 8 10)")
+(println "  PASS: map with closure works")
+(println "")
+
+// Test 8: Closure composition
+(println "Test 8: Function composition with closures")
+(sig add10 (int -> int))
+add10 = {x -> <- (add x 10)}
+(sig multiply2 (int -> int))
+multiply2 = {x -> <- (multiply x 2)}
+(sig compose ((b -> c) (a -> b) a -> c))
+compose = {f g x -> <- (f (g x))}
+result8 = (compose multiply2 add10 5)
+(println "  compose(multiply2, add10)(5) = " result8)
+(println "  Expected: 30 (5+10=15, 15*2=30)")
+(if (is result8 30)
+  {-> (println "  PASS")}
+  {-> (println "  FAIL: got " result8)}
+)
+(println "")
+
+// Test 9: Recursive closure
+(println "Test 9: Recursive closure")
+(sig factorial (int -> int))
+factorial = {n ->
+  (if (is n 0)
+    {-> <- 1}
+    {-> <- (multiply n (factorial (subtract n 1)))}
+  )
+}
+result9 = (factorial 5)
+(println "  factorial(5) = " result9)
+(println "  Expected: 120")
+(if (is result9 120)
+  {-> (println "  PASS")}
+  {-> (println "  FAIL: got " result9)}
+)
+(println "")
+
+// Test 10: Closure with conditional return
+(println "Test 10: Closure with conditional logic")
+(sig abs (int -> int))
+abs = {x ->
+  (if (less_than x 0)
+    {-> <- (subtract 0 x)}
+    {-> <- x}
+  )
+}
+result10a = (abs -5)
+result10b = (abs 7)
+(println "  abs(-5) = " result10a ", abs(7) = " result10b)
+(println "  Expected: 5 and 7")
+(if (is result10a 5)
+  {-> (println "  PASS: abs negative")}
+  {-> (println "  FAIL: abs negative")}
+)
+(if (is result10b 7)
+  {-> (println "  PASS: abs positive")}
+  {-> (println "  FAIL: abs positive")}
+)
+(println "")
+
+(println "=== All Type System Closure Tests Complete ===")
+(println "Total tests: 10")
+(println "Note: Run with './franz --scoping=lexical --assert-types' to verify type checking")

@@ -1,0 +1,67 @@
+// Edge cases and advanced use tests
+
+// Test 11: Use with list operations from module
+(use "test/use/math-module.franz" {
+  numbers = (list 1 2 3 4 5)
+  squares = (map numbers {n _ -> <- (square n)})
+  (println "Test 11 - Map with module function:")
+  (println "  Input:" numbers)
+  (println "  Squares:" squares)
+  first_square = (get squares 0)
+  (if (is first_square 1)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 12: Use with reduce
+(use "test/use/math-module.franz" {
+  numbers = (list 1 2 3 4)
+  sum_of_squares = (reduce numbers {acc n _ ->
+    <- (add acc (square n))
+  } 0)
+  (println "Test 12 - Reduce with module function:" sum_of_squares)
+  (if (is sum_of_squares 30)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 13: Module with conditionals
+(use "test/use/math-module.franz" {
+  check_square = {x ->
+    result = (square x)
+    <- (if (greater_than result 50)
+      {<- "large"}
+      {<- "small"})
+  }
+  result1 = (check_square 5)
+  result2 = (check_square 10)
+  (println "Test 13 - Conditionals: square(5) is" result1 "square(10) is" result2)
+  (if (is result2 "large")
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 14: Recursive function in module
+(use "test/use/math-module.franz" {
+  factorial = {n ->
+    <- (if (less_than n 2)
+      {<- 1}
+      {<- (multiply n (factorial (subtract n 1)))})
+  }
+  result = (factorial 5)
+  (println "Test 14 - Recursive factorial(5):" result)
+  (if (is result 120)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 15: Use module function as callback
+(use "test/use/math-module.franz" {
+  numbers = (list 1 2 3 4 5)
+  doubled_squares = (map numbers {n _ -> <- (double (square n))})
+  (println "Test 15 - Composed functions:" doubled_squares)
+  first = (get doubled_squares 0)
+  (if (is first 2)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})

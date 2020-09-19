@@ -1,0 +1,35 @@
+// Complex Filter - Multiple conditions
+
+(println "=== Complex Filter Example ===")
+(println "")
+
+// Student scores
+scores = [45, 78, 92, 55, 88, 34, 99, 67, 82, 51]
+(println "All scores:" scores)
+
+// Filter: passing grade (>= 60) AND high achiever (>= 80)
+high_achiever = {score i ->
+  passing = (greater_than score 59)
+  excellent = (greater_than score 79)
+  <- (and passing excellent)
+}
+
+high_scores = (filter scores high_achiever)
+
+(println "")
+(println "High achievers (60-100, score >= 80):" high_scores)
+(println "Expected: [92, 88, 99, 82]")
+
+(println "")
+
+// Filter: range between 50 and 80
+in_range = {score i ->
+  above_min = (greater_than score 49)
+  below_max = (less_than score 81)
+  <- (and above_min below_max)
+}
+
+mid_range = (filter scores in_range)
+
+(println "Mid-range scores (50-80):" mid_range)
+(println "Expected: [78, 55, 67]")

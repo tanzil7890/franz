@@ -1,0 +1,52 @@
+// Franz Standard Library - String Module
+// Test Suite for contains() function
+
+(use "stdlib/string.franz" {
+  (println "=== contains() Function Tests ===")
+  (println "")
+
+  (println "Test 1: contains - match")
+  test1_result = (contains "hello world" "wor")
+  (if (is test1_result 1) {
+    (println "  ✓ PASS: contains match")
+  } {
+    (println "  ✗ FAIL - Expected 1, got:" test1_result)
+  })
+
+  (println "Test 2: contains - no match")
+  test2_result = (contains "hello world" "xyz")
+  (if (is test2_result 0) {
+    (println "  ✓ PASS: contains no match")
+  } {
+    (println "  ✗ FAIL - Expected 0, got:" test2_result)
+  })
+
+  (println "Test 3: contains - exact match")
+  test3_result = (contains "test" "test")
+  (if (is test3_result 1) {
+    (println "  ✓ PASS: contains exact match")
+  } {
+    (println "  ✗ FAIL - Expected 1, got:" test3_result)
+  })
+
+  (println "Test 4: contains - single character")
+  test4_result = (contains "hello" "e")
+  (if (is test4_result 1) {
+    (println "  ✓ PASS: contains single char")
+  } {
+    (println "  ✗ FAIL - Expected 1, got:" test4_result)
+  })
+
+  (println "Test 5: contains - case sensitive")
+  test5_result = (contains "hello" "HE")
+  (if (is test5_result 0) {
+    (println "  ✓ PASS: contains case sensitive")
+  } {
+    (println "  ✗ FAIL - Expected 0, got:" test5_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "contains() tests complete - 5/5 executed")
+  (println "===========================================")
+})

@@ -1,0 +1,71 @@
+(println "=== Nested Loop Examples ===")
+(println "")
+
+(println "Example 1: Simple Multiplication Table")
+(loop 5 {i ->
+  (loop 5 {j ->
+    product = (multiply i j)
+    (println i "×" j "=" product)
+  })
+})
+
+(println "")
+(println "Example 2: Sum of Products")
+mut sum = 0
+(loop 5 {i ->
+  (loop 5 {j ->
+    product = (multiply i j)
+    sum = (add sum product)
+  })
+})
+(println "Sum of all i×j:" sum)
+
+(println "")
+(println "Example 3: Triple-Nested Loop")
+(println "All 3D coordinates (2x2x2):")
+(loop 2 {x ->
+  (loop 2 {y ->
+    (loop 2 {z ->
+      (println "  (" x "," y "," z ")")
+    })
+  })
+})
+
+(println "")
+(println "Example 4: Checkerboard Pattern")
+(println "8x8 Checkerboard:")
+mut black = 0
+mut white = 0
+(loop 8 {row ->
+  (loop 8 {col ->
+    sum = (add row col)
+    (if (is (remainder sum 2) 0)
+      {black = (add black 1)}
+      {white = (add white 1)}
+    )
+  })
+})
+(println "Black squares:" black)
+(println "White squares:" white)
+
+(println "")
+(println "Example 5: Distance from Origin")
+(println "Grid points within distance 3:")
+mut points = 0
+(loop 7 {x ->
+  (loop 7 {y ->
+    dx = (subtract x 3)
+    dy = (subtract y 3)
+    dist_sq = (add (multiply dx dx) (multiply dy dy))
+    (when (less_than dist_sq 10)
+      {
+        points = (add points 1)
+        (println "  Point (" x "," y ") - distance²=" dist_sq)
+      }
+    )
+  })
+})
+(println "Total points within distance:" points)
+
+(println "")
+(println "All examples completed!")

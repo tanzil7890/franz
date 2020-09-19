@@ -1,0 +1,3 @@
+// String utility module for testing
+greet = {name -> <- (add "Hello, " (add name "!"))}
+shout = {msg -> <- (add msg "!!!")}

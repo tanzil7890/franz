@@ -1,0 +1,13 @@
+// Test nested if with closures and variant
+(println "Testing nested if with variant...")
+
+test_fn = {n ->
+  (if (is n 1)
+    {<- (variant "Some" 42)}
+    {<- (variant "None")})
+}
+
+(println "Calling test_fn(1)...")
+result = (test_fn 1)
+
+(println "Test complete!")

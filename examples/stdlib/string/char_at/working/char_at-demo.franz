@@ -1,0 +1,29 @@
+// Franz String Library - char_at() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== char_at() Function Demo ===")
+  (println "")
+
+  (println "1. Get first character (index 0)")
+  (print "   char_at('hello', 0) => ")
+  (print (char_at "hello" 0))
+  (println "")
+
+  (println "2. Get last character")
+  (print "   char_at('hello', 4) => ")
+  (print (char_at "hello" 4))
+  (println "")
+
+  (println "3. Get middle character")
+  (print "   char_at('hello', 2) => ")
+  (print (char_at "hello" 2))
+  (println "")
+
+  (println "4. Get from numeric string")
+  (print "   char_at('12345', 2) => ")
+  (print (char_at "12345" 2))
+  (println "")
+
+  (println "Note: Uses 0-based indexing")
+  (println "char_at() demo complete!")
+})

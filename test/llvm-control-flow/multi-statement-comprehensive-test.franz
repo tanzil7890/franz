@@ -1,0 +1,310 @@
+(println "=== Multi-Statement Blocks - Comprehensive Test Suite ===")
+(println "Testing: {stmt1 stmt2 <- result} syntax in if branches ")
+(println "")
+
+// ============================================================================
+// Category 1: Basic Multi-Statement Blocks
+// ============================================================================
+(println "Category 1: Basic Multi-Statement Blocks")
+(println "")
+
+// Test 1.1: Single statement + return
+(println "Test 1.1: Single statement with return")
+result_1_1 = (if 1
+  {
+    temp = 42
+    <- temp
+  }
+  {<- 0}
+)
+(println "Result:" result_1_1 "Expected: 42")
+(println "")
+
+// Test 1.2: Multiple assignments + return
+(println "Test 1.2: Multiple assignments with return")
+result_1_2 = (if 1
+  {
+    a = 10
+    b = 20
+    c = (add a b)
+    <- c
+  }
+  {<- 0}
+)
+(println "Result:" result_1_2 "Expected: 30")
+(println "")
+
+// Test 1.3: Arithmetic chain + return
+(println "Test 1.3: Arithmetic chain with return")
+result_1_3 = (if 1
+  {
+    x = 5
+    y = (multiply x 2)
+    z = (add y 3)
+    <- z
+  }
+  {<- 999}
+)
+(println "Result:" result_1_3 "Expected: 13")
+(println "")
+
+// ============================================================================
+// Category 2: Side Effects + Return
+// ============================================================================
+(println "Category 2: Side Effects + Return")
+(println "")
+
+// Test 2.1: println + return
+(println "Test 2.1: Side effect (println) with return")
+result_2_1 = (if 1
+  {
+    (println "  -> Inside then branch")
+    <- 100
+  }
+  {<- 0}
+)
+(println "Result:" result_2_1 "Expected: 100")
+(println "")
+
+// Test 2.2: Multiple side effects + return
+(println "Test 2.2: Multiple side effects with return")
+result_2_2 = (if 1
+  {
+    (println "  -> Statement 1")
+    (println "  -> Statement 2")
+    temp = 50
+    (println "  -> Computed temp:" temp)
+    <- temp
+  }
+  {<- 0}
+)
+(println "Result:" result_2_2 "Expected: 50")
+(println "")
+
+// ============================================================================
+// Category 3: Both Branches with Multi-Statement Blocks
+// ============================================================================
+(println "Category 3: Both Branches with Multi-Statement Blocks")
+(println "")
+
+// Test 3.1: Both branches have multiple statements
+(println "Test 3.1: Multi-statements in both branches")
+cond_3_1 = 1
+result_3_1 = (if cond_3_1
+  {
+    (println "  -> Then branch")
+    a = 10
+    b = 20
+    <- (add a b)
+  }
+  {
+    (println "  -> Else branch")
+    c = 100
+    d = 200
+    <- (add c d)
+  }
+)
+(println "Result:" result_3_1 "Expected: 30")
+(println "")
+
+// Test 3.2: Else branch executes (cond=0)
+(println "Test 3.2: Else branch with multiple statements")
+cond_3_2 = 0
+result_3_2 = (if cond_3_2
+  {
+    (println "  -> Then branch")
+    <- 999
+  }
+  {
+    (println "  -> Else branch")
+    x = 5
+    y = (multiply x 10)
+    <- y
+  }
+)
+(println "Result:" result_3_2 "Expected: 50")
+(println "")
+
+// ============================================================================
+// Category 4: Nested If with Multi-Statement Blocks
+// ============================================================================
+(println "Category 4: Nested If with Multi-Statement Blocks")
+(println "")
+
+// Test 4.1: Nested if inside multi-statement block
+(println "Test 4.1: Nested if in multi-statement block")
+score = 85
+result_4_1 = (if (greater_than score 0)
+  {
+    (println "  -> Valid score, checking grade")
+    grade = (if (greater_than score 79)
+      {<- "B"}
+      {<- "C"}
+    )
+    (println "  -> Grade:" grade)
+    <- grade
+  }
+  {<- "Invalid"}
+)
+(println "Result:" result_4_1 "Expected: B")
+(println "")
+
+// Test 4.2: Multi-level nesting
+(println "Test 4.2: Multi-level nested if with blocks")
+x = 15
+result_4_2 = (if (greater_than x 0)
+  {
+    (println "  -> x is positive")
+    classification = (if (greater_than x 10)
+      {
+        (println "  -> x > 10")
+        <- "large"
+      }
+      {
+        (println "  -> x <= 10")
+        <- "small"
+      }
+    )
+    <- classification
+  }
+  {<- "negative"}
+)
+(println "Result:" result_4_2 "Expected: large")
+(println "")
+
+// ============================================================================
+// Category 5: Complex Computations in Blocks
+// ============================================================================
+(println "Category 5: Complex Computations in Blocks")
+(println "")
+
+// Test 5.1: Mathematical computation chain
+(println "Test 5.1: Complex math in multi-statement block")
+n = 10
+result_5_1 = (if (greater_than n 5)
+  {
+    step1 = (multiply n 2)      // 20
+    step2 = (add step1 10)       // 30
+    step3 = (divide step2 5)     // 6
+    step4 = (subtract step3 1)   // 5
+    <- step4
+  }
+  {<- 0}
+)
+(println "Result:" result_5_1 "Expected: 5")
+(println "")
+
+// Test 5.2: Using comparisons in block
+(println "Test 5.2: Comparisons in multi-statement block")
+age = 25
+salary = 50000
+result_5_2 = (if (and (greater_than age 21) (greater_than salary 40000))
+  {
+    (println "  -> Approved")
+    bonus = (multiply salary 0)  // Would be 0.1 for real bonus
+    total = (add salary bonus)
+    <- total
+  }
+  {
+    (println "  -> Denied")
+    <- 0
+  }
+)
+(println "Result:" result_5_2 "Expected: 50000")
+(println "")
+
+// ============================================================================
+// Category 6: Type Conversions in Blocks
+// ============================================================================
+(println "Category 6: Type Conversions in Blocks")
+(println "")
+
+// Test 6.1: Float computation in block
+(println "Test 6.1: Float computation in block")
+radius = 5
+result_6_1 = (if (greater_than radius 0)
+  {
+    pi = 3
+    area_calc = (multiply pi (multiply radius radius))
+    <- area_calc
+  }
+  {<- 0}
+)
+(println "Result:" result_6_1 "Expected: 75")
+(println "")
+
+// Test 6.2: Mixed int/float in blocks
+(println "Test 6.2: Mixed int/float in block")
+base = 10
+height = 5
+result_6_2 = (if 1
+  {
+    area = (divide (multiply base height) 2)
+    <- area
+  }
+  {<- 0}
+)
+(println "Result:" result_6_2 "Expected: 25")
+(println "")
+
+// ============================================================================
+// Category 7: Edge Cases
+// ============================================================================
+(println "Category 7: Edge Cases")
+(println "")
+
+// Test 7.1: Empty else, multi-statement then
+(println "Test 7.1: Multi-statement then, simple else")
+result_7_1 = (if 1
+  {
+    a = 1
+    b = 2
+    c = 3
+    d = (add (add a b) c)
+    <- d
+  }
+  {<- 999}
+)
+(println "Result:" result_7_1 "Expected: 6")
+(println "")
+
+// Test 7.2: Long statement sequence
+(println "Test 7.2: Long statement sequence (10 steps)")
+result_7_2 = (if 1
+  {
+    v1 = 1
+    v2 = (add v1 1)
+    v3 = (add v2 1)
+    v4 = (add v3 1)
+    v5 = (add v4 1)
+    v6 = (add v5 1)
+    v7 = (add v6 1)
+    v8 = (add v7 1)
+    v9 = (add v8 1)
+    v10 = (add v9 1)
+    <- v10
+  }
+  {<- 0}
+)
+(println "Result:" result_7_2 "Expected: 10")
+(println "")
+
+// Test 7.3: Return in middle of block (early exit)
+(println "Test 7.3: Early return in block")
+result_7_3 = (if 1
+  {
+    x = 42
+    <- x
+    y = 999
+  }
+  {<- 0}
+)
+(println "Result:" result_7_3 "Expected: 42 (y should not execute)")
+(println "")
+
+// ============================================================================
+// Summary
+// ============================================================================
+(println "")
+(println "=== All 20 Multi-Statement Block Tests Complete ===")
+(println "Verify all results match expected values above")

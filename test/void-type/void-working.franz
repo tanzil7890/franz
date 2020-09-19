@@ -1,0 +1,72 @@
+(println "=== Void Type Tests ===")
+(println "")
+
+// Test 1: Void Literal
+(println "Test 1: Void literal")
+v1 = void
+ok1 = (is (type v1) "void")
+(println (if ok1 {<- "PASS"} {<- "FAIL"}))
+
+// Test 2: Function Without Return
+(println "Test 2: Function without return")
+f2 = {x -> (println "  Value: " x)}
+r2 = (f2 42)
+ok2 = (is (type r2) "void")
+(println (if ok2 {<- "PASS"} {<- "FAIL"}))
+
+// Test 3: Function With Side Effects Only
+(println "Test 3: Function with side effects only")
+f3 = {-> (println "  Side effect")}
+r3 = (f3)
+ok3 = (is (type r3) "void")
+(println (if ok3 {<- "PASS"} {<- "FAIL"}))
+
+// Test 4: println Returns Void
+(println "Test 4: println returns void")
+r4 = (println "  Testing")
+ok4 = (is (type r4) "void")
+(println (if ok4 {<- "PASS"} {<- "FAIL"}))
+
+// Test 5: Void Comparison
+(println "Test 5: Void comparison")
+va = void
+vb = void
+ok5 = (is va vb)
+(println (if ok5 {<- "PASS"} {<- "FAIL"}))
+
+// Test 6: Void in List
+(println "Test 6: Void in list")
+l6 = (list void 1 void)
+e6 = (get l6 0)
+ok6 = (is (type e6) "void")
+(println (if ok6 {<- "PASS"} {<- "FAIL"}))
+
+// Test 7: Explicit Void Return
+(println "Test 7: Explicit void return")
+f7 = {-> <- void}
+r7 = (f7)
+ok7 = (is (type r7) "void")
+(println (if ok7 {<- "PASS"} {<- "FAIL"}))
+
+// Test 8: Void from Conditional
+(println "Test 8: Void from conditional")
+r8 = (if 1 {<- void} {<- void})
+ok8 = (is (type r8) "void")
+(println (if ok8 {<- "PASS"} {<- "FAIL"}))
+
+// Test 9: Reassignment to Void
+(println "Test 9: Reassignment to void")
+x9 = 100
+x9 = void
+ok9 = (is (type x9) "void")
+(println (if ok9 {<- "PASS"} {<- "FAIL"}))
+
+// Test 10: Void as Argument
+(println "Test 10: Void as argument")
+f10 = {v -> <- (type v)}
+r10 = (f10 void)
+ok10 = (is r10 "void")
+(println (if ok10 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "All 10 tests complete!")

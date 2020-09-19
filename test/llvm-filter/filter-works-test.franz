@@ -1,0 +1,34 @@
+(println "=== Filter Test (No Debug) ===")
+(println "")
+
+// Test 1: Filter even numbers
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+is_even = {x i -> <- (is (remainder x 2) 0)}
+evens = (filter numbers is_even)
+(println "Test 1: Filter even numbers")
+(println "Input:" numbers)
+(println "Output:" evens)
+(println "Expected: [2, 4, 6, 8, 10]")
+(println "")
+
+// Test 2: Filter positive numbers
+mixed = [-5, -2, 0, 3, 7, -1, 4]
+is_positive = {x i -> <- (greater_than x 0)}
+positives = (filter mixed is_positive)
+(println "Test 2: Filter positive numbers")
+(println "Input:" mixed)
+(println "Output:" positives)
+(println "Expected: [3, 7, 4]")
+(println "")
+
+// Test 3: Filter numbers greater than 5
+nums = [1, 8, 3, 12, 5, 15, 2]
+is_big = {x i -> <- (greater_than x 5)}
+big_nums = (filter nums is_big)
+(println "Test 3: Filter numbers > 5")
+(println "Input:" nums)
+(println "Output:" big_nums)
+(println "Expected: [8, 12, 15]")
+(println "")
+
+(println "=== All Tests Complete ===")

@@ -1,0 +1,12 @@
+// Example 6: Type Checking Pattern
+(println "Example 6: Type Checking Pattern")
+check_value = {val expected ->
+  (if (is val expected)
+    {(println "  ✓ Value matches expected: " expected)}
+    {(println "  ✗ Value mismatch! Expected: " expected ", Got: " val)}
+  )
+}
+(check_value 42 42)
+(check_value "hello" "hello")
+(check_value 10 20)
+(println "")

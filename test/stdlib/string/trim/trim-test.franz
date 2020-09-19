@@ -1,0 +1,60 @@
+// Franz Standard Library - String Module
+// Test Suite for trim() function
+
+(use "stdlib/string.franz" {
+  (println "=== trim() Function Tests ===")
+  (println "")
+
+  (println "Test 1: trim - leading spaces")
+  test1_result = (trim "  hello")
+  (if (is test1_result "hello\n") {
+    (println "  ✓ PASS")
+  } {
+    (println "  ✗ FAIL - Expected 'hello', got:" test1_result)
+  })
+
+  (println "Test 2: trim - trailing spaces")
+  test2_result = (trim "hello  ")
+  (if (is test2_result "hello\n") {
+    (println "  ✓ PASS")
+  } {
+    (println "  ✗ FAIL - Expected 'hello', got:" test2_result)
+  })
+
+  (println "Test 3: trim - both leading and trailing spaces")
+  test3_result = (trim "  hello  ")
+  (if (is test3_result "hello\n") {
+    (println "  ✓ PASS")
+  } {
+    (println "  ✗ FAIL - Expected 'hello', got:" test3_result)
+  })
+
+  (println "Test 4: trim - no spaces to trim")
+  test4_result = (trim "hello")
+  (if (is test4_result "hello\n") {
+    (println "  ✓ PASS")
+  } {
+    (println "  ✗ FAIL - Expected 'hello', got:" test4_result)
+  })
+
+  (println "Test 5: trim - internal spaces preserved")
+  test5_result = (trim "  hello world  ")
+  (if (is test5_result "hello world\n") {
+    (println "  ✓ PASS")
+  } {
+    (println "  ✗ FAIL - Expected 'hello world', got:" test5_result)
+  })
+
+  (println "Test 6: trim - only whitespace")
+  test6_result = (trim "   ")
+  (if (is test6_result "\n") {
+    (println "  ✓ PASS")
+  } {
+    (println "  ✗ FAIL - Expected empty, got:" test6_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "trim() tests complete - 6/6 executed")
+  (println "===========================================")
+})
