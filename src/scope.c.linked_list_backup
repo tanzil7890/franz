@@ -1,0 +1,255 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "scope.h"
+#include "generic.h"
+
+//  3: Global scoping mode (defaults to lexical for production)
+// Can be overridden via CLI flag --scoping=dynamic or environment variable FRANZ_SCOPING
+ScopingMode g_scoping_mode = SCOPING_LEXICAL;
+
+//  3: Get scoping mode name (for logging/debugging)
+const char* ScopingMode_name(ScopingMode mode) {
+  switch (mode) {
+    case SCOPING_DYNAMIC: return "dynamic";
+    case SCOPING_LEXICAL: return "lexical";
+    default: return "unknown";
+  }
+}
+
+// creates a new scope item, allocates memory, returns pointer
+ScopeItem *ScopeItem_new(char* key, Generic *p_val) {
+  ScopeItem *res = (ScopeItem *) malloc(sizeof(ScopeItem));
+  res->key = key;
+  res->p_val = p_val;
+  res->isMutable = 1;  // Default: mutable (backward compatible)
+  res->p_next = NULL;
+
+  return res;
+}
+
+// creates a new empty scope, allocates memory, and returns a pointer
+//  1: Initialize refCount to 1
+//  2: Do NOT retain parent here - only closures retain their environment
+// Regular scopes have stack-based lifetime and don't need parent retention
+Scope *Scope_new(Scope *p_parent) {
+  Scope *res = (Scope *) malloc(sizeof(Scope));
+  res->p_parent = p_parent;
+  res->p_head = NULL;
+  res->refCount = 1;  // Start with refCount = 1
+
+  // Parent is NOT retained here - closures will explicitly retain when needed
+  // This prevents circular references (scope -> closure -> scope)
+
+  return res;
+}
+
+// nicely prints scope, given pointer
+void Scope_print(Scope *p_in) {
+  if (p_in->p_parent == NULL) printf("Global Scope:\n");
+  else printf("Local Scope:\n");
+
+  // for each pair, print
+  ScopeItem *p_curr = p_in->p_head;
+  while (p_curr != NULL) {
+    printf("%s = ", p_curr->key);
+    Generic_print(p_curr->p_val);
+    printf("\n");
+    p_curr = p_curr->p_next;
+  }
+}
+
+// gets a pointer to the scope
+// sets a key in the scope to val
+// if the key does not exist, creates a new scope item to house it
+// checks mutability before reassignment (lineNumber -1 skips check for internal use)
+void Scope_set(Scope *p_target, char *key, Generic *p_val, int lineNumber) {
+  p_val->refCount++;
+
+  char *keyCopy = (char *) malloc(sizeof(char) * (strlen(key) + 1));
+  strcpy(keyCopy, key);
+
+  // set p_p_curr to the ScopeItem with the correct key, or NULL if not found
+  ScopeItem **p_p_curr = &(p_target->p_head);
+  while (*(p_p_curr) != NULL && strcmp((*p_p_curr)->key, keyCopy) != 0) p_p_curr = &((*p_p_curr)->p_next);
+
+  if (*p_p_curr == NULL) {
+    // case where variable was previously undefined, create new item
+    *p_p_curr = ScopeItem_new(keyCopy, p_val);
+  } else {
+    // case where variable was previously defined
+    // CHECK IMMUTABILITY: if binding is frozen, throw error
+    if ((*p_p_curr)->isMutable == 0 && lineNumber >= 0) {
+      printf("Runtime Error @ Line %i: Cannot reassign immutable binding '%s'.\n", lineNumber, key);
+      exit(0);
+    }
+
+    // simply overwrite value, and decrease ref count of old value (if 0, free)
+    (*p_p_curr)->p_val->refCount--;
+    if ((*p_p_curr)->p_val->refCount == 0) {
+      Generic_free((*p_p_curr)->p_val);
+    }
+
+    free((*p_p_curr)->key);
+
+    (*p_p_curr)->p_val = p_val;
+    (*p_p_curr)->key = keyCopy;
+  }
+}
+
+// sets a key in the scope to val and marks it as immutable
+// if the key exists and is immutable, throws error
+void Scope_set_immutable(Scope *p_target, char *key, Generic *p_val, int lineNumber) {
+  p_val->refCount++;
+  p_val->isMutable = 0;  // Mark value as immutable
+
+  char *keyCopy = (char *) malloc(sizeof(char) * (strlen(key) + 1));
+  strcpy(keyCopy, key);
+
+  // set p_p_curr to the ScopeItem with the correct key, or NULL if not found
+  ScopeItem **p_p_curr = &(p_target->p_head);
+  while (*(p_p_curr) != NULL && strcmp((*p_p_curr)->key, keyCopy) != 0) p_p_curr = &((*p_p_curr)->p_next);
+
+  if (*p_p_curr == NULL) {
+    // case where variable was previously undefined, create new item
+    ScopeItem *newItem = ScopeItem_new(keyCopy, p_val);
+    newItem->isMutable = 0;  // Mark binding as immutable
+    *p_p_curr = newItem;
+  } else {
+    // case where variable was previously defined
+    // Check if binding is immutable
+    if ((*p_p_curr)->isMutable == 0) {
+      printf("Runtime Error @ Line %i: Cannot reassign immutable binding '%s'.\n", lineNumber, key);
+      exit(0);
+    }
+
+    // overwrite value and mark as immutable
+    (*p_p_curr)->p_val->refCount--;
+    if ((*p_p_curr)->p_val->refCount == 0) {
+      Generic_free((*p_p_curr)->p_val);
+    }
+
+    free((*p_p_curr)->key);
+
+    (*p_p_curr)->p_val = p_val;
+    (*p_p_curr)->key = keyCopy;
+    (*p_p_curr)->isMutable = 0;  // Mark binding as immutable
+  }
+}
+
+// freezes an existing binding, making it immutable
+void Scope_freeze(Scope *p_target, char *key, int lineNumber) {
+  // set p_p_curr to the ScopeItem with the correct key, or NULL if not found
+  ScopeItem **p_p_curr = &(p_target->p_head);
+  while (*(p_p_curr) != NULL && strcmp((*p_p_curr)->key, key) != 0) p_p_curr = &((*p_p_curr)->p_next);
+
+  if (*p_p_curr == NULL) {
+    // variable doesn't exist
+    if (p_target->p_parent == NULL) {
+      printf("Runtime Error @ Line %i: Cannot freeze undefined binding '%s'.\n", lineNumber, key);
+      exit(0);
+    } else {
+      Scope_freeze(p_target->p_parent, key, lineNumber);
+    }
+  } else {
+    // mark as immutable
+    (*p_p_curr)->isMutable = 0;
+    (*p_p_curr)->p_val->isMutable = 0;
+  }
+}
+
+// returns the generic in the requested key of the target scope
+// if the generic cannot be found, attempts to search parent recursively
+Generic *Scope_get(Scope *p_target, char *key, int lineNumber) {
+
+  // set p_curr to the item with correct key, or NULL
+  ScopeItem *p_curr = p_target->p_head;
+  while (p_curr != NULL && strcmp(p_curr->key, key) != 0) p_curr = p_curr->p_next;
+
+  if (p_curr == NULL) {
+    // key does not exist in current scope
+    // if parent does not exist, we are in the global scope, and can throw an error, else elevate
+    if (p_target->p_parent == NULL) {
+      // If lineNumber is -1, return NULL instead of erroring (used for optional lookups)
+      if (lineNumber == -1) {
+        return NULL;
+      }
+
+      // Error handling
+      printf(
+        "Runtime Error @ Line %i: %s is not defined.\n",
+        lineNumber, key
+      );
+      exit(0);
+    } else {
+      return Scope_get(p_target->p_parent, key, lineNumber);
+    }
+  } else {
+    // if key exists, return generic
+    return p_curr->p_val;
+  }
+}
+
+// NEW:  1 - Increment reference count
+void Scope_retain(Scope *p_target) {
+  if (p_target == NULL) return;
+  p_target->refCount++;
+}
+
+// NEW:  1 - Decrement reference count, free if reaches 0
+void Scope_release(Scope *p_target) {
+  if (p_target == NULL) return;
+
+  #ifdef DEBUG_SCOPE_FREE
+  fprintf(stderr, "[DEBUG] Scope_release: refCount %d -> %d\n",
+          p_target->refCount, p_target->refCount - 1);
+  #endif
+
+  p_target->refCount--;
+
+  if (p_target->refCount == 0) {
+    #ifdef DEBUG_SCOPE_FREE
+    fprintf(stderr, "[DEBUG] Scope_release: Freeing scope items\n");
+    #endif
+
+    // Free all scope items
+    ScopeItem *p_curr = p_target->p_head;
+    int item_count = 0;
+
+    while (p_curr != NULL) {
+      ScopeItem *p_tmp = p_curr;
+      p_curr = p_curr->p_next;
+
+      #ifdef DEBUG_SCOPE_FREE
+      fprintf(stderr, "[DEBUG] Scope_release: Item '%s' type %s refCount %d\n",
+              p_tmp->key, getTypeString(p_tmp->p_val->type), p_tmp->p_val->refCount);
+      #endif
+
+      // Decrement value reference count, free if needed
+      p_tmp->p_val->refCount--;
+      if (p_tmp->p_val->refCount == 0) {
+        Generic_free(p_tmp->p_val);
+      }
+
+      free(p_tmp->key);
+      free(p_tmp);
+      item_count++;
+    }
+
+    #ifdef DEBUG_SCOPE_FREE
+    fprintf(stderr, "[DEBUG] Scope_release: Freed %d items\n", item_count);
+    #endif
+
+    //  2: Do NOT release parent - we're not retaining it in Scope_new
+    // Closures retain their environment separately, regular scopes don't own parents
+
+    free(p_target);
+  }
+}
+
+// DEPRECATED: Use Scope_release instead
+// Kept for backward compatibility during  1 migration
+void Scope_free(Scope *p_target) {
+  // Immediately release (assumes refCount = 1)
+  Scope_release(p_target);
+}
