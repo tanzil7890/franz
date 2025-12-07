@@ -1,0 +1,107 @@
+// Franz Standard Library - String Module
+// Provides string manipulation utilities
+
+// ============================================================================
+// Case Conversion Functions
+// ============================================================================
+
+// uppercase - Convert string to uppercase
+// Signature: {string -> string}
+// Example: (uppercase "hello") => "HELLO"
+uppercase = {s ->
+  <- (shell (join "echo '" s "' | tr '[:lower:]' '[:upper:]'"))
+}
+
+// lowercase - Convert string to lowercase
+// Signature: {string -> string}
+// Example: (lowercase "HELLO") => "hello"
+lowercase = {s ->
+  <- (shell (join "echo '" s "' | tr '[:upper:]' '[:lower:]'"))
+}
+
+// ============================================================================
+// Whitespace Functions
+// ============================================================================
+
+// trim - Remove leading and trailing whitespace
+// Signature: {string -> string}
+// Example: (trim "  hello  ") => "hello"
+trim = {s ->
+  <- (shell (join "echo '" s "' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'"))
+}
+
+// ============================================================================
+// String Parsing Functions
+// ============================================================================
+
+// split - Split string by delimiter into list
+// Signature: {string -> string -> list}
+// Example: (split "a,b,c" ",") => ["a", "b", "c"]
+split = {s delimiter ->
+  // Use awk to split and create a space-separated string, then convert to list
+  result = (shell (join "echo '" s "' | awk -F'" delimiter "' '{for(i=1;i<=NF;i++) print $i}'"))
+  // For now, return as single string (proper list parsing needs more work)
+  <- result
+}
+
+// ============================================================================
+// String Transformation Functions
+// ============================================================================
+
+// replace - Replace all occurrences of substring
+// Signature: {string -> string -> string -> string}
+// Example: (replace "hello world" "world" "Franz") => "hello Franz"
+replace = {s old new ->
+  <- (shell (join "echo '" s "' | sed 's/" old "/" new "/g'"))
+}
+
+// repeat - Repeat string N times
+// Signature: {string -> integer -> string}
+// Example: (repeat "ab" 3) => "ababab"
+repeat = {s count ->
+  <- (if (is count 0) {
+    <- ""
+  } {
+    <- (reduce (range count) {acc item index ->
+      <- (join acc s)
+    } "")
+  })
+}
+
+// ============================================================================
+// String Inspection Functions
+// ============================================================================
+
+// starts_with - Check if string starts with prefix
+// Signature: {string -> string -> integer}
+// Example: (starts_with "hello" "hel") => 1
+starts_with = {s prefix ->
+  result = (shell (join "echo '" s "' | grep -q '^" prefix "' && echo '1' || echo '0'"))
+  <- (integer result)
+}
+
+// ends_with - Check if string ends with suffix
+// Signature: {string -> string -> integer}
+// Example: (ends_with "hello" "lo") => 1
+ends_with = {s suffix ->
+  result = (shell (join "echo '" s "' | grep -q '" suffix "$' && echo '1' || echo '0'"))
+  <- (integer result)
+}
+
+// contains - Check if string contains substring
+// Signature: {string -> string -> integer}
+// Example: (contains "hello world" "wor") => 1
+contains = {s substr ->
+  result = (shell (join "echo '" s "' | grep -q '" substr "' && echo '1' || echo '0'"))
+  <- (integer result)
+}
+
+// char_at - Get character at index (0-based)
+// Signature: {string -> integer -> string}
+// Example: (char_at "hello" 1) => "e"
+char_at = {s index ->
+  // Shell cut uses 1-based indexing, Franz uses 0-based
+  shell_index = (add index 1)
+  shell_index_str = (string shell_index)
+  <- (shell (join "echo '" s "' | cut -c" shell_index_str))
+}

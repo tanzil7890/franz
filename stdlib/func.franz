@@ -1,0 +1,168 @@
+// stdlib/func.franz
+// Higher-Order Function Combinators Module
+//
+// Provides 7 essential function utility functions for functional programming.
+//
+// Functions:
+//   compose2(x, f, g) -> result        - Apply f(g(x)) - right-to-left composition
+//   identity(x) -> x                    - Identity function
+//   constant(x, _) -> x                 - Returns first argument, ignores second
+//   flip(f, a, b) -> result             - Apply f(b, a) - flipped arguments
+//   apply(f, args_list) -> result       - Apply function to list of arguments
+//   apply_twice(f, x) -> result         - Apply function twice: f(f(x))
+//   apply_n(f, x, n) -> result          - Apply function n times
+//
+// Usage:
+//   (use "stdlib/func.franz" {
+//     result = (compose2 5 double increment)  // (5 + 1) * 2 = 12
+//   })
+
+// ============================================================================
+// COMPOSE2 - Compose Two Functions (inline application)
+// ============================================================================
+
+// compose2: Apply two functions in composition f(g(x))
+// Signature: {x (b -> c) (a -> b) -> c}
+// Example: (compose2 5 double increment) = double(increment(5))
+//
+// Composition order: f(g(x))
+// The second function (g) is applied first, then the first function (f)
+//
+// Note: Due to dynamic scoping, we apply directly rather than returning a closure
+compose2 = {x func_f func_g ->
+  intermediate = (func_g x)
+  <- (func_f intermediate)
+}
+
+// ============================================================================
+// IDENTITY - Identity Function
+// ============================================================================
+
+// identity: Returns its argument unchanged
+// Signature: {a -> a}
+// Example: (identity 42) -> 42
+//
+// Useful as:
+// - Default/placeholder function
+// - Base case for function composition
+// - No-op transformation
+identity = {x ->
+  <- x
+}
+
+// ============================================================================
+// CONSTANT - Constant Function (returns first arg)
+// ============================================================================
+
+// constant: Returns first argument, ignores second
+// Signature: {a b -> a}
+// Example: (constant 42 999) -> 42
+//
+// Useful for:
+// - Ignoring unwanted arguments
+// - Default values in callbacks
+// - Placeholder functions in map/filter
+constant = {const_value ignored ->
+  <- const_value
+}
+
+// ============================================================================
+// FLIP - Flip Function Arguments
+// ============================================================================
+
+// flip: Applies a function with flipped argument order
+// Signature: {(a b -> c) b a -> c}
+// Example: (flip subtract 5 10) = (subtract 10 5) = 5
+//
+// Useful for:
+// - Reversing argument order for operations
+// - Making functions work better with pipe
+flip = {func arg_a arg_b ->
+  <- (func arg_b arg_a)
+}
+
+// ============================================================================
+// APPLY - Apply Function to Argument List
+// ============================================================================
+
+// apply: Apply a function to a list of arguments
+// Signature: {function (list a) -> result}
+// Example: (apply add (list 1 2 3 4)) -> 10
+//
+// Note: Franz's variadic functions like add can take multiple arguments
+// apply converts a list into separate arguments
+apply = {func args ->
+  len = (length args)
+
+  <- (if (is len 0) {
+    <- (func)
+  } {
+    <- (if (is len 1) {
+      <- (func (get args 0))
+    } {
+      <- (if (is len 2) {
+        <- (func (get args 0) (get args 1))
+      } {
+        <- (if (is len 3) {
+          <- (func (get args 0) (get args 1) (get args 2))
+        } {
+          <- (if (is len 4) {
+            <- (func (get args 0) (get args 1) (get args 2) (get args 3))
+          } {
+            <- (if (is len 5) {
+              <- (func (get args 0) (get args 1) (get args 2) (get args 3) (get args 4))
+            } {
+              // For more than 5 arguments, use reduce
+              <- (reduce args {acc item _ ->
+                <- (func acc item)
+              } (get args 0))
+            })
+          })
+        })
+      })
+    })
+  })
+}
+
+// ============================================================================
+// APPLY_TWICE - Apply Function Twice
+// ============================================================================
+
+// apply_twice: Apply a function twice to a value
+// Signature: {(a -> a) a -> a}
+// Example: (apply_twice double 5) = double(double(5)) = 20
+//
+// Useful for:
+// - Repeating transformations
+// - Testing idempotent functions
+apply_twice = {func x ->
+  once = (func x)
+  <- (func once)
+}
+
+// ============================================================================
+// APPLY_N - Apply Function N Times
+// ============================================================================
+
+// apply_n: Apply a function n times to a value
+// Signature: {(a -> a) a integer -> a}
+// Example: (apply_n increment 5 3) = increment(increment(increment(5))) = 8
+//
+// Useful for:
+// - Iterating transformations
+// - Functional loops
+// - Building sequences
+apply_n = {func x n ->
+  <- (if (is n 0) {
+    <- x
+  } {
+    <- (if (is n 1) {
+      <- (func x)
+    } {
+      // For n > 1, use recursive approach via loop
+      <- (reduce (range n) {acc _ _ ->
+        <- (func acc)
+      } x)
+    })
+  })
+}
