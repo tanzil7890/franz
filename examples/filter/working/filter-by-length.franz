@@ -1,0 +1,8 @@
+// Example 3: Filter by length (strings)
+(println "Example 3: Filter long words (length > 3)")
+words = ["hi", "hello", "a", "world", "bye", "programming"]
+is_long = {word i -> <- (greater_than (length word) 3)}
+long_words = (filter words is_long)
+(println "Words:" words)
+(println "Long words:" long_words)
+(println "")

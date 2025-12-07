@@ -1,0 +1,99 @@
+// Advanced While Loop Examples
+// Real-world patterns with while loops
+
+(println "=== Advanced While Loop Examples ===")
+(println "")
+
+// Example 1: Collatz Conjecture
+(println "Example 1: Collatz sequence for n=10")
+mut n1 = 10
+mut steps1 = 0
+(while (not (is n1 1)) {
+  (println "  n1=" n1)
+  (if (is (remainder n1 2) 0)
+    {n1 = (divide n1 2)}
+    {n1 = (add (multiply n1 3) 1)})
+  steps1 = (add steps1 1)
+})
+(println "Reached 1 in" steps1 "steps")
+(println "")
+
+// Example 2: Binary search simulation
+(println "Example 2: Binary search for 42 in range 0-100")
+mut low = 0
+mut high = 100
+target = 42
+mut steps2 = 0
+found = (while (less_than low (add high 1)) {
+  mid = (divide (add low high) 2)
+  steps2 = (add steps2 1)
+  (println "  Checking mid=" mid)
+
+  (if (is mid target)
+    {(break mid)}
+    {})
+
+  (if (less_than mid target)
+    {low = (add mid 1)}
+    {high = (subtract mid 1)})
+})
+(println "Found" found "in" steps2 "steps")
+(println "")
+
+// Example 3: Fibonacci until threshold
+(println "Example 3: Fibonacci numbers < 100")
+mut a3 = 0
+mut b3 = 1
+(while (less_than a3 100) {
+  (println "  Fib:" a3)
+  temp = (add a3 b3)
+  a3 = b3
+  b3 = temp
+})
+(println "")
+
+// Example 4: Prime number finder
+(println "Example 4: Find first 5 primes")
+mut candidate = 2
+mut primes_found = 0
+(while (less_than primes_found 5) {
+  // Check if candidate is prime
+  mut divisor = 2
+  mut is_prime = 1
+
+  (while (less_than divisor candidate) {
+    (if (is (remainder candidate divisor) 0)
+      {
+        is_prime = 0
+        (break 0)
+      }
+      {})
+    divisor = (add divisor 1)
+  })
+
+  (if (is is_prime 1)
+    {
+      (println "  Prime:" candidate)
+      primes_found = (add primes_found 1)
+    }
+    {})
+
+  candidate = (add candidate 1)
+})
+(println "")
+
+// Example 5: Game simulation (guess the number)
+(println "Example 5: Number guessing simulation")
+secret = 7
+mut guess = 1
+attempts = (while 1 {
+  (println "  Guessing:" guess)
+  (if (is guess secret)
+    {(break guess)}
+    {})
+  guess = (add guess 1)
+})
+(println "Found secret" secret "in" attempts "attempts")
+(println "")
+
+(println "All advanced examples complete!")

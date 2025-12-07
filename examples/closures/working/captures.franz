@@ -1,0 +1,4 @@
+(println "=== Capturing Closures ===")
+make_adder = {n -> <- {x -> <- (add n x)}}
+add5 = (make_adder 5)
+(println "add5(7):" (add5 7))

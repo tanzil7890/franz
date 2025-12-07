@@ -1,0 +1,30 @@
+// Basic Lexical Closure Example
+// Demonstrates variable capture at definition time
+
+(println "=== Basic Lexical Closure ===")
+(println "")
+
+// Define a variable in outer scope
+x = 10
+(println "Outer x = " x)
+
+// Create a closure that captures x
+get_x = {-> <- x}
+(println "Created closure get_x that captures x=10")
+
+// Call get_x from a context where x is different
+test = {->
+  x = 999
+  (println "Inside test, local x = " x)
+  result = (get_x)
+  (println "get_x() returns: " result " (captured value, not local x)")
+  <- result
+}
+
+(println "")
+(println "Calling test()...")
+final = (test)
+
+(println "")
+(println "Result: " final)
+(println "Expected: 10 (lexical scoping uses captured value)")

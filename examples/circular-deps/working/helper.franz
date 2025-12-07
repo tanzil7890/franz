@@ -1,0 +1,9 @@
+// helper.franz - Safe module with no circular dependencies
+
+double = {x ->
+  <- (multiply x 2)
+}
+
+triple = {x ->
+  <- (multiply x 3)
+}

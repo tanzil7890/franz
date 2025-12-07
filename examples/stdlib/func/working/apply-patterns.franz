@@ -1,0 +1,44 @@
+// Advanced apply patterns and iteration utilities
+(use "stdlib/func.franz" {
+  (println "=== Apply Patterns and Iteration ===")
+  (println "")
+
+  // Example 1: Apply function to list of arguments
+  (println "Example 1: Apply - variadic function with list")
+  numbers = (list 1 2 3 4 5)
+  sum = (apply add numbers)
+  (println "  Sum of [1,2,3,4,5] =" sum)
+  (println "")
+
+  // Example 2: Apply twice
+  (println "Example 2: Apply function twice")
+  increment = {x -> <- (add x 1)}
+  result2 = (apply_twice increment 10)
+  (println "  increment(increment(10)) =" result2)
+  (println "")
+
+  // Example 3: Apply n times
+  (println "Example 3: Apply function n times")
+  double = {x -> <- (multiply x 2)}
+  result3 = (apply_n double 2 4)
+  (println "  double applied 4 times to 2: 2*2*2*2*2 =" result3)
+  (println "")
+
+  // Example 4: Flip function arguments
+  (println "Example 4: Flip argument order")
+  result4 = (flip subtract 5 20)
+  (println "  flip(subtract, 5, 20) = (20 - 5) =" result4)
+  (println "")
+
+  // Example 5: Practical use - build a countdown
+  (println "Example 5: Build countdown with apply_n")
+  countdown = {x ->
+    (println "  " x)
+    <- (subtract x 1)
+  }
+  (apply_n countdown 5 5)
+  (println "  Blast off!")
+  (println "")
+
+  (println "✓ All apply pattern examples completed!")
+})

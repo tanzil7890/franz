@@ -1,0 +1,52 @@
+// Basic Void Type Examples
+// Demonstrates void literal and functions returning void
+
+(println "=== Basic Void Type Examples ===")
+(println "")
+
+// Example 1: Void Literal
+(println "Example 1: Void Literal")
+nothing = void
+(println "  Variable 'nothing' has type: " (type nothing))
+(println "")
+
+// Example 2: Function Without Return
+(println "Example 2: Function Without Return Value")
+log_message = {msg -> (println "  LOG: " msg)}
+result = (log_message "Application started")
+(println "  log_message returns: " (type result))
+(println "")
+
+// Example 3: Side-Effect-Only Function
+(println "Example 3: Side-Effect-Only Function")
+increment_counter = {->
+  (println "  Counter incremented!")
+}
+status = (increment_counter)
+(println "  increment_counter returns: " (type status))
+(println "")
+
+// Example 4: Void from Built-in Functions
+(println "Example 4: Built-in Functions Returning Void")
+print_result = (println "  This is a message")
+(println "  println returns: " (type print_result))
+(println "")
+
+// Example 5: Type Checking for Void
+(println "Example 5: Checking for Void Type")
+check_void = {value ->
+  result = (is (type value) "void")
+  (println "  Is void? " (if result {<- "Yes"} {<- "No"}))
+}
+(check_void void)
+(check_void 42)
+(println "")
+
+// Example 6: Void in Data Structures
+(println "Example 6: Void in Lists")
+mixed_list = (list 1 "hello" void 3.14)
+third_element = (get mixed_list 2)
+(println "  Third element type: " (type third_element))
+(println "")
+
+(println "=== All Basic Examples Complete ===")

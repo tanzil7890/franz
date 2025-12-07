@@ -1,0 +1,110 @@
+// Advanced Void Type Examples
+// Demonstrates practical uses of void in Franz programs
+
+(println "=== Advanced Void Type Examples ===")
+(println "")
+
+// Example 1: Logger Function
+(println "Example 1: Logger Function Pattern")
+log = {level message ->
+  (println "[" level "] " message)
+}
+(log "INFO" "Application initialized")
+(log "WARN" "Low memory")
+(log "ERROR" "Connection failed")
+(println "")
+
+// Example 2: Void for Initialization
+(println "Example 2: Initialization Pattern")
+config = void
+(println "  Initial config: " (type config))
+config = "loaded"
+(println "  After load: " config)
+(println "")
+
+// Example 3: Void as Sentinel Value
+(println "Example 3: Sentinel Value Pattern")
+find_value = {predicate list ->
+  found = void
+  (println "  Searching...")
+  <- (if (greater_than (length list) 0)
+    {<- (get list 0)}
+    {<- void}
+  )
+}
+result = (find_value {x -> <- 1} (list 1 2 3))
+(println "  Found: " result)
+(println "")
+
+// Example 4: Void Return from Conditional
+(println "Example 4: Conditional Void Returns")
+maybe_process = {condition value ->
+  (if condition
+    {
+      (println "  Processing: " value)
+    }
+    {
+      (println "  Skipping...")
+    }
+  )
+}
+(maybe_process 1 42)
+(maybe_process 0 100)
+(println "")
+
+// Example 5: Void in Error Handling
+(println "Example 5: Void for Error States")
+safe_divide = {a b ->
+  (if (is b 0)
+    {
+      (println "  Error: Division by zero")
+      <- void
+    }
+    {<- (divide a b)}
+  )
+}
+result1 = (safe_divide 10 2)
+(println "  10 / 2 = " result1)
+result2 = (safe_divide 10 0)
+(println "  10 / 0 = " (type result2))
+(println "")
+
+// Example 6: Void as Default Value
+(println "Example 6: Default Value Pattern")
+get_or_default = {list index default ->
+  <- (if (less_than index (length list))
+    {<- (get list index)}
+    {<- default}
+  )
+}
+data = (list 10 20 30)
+val1 = (get_or_default data 1 void)
+val2 = (get_or_default data 10 void)
+(println "  data[1] = " val1)
+(println "  data[10] = " (type val2) " (out of bounds)")
+(println "")
+
+// Example 7: Void from Multiple Side Effects
+(println "Example 7: Multiple Side Effects")
+setup = {->
+  (println "  Step 1: Initialize database")
+  (println "  Step 2: Load configuration")
+  (println "  Step 3: Start services")
+}
+(setup)
+(println "  Setup complete (returns void)")
+(println "")
+
+// Example 8: Void Type Guards
+(println "Example 8: Type Guard Pattern")
+is_void = {value ->
+  <- (is (type value) "void")
+}
+test_values = (list 42 "hello" void 3.14)
+v1 = (get test_values 0)
+v2 = (get test_values 2)
+(println "  42 is void? " (if (is_void v1) {<- "Yes"} {<- "No"}))
+(println "  void is void? " (if (is_void v2) {<- "Yes"} {<- "No"}))
+(println "")
+
+(println "=== All Advanced Examples Complete ===")

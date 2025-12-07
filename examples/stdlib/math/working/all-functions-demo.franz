@@ -1,0 +1,120 @@
+// Math Module - All Functions Demo
+// Demonstrates all 15 math functions from stdlib/math.franz
+
+(use "stdlib/math.franz" {
+  (println "=== Franz Math Module Demo ===")
+  (println "")
+
+  // ===== Mathematical Constants =====
+  (println "1. Mathematical Constants")
+  (println "   PI =" PI "(circle circumference/diameter)")
+  (println "   E =" E "(Euler's number, base of natural log)")
+  (println "")
+
+  // ===== Basic Math Functions =====
+  (println "2. abs - Absolute Value")
+  (println "   abs(-42) =" (abs -42))
+  (println "   abs(42) =" (abs 42))
+  (println "")
+
+  (println "3. sqrt - Square Root")
+  (println "   sqrt(144) =" (sqrt 144))
+  (println "   sqrt(2) =" (sqrt 2))
+  (println "")
+
+  (println "4. floor - Round Down")
+  (println "   floor(4.9) =" (floor 4.9))
+  (println "   floor(-2.1) =" (floor -2.1))
+  (println "")
+
+  (println "5. ceil - Round Up")
+  (println "   ceil(4.1) =" (ceil 4.1))
+  (println "   ceil(-2.9) =" (ceil -2.9))
+  (println "")
+
+  (println "6. round - Round to Nearest")
+  (println "   round(4.5) =" (round 4.5))
+  (println "   round(4.4) =" (round 4.4))
+  (println "")
+
+  (println "7. max - Maximum of Two Numbers")
+  (println "   max(15, 23) =" (max 15 23))
+  (println "   max(-5, -10) =" (max -5 -10))
+  (println "")
+
+  (println "8. min - Minimum of Two Numbers")
+  (println "   min(15, 23) =" (min 15 23))
+  (println "   min(-5, -10) =" (min -5 -10))
+  (println "")
+
+  (println "9. clamp - Restrict Value to Range")
+  (println "   clamp(150, 0, 100) =" (clamp 150 0 100) "(too high, clamped to 100)")
+  (println "   clamp(-50, 0, 100) =" (clamp -50 0 100) "(too low, clamped to 0)")
+  (println "   clamp(50, 0, 100) =" (clamp 50 0 100) "(within range)")
+  (println "")
+
+  // ===== Statistical Functions =====
+  (println "10. sum - Sum of List Elements")
+  scores = (list 85 92 78 95 88)
+  (println "   scores =" scores)
+  (println "   sum(scores) =" (sum scores))
+  (println "")
+
+  (println "11. average - Average (Mean) of List")
+  (println "   average(scores) =" (average scores))
+  (println "")
+
+  (println "12. median - Median of List")
+  (println "   median(scores) =" (median scores))
+  unsorted = (list 3 1 4 1 5 9 2 6)
+  (println "   median([3,1,4,1,5,9,2,6]) =" (median unsorted))
+  (println "")
+
+  // ===== Number Theory Functions =====
+  (println "13. factorial - Factorial (n!)")
+  (println "   factorial(5) = 5×4×3×2×1 =" (factorial 5))
+  (println "   factorial(7) =" (factorial 7))
+  (println "")
+
+  (println "14. gcd - Greatest Common Divisor")
+  (println "   gcd(48, 18) =" (gcd 48 18))
+  (println "   gcd(100, 75) =" (gcd 100 75))
+  (println "")
+
+  // ===== Real-World Example: Statistics =====
+  (println "=== Real-World Example: Grade Statistics ===")
+  grades = (list 78 85 92 68 95 88 76 91 84 89)
+
+  (println "Student Grades:" grades)
+  (println "Total Points:" (sum grades))
+  (println "Average:" (average grades))
+  (println "Median:" (median grades))
+  (println "Minimum:" (reduce grades {acc item index -> <- (min acc item)} 100))
+  (println "Maximum:" (reduce grades {acc item index -> <- (max acc item)} 0))
+  (println "")
+
+  // ===== Real-World Example: Geometry =====
+  (println "=== Real-World Example: Circle Calculations ===")
+  radius = 5
+  (println "Circle with radius" radius)
+
+  circumference = (multiply 2 (multiply PI radius))
+  (println "Circumference: 2πr =" circumference)
+
+  area = (multiply PI (power radius 2))
+  (println "Area: πr² =" area)
+  (println "")
+
+  // ===== Real-World Example: Game Development =====
+  (println "=== Real-World Example: Game Development ===")
+  player_position = 150
+  screen_width = 100
+
+  clamped_position = (clamp player_position 0 screen_width)
+  (println "Player position:" player_position)
+  (println "Screen bounds: 0 to" screen_width)
+  (println "Clamped position:" clamped_position "(player stays on screen)")
+  (println "")
+
+  (println "✓ Math module demo complete!")
+})

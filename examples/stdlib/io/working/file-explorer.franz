@@ -1,0 +1,45 @@
+// File Explorer Example
+// Demonstrates I/O module functions for file system navigation
+
+(use "stdlib/io.franz" {
+  (println "=== Franz File Explorer ===")
+  (println "")
+
+  // Check if current directory exists
+  current_dir = "."
+  (println "Checking current directory...")
+  (println "  Exists:" (exists current_dir))
+  (println "  Is directory:" (is_dir current_dir))
+  (println "")
+
+  // List files in stdlib directory
+  (println "Files in stdlib/:")
+  stdlib_contents = (list_dir "stdlib")
+  (println stdlib_contents)
+  (println "")
+
+  // Check each file type
+  (println "Checking stdlib/io.franz...")
+  io_file = "stdlib/io.franz"
+  (println "  Exists:" (exists io_file))
+  (println "  Is file:" (is_file io_file))
+  (println "  Is directory:" (is_dir io_file))
+  (println "  Basename:" (basename io_file))
+  (println "  Dirname:" (dirname io_file))
+  (println "")
+
+  // Build and verify path
+  (println "Building path with join_path...")
+  built_path = (join_path (list "docs" "stdlib" "io"))
+  (println "  Path:" built_path)
+  (println "  Exists:" (exists built_path))
+  (println "  Is directory:" (is_dir built_path))
+  (println "")
+
+  // Read file content
+  (println "Reading README.md (first 200 chars)...")
+  readme = (read_lines "README.md")
+  preview = (get readme 0 200)
+  (println preview)
+  (println "...")
+})

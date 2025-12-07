@@ -1,0 +1,31 @@
+(println "=== Terminal Dimensions - Basic Example ===")
+(println "")
+
+// Get terminal dimensions
+height = (rows)
+width = (columns)
+
+(println "Your terminal size:")
+(println "  Height:" height "lines")
+(println "  Width:" width "characters")
+(println "")
+
+// Calculate total characters
+total = (multiply height width)
+(println "Total characters on screen:" total)
+(println "")
+
+// Determine terminal type
+is_wide = (greater_than width 100)
+terminal_type = (if is_wide
+  {<- "Large (>100 cols)"}
+  {<- "Standard"})
+
+(println "Terminal type:" terminal_type)
+(println "")
+
+// Draw a separator line
+separator = (repeat "=" width)
+(println separator)
+(println "  Franz Terminal Demo  ")
+(println separator)

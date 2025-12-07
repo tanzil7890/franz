@@ -1,0 +1,22 @@
+(println "=== Basic Logical Operators ===")
+(println "")
+
+// NOT operator - invert boolean
+(println "NOT operator:")
+(println "(not 0) =" (not 0))  // → 1
+(println "(not 1) =" (not 1))  // → 0
+(println "")
+
+// AND operator - all must be true
+(println "AND operator:")
+(println "(and 1 1) =" (and 1 1))      // → 1
+(println "(and 1 0) =" (and 1 0))      // → 0
+(println "(and 1 1 1) =" (and 1 1 1))  // → 1
+(println "")
+
+// OR operator - at least one must be true
+(println "OR operator:")
+(println "(or 0 0) =" (or 0 0))      // → 0
+(println "(or 0 1) =" (or 0 1))      // → 1
+(println "(or 0 0 1) =" (or 0 0 1))  // → 1
+(println "")

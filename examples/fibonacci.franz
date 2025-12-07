@@ -1,0 +1,19 @@
+// use a simple recursive function to calculate the nth fibonacci number
+fibonacci = {n ->
+  <- (if
+    (is n 0) {<- 0}
+    (is n 1) {<- 1}
+    {<- (add (fibonacci (subtract n 1)) (fibonacci (subtract n 2)))}
+  )
+}
+
+// Calculate first 15 fibonacci numbers using until loop
+// Note: Recursive fibonacci is slow for large n (O(2^n) complexity)
+// fib(30) would take ~2 minutes due to 2.7M recursive calls
+// fib(15) runs in ~0.06s with only 610 recursive calls
+(until "stop" {state n ->
+  (print (add n 1) " - " (fibonacci (add n 1)) "\n")
+
+  // Stop after 15 iterations (fast enough for testing)
+  <- (if (is n 14) {<- "stop"} {<- "continue"})
+})

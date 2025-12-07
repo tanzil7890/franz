@@ -1,0 +1,6 @@
+// Safe shell test - shows shell works when granted
+
+test_shell = {
+  result = (shell "echo 'Shell access granted!'")
+  <- result
+}

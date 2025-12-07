@@ -1,0 +1,10 @@
+// Test print vs println
+
+// This has no newline - prompt will appear on same line
+(print "Using print: No newline")
+
+// This adds a newline - prompt appears on next line
+(println "Using println: Has newline")
+
+// This manually adds newline to print
+(print "Using print with \\n\n")

@@ -1,0 +1,64 @@
+(println "=== Basic Ordering Examples ===")
+(println "")
+
+(println "Example 1: Simple integer comparison")
+a = 5
+b = 10
+(if (less_than a b)
+  {(println "  " a " is less than " b)}
+  {(println "  " a " is not less than " b)}
+)
+
+(println "")
+(println "Example 2: Finding maximum of two numbers")
+find_max = {x y ->
+  <- (if (greater_than x y) {<- x} {<- y})
+}
+max_val = (find_max 42 27)
+(println "  Maximum of 42 and 27: " max_val)
+
+(println "")
+(println "Example 3: Finding minimum of two numbers")
+find_min = {x y ->
+  <- (if (less_than x y) {<- x} {<- y})
+}
+min_val = (find_min 15 8)
+(println "  Minimum of 15 and 8: " min_val)
+
+(println "")
+(println "Example 4: Range check (is value in range?)")
+in_range = {val min_r max_r ->
+  <- (and (greater_than val min_r) (less_than val max_r))
+}
+test_val = 50
+result = (in_range test_val 0 100)
+(println "  Is 50 in range [0, 100]? " (if result {<- "Yes"} {<- "No"}))
+
+(println "")
+(println "Example 5: Sorting two values")
+sort_two = {x y ->
+  first = (if (less_than x y) {<- x} {<- y})
+  second = (if (less_than x y) {<- y} {<- x})
+  result = [first, second]
+  <- result
+}
+sorted = (sort_two 30 10)
+(println "  Sorted [30, 10]: " sorted)
+
+(println "")
+(println "Example 6: Comparison with floats")
+price1 = 19.99
+price2 = 24.50
+(if (less_than price1 price2)
+  {(println "  Price $" price1 " is cheaper than $" price2)}
+  {(println "  Price $" price1 " is more expensive than $" price2)}
+)
+
+(println "")
+(println "Example 7: Mixed int/float comparison")
+int_val = 10
+float_val = 10.5
+(if (less_than int_val float_val)
+  {(println "  Integer " int_val " < Float " float_val " (numeric coercion)")}
+  {(println "  Integer " int_val " >= Float " float_val)}
+)

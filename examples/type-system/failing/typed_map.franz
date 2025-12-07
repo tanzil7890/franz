@@ -1,0 +1,25 @@
+// Higher-order function typing example
+// Demonstrates polymorphic type signatures
+
+// Type signature for a simple transformation function
+(sig double (integer -> integer))
+double = {x -> <- (multiply x 2)}
+
+// Type signature for square function
+(sig square (integer -> integer))
+square = {x -> <- (multiply x x)}
+
+// Type annotation for list
+(sig numbers (list integer))
+numbers = (list 1 2 3 4 5)
+
+// map is polymorphic: ((list a) (a -> b) -> (list b))
+// Type checker infers: (list integer) (integer -> integer) -> (list integer)
+doubled = (map numbers double)
+squared = (map numbers square)
+
+// Print results
+(print "Original: " numbers "\n")
+(print "Doubled: " doubled "\n")
+(print "Squared: " squared "\n")
+

@@ -1,0 +1,27 @@
+(println "=== Testing mut keyword ===")
+(println "")
+
+(println "Test 1: Mutable variable with reassignment")
+mut x = 10
+(println "Initial x:" x)
+x = 20
+(println "After reassignment x:" x)
+x = 30
+(println "Final x:" x)
+
+(println "")
+(println "Test 2: Immutable variable (no mut)")
+y = 100
+(println "Immutable y:" y)
+
+(println "")
+(println "Test 3: Mutable variable with arithmetic")
+mut counter = 0
+(println "counter:" counter)
+counter = (add counter 1)
+(println "counter:" counter)
+counter = (add counter 5)
+(println "counter:" counter)
+
+(println "")
+(println "All tests completed!")

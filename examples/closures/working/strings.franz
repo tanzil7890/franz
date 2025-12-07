@@ -1,0 +1,4 @@
+(println "=== Closure Strings ===")
+identity = {x -> <- x}
+(println "identity(42):" (identity 42))
+(println "identity('hello'):" (identity "hello"))

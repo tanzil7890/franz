@@ -1,0 +1,47 @@
+// Basic examples of the filter function in Franz
+// Filter creates a new list containing only elements that pass a test
+
+(println "=== Basic Filter Examples ===")
+(println "")
+
+// Example 1: Filter even numbers
+(println "Example 1: Filter even numbers")
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, -9, 10]
+is_even = {x i -> <- (is (remainder x 2) 0)}
+evens = (filter numbers is_even)
+(println "Numbers:" numbers)
+(println "Evens:" evens)
+(println "")
+
+// Example 2: Filter positive numbers
+(println "Example 2: Filter positive numbers")
+mixed = [-5, -2, 0, 3, 7, -1, 4]
+is_positive = {x i -> <- (greater_than x 0)}
+positives = (filter mixed is_positive)
+(println "Mixed:" mixed)
+(println "Positives:" positives)
+(println "")
+
+// Example 3: Filter by length (strings)
+(println "Example 3: Filter long words (length > 3)")
+words = ["hi", "hello", "a", "world", "bye", "programming"]
+is_long = {word i -> <- (greater_than (length word) 3)}
+long_words = (filter words is_long)
+(println "Words:" words)
+(println "Long words:" long_words)
+(println "")
+
+// Example 4: Chain filter with map and reduce
+//(println "Example 4: Sum of squares of even numbers")
+//nums = [1, 2, 3, 4, 5, 6]
+
+// Filter evens, map to squares, reduce to sum
+//sum_of_squares = (reduce
+//  (map
+//    (filter nums is_even)
+//    {x i -> <- (multiply x x)})
+//  {acc x i -> <- (add acc x)}
+//  0)
+
+//(println "Numbers:" nums)
+//(println "Sum of squares of evens (4+16+36):" sum_of_squares)

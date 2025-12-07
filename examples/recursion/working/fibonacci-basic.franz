@@ -1,0 +1,19 @@
+(println "=== Fibonacci Recursion Test ===")
+(println "")
+
+// Define fibonacci function (recursive)
+fib = {n ->
+  (if (less_than n 2)
+    n
+    (add (fib (subtract n 1)) (fib (subtract n 2))))
+}
+
+// Test fibonacci with various inputs
+(println "fib(0) =" (fib 0))
+(println "fib(1) =" (fib 1))
+(println "fib(5) =" (fib 5))
+(println "fib(10) =" (fib 10))
+(println "fib(15) =" (fib 15))
+
+(println "")
+(println "Fibonacci test complete!")

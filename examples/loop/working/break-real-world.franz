@@ -1,0 +1,114 @@
+// Real-World Break Examples - Both Forms
+// Shows practical use cases for (break) and (break value)
+
+(println "=== Real-World Break Examples ===")
+(println "")
+
+// EXAMPLE 1: Simple Exit - Using (break)
+(println "Example 1: Process until error threshold")
+(println "Processing items...")
+mut error_count = 0
+(loop 20 {i ->
+  (println "  Processing item" i)
+
+  // Simulate random errors
+  has_error = (is (remainder i 7) 0)
+
+  (if has_error
+    {
+      error_count = (add error_count 1)
+      (println "  ERROR at item" i)
+
+      // Stop if too many errors (no need to return value)
+      (if (is error_count 2)
+        {
+          (println "  Too many errors, stopping...")
+          (break)        // Just exit, no value needed
+        }
+        {})
+    }
+    {})
+})
+(println "Processing complete")
+(println "")
+
+// EXAMPLE 2: Search and Return - Using (break value)
+(println "Example 2: Find user by ID")
+target_id = 42
+found_user = (loop 100 {i ->
+  user_id = (multiply i 3)
+
+  (if (is user_id target_id)
+    {(break user_id)}    // Return the found ID
+    {})
+})
+(println "Found user:" found_user)
+(println "")
+
+// EXAMPLE 3: Validation Loop - Using (break)
+(println "Example 3: Validate input until success")
+max_attempts = 5
+(loop max_attempts {i ->
+  attempts = (add i 1)
+  (println "  Attempt" attempts)
+
+  // Simulate validation
+  is_valid = (greater_than i 2)
+
+  // Check validity
+  (if (not is_valid)
+    {(println "  Invalid, retrying...")}
+    {})
+
+  // Break on success
+  (if is_valid
+    {
+      (println "  Validation successful!")
+      (break)            // Exit on success, no value needed
+    }
+    {})
+})
+(println "")
+
+// EXAMPLE 4: First Match Finder - Using (break value)
+(println "Example 4: Find first number > 50 divisible by 7")
+first_match = (loop 50 {i ->
+  n = (add i 50)  // Start from 50
+
+  // Check if divisible by 7
+  is_div7 = (is (remainder n 7) 0)
+
+  (if is_div7
+    {(break n)}    // Return first match
+    {})
+})
+(println "First match:" first_match)
+(println "")
+
+// EXAMPLE 5: Mixed Usage in Same Program
+(println "Example 5: Two- search")
+
+//  Check if target exists (break without value)
+(println " Checking if target exists...")
+target_exists = 0
+(loop 10 {i ->
+  (if (is i 6)
+    {
+      (println "  Target found!")
+      (break)            // Just exit check
+    }
+    {})
+})
+
+//  Get target value (break with value)
+(println " Getting target value...")
+target_value = (loop 10 {i ->
+  (if (is i 6)
+    {(break (multiply i 10))}    // Return computed value
+    {})
+})
+
+(println "Target value:" target_value)
+(println "")
+
+(println "All real-world examples complete!")

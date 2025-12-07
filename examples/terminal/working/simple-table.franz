@@ -1,0 +1,23 @@
+(println "=== Simple Table Example ===")
+(println "")
+
+// Get terminal width
+width = (columns)
+
+// Calculate column widths (3 columns)
+col_width = (divide width 3)
+
+// Table header
+header_sep = (repeat "=" width)
+(println header_sep)
+(println "Name             Age              City")
+(println header_sep)
+
+// Table rows
+(println "Alice            25               NYC")
+(println "Bob              30               SF")
+(println "Charlie          35               LA")
+(println header_sep)
+
+(println "")
+(println "Table fits terminal width:" width "characters")

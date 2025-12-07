@@ -1,0 +1,8 @@
+// Recursion without a rec keyword
+
+factorial = {n ->
+  <- (if (is n 0) {<- 1} {<- (multiply n (factorial (subtract n 1)))})
+}
+
+(println "factorial 5 =" (factorial 5))
+

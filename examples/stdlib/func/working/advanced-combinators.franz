@@ -1,0 +1,85 @@
+// Advanced combinator patterns and real-world use cases
+(use "stdlib/func.franz" {
+  (println "=== Advanced Function Combinators ===")
+  (println "")
+
+  // Example 1: Pipeline simulation with compose2
+  (println "Example 1: Data transformation pipeline")
+  square = {x -> <- (multiply x x)}
+  add_hundred = {x -> <- (add x 100)}
+  halve = {x -> <- (divide x 2)}
+
+  // Process: square -> add 100 -> halve
+  pipeline = {val ->
+    step1 = (square val)
+    step2 = (add_hundred step1)
+    <- (halve step2)
+  }
+
+  result1 = (pipeline 10)
+  (println "  Pipeline(10): (10^2 + 100) / 2 =" result1)
+  (println "")
+
+  // Example 2: Function iteration for mathematical sequences
+  (println "Example 2: Generate Fibonacci-like sequence")
+  fib_step = {x -> <- (add x 1)}
+
+  start = 0
+  (println "  Fibonacci-like progression:")
+  val0 = start
+  (println "    n=0:" val0)
+
+  val1 = (apply_n fib_step val0 1)
+  (println "    n=1:" val1)
+
+  val2 = (apply_n fib_step val0 2)
+  (println "    n=2:" val2)
+
+  val3 = (apply_n fib_step val0 3)
+  (println "    n=3:" val3)
+
+  val4 = (apply_n fib_step val0 4)
+  (println "    n=4:" val4)
+  (println "")
+
+  // Example 3: Combining flip with apply for flexible operations
+  (println "Example 3: Flexible operations with flip")
+  flipped_div = {a b -> <- (flip divide a b)}
+  args = (list 2 10)
+  result3 = (apply flipped_div args)
+  (println "  Flipped divide: 10 / 2 =" result3)
+  (println "")
+
+  // Example 4: Constant function for default values
+  (println "Example 4: Using constant for defaults")
+  get_default = {value fallback ->
+    <- (if (is value 0) {
+      <- (constant fallback value)
+    } {
+      <- value
+    })
+  }
+
+  result4a = (get_default 0 42)
+  result4b = (get_default 10 42)
+  (println "  get_default(0, 42) =" result4a)
+  (println "  get_default(10, 42) =" result4b)
+  (println "")
+
+  // Example 5: Integration - compose2 + apply_n
+  (println "Example 5: Complex integration")
+  triple = {x -> <- (multiply x 3)}
+  add_one = {x -> <- (add x 1)}
+
+  complex_fn = {x -> <- (compose2 x triple add_one)}
+  result5 = (apply_n complex_fn 2 3)
+  (println "  Apply ((x+1)*3) three times starting from 2:")
+  (println "    Step 0: 2")
+  (println "    Step 1: (2+1)*3 = 9")
+  (println "    Step 2: (9+1)*3 = 30")
+  (println "    Step 3: (30+1)*3 = 93")
+  (println "    Final result:" result5)
+  (println "")
+
+  (println "✓ All advanced combinator examples completed!")
+})

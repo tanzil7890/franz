@@ -1,0 +1,124 @@
+(println "=== Optional Else Demo ===")
+(println "Demonstrating: (if cond then) without else clause")
+(println "")
+
+// Example 1: Guard Clauses
+(println "Example 1: Guard Clause Pattern")
+(println "Validate input and return only if valid")
+(println "")
+
+validate_age = {age ->
+  <- (if (greater_than age 0) age)
+}
+
+valid_age = (validate_age 25)
+invalid_age = (validate_age -5)
+(println "Valid age (25):" valid_age)
+(println "Invalid age (-5):" invalid_age "(returns 0)")
+(println "")
+
+// Example 2: Conditional Execution
+(println "Example 2: Conditional Debug Logging")
+(println "")
+
+debug_mode = 1
+production_mode = 0
+
+(println "Debug mode enabled:")
+(if debug_mode {
+  (println "  -> Debug: System initialized")
+  (println "  -> Debug: Loading configuration")
+  (println "  -> Debug: Ready")
+})
+
+(println "Production mode logging:")
+(if production_mode {
+  (println "  -> Prod: This won't print")
+})
+(println "  (Nothing printed - production mode off)")
+(println "")
+
+// Example 3: Feature Flags
+(println "Example 3: Feature Flag System")
+(println "")
+
+new_algorithm_enabled = 0
+legacy_algorithm_enabled = 1
+
+(println "Checking new algorithm...")
+new_result = (if new_algorithm_enabled {
+  (println "  -> Using NEW algorithm")
+  <- 999
+})
+(println "Result:" new_result "(0 = feature disabled)")
+
+(println "Checking legacy algorithm...")
+legacy_result = (if legacy_algorithm_enabled {
+  (println "  -> Using LEGACY algorithm")
+  <- 42
+})
+(println "Result:" legacy_result)
+(println "")
+
+// Example 4: Threshold Warnings
+(println "Example 4: Threshold-Based Warnings")
+(println "")
+
+check_threshold = {value threshold name ->
+  (if (greater_than value threshold) {
+    (println "  -> WARNING:" name "exceeded! Value:" value)
+  })
+  <- value
+}
+
+cpu_usage = 95
+memory_usage = 45
+disk_usage = 105
+
+(println "System Health Check:")
+(check_threshold cpu_usage 80 "CPU usage")
+(check_threshold memory_usage 80 "Memory usage")
+(check_threshold disk_usage 80 "Disk usage")
+(println "")
+
+// Example 5: Bounds Checking
+(println "Example 5: Safe Array Index")
+(println "")
+
+array_length = 10
+safe_index = {idx len ->
+  <- (if (and (greater_than idx -1) (less_than idx len)) idx)
+}
+
+idx1 = (safe_index 5 array_length)
+idx2 = (safe_index -1 array_length)
+idx3 = (safe_index 15 array_length)
+
+(println "Index 5 in [0..10):" idx1 "(valid)")
+(println "Index -1 in [0..10):" idx2 "(invalid, returns 0)")
+(println "Index 15 in [0..10):" idx3 "(invalid, returns 0)")
+(println "")
+
+// Example 6: Conditional Initialization
+(println "Example 6: Conditional Resource Allocation")
+(println "")
+
+should_cache = 1
+cache_enabled = (if should_cache {
+  (println "  -> Initializing cache...")
+  (println "  -> Cache ready")
+  <- 1
+})
+(println "Cache status:" cache_enabled)
+
+should_log = 0
+log_enabled = (if should_log {
+  (println "  -> Initializing logger...")
+  <- 1
+})
+(println "Log status:" log_enabled "(0 = disabled)")
+(println "")
+
+(println "✅ All optional else patterns demonstrated!")
+(println "✅ Backward compatible with 3-argument if")
+(println "✅ Zero overhead - same performance as explicit else")

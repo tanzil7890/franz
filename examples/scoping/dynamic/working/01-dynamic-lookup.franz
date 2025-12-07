@@ -1,0 +1,55 @@
+// Dynamic scoping demonstration
+// Run with: ./franz --scoping=dynamic examples/scoping/dynamic/working/01-dynamic-lookup.franz
+
+(println "=== Dynamic Scoping Demonstration ===")
+(println "")
+
+// Example 1: Variable looked up in caller's scope
+(println "Example 1: Dynamic lookup")
+x = 10
+get_x = {-> <- x}
+
+test1 = {->
+  x = 20
+  (println "  Inside test1, x = " x)
+  result = (get_x)
+  (println "  get_x() returns: " result " (uses caller's x=20)")
+  <- result
+}
+
+result1 = (test1)
+(println "  ✓ Dynamic scoping: uses caller's environment")
+(println "")
+
+// Example 2: Nested dynamic lookup
+(println "Example 2: Nested dynamic lookup")
+y = 100
+inner_fn = {-> <- y}
+outer_fn = {->
+  y = 200
+  <- (inner_fn)
+}
+
+result2 = (outer_fn)
+(println "  y = " y)
+(println "  outer_fn() = " result2 " (uses outer_fn's y=200)")
+(println "  ✓ Inner function accesses outer's variable")
+(println "")
+
+// Example 3: Global fallback
+(println "Example 3: Global fallback")
+global_var = 999
+get_global = {-> <- global_var}
+
+test3 = {->
+  <- (get_global)
+}
+
+result3 = (test3)
+(println "  global_var = " global_var)
+(println "  test3() = " result3 " (falls back to global)")
+(println "  ✓ Falls back to global when not in caller")
+(println "")
+
+(println "=== Dynamic scoping demonstration complete ===")
+(println "Note: Compare with lexical scoping examples to see differences")

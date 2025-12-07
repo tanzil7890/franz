@@ -1,0 +1,8 @@
+// Example 8: Equality Chain
+(println "Example 8: Multiple Equality Checks")
+all_equal = {a b c ->
+  <- (and (is a b) (is b c))
+}
+(println "  Are 5, 5, 5 all equal? " (if (all_equal 5 5 5) {<- "Yes"} {<- "No"}))
+(println "  Are 5, 5, 10 all equal? " (if (all_equal 5 5 10) {<- "Yes"} {<- "No"}))
+(println "")

@@ -1,0 +1,59 @@
+(println "=== Franz If Statement - Basic Examples ===")
+(println "")
+
+// Example 1: Simple true/false conditions
+(println "Example 1: Basic if statement")
+result1 = (if 1 10 20)
+(println "If true (1): should be 10 ->" result1)
+
+result2 = (if 0 10 20)
+(println "If false (0): should be 20 ->" result2)
+(println "")
+
+// Example 2: Truthy values
+(println "Example 2: Truthy values (non-zero)")
+result3 = (if 5 100 200)
+(println "If 5: should be 100 ->" result3)
+
+result4 = (if -1 100 200)
+(println "If -1: should be 100 ->" result4)
+(println "")
+
+// Example 3: With comparisons
+(println "Example 3: If with comparisons")
+age = 25
+is_adult = (if (greater_than age 17) 1 0)
+(println "Age" age "-> Is adult:" is_adult)
+(println "")
+
+// Example 4: Max of two numbers
+(println "Example 4: Max function")
+x = 42
+y = 17
+max_val = (if (greater_than x y) x y)
+(println "Max of" x "and" y "is:" max_val)
+(println "")
+
+// Example 5: Min of two numbers
+(println "Example 5: Min function")
+a = 8
+b = 15
+min_val = (if (less_than a b) a b)
+(println "Min of" a "and" b "is:" min_val)
+(println "")
+
+// Example 6: Absolute value
+(println "Example 6: Absolute value")
+num = -5
+abs_val = (if (less_than num 0) (multiply num -1) num)
+(println "Abs of" num "is:" abs_val)
+(println "")
+
+// Example 7: String results
+(println "Example 7: String results")
+has_access = 1
+status = (if has_access "GRANTED" "DENIED")
+(println "Access:" status)
+(println "")
+
+(println "=== All Examples Complete ===")

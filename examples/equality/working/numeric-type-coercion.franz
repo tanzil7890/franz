@@ -1,0 +1,7 @@
+// Example 3: Numeric Type Coercion
+(println "Example 3: Numeric Type Coercion")
+int_val = 5
+float_val = 5.0
+(println "  int_val = 5, float_val = 5.0")
+(println "  5 == 5.0? " (if (is int_val float_val) {<- "Yes (numeric coercion)"} {<- "No"}))
+(println "")

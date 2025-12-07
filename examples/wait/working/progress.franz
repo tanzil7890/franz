@@ -1,0 +1,71 @@
+// Progress Bar Example
+// Demonstrates using (wait) for visual progress indication
+
+(println "╔════════════════════════════════════╗")
+(println "║       Progress Bar Demo            ║")
+(println "╚════════════════════════════════════╝")
+(println "")
+
+// Progress bar function
+progress_bar = {total bar_width ->
+  (println "Processing items...")
+
+  (loop total {i ->
+    // Calculate percentage
+    percent = (divide (multiply i 100) total)
+
+    // Calculate filled portion
+    filled = (divide (multiply i bar_width) total)
+
+    // Build bar
+    bar = ""
+    (loop bar_width {j ->
+      (if (less_than j filled)
+        {bar = (join bar "█")}
+        {bar = (join bar "░")}
+      )
+    })
+
+    // Display progress
+    (print "\r[" bar "] " (integer percent) "%")
+
+    (wait 0.1)  // 100ms delay
+  })
+
+  // Final update
+  bar = ""
+  (loop bar_width {j -> bar = (join bar "█")})
+  (println "\r[" bar "] 100%")
+  (println "✓ Complete!")
+}
+
+// Run with 30 items, 40-char bar
+(progress_bar 30 40)
+
+(println "")
+
+// Spinner animation
+spinner = {duration message ->
+  frames = (list "⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
+  frame_count = (length frames)
+  start = (time)
+
+  (until void {state i ->
+    elapsed = (subtract (time) start)
+
+    (if (less_than elapsed duration) {
+      frame_idx = (remainder i frame_count)
+      spinner_char = (get frames frame_idx)
+      (print "\r" spinner_char " " message)
+      (wait 0.1)
+      <- "continue"
+    } {
+      (print "\r✓ " message " - Done!")
+      (println "")
+      <- void
+    })
+  })
+}
+
+(println "Loading animation:")
+(spinner 3 "Loading data")

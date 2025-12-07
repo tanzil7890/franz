@@ -1,0 +1,135 @@
+(println "=== Franz Type Guards Demo ===")
+(println "")
+
+(println "--- Basic Type Checking ---")
+(println "")
+
+(println "Example 1: Checking integer type")
+value1 = 42
+(println "Value:" value1)
+(println "is_int:" (is_int value1))
+(println "is_float:" (is_float value1))
+(println "is_string:" (is_string value1))
+(println "")
+
+(println "Example 2: Checking float type")
+value2 = 3.14
+(println "Value:" value2)
+(println "is_int:" (is_int value2))
+(println "is_float:" (is_float value2))
+(println "is_string:" (is_string value2))
+(println "")
+
+(println "Example 3: Checking string type")
+value3 = "Hello, Franz!"
+(println "Value:" value3)
+(println "is_int:" (is_int value3))
+(println "is_float:" (is_float value3))
+(println "is_string:" (is_string value3))
+(println "")
+
+(println "--- Type-Based Conditional Logic ---")
+(println "")
+
+(println "Example 4: Type-safe operation dispatcher")
+num = 100
+operation_result = (if (is_int num)
+  (multiply num 2)
+  (if (is_float num)
+    (multiply num 1.5)
+    0))
+(println "Number:" num "| Result after type-specific operation:" operation_result)
+(println "Logic: Multiply by 2 if int, by 1.5 if float, 0 otherwise")
+(println "")
+
+(println "Example 5: Safe arithmetic with type validation")
+a = 50
+b = 25
+safe_result = (if (and (is_int a) (is_int b))
+  (divide a b)
+  -1)
+(println "a:" a "| b:" b "| Result:" safe_result)
+(println "Logic: Only divide if both are integers, else return -1")
+(println "")
+
+(println "Example 6: Type-based formatting decision")
+data = 42
+format_mode = (if (is_int data)
+  1
+  (if (is_float data)
+    2
+    3))
+(println "Data:" data "| Format Mode:" format_mode)
+(println "Mode 1 = integer format, Mode 2 = float format, Mode 3 = string format")
+(println "")
+
+(println "--- Using Type Guards with When/Unless ---")
+(println "")
+
+(println "Example 7: When with type guard")
+score = 95
+bonus = (when (is_int score) 10)
+final_score = (add score bonus)
+(println "Score:" score "| Bonus:" bonus "| Final:" final_score)
+(println "Logic: Give bonus only if score is an integer")
+(println "")
+
+(println "Example 8: Unless with type guard for validation")
+input_val = 123
+validated = (unless (is_string input_val) input_val)
+(println "Input:" input_val "| Validated:" validated)
+(println "Logic: Accept value unless it's a string")
+(println "")
+
+(println "--- Complex Type Checks ---")
+(println "")
+
+(println "Example 9: Multiple type validation")
+x = 10
+y = 20
+z = 30
+all_ints = (and (is_int x) (and (is_int y) (is_int z)))
+sum_result = (if all_ints (add x (add y z)) 0)
+(println "x:" x "| y:" y "| z:" z)
+(println "All integers?" all_ints "| Sum:" sum_result)
+(println "")
+
+(println "Example 10: Type exclusion check")
+mystery_val = 3.14
+not_string = (not (is_string mystery_val))
+not_int = (not (is_int mystery_val))
+is_numeric = (and not_string (or (is_int mystery_val) (is_float mystery_val)))
+(println "Value:" mystery_val)
+(println "Is numeric (int or float)?" is_numeric)
+(println "")
+
+(println "--- Real-World Use Cases ---")
+(println "")
+
+(println "Example 11: Type-safe calculator")
+operand1 = 100
+operand2 = 5
+operator_mode = 1
+calc_result = (if (and (is_int operand1) (is_int operand2))
+  (if (is operator_mode 1)
+    (add operand1 operand2)
+    (if (is operator_mode 2)
+      (multiply operand1 operand2)
+      (divide operand1 operand2)))
+  -999)
+(println "Operand 1:" operand1 "| Operand 2:" operand2)
+(println "Operator:" operator_mode "| Result:" calc_result)
+(println "")
+
+(println "Example 12: Data validation pipeline")
+user_input = 42
+validation_status = (if (is_int user_input)
+  (if (greater_than user_input 0)
+    1
+    2)
+  3)
+(println "User Input:" user_input "| Validation Status:" validation_status)
+(println "Status 1 = valid positive int, 2 = valid non-positive int, 3 = invalid type")
+(println "")
+
+(println "=== Demo Complete ===")

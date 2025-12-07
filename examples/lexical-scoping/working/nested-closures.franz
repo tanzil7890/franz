@@ -1,0 +1,49 @@
+// Nested Closures Example
+// Demonstrates closures returning closures with independent captured environments
+
+(println "=== Nested Closures ===")
+(println "")
+
+// Outer function captures 'base'
+make_calculator = {base ->
+  (println "Creating calculator with base=" base)
+
+  // Inner function captures 'operation' and accesses outer 'base'
+  <- {operation ->
+    (println "  Operation: " operation)
+
+    // Innermost function captures both 'base' and 'operation'
+    <- {value ->
+      <- (if (is operation "add")
+        {-> <- (add base value)}
+        {-> <- (multiply base value)}
+      )
+    }
+  }
+}
+
+// Create calculator with base=10
+(println "")
+calc10 = (make_calculator 10)
+
+// Create adder and multiplier from calc10
+(println "")
+adder = (calc10 "add")
+multiplier = (calc10 "multiply")
+
+// Use the nested closures
+(println "")
+(println "adder(5) = " (adder 5) " (10 + 5 = 15)")
+(println "multiplier(5) = " (multiplier 5) " (10 * 5 = 50)")
+
+// Create independent calculator with different base
+(println "")
+calc100 = (make_calculator 100)
+adder100 = (calc100 "add")
+
+(println "")
+(println "adder100(5) = " (adder100 5) " (100 + 5 = 105)")
+(println "adder(5) still = " (adder 5) " (still 10 + 5 = 15)")
+
+(println "")
+(println "Each closure maintains its own independent captured environment")

@@ -1,0 +1,84 @@
+// Stopwatch Example - Lap Timer
+// Demonstrates creating a stopwatch with lap timing using (time)
+
+(println "╔════════════════════════════════════╗")
+(println "║        Stopwatch Lap Timer         ║")
+(println "╚════════════════════════════════════╝")
+(println "")
+
+// Create stopwatch
+stopwatch = {->
+  start_time = (time)
+  laps = (list)
+
+  <- (dict
+    "lap" {->
+      lap_time = (subtract (time) start_time)
+      laps = (insert laps lap_time)
+      <- lap_time
+    }
+    "total" {->
+      <- (subtract (time) start_time)
+    }
+    "laps" {->
+      <- laps
+    }
+    "count" {->
+      <- (length laps)
+    }
+  )
+}
+
+// Format time for display
+format_time = {seconds ->
+  <- (if (less_than seconds 1) {
+    ms = (multiply seconds 1000)
+    <- (join (integer ms) "ms")
+  } {
+    <- (join seconds "s")
+  })
+}
+
+// Simulate race with laps
+(println "Simulating 5-lap race...\n")
+
+sw = (stopwatch)
+
+(loop 5 {i ->
+  lap_num = (add i 1)
+
+  // Simulate work (random-ish duration)
+  work_amount = (multiply (remainder i 3) 100)
+  (loop work_amount {j ->
+    x = (multiply j j)
+  })
+
+  // Record lap
+  lap_time = (dict_get sw "lap")
+  (println "Lap" lap_num ":" (format_time lap_time))
+})
+
+(println "")
+(println "═══════════════════════════════════")
+
+// Display summary
+total_time = (dict_get sw "total")
+lap_times = (dict_get sw "laps")
+lap_count = (dict_get sw "count")
+
+(println "Race Complete!")
+(println "  Total Time:" (format_time total_time))
+(println "  Laps:" lap_count)
+
+// Calculate fastest lap
+fastest = (reduce lap_times {best current i ->
+  <- (if (less_than current best) {<- current} {<- best})
+} (get lap_times 0))
+
+(println "  Fastest Lap:" (format_time fastest))
+
+// Calculate average lap time
+avg_lap = (divide total_time lap_count)
+(println "  Average Lap:" (format_time avg_lap))
+
+(println "═══════════════════════════════════")

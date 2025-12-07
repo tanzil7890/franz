@@ -1,0 +1,143 @@
+(println "=== Franz String Formatting Functions Demo ===")
+(println "")
+
+(println "--- Number Base Conversion with format-int ---")
+(println "")
+
+num = 42
+(println "Converting decimal 42 to all bases:")
+(println "Binary:      " (format-int num 2))
+(println "Octal:       " (format-int num 8))
+(println "Decimal:     " (format-int num 10))
+(println "Hexadecimal: " (format-int num 16))
+
+(println "")
+(println "--- Practical: Display RGB Color ---")
+color = 0xFF5733
+(println "Color value: " color)
+(println "Hex format:  " (format-int color 16))
+(println "Binary:      " (format-int color 2))
+
+(println "")
+(println "--- Practical: File Permissions ---")
+perms = 493
+(println "Permissions (decimal): " perms)
+(println "Octal format:          " (format-int perms 8))
+
+(println "")
+(println "--- Practical: Bit Pattern Display ---")
+flags = 0b00101101
+(println "Flags value:   " flags)
+(println "Binary format: " (format-int flags 2))
+(println "Hex format:    " (format-int flags 16))
+
+(println "")
+(println "--- Float Precision Control with format-float ---")
+(println "")
+
+pi = 3.14159265359
+(println "Pi with different precisions:")
+(println "0 decimals:  " (format-float pi 0))
+(println "1 decimal:   " (format-float pi 1))
+(println "2 decimals:  " (format-float pi 2))
+(println "3 decimals:  " (format-float pi 3))
+(println "5 decimals:  " (format-float pi 5))
+(println "10 decimals: " (format-float pi 10))
+
+(println "")
+(println "--- Practical: Currency Formatting ---")
+price1 = 19.99
+price2 = 100.5
+price3 = 7.0
+
+(println "Product prices:")
+(println "$" (format-float price1 2))
+(println "$" (format-float price2 2))
+(println "$" (format-float price3 2))
+
+subtotal = (add (add price1 price2) price3)
+tax = (multiply subtotal 0.0825)
+total = (add subtotal tax)
+
+(println "")
+(println "Subtotal: $" (format-float subtotal 2))
+(println "Tax:      $" (format-float tax 2))
+(println "Total:    $" (format-float total 2))
+
+(println "")
+(println "--- Practical: Percentage Display ---")
+completed = 17
+totalTasks = 23
+ratio = (divide (multiply completed 1.0) totalTasks)
+percentage = (multiply ratio 100.0)
+
+(println "Tasks completed: " completed " / " totalTasks)
+(println "Progress:        " (format-float percentage 1) "%")
+
+(println "")
+(println "--- Practical: Scientific to Readable ---")
+speedOfLight = 2.998e8
+(println "Speed of light (sci): " speedOfLight " m/s")
+(println "Speed of light (fmt): " (format-float speedOfLight 0) " m/s")
+
+verySmall = 1.5e-10
+micro = (multiply verySmall 1e9)
+(println "")
+(println "Atom diameter (meters): " verySmall)
+(println "Atom diameter (nm):     " (format-float micro 2))
+
+(println "")
+(println "--- Base Conversion Pipeline ---")
+(println "Convert between different representations:")
+original = 171
+
+step1 = (format-int original 16)
+step2 = (format-int original 2)
+step3 = (format-int original 8)
+
+(println "Original decimal: " original)
+(println "Hexadecimal:      " step1)
+(println "Binary:           " step2)
+(println "Octal:            " step3)
+
+(println "")
+(println "--- Hex Dump Simulation ---")
+(println "Memory dump:")
+byte1 = 0xDE
+byte2 = 0xAD
+byte3 = 0xBE
+byte4 = 0xEF
+
+(println (format-int byte1 16) " " (format-int byte2 16) " " (format-int byte3 16) " " (format-int byte4 16))
+
+(println "")
+(println "--- Float Rounding Display ---")
+calculation = (multiply 3.7 8.2)
+(println "3.7 × 8.2 = " calculation)
+(println "Rounded to 1 decimal: " (format-float calculation 1))
+(println "Rounded to 0 decimals: " (format-float calculation 0))
+
+(println "")
+(println "--- Conversion Chain Example ---")
+(println "Hex literal → Format to binary → Format to octal:")
+hexInput = 0xAB
+binOutput = (format-int hexInput 2)
+octOutput = (format-int hexInput 8)
+
+(println "Input (hex):   " hexInput)
+(println "Binary:        " binOutput)
+(println "Octal:         " octOutput)
+
+(println "")
+(println "--- Practical: Debug Display ---")
+(println "Show all representations of a value:")
+debugVal = 255
+
+(println "Value: " debugVal)
+(println "  Binary:      " (format-int debugVal 2))
+(println "  Octal:       " (format-int debugVal 8))
+(println "  Decimal:     " (format-int debugVal 10))
+(println "  Hexadecimal: " (format-int debugVal 16))
+
+(println "")
+(println "=== Demo Complete ===")

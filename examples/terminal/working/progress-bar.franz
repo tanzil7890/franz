@@ -1,0 +1,39 @@
+(println "=== Progress Bar Example ===")
+(println "")
+
+// Get terminal width
+width = (columns)
+
+// Function to draw progress bar
+// Progress is 0-100
+show_progress = {percent ->
+  // Calculate filled portion (leave space for percentage display)
+  bar_width = (subtract width 10)
+  filled_count = (divide (multiply bar_width percent) 100)
+  empty_count = (subtract bar_width filled_count)
+
+  // Create bar components
+  filled = (repeat "█" filled_count)
+  empty = (repeat "░" empty_count)
+
+  // Print progress bar
+  (print "[")
+  (print filled)
+  (print empty)
+  (print "] ")
+  (print percent)
+  (println "%")
+
+  <- 0
+}
+
+// Simulate progress
+(println "Downloading file...")
+(show_progress 0)
+(show_progress 25)
+(show_progress 50)
+(show_progress 75)
+(show_progress 100)
+
+(println "")
+(println "Download complete!")

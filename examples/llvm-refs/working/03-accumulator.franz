@@ -1,0 +1,43 @@
+// Example 3: Accumulator Pattern
+// Demonstrates: Using refs for accumulation, closure factory returning accumulator
+
+(println "=== Accumulator Pattern ===")
+(println "")
+
+// Factory function that creates an accumulator
+make_accumulator = {->
+  sum = (ref 0)
+  <- {n ->
+    current = (deref sum)
+    new_sum = (add current n)
+    (set! sum new_sum)
+    <- new_sum
+  }
+}
+
+// Create an accumulator
+(println "Creating accumulator...")
+acc = (make_accumulator)
+
+// Accumulate values
+(println "")
+(println "Accumulating values:")
+r1 = (acc 5)
+(println "  Add 5, total:" r1)
+
+r2 = (acc 10)
+(println "  Add 10, total:" r2)
+
+r3 = (acc 3)
+(println "  Add 3, total:" r3)
+
+r4 = (acc 7)
+(println "  Add 7, total:" r4)
+
+// Final total
+(println "")
+(println "Final total:" r4)
+(println "Expected: 5 + 10 + 3 + 7 = 25")
+
+(println "")
+(println "✓ Accumulator example complete!")

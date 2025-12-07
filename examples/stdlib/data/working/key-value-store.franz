@@ -1,0 +1,127 @@
+(use "stdlib/data.franz" {
+  (println "=== Key-Value Store Implementation ===")
+  (println "")
+
+  // ========================================================================
+  // Simple Key-Value Store using Association Lists
+  // ========================================================================
+
+  (println "Building a simple key-value store...")
+  (println "")
+
+  // Initialize empty store
+  store = (list)
+
+  // Add entries
+  (println "Adding entries:")
+  store = (insert store (pair "user:1:name" "Alice"))
+  (println "  Added: user:1:name = Alice")
+
+  store = (insert store (pair "user:1:email" "alice@example.com"))
+  (println "  Added: user:1:email = alice@example.com")
+
+  store = (insert store (pair "user:2:name" "Bob"))
+  (println "  Added: user:2:name = Bob")
+
+  store = (insert store (pair "user:2:email" "bob@example.com"))
+  (println "  Added: user:2:email = bob@example.com")
+
+  store = (insert store (pair "config:debug" 1))
+  (println "  Added: config:debug = 1")
+
+  store = (insert store (pair "config:port" 8080))
+  (println "  Added: config:port = 8080")
+
+  (println "")
+
+  // Query store
+  (println "Querying store:")
+  user1_name = (assoc "user:1:name" store)
+  (println "  user:1:name =" user1_name)
+
+  debug_mode = (assoc "config:debug" store)
+  (println "  config:debug =" debug_mode)
+
+  missing = (assoc "nonexistent:key" store)
+  (println "  nonexistent:key =" missing)
+
+  (println "")
+
+  // List all keys by prefix
+  (println "All entries:")
+  (map store {entry _ ->
+    key = (fst entry)
+    value = (snd entry)
+    (println "  " key ":" value)
+    <- void
+  })
+
+  (println "")
+
+  // ========================================================================
+  // Group entries by namespace (prefix before first :)
+  // ========================================================================
+
+  (println "Grouping by namespace:")
+
+  // Extract namespace from key
+  get_namespace = {key _ ->
+    // Simplified: just take first word before colon
+    // In real implementation, would use string split
+    <- (if (is key "user:1:name") { <- "user" })
+    <- (if (is key "user:1:email") { <- "user" })
+    <- (if (is key "user:2:name") { <- "user" })
+    <- (if (is key "user:2:email") { <- "user" })
+    <- (if (is key "config:debug") { <- "config" })
+    <- (if (is key "config:port") { <- "config" })
+    <- "other"
+  }
+
+  namespaces = (group_by get_namespace store)
+
+  (map namespaces {ns_group _ ->
+    namespace = (fst ns_group)
+    entries = (snd ns_group)
+    (println "  Namespace: " namespace)
+    (map entries {entry _ ->
+      key = (fst entry)
+      value = (snd entry)
+      (println "    " key "=" value)
+      <- void
+    })
+    <- void
+  })
+
+  (println "")
+
+  // ========================================================================
+  // Cache simulation with access counts
+  // ========================================================================
+
+  (println "Simulating cache access counts:")
+
+  // Track access patterns
+  access_log = (list
+    (pair "page:home" 1)
+    (pair "page:about" 1)
+    (pair "page:home" 1)
+    (pair "page:contact" 1)
+    (pair "page:home" 1)
+    (pair "page:about" 1)
+  )
+
+  // Group by page to count accesses
+  page_accesses = (group_by {access _ -> <- (fst access)} access_log)
+
+  (println "Page access statistics:")
+  (map page_accesses {page_group _ ->
+    page = (fst page_group)
+    accesses = (snd page_group)
+    count = (length accesses)
+    (println "  " page ": " count "accesses")
+    <- void
+  })
+
+  (println "")
+  (println "✓ Key-value store examples complete!")
+})

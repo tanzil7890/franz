@@ -1,0 +1,132 @@
+// List Module - All Functions Demo
+// Demonstrates all 12 list functions from stdlib/list.franz
+
+(use "stdlib/list.franz" {
+  (println "=== Franz List Module Demo ===")
+  (println "")
+
+  // ===== List Transformation =====
+  (println "1. reverse - Reverse list order")
+  original = (list 1 2 3 4 5)
+  reversed = (reverse original)
+  (println "   Original:" original)
+  (println "   Reversed:" reversed)
+  (println "")
+
+  (println "2. unique - Remove duplicates")
+  with_dupes = (list 1 2 2 3 1 4 3 5)
+  no_dupes = (unique with_dupes)
+  (println "   With duplicates:" with_dupes)
+  (println "   Without duplicates:" no_dupes)
+  (println "")
+
+  (println "3. flatten - Flatten nested lists")
+  nested = (list (list 1 2) (list 3 4) (list 5 6))
+  flat = (flatten nested)
+  (println "   Nested:" nested)
+  (println "   Flattened:" flat)
+  (println "")
+
+  (println "4. zip - Combine two lists into pairs")
+  numbers = (list 1 2 3 4)
+  letters = (list "a" "b" "c" "d")
+  pairs = (zip numbers letters)
+  (println "   Numbers:" numbers)
+  (println "   Letters:" letters)
+  (println "   Zipped:" pairs)
+  (println "")
+
+  // ===== List Filtering =====
+  (println "5. take - Take first N elements")
+  full_list = (list 10 20 30 40 50 60)
+  first_three = (take full_list 3)
+  (println "   Full list:" full_list)
+  (println "   First 3:" first_three)
+  (println "")
+
+  (println "6. drop - Drop first N elements")
+  after_drop = (drop full_list 2)
+  (println "   Full list:" full_list)
+  (println "   After dropping 2:" after_drop)
+  (println "")
+
+  (println "7. partition - Split by predicate")
+  mixed = (list 1 2 3 4 5 6 7 8 9 10)
+  parts = (partition mixed {item index -> <- (is (remainder item 2) 0)})
+  (println "   Mixed numbers:" mixed)
+  (println "   Partitioned (evens, odds):" parts)
+  (println "")
+
+  // ===== List Inspection =====
+  (println "8. any - Check if any element matches")
+  test_list = (list 1 2 3 4 5)
+  has_large = (any test_list {item index -> <- (greater_than item 3)})
+  (println "   List:" test_list)
+  (println "   Has number > 3:" has_large)
+  (println "")
+
+  (println "9. all - Check if all elements match")
+  all_evens = (list 2 4 6 8)
+  all_even_check = (all all_evens {item index -> <- (is (remainder item 2) 0)})
+  (println "   List:" all_evens)
+  (println "   All even:" all_even_check)
+  (println "")
+
+  // ===== List Generation =====
+  (println "10. filled - Create list filled with value")
+  zeros = (filled 0 5)
+  stars = (filled "*" 10)
+  (println "   filled(0, 5):" zeros)
+  (println "   filled('*', 10):" stars)
+  (println "")
+
+  (println "11. chunk - Split list into chunks")
+  sequence = (list 1 2 3 4 5 6 7 8 9)
+  chunks = (chunk sequence 3)
+  (println "   Sequence:" sequence)
+  (println "   Chunked by 3:" chunks)
+  (println "")
+
+  (println "12. sort - Sort list in ascending order")
+  unsorted = (list 3 1 4 1 5 9 2 6 5 3)
+  sorted = (sort unsorted)
+  (println "   Unsorted:" unsorted)
+  (println "   Sorted:" sorted)
+  (println "")
+
+  // ===== Real-World Example: Data Processing =====
+  (println "=== Real-World Example: Student Grades ===")
+
+  // Student scores
+  all_scores = (list 85 92 78 95 88 72 95 88 91 84 78 95)
+
+  (println "All scores:" all_scores)
+
+  // Remove duplicate scores
+  unique_scores = (unique all_scores)
+  (println "Unique scores:" unique_scores)
+
+  // Sort scores
+  sorted_scores = (sort all_scores)
+  (println "Sorted scores:" sorted_scores)
+
+  // Get top 3 scores
+  top_three = (reverse (take (reverse sorted_scores) 3))
+  (println "Top 3 scores:" top_three)
+
+  // Partition into passing/failing (>= 80)
+  pass_fail = (partition all_scores {score index -> <- (not (less_than score 80))})
+  (println "Passing scores:" (get pass_fail 0))
+  (println "Failing scores:" (get pass_fail 1))
+
+  // Check if any failed
+  any_failed = (any all_scores {score index -> <- (less_than score 80)})
+  (println "Any failures:" any_failed)
+
+  // Check if all passed
+  all_passed = (all all_scores {score index -> <- (not (less_than score 80))})
+  (println "All passed:" all_passed)
+
+  (println "")
+  (println "✓ List module demo complete!")
+})

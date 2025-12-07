@@ -1,0 +1,17 @@
+// Basic Filter Example - Filter positive numbers
+
+(println "=== Basic Filter Example ===")
+(println "")
+
+// Create a mixed list with negative, zero, and positive numbers
+numbers = [-10, -5, 0, 3, 7, 12, -2, 8, 15]
+(println "Original list:" numbers)
+
+// Define predicate: is number positive?
+is_positive = {num index -> <- (greater_than num 0)}
+
+// Filter the list
+positives = (filter numbers is_positive)
+
+(println "Positive numbers:" positives)
+(println "Expected: [3, 7, 12, 8, 15]")

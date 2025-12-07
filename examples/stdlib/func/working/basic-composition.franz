@@ -1,0 +1,37 @@
+// Basic function composition examples using compose2
+(use "stdlib/func.franz" {
+  (println "=== Basic Function Composition Examples ===")
+  (println "")
+
+  // Example 1: Simple arithmetic composition
+  (println "Example 1: Double then add 10")
+  double = {x -> <- (multiply x 2)}
+  add_ten = {x -> <- (add x 10)}
+
+  result1 = (compose2 5 add_ten double)
+  (println "  (5 * 2) + 10 =" result1)
+  (println "")
+
+  // Example 2: String operations
+  (println "Example 2: String composition")
+  exclaim = {s -> <- (join s "!")}
+  greet = {name -> <- (join "Hello, " name)}
+
+  result2 = (compose2 "World" exclaim greet)
+  (println "  Result:" result2)
+  (println "")
+
+  // Example 3: Using identity
+  (println "Example 3: Identity function")
+  result3 = (compose2 42 identity identity)
+  (println "  identity(identity(42)) =" result3)
+  (println "")
+
+  // Example 4: Constant function
+  (println "Example 4: Constant function")
+  result4 = (constant "Always this" "Not this")
+  (println "  constant('Always this', 'Not this') =" result4)
+  (println "")
+
+  (println "✓ All composition examples completed!")
+})

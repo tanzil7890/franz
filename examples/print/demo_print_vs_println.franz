@@ -1,0 +1,25 @@
+// Demonstration: print vs println
+
+(println "=== Demo: print vs println ===")
+(println "")
+
+(println "Test 1: Using print (no newline)")
+(print "hello world Tanzil")
+(print "[CURSOR_IS_HERE_NO_SPACE_NO_NEWLINE]")
+(println "")
+(println "")
+
+(println "Test 2: Using println (with newline)")
+(println "hello world Tanzil")
+(println "[CURSOR_IS_HERE_ON_NEW_LINE]")
+(println "")
+
+(println "Test 3: print keeps cursor on same line")
+(print "A")
+(print "B")
+(print "C")
+(print "D")
+(println "E")
+(println "")
+
+(println "=== Both work correctly! ===")

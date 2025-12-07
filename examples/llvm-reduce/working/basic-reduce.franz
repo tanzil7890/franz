@@ -1,0 +1,30 @@
+// Basic LLVM Reduce Example
+// Demonstrates fundamental reduce patterns
+
+(println "=== Basic Reduce Examples ===\n")
+
+// Sum of numbers
+(println "1. Sum of [1, 2, 3, 4, 5]:")
+numbers = [1, 2, 3, 4, 5]
+sum = (reduce numbers {acc n i -> <- (add acc n)} 0)
+(println "   Result:" sum "\n")
+
+// Product of numbers
+(println "2. Product of [2, 3, 4]:")
+factors = [2, 3, 4]
+product = (reduce factors {acc n i -> <- (multiply acc n)} 1)
+(println "   Result:" product "\n")
+
+// Find maximum
+(println "3. Maximum of [3, 7, 2, 9, 1]:")
+values = [3, 7, 2, 9, 1]
+max_val = (reduce values {acc n i -> <- (if (greater_than n acc) {<- n} {<- acc})} 0)
+(println "   Result:" max_val "\n")
+
+// Count elements
+(println "4. Count elements in [10, 20, 30]:")
+items = [10, 20, 30]
+count = (reduce items {acc n i -> <- (add acc 1)} 0)
+(println "   Result:" count "\n")
+
+(println "=== Examples Complete ===")

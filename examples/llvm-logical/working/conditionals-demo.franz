@@ -1,0 +1,76 @@
+(println "=== Logical Operators in Conditionals ===")
+(println "")
+
+// ============================================================================
+// 1. Simple Boolean Check
+// ============================================================================
+(println "1. Simple Boolean Check")
+is_valid = 1
+(println "Is valid:" is_valid)
+(println "Is invalid:" (not is_valid))
+(println "")
+
+// ============================================================================
+// 2. Login System
+// ============================================================================
+(println "2. Login System")
+has_username = 1
+has_password = 1
+is_authenticated = (and has_username has_password)
+(println "Username provided:" has_username)
+(println "Password provided:" has_password)
+(println "Login successful:" is_authenticated)
+(println "")
+
+// ============================================================================
+// 3. Access Control
+// ============================================================================
+(println "3. Access Control")
+is_admin = 0
+is_owner = 1
+is_moderator = 0
+has_access = (or is_admin is_owner is_moderator)
+(println "Is admin:" is_admin)
+(println "Is owner:" is_owner)
+(println "Is moderator:" is_moderator)
+(println "Has access:" has_access)
+(println "")
+
+// ============================================================================
+// 4. Range Validation
+// ============================================================================
+(println "4. Range Validation")
+value = 50
+min_val = 10
+max_val = 100
+in_range = (and (greater_than value (subtract min_val 1)) (less_than value (add max_val 1)))
+(println "Value:" value)
+(println "Range: 10-100")
+(println "In range:" in_range)
+(println "")
+
+// ============================================================================
+// 5. Feature Toggles
+// ============================================================================
+(println "5. Feature Toggles")
+dark_mode_enabled = 1
+animations_enabled = 0
+show_feature = (and dark_mode_enabled (not animations_enabled))
+(println "Dark mode:" dark_mode_enabled)
+(println "Animations:" animations_enabled)
+(println "Show feature:" show_feature)
+(println "")
+
+// ============================================================================
+// 6. Multi-Factor Authentication
+// ============================================================================
+(println "6. Multi-Factor Authentication")
+password_correct = 1
+has_token = 1
+is_device_trusted = 0
+mfa_passed = (and password_correct (or has_token is_device_trusted))
+(println "Password correct:" password_correct)
+(println "Has token:" has_token)
+(println "Device trusted:" is_device_trusted)
+(println "MFA passed:" mfa_passed)
+(println "")

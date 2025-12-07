@@ -1,0 +1,11 @@
+// Example 4: List Comparison
+(println "Example 4: List Comparison")
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+list3 = [3, 2, 1]
+(println "  list1 = [1, 2, 3]")
+(println "  list2 = [1, 2, 3]")
+(println "  list3 = [3, 2, 1]")
+(println "  list1 == list2? " (if (is list1 list2) {<- "Yes"} {<- "No"}))
+(println "  list1 == list3? " (if (is list1 list3) {<- "Yes"} {<- "No"}))
+(println "")

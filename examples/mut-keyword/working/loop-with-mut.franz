@@ -1,0 +1,32 @@
+(println "=== Loop with Mutable Variables ===")
+(println "")
+
+(println "Test 1: Accumulating with mut in loop")
+mut sum = 0
+(loop 5 {i ->
+  sum = (add sum i)
+  (println "i:" i "sum:" sum)
+})
+(println "Final sum:" sum)
+
+(println "")
+(println "Test 2: Factorial with mut")
+mut fact = 1
+(loop 5 {i ->
+  n = (add i 1)
+  fact = (multiply fact n)
+})
+(println "5! =" fact)
+
+(println "")
+(println "Test 3: Multiple mut variables")
+mut counter = 0
+mut doubled = 0
+(loop 10 {i ->
+  counter = (add counter 1)
+  doubled = (multiply i 2)
+})
+(println "counter:" counter "doubled:" doubled)
+
+(println "")
+(println "All tests passed!")

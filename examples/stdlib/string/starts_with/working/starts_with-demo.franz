@@ -1,0 +1,24 @@
+// Franz String Library - starts_with() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== starts_with() Function Demo ===")
+  (println "")
+
+  (println "1. Check if starts with prefix")
+  (print "   starts_with('hello', 'hel') => ")
+  (println (starts_with "hello" "hel"))
+  (println "")
+
+  (println "2. Validate file extension (doesn't start)")
+  (print "   starts_with('file.txt', '.txt') => ")
+  (println (starts_with "file.txt" ".txt"))
+  (println "")
+
+  (println "3. Check protocol")
+  (print "   starts_with('https://example.com', 'https') => ")
+  (println (starts_with "https://example.com" "https"))
+  (println "")
+
+  (println "Note: Returns 1 for true, 0 for false")
+  (println "starts_with() demo complete!")
+})

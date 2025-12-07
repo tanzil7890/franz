@@ -1,0 +1,14 @@
+// Safe library with only print capability
+// This defines pure functions that can use arithmetic
+
+square = {x ->
+  <- (multiply x x)
+}
+
+cube = {x ->
+  <- (multiply (multiply x x) x)
+}
+
+greet = {name ->
+  <- (join "Hello, " name "!")
+}

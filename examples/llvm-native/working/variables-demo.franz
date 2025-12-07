@@ -1,0 +1,42 @@
+(println "=== Franz LLVM Native Compiler - Variables Demo ===")
+(println "")
+
+(println "Integer Variables:")
+x = 42
+(println "x = 42")
+(println "x =" x)
+(println "")
+
+(println "Float Variables:")
+pi = 3.14159
+(println "pi = 3.14159")
+(println "pi =" pi)
+(println "")
+
+(println "String Variables:")
+message = "Hello from native code"
+(println "message = \"Hello from native code\"")
+(println "message =" message)
+(println "")
+
+(println "Variable Arithmetic:")
+a = 10
+b = 5
+(println "a = 10")
+(println "b = 5")
+(println "a + b =" (add a b))
+(println "a - b =" (subtract a b))
+(println "a * b =" (multiply a b))
+(println "a / b =" (divide a b))
+(println "")
+
+(println "Multiple Assignments:")
+result = (add 2 3)
+(println "result = (add 2 3)")
+(println "result =" result)
+doubled = (multiply result 2)
+(println "doubled = (multiply result 2)")
+(println "doubled =" doubled)
+(println "")
+
+(println "Variables work correctly in native code!")

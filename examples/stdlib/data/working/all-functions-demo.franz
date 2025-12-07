@@ -1,0 +1,142 @@
+(use "stdlib/data.franz" {
+  (println "=== Franz Data Structure Utilities - All Functions Demo ===")
+  (println "")
+
+  // ========================================================================
+  // 1. PAIR - Create 2-element tuples
+  // ========================================================================
+
+  (println "1. pair() - Create 2-element pairs/tuples")
+  coordinate = (pair 10 20)
+  (println "  Coordinate:" coordinate)
+
+  name_age = (pair "Alice" 30)
+  (println "  Person:" name_age)
+  (println "")
+
+  // ========================================================================
+  // 2. FST - Get first element
+  // ========================================================================
+
+  (println "2. fst() - Extract first element")
+  x = (fst coordinate)
+  (println "  X coordinate:" x)
+
+  name = (fst name_age)
+  (println "  Name:" name)
+  (println "")
+
+  // ========================================================================
+  // 3. SND - Get second element
+  // ========================================================================
+
+  (println "3. snd() - Extract second element")
+  y = (snd coordinate)
+  (println "  Y coordinate:" y)
+
+  age = (snd name_age)
+  (println "  Age:" age)
+  (println "")
+
+  // ========================================================================
+  // 4. ASSOC - Association list lookup
+  // ========================================================================
+
+  (println "4. assoc() - Lookup in association lists")
+  config = (list
+    (pair "host" "localhost")
+    (pair "port" 8080)
+    (pair "debug" 1)
+  )
+
+  host = (assoc "host" config)
+  (println "  Host:" host)
+
+  port = (assoc "port" config)
+  (println "  Port:" port)
+
+  missing = (assoc "nonexistent" config)
+  (println "  Missing key:" missing)
+  (println "")
+
+  // ========================================================================
+  // 5. ZIP_WITH - Combine two lists
+  // ========================================================================
+
+  (println "5. zip_with() - Combine lists with function")
+
+  (println "  Addition:")
+  list1 = (list 1 2 3 4)
+  list2 = (list 10 20 30 40)
+  sums = (zip_with add list1 list2)
+  (println "    " list1 "+" list2 "=" sums)
+
+  (println "  Create pairs:")
+  keys = (list "a" "b" "c")
+  values = (list 1 2 3)
+  pairs = (zip_with pair keys values)
+  (println "    Keys:" keys)
+  (println "    Values:" values)
+  (println "    Pairs:" pairs)
+  (println "")
+
+  // ========================================================================
+  // 6. GROUP_BY - Group elements by key function
+  // ========================================================================
+
+  (println "6. group_by() - Group elements by key")
+
+  (println "  Group by even/odd:")
+  numbers = (list 1 2 3 4 5 6 7 8 9 10)
+  even_odd_groups = (group_by {x _ -> <- (remainder x 2)} numbers)
+  (println "    Numbers:" numbers)
+  (println "    Groups:" even_odd_groups)
+
+  (println "  Group by length:")
+  words = (list "a" "bb" "ccc" "dd" "eee" "f" "gg")
+  length_groups = (group_by {word _ -> <- (length word)} words)
+  (println "    Words:" words)
+  (println "    By length:" length_groups)
+  (println "")
+
+  // ========================================================================
+  // INTEGRATION EXAMPLE
+  // ========================================================================
+
+  (println "=== Integration Example: User Data Processing ===")
+
+  // Create user records as pairs
+  users = (list
+    (pair "Alice" 25)
+    (pair "Bob" 30)
+    (pair "Charlie" 25)
+    (pair "Diana" 30)
+    (pair "Eve" 28)
+  )
+
+  (println "Users:")
+  (map users {user _ ->
+    user_name = (fst user)
+    user_age = (snd user)
+    (println "  -" user_name "(" user_age "years old)")
+    <- void
+  })
+
+  (println "")
+  (println "Grouped by age:")
+  age_groups = (group_by {user _ -> <- (snd user)} users)
+  (map age_groups {group _ ->
+    age_val = (fst group)
+    people = (snd group)
+    (println "  Age" age_val ":")
+    (map people {person _ ->
+      person_name = (fst person)
+      (println "    -" person_name)
+      <- void
+    })
+    <- void
+  })
+
+  (println "")
+  (println "✓ All 6 data structure functions demonstrated!")
+})

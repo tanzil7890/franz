@@ -1,0 +1,171 @@
+(use "stdlib/list.franz" {
+(use "stdlib/data.franz" {
+  (println "=== Advanced Data Processing with Data Structures ===")
+  (println "")
+
+  // ========================================================================
+  // SCENARIO: Processing Sales Data
+  // ========================================================================
+
+  (println "Scenario: Sales Transaction Processing")
+  (println "")
+
+  // Sales records: (product_name, amount)
+  sales = (list
+    (pair "Laptop" 1200)
+    (pair "Mouse" 25)
+    (pair "Keyboard" 75)
+    (pair "Laptop" 1200)
+    (pair "Monitor" 300)
+    (pair "Mouse" 25)
+    (pair "Laptop" 1200)
+    (pair "Keyboard" 75)
+  )
+
+  (println "Total transactions:" (length sales))
+  (println "")
+
+  // Group sales by product
+  (println "Grouping sales by product...")
+  product_groups = (group_by {sale _ -> <- (fst sale)} sales)
+
+  (println "Product Summary:")
+  (map product_groups {group _ ->
+    product = (fst group)
+    transactions = (snd group)
+    count = (length transactions)
+
+    // Calculate total revenue for this product
+    total = (reduce transactions {acc transaction _ ->
+      price = (snd transaction)
+      <- (add acc price)
+    } 0)
+
+    (println "  " product)
+    (println "    Transactions:" count)
+    (println "    Total Revenue: $" total)
+    <- void
+  })
+
+  (println "")
+
+  // ========================================================================
+  // SCENARIO: Coordinate Transformations
+  // ========================================================================
+
+  (println "Scenario: 2D Coordinate Transformations")
+  (println "")
+
+  points = (list
+    (pair 0 0)
+    (pair 1 1)
+    (pair 2 2)
+    (pair 3 3)
+  )
+
+  (println "Original points:")
+  (map points {p _ ->
+    x = (fst p)
+    y = (snd p)
+    (println "  (" x "," y ")")
+    <- void
+  })
+
+  // Translate all points by (10, 20)
+  (println "")
+  (println "Translated by (+10, +20):")
+  translated = (map points {p _ ->
+    x = (fst p)
+    y = (snd p)
+    new_x = (add x 10)
+    new_y = (add y 20)
+    <- (pair new_x new_y)
+  })
+
+  (map translated {p _ ->
+    x = (fst p)
+    y = (snd p)
+    (println "  (" x "," y ")")
+    <- void
+  })
+
+  // Calculate distances from origin
+  (println "")
+  (println "Distances from origin:")
+  (map points {p _ ->
+    x = (fst p)
+    y = (snd p)
+    // Approximate distance (x + y for simplicity)
+    dist = (add x y)
+    (println "  (" x "," y ") -> distance:" dist)
+    <- void
+  })
+
+  (println "")
+
+  // ========================================================================
+  // SCENARIO: Configuration Merging
+  // ========================================================================
+
+  (println "Scenario: Configuration Management")
+  (println "")
+
+  default_config = (list
+    (pair "timeout" 30)
+    (pair "retries" 3)
+    (pair "verbose" 0)
+  )
+
+  user_config = (list
+    (pair "timeout" 60)
+    (pair "cache" 1)
+  )
+
+  (println "Default config:")
+  (map default_config {entry _ ->
+    key = (fst entry)
+    val = (snd entry)
+    (println "  " key "=" val)
+    <- void
+  })
+
+  (println "")
+  (println "User config:")
+  (map user_config {entry _ ->
+    key = (fst entry)
+    val = (snd entry)
+    (println "  " key "=" val)
+    <- void
+  })
+
+  // Merge: user config overrides defaults
+  (println "")
+  (println "Merged config:")
+  merged_keys = (unique (map default_config {entry _ -> <- (fst entry)}))
+
+  (map merged_keys {key _ ->
+    user_val = (assoc key user_config)
+    final_val = (if (is user_val void) {
+      <- (assoc key default_config)
+    } {
+      <- user_val
+    })
+    (println "  " key "=" final_val)
+    <- void
+  })
+
+  // Add user-only keys
+  (map user_config {entry _ ->
+    key = (fst entry)
+    default_val = (assoc key default_config)
+    (if (is default_val void) {
+      val = (snd entry)
+      (println "  " key "=" val "(user-only)")
+    })
+    <- void
+  })
+
+  (println "")
+  (println "✓ Advanced data processing examples complete!")
+})
+})

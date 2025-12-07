@@ -1,0 +1,41 @@
+// Option Type Pattern (Similar to Rust's Option<T>)
+// Use ADT for safe null handling
+
+(println "=== Option Type Example ===")
+(println "")
+
+// Simulate database lookup that may fail
+lookup_user = {id ->
+  (if (is id 1)
+    {<- (variant "Some" "Alice")}
+    {(if (is id 2)
+      {<- (variant "Some" "Bob")}
+      {<- (variant "None")})})
+}
+
+// Test user lookup
+(println "Looking up user ID 1:")
+user1 = (lookup_user 1)
+result1 = (match user1
+  "Some" {-> (println "  ✓ User found!")}
+  "None" {-> (println "  ✗ User not found")}
+)
+
+(println "")
+(println "Looking up user ID 2:")
+user2 = (lookup_user 2)
+result2 = (match user2
+  "Some" {-> (println "  ✓ User found!")}
+  "None" {-> (println "  ✗ User not found")}
+)
+
+(println "")
+(println "Looking up user ID 999:")
+user3 = (lookup_user 999)
+result3 = (match user3
+  "Some" {-> (println "  ✓ User found!")}
+  "None" {-> (println "  ✗ User not found")}
+)
+
+(println "")
+(println "Option type pattern complete!")

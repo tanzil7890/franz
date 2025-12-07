@@ -1,0 +1,8 @@
+// Simple sig syntax test - just parse the signature
+
+// Test 1: Basic signature (no arrows yet - just type name)
+(sig x integer)
+x = 5
+
+(print "x = " (string x) "\n")
+

@@ -1,0 +1,153 @@
+(println "=== Franz Multi-Base Number Formats Demo ===")
+(println "")
+
+(println "--- Hexadecimal Integers ---")
+(println "RGB Color Codes:")
+red = 0xFF0000
+green = 0x00FF00
+blue = 0x0000FF
+white = 0xFFFFFF
+
+(println "Red:   " red)
+(println "Green: " green)
+(println "Blue:  " blue)
+(println "White: " white)
+
+(println "")
+(println "Memory Address Simulation:")
+baseAddr = 0x40000000
+offset = 0x100
+addr = (add baseAddr offset)
+(println "Base:   " baseAddr)
+(println "Offset: " offset)
+(println "Result: " addr)
+
+(println "")
+(println "--- Binary Integers ---")
+(println "Bit Flags:")
+flag1 = 0b00000001
+flag2 = 0b00000010
+flag3 = 0b00000100
+flag4 = 0b00001000
+
+(println "Flag 1: " flag1)
+(println "Flag 2: " flag2)
+(println "Flag 3: " flag3)
+(println "Flag 4: " flag4)
+
+combined = (add (add flag1 flag2) (add flag3 flag4))
+(println "Combined flags: " combined)
+
+(println "")
+(println "Binary Arithmetic:")
+a = 0b1111
+b = 0b0001
+sum = (add a b)
+(println a " + " b " = " sum)
+
+(println "")
+(println "--- Octal Integers ---")
+(println "Unix File Permissions:")
+readWrite = 0o644
+executable = 0o755
+restricted = 0o600
+
+(println "Read/Write (644):    " readWrite)
+(println "Executable (755):    " executable)
+(println "Restricted (600):    " restricted)
+
+(println "")
+(println "--- Hexadecimal Floats ---")
+(println "IEEE 754 Hex Floats:")
+one = 0x1.0p0
+two = 0x1.0p1
+twelve = 0x1.8p3
+half = 0x1.0p-1
+small = 0x1.Ap-3
+
+(println "1.0 × 2^0  = " one)
+(println "1.0 × 2^1  = " two)
+(println "1.5 × 2^3  = " twelve)
+(println "1.0 × 2^-1 = " half)
+(println "1.625 × 2^-3 = " small)
+
+(println "")
+(println "--- Scientific Notation ---")
+(println "Physical Constants:")
+speedOfLight = 2.998e8
+planck = 6.626e-34
+avogadro = 6.022e23
+
+(println "Speed of light: " speedOfLight " m/s")
+(println "Planck constant: " planck " J⋅s")
+(println "Avogadro number: " avogadro " mol^-1")
+
+(println "")
+(println "--- Mixed Base Arithmetic ---")
+(println "Different bases, same operation:")
+hexVal = 0xFF
+binVal = 0b1
+octVal = 0o10
+decVal = 10
+
+result1 = (add hexVal binVal)
+result2 = (multiply octVal decVal)
+result3 = (add (add hexVal binVal) (multiply octVal decVal))
+
+(println "0xFF + 0b1 = " result1)
+(println "0o10 × 10 = " result2)
+(println "(0xFF + 0b1) + (0o10 × 10) = " result3)
+
+(println "")
+(println "--- Format Conversions ---")
+value = 255
+
+(println "Decimal 255 in different bases:")
+binStr = (format-int value 2)
+octStr = (format-int value 8)
+decStr = (format-int value 10)
+hexStr = (format-int value 16)
+
+(println "Binary:      " binStr)
+(println "Octal:       " octStr)
+(println "Decimal:     " decStr)
+(println "Hexadecimal: " hexStr)
+
+(println "")
+(println "--- Float Precision Control ---")
+pi = 3.14159265359
+
+(println "Pi with different precisions:")
+p0 = (format-float pi 0)
+p2 = (format-float pi 2)
+p5 = (format-float pi 5)
+p10 = (format-float pi 10)
+
+(println "0 decimals:  " p0)
+(println "2 decimals:  " p2)
+(println "5 decimals:  " p5)
+(println "10 decimals: " p10)
+
+(println "")
+(println "--- Practical Example: Color Converter ---")
+(println "Convert RGB to different formats:")
+rgbColor = 0xABCDEF
+
+(println "Original (hex): " rgbColor)
+(println "Decimal:        " rgbColor)
+binColor = (format-int rgbColor 2)
+(println "Binary:         " binColor)
+
+(println "")
+(println "--- Practical Example: Bit Manipulation ---")
+(println "Display byte as binary:")
+byte = 0b10101101
+
+(println "Byte value:  " byte)
+binDisplay = (format-int byte 2)
+(println "Binary:      " binDisplay)
+hexDisplay = (format-int byte 16)
+(println "Hexadecimal: " hexDisplay)
+
+(println "")
+(println "=== Demo Complete ===")

@@ -1,0 +1,24 @@
+// Franz String Library - ends_with() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== ends_with() Function Demo ===")
+  (println "")
+
+  (println "1. Check if ends with suffix")
+  (print "   ends_with('hello', 'lo') => ")
+  (println (ends_with "hello" "lo"))
+  (println "")
+
+  (println "2. Validate file extension")
+  (print "   ends_with('file.txt', '.txt') => ")
+  (println (ends_with "file.txt" ".txt"))
+  (println "")
+
+  (println "3. Check URL path")
+  (print "   ends_with('example.com/api', '/api') => ")
+  (println (ends_with "example.com/api" "/api"))
+  (println "")
+
+  (println "Note: Returns 1 for true, 0 for false")
+  (println "ends_with() demo complete!")
+})

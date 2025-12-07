@@ -1,0 +1,173 @@
+(println "=== Franz Logical Operators Demo ===")
+(println "")
+
+// ============================================================================
+// 1. NOT Operator - Boolean Inversion
+// ============================================================================
+(println "1. NOT Operator")
+(println "---------------")
+
+is_logged_in = 0
+needs_login = (not is_logged_in)
+(println "User logged in:" is_logged_in)
+(println "Needs login:" needs_login)
+(println "")
+
+// ============================================================================
+// 2. AND Operator - All Conditions Must Be True
+// ============================================================================
+(println "2. AND Operator")
+(println "---------------")
+
+// Example: Account access control
+has_password = 1
+has_2fa = 1
+account_verified = 1
+can_access = (and has_password has_2fa account_verified)
+
+(println "Has password:" has_password)
+(println "Has 2FA:" has_2fa)
+(println "Account verified:" account_verified)
+(println "Can access account:" can_access)
+(println "")
+
+// ============================================================================
+// 3. OR Operator - At Least One Condition Must Be True
+// ============================================================================
+(println "3. OR Operator")
+(println "--------------")
+
+// Example: Payment methods accepted
+accepts_credit = 1
+accepts_paypal = 0
+accepts_crypto = 0
+can_pay = (or accepts_credit accepts_paypal accepts_crypto)
+
+(println "Accepts credit card:" accepts_credit)
+(println "Accepts PayPal:" accepts_paypal)
+(println "Accepts crypto:" accepts_crypto)
+(println "Can make payment:" can_pay)
+(println "")
+
+// ============================================================================
+// 4. Complex Boolean Logic
+// ============================================================================
+(println "4. Complex Boolean Logic")
+(println "------------------------")
+
+// Example: Discount eligibility
+// Eligible if: (is_member AND purchases > 5) OR (total_spent > 1000)
+is_member = 1
+purchases = 8
+total_spent = 500
+
+member_discount = (and is_member (greater_than purchases 5))
+big_spender = (greater_than total_spent 1000)
+gets_discount = (or member_discount big_spender)
+
+(println "Is member:" is_member)
+(println "Purchases:" purchases)
+(println "Total spent:" total_spent)
+(println "Gets discount:" gets_discount)
+(println "")
+
+// ============================================================================
+// 5. Practical Use Case: Age Validation
+// ============================================================================
+(println "5. Age Validation")
+(println "-----------------")
+
+age = 25
+min_age = 18
+max_age = 65
+
+is_adult = (greater_than age (subtract min_age 1))
+not_retired = (less_than age max_age)
+is_valid_age = (and is_adult not_retired)
+
+(println "Age:" age)
+(println "Valid range: 18-64")
+(println "Is valid:" is_valid_age)
+(println "")
+
+// ============================================================================
+// 6. Feature Flags
+// ============================================================================
+(println "6. Feature Flags")
+(println "----------------")
+
+// Example: Enable feature if any flag is on
+feature_flag_1 = 0
+feature_flag_2 = 1
+feature_flag_3 = 0
+beta_enabled = 1
+
+feature_enabled = (and (or feature_flag_1 feature_flag_2 feature_flag_3) beta_enabled)
+
+(println "Feature flag 1:" feature_flag_1)
+(println "Feature flag 2:" feature_flag_2)
+(println "Feature flag 3:" feature_flag_3)
+(println "Beta enabled:" beta_enabled)
+(println "Feature enabled:" feature_enabled)
+(println "")
+
+// ============================================================================
+// 7. Input Validation
+// ============================================================================
+(println "7. Input Validation")
+(println "-------------------")
+
+username_length = 8
+min_length = 6
+max_length = 20
+
+is_long_enough = (greater_than username_length (subtract min_length 1))
+is_not_too_long = (less_than username_length (add max_length 1))
+is_valid_username = (and is_long_enough is_not_too_long)
+
+(println "Username length:" username_length)
+(println "Valid range: 6-20")
+(println "Is valid:" is_valid_username)
+(println "")
+
+// ============================================================================
+// 8. De Morgan's Laws Demonstration
+// ============================================================================
+(println "8. De Morgan's Laws")
+(println "-------------------")
+
+a = 1
+b = 0
+
+// NOT (A AND B) = (NOT A) OR (NOT B)
+left_side = (not (and a b))
+right_side = (or (not a) (not b))
+
+(println "A:" a "B:" b)
+(println "NOT (A AND B):" left_side)
+(println "(NOT A) OR (NOT B):" right_side)
+(println "Are equal:" (is left_side right_side))
+(println "")
+
+// ============================================================================
+// 9. Short-Circuit Behavior (Variadic)
+// ============================================================================
+(println "9. Variadic Operators")
+(println "---------------------")
+
+// AND with multiple conditions
+all_true = (and 1 1 1 1 1)
+one_false = (and 1 1 0 1 1)
+
+(println "AND with all true:" all_true)
+(println "AND with one false:" one_false)
+
+// OR with multiple conditions
+all_false = (or 0 0 0 0 0)
+one_true = (or 0 0 1 0 0)
+
+(println "OR with all false:" all_false)
+(println "OR with one true:" one_true)
+(println "")
+
+(println "=== Demo Complete ===")

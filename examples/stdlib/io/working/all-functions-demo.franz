@@ -1,0 +1,62 @@
+// All I/O Functions Demo
+// Comprehensive demonstration of all 8 I/O module functions
+
+(use "stdlib/io.franz" {
+  (println "=== Franz I/O Module - All Functions ===")
+  (println "")
+
+  // 1. exists - Check if file/directory exists
+  (println "1. exists() - Check existence")
+  (println "   README.md exists:" (exists "README.md"))
+  (println "   src/ exists:" (exists "src"))
+  (println "   fake.txt exists:" (exists "fake.txt"))
+  (println "")
+
+  // 2. is_file - Check if path is a file
+  (println "2. is_file() - Check if path is a file")
+  (println "   README.md is file:" (is_file "README.md"))
+  (println "   src/ is file:" (is_file "src"))
+  (println "   franz is file:" (is_file "franz"))
+  (println "")
+
+  // 3. is_dir - Check if path is a directory
+  (println "3. is_dir() - Check if path is a directory")
+  (println "   src/ is directory:" (is_dir "src"))
+  (println "   stdlib/ is directory:" (is_dir "stdlib"))
+  (println "   README.md is directory:" (is_dir "README.md"))
+  (println "")
+
+  // 4. list_dir - List directory contents
+  (println "4. list_dir() - List directory contents")
+  (println "   Contents of stdlib/:")
+  (println (list_dir "stdlib"))
+  (println "")
+
+  // 5. basename - Extract filename
+  (println "5. basename() - Extract filename")
+  (println "   'src/main.c' ->" (basename "src/main.c"))
+  (println "   '/usr/bin/gcc' ->" (basename "/usr/bin/gcc"))
+  (println "")
+
+  // 6. dirname - Extract directory
+  (println "6. dirname() - Extract directory")
+  (println "   'src/main.c' ->" (dirname "src/main.c"))
+  (println "   '/usr/bin/gcc' ->" (dirname "/usr/bin/gcc"))
+  (println "")
+
+  // 7. join_path - Join path components
+  (println "7. join_path() - Join path components")
+  (println "   ['docs', 'stdlib', 'io.md'] ->" (join_path (list "docs" "stdlib" "io.md")))
+  (println "   ['/', 'home', 'user'] ->" (join_path (list "/" "home" "user")))
+  (println "")
+
+  // 8. read_lines - Read file content
+  (println "8. read_lines() - Read file content")
+  (println "   First 150 chars of README.md:")
+  content = (read_lines "README.md")
+  preview = (get content 0 150)
+  (println "   " preview "...")
+  (println "")
+
+  (println "✓ All 8 I/O functions demonstrated!")
+})

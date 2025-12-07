@@ -1,0 +1,24 @@
+// Basic Module Usage Example
+// Demonstrates loading and using a simple module
+
+// Create a helper module inline (normally in separate file)
+// File: helpers.franz would contain:
+//   greet = {name -> <- (println "Hello," name)}
+//   farewell = {name -> <- (println "Goodbye," name)}
+
+// For this demo, we'll use the existing math module from tests
+(use "test/use/math-module.franz" {
+  (println "=== Basic Module Usage ===")
+  (println "")
+
+  // Use module functions directly
+  (println "Square of 7:" (square 7))
+  (println "Cube of 4:" (cube 4))
+  (println "Double 15:" (double 15))
+  (println "Half of 100:" (half 100))
+
+  (println "")
+  (println "Module functions are only available within this block!")
+})
+
+(println "✓ Module usage complete")

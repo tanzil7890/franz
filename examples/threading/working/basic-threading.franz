@@ -1,0 +1,48 @@
+(println "=== Basic Threading Macros Examples ===")
+(println "")
+
+(println "Example 1: Simple calculation pipeline")
+(println "Without threading (nested):")
+(println "  result = (add (multiply (subtract 100 20) 2) 10)")
+
+(println "With thread-first (linear):")
+result1 = (thread-first 100
+  (list subtract 20)    // 100 - 20 = 80
+  (list multiply 2)     // 80 * 2 = 160
+  (list add 10))        // 160 + 10 = 170
+(println "  result = 170 (got" result1 ")")
+(println "")
+
+(println "Example 2: Data transformation")
+(println "Process a number through multiple transformations:")
+square = {x -> <- (multiply x x)}
+result2 = (thread-first 5
+  (list square)         // 5^2 = 25
+  (list add 10)         // 25 + 10 = 35
+  (list multiply 2))    // 35 * 2 = 70
+(println "  5 -> square -> +10 -> *2 = 70 (got" result2 ")")
+(println "")
+
+(println "Example 3: String building")
+result3 = (thread-first "Hello"
+  (list join " ")
+  (list join "World")
+  (list join "!"))
+(println "  String result:" result3)
+(println "")
+
+(println "Example 4: Comparison chain")
+result4 = (thread-first 150
+  (list greater_than 100)    // 150 > 100? yes = 1
+  (list is 1))               // 1 == 1? yes = 1
+(println "  Is 150 > 100? Result:" result4)
+(println "")
+
+(println "Example 5: Mathematical formula")
+(println "Calculate: ((x + 3) * 2) - 4 where x = 5")
+x = 5
+result5 = (thread-first x
+  (list add 3)          // 5 + 3 = 8
+  (list multiply 2)     // 8 * 2 = 16
+  (list subtract 4))    // 16 - 4 = 12
+(println "  Result: 12 (got" result5 ")")

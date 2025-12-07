@@ -1,0 +1,94 @@
+(println "=== Franz When/Unless Control Flow Demo ===")
+(println "")
+
+(println "--- When Statement Examples ---")
+(println "")
+
+(println "Example 1: When for positive number check")
+score = 85
+bonus = (when (greater_than score 80) 10)
+(println "Score:" score "| Bonus:" bonus)
+(println "Logic: Add 10 bonus points when score > 80")
+(println "")
+
+(println "Example 2: When with logical operators")
+age = 25
+has_license = 1
+can_drive = (when (and (greater_than age 17) has_license) 1)
+(println "Age:" age "| Has License:" has_license "| Can Drive:" can_drive)
+(println "Logic: Can drive when age > 17 AND has license")
+(println "")
+
+(println "Example 3: When returning value vs default")
+debug_mode = 1
+log_level = (when debug_mode 5)
+(println "Debug Mode:" debug_mode "| Log Level:" log_level)
+(println "Logic: Log level 5 when debug enabled, 0 otherwise")
+(println "")
+
+(println "--- Unless Statement Examples ---")
+(println "")
+
+(println "Example 4: Unless for error prevention")
+divisor = 5
+safe_divide = (unless (is divisor 0) (divide 100 divisor))
+(println "Divisor:" divisor "| Result:" safe_divide)
+(println "Logic: Divide 100 by divisor unless divisor is 0")
+(println "")
+
+(println "Example 5: Unless with zero divisor")
+zero_divisor = 0
+safe_zero = (unless (is zero_divisor 0) 999)
+(println "Divisor:" zero_divisor "| Result:" safe_zero)
+(println "Logic: Returns 0 when divisor is zero (prevents division)")
+(println "")
+
+(println "Example 6: Unless for validation")
+user_input = 42
+validated = (unless (less_than user_input 0) user_input)
+(println "Input:" user_input "| Validated:" validated)
+(println "Logic: Accept input unless it's negative")
+(println "")
+
+(println "Example 7: Unless for boundary check")
+temperature = 25
+alarm = (unless (and (greater_than temperature 15) (less_than temperature 30)) 1)
+(println "Temperature:" temperature "| Alarm:" alarm)
+(println "Logic: Trigger alarm unless temp is between 15-30")
+(println "")
+
+(println "--- Comparison: When vs Unless ---")
+(println "")
+
+(println "Example 8: Same logic, different approach")
+value = 10
+(println "Value:" value)
+
+when_result = (when (greater_than value 5) 100)
+(println "When (value > 5): " when_result)
+
+unless_result = (unless (less_than value 6) 100)
+(println "Unless (value < 6): " unless_result)
+(println "Both return 100 for the same condition!")
+(println "")
+
+(println "--- Real-World Use Cases ---")
+(println "")
+
+(println "Example 9: Discount calculation")
+order_total = 150
+discount = (when (greater_than order_total 100) 15)
+final_price = (subtract order_total discount)
+(println "Order Total:" order_total "| Discount:" discount "| Final Price:" final_price)
+(println "Logic: Give $15 discount when order > $100")
+(println "")
+
+(println "Example 10: Access control")
+user_role = 5
+admin_level = 3
+access_granted = (when (greater_than user_role admin_level) 1)
+(println "User Role:" user_role "| Admin Level:" admin_level "| Access:" access_granted)
+(println "Logic: Grant access when user role > admin level")
+(println "")
+
+(println "=== Demo Complete ===")

@@ -1,0 +1,34 @@
+// FizzBuzz - Print numbers 1-100 with special rules:
+// - "fizz" for multiples of 3
+// - "buzz" for multiples of 5
+// - "fizzbuzz" for multiples of 15
+// - Otherwise print the number
+
+(println "=== FizzBuzz (1-100) ===")
+(println "")
+
+(loop 100 {i ->
+  // i is 0-based, so add 1 to get 1-100
+  num = (add i 1)
+
+  // Check conditions
+  div_by_15 = (is (remainder num 15) 0)
+  div_by_3 = (is (remainder num 3) 0)
+  div_by_5 = (is (remainder num 5) 0)
+
+  // Print based on conditions (use separate if statements for side effects)
+  (if div_by_15
+    {(println "fizzbuzz")}
+    {
+      (if div_by_3
+        {(println "fizz")}
+        {
+          (if div_by_5
+            {(println "buzz")}
+            {(println (string num))})
+        })
+    })
+})
+
+(println "")
+(println "FizzBuzz complete!")

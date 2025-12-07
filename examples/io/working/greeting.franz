@@ -1,0 +1,8 @@
+// Simple greeting program using input()
+// Demonstrates basic input and output
+
+(println "What is your name?")
+mut name = (input)
+(println "Hello," name "!")
+(println "Nice to meet you!")
+

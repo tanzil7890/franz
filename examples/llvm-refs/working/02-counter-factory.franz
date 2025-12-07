@@ -1,0 +1,48 @@
+// Example 2: Counter Factory Pattern
+// Demonstrates: Closures capturing refs, factory pattern with independent state
+
+(println "=== Counter Factory Pattern ===")
+(println "")
+
+// Factory function that creates independent counters
+make_counter = {start ->
+  count = (ref start)
+  <- {->
+    current = (deref count)
+    next = (add current 1)
+    (set! count next)
+    <- current
+  }
+}
+
+// Create two independent counters
+(println "Creating two counters: counter1(0) and counter2(100)")
+counter1 = (make_counter 0)
+counter2 = (make_counter 100)
+
+// Use counter1
+(println "")
+(println "Using counter1:")
+c1_val1 = (counter1)
+(println "  Call 1:" c1_val1)
+c1_val2 = (counter1)
+(println "  Call 2:" c1_val2)
+c1_val3 = (counter1)
+(println "  Call 3:" c1_val3)
+
+// Use counter2
+(println "")
+(println "Using counter2:")
+c2_val1 = (counter2)
+(println "  Call 1:" c2_val1)
+c2_val2 = (counter2)
+(println "  Call 2:" c2_val2)
+
+// Show they are independent
+(println "")
+(println "Counters are independent:")
+(println "  counter1 next:" (counter1))
+(println "  counter2 next:" (counter2))
+
+(println "")
+(println "✓ Counter factory example complete!")

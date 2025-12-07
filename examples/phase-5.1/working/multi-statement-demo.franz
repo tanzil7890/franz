@@ -1,0 +1,82 @@
+(println "=== Multi-Statement Blocks Demo ===")
+(println "Demonstrating: {stmt1 stmt2 <- result} syntax")
+(println "")
+
+// Example 1: Score grading with debug output
+(println "Example 1: Score Grading System")
+score = 85
+grade = (if (greater_than score 0)
+  {
+    (println "  Processing score:" score)
+    letter = (if (greater_than score 89)
+      {<- "A"}
+      {
+        (if (greater_than score 79)
+          {<- "B"}
+          {<- "C"}
+        )
+      }
+    )
+    (println "  Grade assigned:" letter)
+    <- letter
+  }
+  {
+    (println "  Invalid score")
+    <- "F"
+  }
+)
+(println "Final grade:" grade)
+(println "")
+
+// Example 2: Price calculation with logging
+(println "Example 2: Shopping Cart Discount")
+cart_total = 150
+discount_applied = (if (greater_than cart_total 100)
+  {
+    (println "  Eligible for discount!")
+    discount_rate = 10
+    discount_amount = (divide (multiply cart_total discount_rate) 100)
+    (println "  Discount:" discount_amount)
+    final_price = (subtract cart_total discount_amount)
+    <- final_price
+  }
+  {
+    (println "  No discount available")
+    <- cart_total
+  }
+)
+(println "Final price: $" discount_applied)
+(println "")
+
+// Example 3: Complex validation
+(println "Example 3: User Registration Validation")
+age = 25
+email_valid = 1
+terms_accepted = 1
+
+registration_status = (if (and (greater_than age 17) email_valid)
+  {
+    (println "  Age check: PASS")
+    (println "  Email check: PASS")
+    (if terms_accepted
+      {
+        (println "  Terms: ACCEPTED")
+        user_id = 12345
+        (println "  User ID assigned:" user_id)
+        <- user_id
+      }
+      {
+        (println "  Terms: NOT ACCEPTED")
+        <- 0
+      }
+    )
+  }
+  {
+    (println "  Validation FAILED")
+    <- 0
+  }
+)
+(println "Registration status:" registration_status)
+(println "")
+
+(println "✅ All examples complete!")

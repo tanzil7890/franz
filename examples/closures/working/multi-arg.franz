@@ -1,0 +1,5 @@
+(println "=== Multi-Parameter Closures ===")
+adder = {a b -> <- (add a b)}
+(println "adder(2,3):" (adder 2 3))
+mul3 = {x y z -> <- (multiply x (multiply y z))}
+(println "testttststsdfstdfsdfstsdfsdfs: mul3(2,3,4):" (mul3 2 3 4))

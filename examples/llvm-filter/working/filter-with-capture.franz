@@ -1,0 +1,22 @@
+// Filter with Closure Variable Capture
+
+(println "=== Filter with Closure Capture ===")
+(println "")
+
+// List of product prices
+prices = [15, 45, 89, 120, 25, 200, 10, 150]
+(println "All prices:" prices)
+
+// Set a threshold for expensive items
+expensive_threshold = 100
+
+// Create predicate that captures the threshold
+is_expensive = {price i -> <- (greater_than price expensive_threshold)}
+
+// Filter expensive items
+expensive_items = (filter prices is_expensive)
+
+(println "")
+(println "Threshold:" expensive_threshold)
+(println "Expensive items (>$100):" expensive_items)
+(println "Expected: [120, 200, 150]")

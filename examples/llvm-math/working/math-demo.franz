@@ -1,0 +1,91 @@
+(println "=== Enhanced Math Functions Demo ===")
+(println "")
+
+// 1. Power and Square Root
+(println "1. Exponentiation and Roots")
+base = 2
+exp = 10
+result = (power base exp)
+(println "  2^10 =" result)
+
+root = (sqrt 144)
+(println "  √144 =" root)
+
+(println "")
+
+// 2. Rounding Operations
+(println "2. Rounding Functions")
+value = 3.7
+(println "  Original: 3.7")
+(println "  floor(3.7) =" (floor value))
+(println "  ceil(3.7) =" (ceil value))
+(println "  round(3.7) =" (round value))
+
+(println "")
+
+// 3. Min and Max
+(println "3. Finding Min/Max")
+(println "  Numbers: 15, 8, 23, 4, 19")
+minimum = (min 15 8 23 4 19)
+maximum = (max 15 8 23 4 19)
+(println "  Minimum:" minimum)
+(println "  Maximum:" maximum)
+
+(println "")
+
+// 4. Absolute Value
+(println "4. Absolute Values")
+neg = -42
+pos = 17
+(println "  abs(-42) =" (abs neg))
+(println "  abs(17) =" (abs pos))
+
+(println "")
+
+// 5. Remainder
+(println "5. Modulo Operation")
+dividend = 17
+divisor = 5
+rem = (remainder dividend divisor)
+(println "  17 % 5 =" rem)
+
+(println "")
+
+// 6. Random Numbers
+(println "6. Random Number Generation")
+rand1 = (random)
+rand2 = (random)
+rand3 = (random)
+(println "  random() =" rand1)
+(println "  random() =" rand2)
+(println "  random() =" rand3)
+
+(println "")
+
+// 7. Circle Area Calculator
+(println "7. Circle Area (using power and multiply)")
+radius = 5.0
+pi = 3.14159
+area = (multiply pi (power radius 2))
+(println "  Radius:" radius)
+(println "  Area:" area)
+
+(println "")
+
+// 8. Distance Formula
+(println "8. Distance Between Points (using power and sqrt)")
+x1 = 0
+y1 = 0
+x2 = 3
+y2 = 4
+dx = (subtract x2 x1)
+dy = (subtract y2 y1)
+dx_squared = (power dx 2)
+dy_squared = (power dy 2)
+distance = (sqrt (add dx_squared dy_squared))
+(println "  Point 1: (0, 0)")
+(println "  Point 2: (3, 4)")
+(println "  Distance:" distance)
+
+(println "")
+(println "=== Demo Complete! ===")

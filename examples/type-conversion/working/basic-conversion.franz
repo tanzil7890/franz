@@ -1,0 +1,66 @@
+// Basic Type Conversion Examples
+// Demonstrates integer(), float(), and string() functions
+
+(println "=== Basic Type Conversion Examples ===")
+(println "")
+
+// Example 1: String to Integer
+(println "Example 1: String to Integer")
+age_str = "25"
+age_num = (integer age_str)
+(println "  Input: \"25\" (string)")
+(println "  Output: " age_num " (integer)")
+(println "  Can do math: 25 + 5 = " (add age_num 5))
+(println "")
+
+// Example 2: Integer to String
+(println "Example 2: Integer to String")
+score = 100
+score_str = (string score)
+(println "  Input: 100 (integer)")
+(println "  Output: \"" score_str "\" (string)")
+(println "")
+
+// Example 3: String to Float
+(println "Example 3: String to Float")
+price_str = "19.99"
+price = (float price_str)
+(println "  Input: \"19.99\" (string)")
+(println "  Output: " price " (float)")
+tax = (multiply price 0.08)
+(println "  Tax (8%): " tax)
+total = (add price tax)
+(println "  Total: " total)
+(println "")
+
+// Example 4: Float to Integer (Truncation)
+(println "Example 4: Float to Integer")
+pi = 3.14159
+pi_int = (integer pi)
+(println "  Input: 3.14159 (float)")
+(println "  Output: " pi_int " (integer, truncated)")
+(println "")
+
+// Example 5: Integer to Float
+(println "Example 5: Integer to Float")
+x = 42
+x_float = (float x)
+(println "  Input: 42 (integer)")
+(println "  Output: " x_float " (float)")
+half = (divide x_float 2.0)
+(println "  42 / 2.0 = " half)
+(println "")
+
+// Example 6: Practical Use Case - User Input Simulation
+(println "Example 6: Processing User Input")
+user_input = "150"
+quantity = (integer user_input)
+unit_price = 5.99
+total_cost = (multiply (float quantity) unit_price)
+(println "  User entered: \"" user_input "\" (string)")
+(println "  Quantity: " quantity)
+(println "  Unit price: $" unit_price)
+(println "  Total cost: $" total_cost)
+(println "")
+
+(println "=== All Examples Complete ===")

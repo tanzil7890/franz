@@ -1,0 +1,42 @@
+// Example: Mutual Recursion - Even/Odd Check
+// Demonstrates two functions calling each other
+
+(println "=== Mutual Recursion: Even/Odd ===\n")
+
+// is_even calls is_odd
+is_even = {n ->
+  <- (if (is n 0)
+    {<- 1}  // Base case: 0 is even
+    {<- (is_odd (subtract n 1))}  // Recursive case: check if n-1 is odd
+  )
+}
+
+// is_odd calls is_even
+is_odd = {n ->
+  <- (if (is n 0)
+    {<- 0}  // Base case: 0 is not odd
+    {<- (is_even (subtract n 1))}  // Recursive case: check if n-1 is even
+  )
+}
+
+// Test the functions
+(println "Testing even numbers:")
+(println "  is_even(0) = " (is_even 0))
+(println "  is_even(2) = " (is_even 2))
+(println "  is_even(4) = " (is_even 4))
+(println "  is_even(10) = " (is_even 10))
+
+(println "\nTesting odd numbers:")
+(println "  is_odd(1) = " (is_odd 1))
+(println "  is_odd(3) = " (is_odd 3))
+(println "  is_odd(5) = " (is_odd 5))
+(println "  is_odd(9) = " (is_odd 9))
+
+(println "\nMixed tests:")
+(println "  is_even(7) = " (is_even 7) " (should be 0)")
+(println "  is_odd(8) = " (is_odd 8) " (should be 0)")
+
+(println "\n✓ Mutual recursion works!")
+(println "  - is_even and is_odd call each other")
+(println "  - No special keywords needed in Franz")
+(println "  - Dynamic scoping enables natural mutual recursion")

@@ -1,0 +1,72 @@
+// Franz String Module - All 10 Functions Demo
+
+(use "stdlib/string.franz" {
+  (println "=================================================")
+  (println "Franz String Library - All 10 Functions Demo")
+  (println "=================================================")
+  (println "")
+
+  // 1. uppercase
+  (println "1. uppercase('hello franz')")
+  (print "   => ")
+  (print (uppercase "hello franz"))
+  (println "")
+
+  // 2. lowercase
+  (println "2. lowercase('HELLO FRANZ')")
+  (print "   => ")
+  (print (lowercase "HELLO FRANZ"))
+  (println "")
+
+  // 3. trim
+  (println "3. trim('  hello franz  ')")
+  (print "   => ")
+  (print (trim "  hello franz  "))
+  (println "")
+
+  // 4. replace
+  (println "4. replace('hello world', 'world', 'Franz')")
+  (print "   => ")
+  (print (replace "hello world" "world" "Franz"))
+  (println "")
+
+  // 5. repeat
+  (println "5. repeat('ab', 3)")
+  (print "   => ")
+  (println (repeat "ab" 3))
+  (println "")
+
+  // 6. starts_with
+  (println "6. starts_with('hello', 'hel')")
+  (print "   => ")
+  (println (starts_with "hello" "hel"))
+  (println "")
+
+  // 7. ends_with
+  (println "7. ends_with('hello', 'lo')")
+  (print "   => ")
+  (println (ends_with "hello" "lo"))
+  (println "")
+
+  // 8. contains
+  (println "8. contains('hello world', 'wor')")
+  (print "   => ")
+  (println (contains "hello world" "wor"))
+  (println "")
+
+  // 9. char_at
+  (println "9. char_at('hello', 1)")
+  (print "   => ")
+  (print (char_at "hello" 1))
+  (println "")
+
+  // 10. split
+  (println "10. split('a,b,c', ',')")
+  (println "    => (multi-line output)")
+  (print (split "a,b,c" ","))
+  (println "")
+
+  (println "=================================================")
+  (println "All 10 string functions demonstrated!")
+  (println "=================================================")
+})

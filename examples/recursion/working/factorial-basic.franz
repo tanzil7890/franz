@@ -1,0 +1,18 @@
+(println "=== Factorial Recursion Test ===")
+(println "")
+
+// Define factorial function (recursive)
+factorial = {n ->
+  (if (is n 0)
+    1
+    (multiply n (factorial (subtract n 1))))
+}
+
+// Test factorial with various inputs
+(println "factorial(0) =" (factorial 0))
+(println "factorial(1) =" (factorial 1))
+(println "factorial(5) =" (factorial 5))
+(println "factorial(10) =" (factorial 10))
+
+(println "")
+(println "Recursion test complete!")

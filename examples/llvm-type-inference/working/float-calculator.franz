@@ -1,0 +1,61 @@
+(println "=== Float Calculator Example ===")
+(println "Demonstrates  Type Inference for Float Functions")
+(println "")
+
+(println "1. Temperature Converter (Celsius to Fahrenheit)")
+celsius_to_fahrenheit = {c -> <- (add (multiply c 1.8) 32.0)}
+temp_f = (celsius_to_fahrenheit 25.0)
+(print "25°C = ")
+(print temp_f)
+(println "°F")
+(println "")
+
+(println "2. Circle Area Calculator")
+circle_area = {radius -> <- (multiply 3.14159 (multiply radius radius))}
+area = (circle_area 5.0)
+(print "Area of circle with radius 5: ")
+(println area)
+(println "")
+
+(println "3. Pythagorean Theorem")
+hypotenuse = {a b -> <- (multiply (add (multiply a a) (multiply b b)) 0.5)}
+// Note: This approximates sqrt by multiplying by 0.5 (not mathematically correct)
+// In reality you'd use a proper sqrt function
+c = (hypotenuse 3.0 4.0)
+(print "Hypotenuse approximation for sides 3 and 4: ")
+(println c)
+(println "")
+
+(println "4. Average of Four Numbers")
+average4 = {a b c d -> <- (divide (add (add (add a b) c) d) 4.0)}
+avg = (average4 10.5 20.5 30.5 40.5)
+(print "Average of 10.5, 20.5, 30.5, 40.5: ")
+(println avg)
+(println "")
+
+(println "5. Compound Interest Calculator (simplified)")
+// future_value = {principal rate -> <- (multiply principal (add 1.0 rate))}
+future_value = {principal rate -> <- (multiply principal (add rate 1.0))}
+fv = (future_value 1000.0 0.05)
+(print "Future value of $1000 at 5% interest: $")
+(println fv)
+(println "")
+
+(println "6. BMI Calculator")
+// BMI = weight(kg) / height(m)^2, simplified as weight / (height * k)
+bmi_calc = {weight height -> <- (divide weight (multiply height 0.01))}
+bmi = (bmi_calc 70.0 175.0)
+(print "BMI for 70kg, 175cm: ")
+(println bmi)
+(println "")
+
+(println "7. Speed Calculator (distance/time)")
+speed = {distance time -> <- (divide distance time)}
+s = (speed 100.0 5.5)
+(print "Speed for 100km in 5.5 hours: ")
+(print s)
+(println " km/h")
+(println "")
+
+(println "=== Float Calculator Complete ===")
+(println "All calculations use float user-defined functions with type inference!")

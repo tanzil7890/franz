@@ -1,0 +1,67 @@
+// Lexical closures with higher-order functions
+// Run with: ./franz --scoping=lexical examples/scoping/lexical/working/03-higher-order-functions.franz
+
+(println "=== Higher-Order Functions with Lexical Closures ===")
+(println "")
+
+// Example 1: Map with closure
+(println "Example 1: Map with closure")
+multiplier = 3
+times_n = {item index -> <- (multiply item multiplier)}
+nums1 = (list 1 2 3 4 5)
+result1 = (map nums1 times_n)
+(println "  multiplier = " multiplier)
+(println "  map(nums, times_n) = " result1)
+(println "  ✓ Closure captures multiplier=3")
+(println "")
+
+// Example 2: Filter with closure
+(println "Example 2: Filter with closure")
+threshold = 5
+above_threshold = {item index -> <- (greater_than item threshold)}
+nums2 = (list 1 3 5 7 9 11)
+result2 = (filter nums2 above_threshold)
+(println "  threshold = " threshold)
+(println "  filter(nums, above_threshold) = " result2)
+(println "  ✓ Closure captures threshold=5")
+(println "")
+
+// Example 3: Reduce with closure
+(println "Example 3: Reduce with closure")
+weight = 2
+weighted_sum = {acc item index -> <- (add acc (multiply item weight))}
+nums3 = (list 1 2 3 4 5)
+result3 = (reduce nums3 weighted_sum 0)
+(println "  weight = " weight)
+(println "  reduce(nums, weighted_sum, 0) = " result3)
+(println "  ✓ Closure captures weight=2, sum=2*(1+2+3+4+5)=30")
+(println "")
+
+// Example 4: Pipe with closures
+(println "Example 4: Pipe with closures")
+base = 100
+add_base = {x -> <- (add x base)}
+factor = 2
+multiply_factor = {x -> <- (multiply x factor)}
+result4 = (pipe 5 add_base multiply_factor)
+(println "  base = " base ", factor = " factor)
+(println "  pipe(5, add_base, multiply_factor) = " result4)
+(println "  ✓ Pipeline: (5+100)*2=210")
+(println "")
+
+// Example 5: Closure factory with map
+(println "Example 5: Closure factory with map")
+make_multiplier = {n ->
+  <- {item index -> <- (multiply item n)}
+}
+times2 = (make_multiplier 2)
+times3 = (make_multiplier 3)
+nums5 = (list 1 2 3 4)
+result5a = (map nums5 times2)
+result5b = (map nums5 times3)
+(println "  map(nums, times2) = " result5a)
+(println "  map(nums, times3) = " result5b)
+(println "  ✓ Each closure factory creates independent closures")
+(println "")
+
+(println "=== All higher-order functions work with closures ===")

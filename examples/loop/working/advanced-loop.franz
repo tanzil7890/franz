@@ -1,0 +1,74 @@
+// Advanced Loop Examples
+// Shows early return and real-world use cases
+
+(println "=== Advanced Loop Examples ===")
+(println "")
+
+// Example 1: Find first even number
+(println "Example 1: Find first even number in 0-9")
+result1 = (loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {<- i}        // Return i (early exit)
+    {<- void})    // Continue
+})
+(println "  First even number:" result1)
+
+(println "")
+
+// Example 2: Search for specific value
+(println "Example 2: Search for number 7")
+result2 = (loop 15 {i ->
+  (println "  Checking i=" i)
+  (if (is i 7)
+    {<- "Found 7!"}
+    {<- void})
+})
+(println "  Result:" result2)
+
+(println "")
+
+// Example 3: FizzBuzz (first 15 numbers)
+(println "Example 3: FizzBuzz (1-15)")
+(loop 15 {i ->
+  n = (add i 1)  // Start from 1 instead of 0
+
+  div3 = (is (remainder n 3) 0)
+  div5 = (is (remainder n 5) 0)
+  div15 = (and div3 div5)
+
+  (if div15
+    {(println "  " n ": FizzBuzz")}
+    {(if div3
+      {(println "  " n ": Fizz")}
+      {(if div5
+        {(println "  " n ": Buzz")}
+        {(println "  " n)})})})
+})
+
+(println "")
+
+// Example 4: Countdown with early stop
+(println "Example 4: Countdown from 10 (stop at 5)")
+result4 = (loop 11 {i ->
+  countdown = (subtract 10 i)
+  (println "  T-minus" countdown)
+
+  (if (is countdown 5)
+    {<- "Stopped at 5"}
+    {<- void})
+})
+(println "  Status:" result4)
+
+(println "")
+
+// Example 5: Large loop (performance test)
+(println "Example 5: Large loop (1000 iterations)")
+(loop 1000 {i ->
+  (if (is (remainder i 200) 0)
+    {(println "  Progress:" i)}
+    {<- void})
+})
+(println "  Complete!")
+
+(println "")
+(println "All advanced examples complete!")

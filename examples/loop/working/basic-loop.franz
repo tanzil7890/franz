@@ -1,0 +1,42 @@
+// Basic Loop Examples
+// Shows fundamental loop usage patterns
+
+(println "=== Basic Loop Examples ===")
+(println "")
+
+// Example 1: Simple countdown
+(println "Example 1: Print numbers 0-4")
+(loop 5 {i ->
+  (println "  Number:" i)
+})
+
+(println "")
+
+// Example 2: Loop with zero iterations
+(println "Example 2: Zero iterations (nothing prints)")
+(loop 0 {i ->
+  (println "  This should never print")
+})
+(println "  (Loop skipped)")
+
+(println "")
+
+// Example 3: Single iteration
+(println "Example 3: Single iteration")
+(loop 1 {i ->
+  (println "  Only iteration, i=" i)
+})
+
+(println "")
+
+// Example 4: Nested loops (multiplication table)
+(println "Example 4: 3x3 multiplication table")
+(loop 3 {i ->
+  (loop 3 {j ->
+    product = (multiply i j)
+    (println "  " i "x" j "=" product)
+  })
+})
+
+(println "")
+(println "All basic examples complete!")

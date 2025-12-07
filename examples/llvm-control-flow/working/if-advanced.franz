@@ -1,0 +1,81 @@
+(println "=== Franz If Statement - Advanced Examples ===")
+(println "")
+
+// Example 1: Nested if statements (3 levels)
+(println "Example 1: Nested if statements")
+score = 85
+grade = (if (greater_than score 89)
+  "A"
+  (if (greater_than score 79)
+    "B"
+    (if (greater_than score 69)
+      "C"
+      "F")))
+(println "Score" score "-> Grade:" grade)
+(println "")
+
+// Example 2: Sign function (-1, 0, 1)
+(println "Example 2: Sign function")
+value1 = 10
+sign1 = (if (greater_than value1 0) 1 (if (less_than value1 0) -1 0))
+(println "Sign of" value1 "is:" sign1)
+
+value2 = -7
+sign2 = (if (greater_than value2 0) 1 (if (less_than value2 0) -1 0))
+(println "Sign of" value2 "is:" sign2)
+
+value3 = 0
+sign3 = (if (greater_than value3 0) 1 (if (less_than value3 0) -1 0))
+(println "Sign of" value3 "is:" sign3)
+(println "")
+
+// Example 3: Complex arithmetic in branches
+(println "Example 3: Arithmetic in branches")
+flag = 1
+result = (if flag
+  (multiply (add 2 3) 4)
+  (divide 100 5))
+(println "Complex expression result:" result)
+(println "")
+
+// Example 4: Conditional discount calculation
+(println "Example 4: Discount calculation")
+price = 150
+discount_price = (if (greater_than price 100)
+  (multiply price 0.9)
+  (multiply price 0.95))
+(println "Original price:" price)
+(println "Discounted price:" discount_price)
+(println "")
+
+// Example 5: Logical operators with if
+(println "Example 5: If with logical operators")
+age = 25
+has_license = 1
+can_drive = (if (and (greater_than age 17) has_license) 1 0)
+(println "Age:" age "License:" has_license "-> Can drive:" can_drive)
+(println "")
+
+// Example 6: Range check
+(println "Example 6: Range check (18-65)")
+person_age = 42
+in_range = (if (and (greater_than person_age 17) (less_than person_age 66)) 1 0)
+(println "Age" person_age "in range:" in_range)
+(println "")
+
+// Example 7: Multiple conditions
+(println "Example 7: Multiple conditions (OR)")
+is_admin = 0
+is_owner = 1
+has_access = (if (or is_admin is_owner) 1 0)
+(println "Admin:" is_admin "Owner:" is_owner "-> Access:" has_access)
+(println "")
+
+// Example 8: Mixed types (int and float)
+(println "Example 8: Mixed types")
+use_float = 1
+result_mixed = (if use_float 3.14 42)
+(println "Mixed type result:" result_mixed)
+(println "")
+
+(println "=== All Advanced Examples Complete ===")

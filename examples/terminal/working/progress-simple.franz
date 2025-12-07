@@ -1,0 +1,52 @@
+(println "=== Progress Bar - Responsive Width ===")
+(println "")
+
+// Get terminal width
+term_width = (columns)
+
+// Progress percentages to show
+(println "Simulating download progress:")
+(println "")
+
+// 25% progress
+progress_25 = 25
+bar_width_25 = (subtract term_width 15)
+filled_25 = (divide (multiply bar_width_25 progress_25) 100)
+empty_25 = (subtract bar_width_25 filled_25)
+bar_filled_25 = (repeat "█" filled_25)
+bar_empty_25 = (repeat "░" empty_25)
+
+(print "Progress: [")
+(print bar_filled_25)
+(print bar_empty_25)
+(print "] ")
+(print progress_25)
+(println "%")
+
+// 50% progress
+progress_50 = 50
+filled_50 = (divide (multiply bar_width_25 progress_50) 100)
+empty_50 = (subtract bar_width_25 filled_50)
+bar_filled_50 = (repeat "█" filled_50)
+bar_empty_50 = (repeat "░" empty_50)
+
+(print "Progress: [")
+(print bar_filled_50)
+(print bar_empty_50)
+(print "] ")
+(print progress_50)
+(println "%")
+
+// 100% progress
+progress_100 = 100
+filled_100 = bar_width_25
+bar_filled_100 = (repeat "█" filled_100)
+
+(print "Progress: [")
+(print bar_filled_100)
+(print "] ")
+(print progress_100)
+(println "%")
+
+(println "")
+(println "Complete! Bar width adapts to terminal size.")

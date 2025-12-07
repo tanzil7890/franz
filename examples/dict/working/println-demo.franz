@@ -1,0 +1,60 @@
+// Demonstrating println with multiple arguments
+// println supports variable arguments - all separated by SPACES (not commas!)
+
+(println "=== println Multiple Arguments Demo ===")
+(println "")
+
+// Single argument
+(println "Single argument")
+
+// Multiple string arguments
+(println "Multiple" "string" "arguments")
+
+// Mixed types
+(println "Name:" "Ada" "Age:" 36 "Active:" 1)
+
+// With computed values
+name = "Franz"
+version = 1.0
+(println "Language:" name "Version:" version)
+
+// With function results
+my_dict = (dict "x" 10 "y" 20)
+(println "Dict:" my_dict)
+(println "Value of x:" (dict_get my_dict "x"))
+(println "Keys:" (dict_keys my_dict))
+
+// With lists (Franz uses bracket syntax [1, 2, 3])
+numbers = [1, 2, 3, 4, 5]
+(println "Numbers:" numbers "Length:" (length numbers))
+
+// Complex expressions
+(println "Sum of 2+3:" (add 2 3))
+(println "Result:" (multiply (add 2 3) (subtract 10 5)))
+
+// Formatting patterns
+(println "")
+(println "=== Common Patterns ===")
+
+// Pattern 1: Label with value
+score = 95
+(println "Score:" score)
+
+// Pattern 2: Multiple labels and values
+x = 10
+y = 20
+(println "Coordinates: x=" x "y=" y)
+
+// Pattern 3: Computation results
+(println "10 * 5 =" (multiply 10 5))
+
+// Pattern 4: Dict operations
+user = (dict "name" "Ada" "role" "Developer")
+(println "User:" (dict_get user "name") "Role:" (dict_get user "role"))
+
+(println "")
+(println "=== Key Points ===")
+(println "1. Arguments separated by SPACES (no commas)")
+(println "2. Can mix types: strings, integers, floats, lists, dicts")
+(println "3. Function calls evaluated before printing")
+(println "4. All values separated by single space in output")

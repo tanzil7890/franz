@@ -1,0 +1,28 @@
+// Multiple Modules Example
+// Shows loading multiple modules in a single use call
+
+(println "=== Multiple Modules Example ===")
+(println "")
+
+// Load both math and string modules
+(use "test/use/math-module.franz" "test/use/string-module.franz" {
+  // Math operations
+  (println "Math operations:")
+  squared_value = (square 6)
+  (println "  6² =" squared_value)
+
+  cubed_value = (cube 3)
+  (println "  3³ =" cubed_value)
+
+  (println "")
+
+  // Combined usage
+  (println "Combined operations:")
+  numbers = (list 1 2 3 4 5)
+  squares = (map numbers {n _ -> <- (square n)})
+  (println "  Numbers:" numbers)
+  (println "  Squares:" squares)
+
+  (println "")
+  (println "✓ Multiple modules loaded successfully")
+})

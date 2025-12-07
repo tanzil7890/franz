@@ -1,0 +1,100 @@
+(println "=== Comparison Operators Demo ===")
+(println "")
+
+// 1. Finding the maximum of two numbers
+(println "1. Finding Maximum")
+a = 15
+b = 23
+is_a_greater = (greater_than a b)
+max_value = 0
+(println "  Comparing" a "and" b)
+(println "  Is" a ">" b "?" is_a_greater)
+
+// 2. Age verification
+(println "")
+(println "2. Age Verification")
+age = 25
+min_age = 18
+is_adult = (greater_than age min_age)
+(println "  Age:" age)
+(println "  Minimum age:" min_age)
+(println "  Is adult?" is_adult)
+
+// 3. Password check
+(println "")
+(println "3. Password Check")
+input_password = "secret123"
+stored_password = "secret123"
+passwords_match = (is input_password stored_password)
+(println "  Passwords match?" passwords_match)
+
+wrong_password = "wrong"
+passwords_match2 = (is wrong_password stored_password)
+(println "  Wrong password matches?" passwords_match2)
+
+// 4. Range checking
+(println "")
+(println "4. Temperature Range Check")
+temperature = 72
+min_temp = 60
+max_temp = 80
+above_min = (greater_than temperature min_temp)
+below_max = (less_than temperature max_temp)
+(println "  Temperature:" temperature)
+(println "  Range:" min_temp "to" max_temp)
+(println "  Above minimum?" above_min)
+(println "  Below maximum?" below_max)
+
+// 5. Sorting check
+(println "")
+(println "5. Sorting Check (3 numbers)")
+num1 = 5
+num2 = 12
+num3 = 8
+sorted = (less_than num1 num2)
+(println "  Numbers:" num1 num2 num3)
+(println "  Is" num1 "<" num2 "?" sorted)
+
+// 6. String comparison
+(println "")
+(println "6. String Comparison")
+greeting1 = "Hello"
+greeting2 = "Hello"
+greeting3 = "hello"
+same = (is greeting1 greeting2)
+different_case = (is greeting1 greeting3)
+(println "  \"Hello\" == \"Hello\"?" same)
+(println "  \"Hello\" == \"hello\"?" different_case "(case-sensitive)")
+
+// 7. Zero comparison
+(println "")
+(println "7. Zero Comparison")
+balance = 0
+is_zero = (is balance 0)
+is_positive = (greater_than balance 0)
+is_negative = (less_than balance 0)
+(println "  Balance:" balance)
+(println "  Is zero?" is_zero)
+(println "  Is positive?" is_positive)
+(println "  Is negative?" is_negative)
+
+// 8. Float comparison
+(println "")
+(println "8. Float Comparison")
+pi = 3.14159
+e = 2.71828
+pi_greater = (greater_than pi e)
+(println "  PI:" pi)
+(println "  E:" e)
+(println "  Is PI > E?" pi_greater)
+
+// 9. Mixed int/float
+(println "")
+(println "9. Mixed Int/Float Comparison")
+int_val = 5
+float_val = 5.0
+are_equal = (is int_val float_val)
+(println "  Integer 5 == Float 5.0?" are_equal)
+
+(println "")
+(println "=== Demo Complete! ===")

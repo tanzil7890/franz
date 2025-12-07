@@ -1,0 +1,12 @@
+// Example 2: Assertion Function
+(println "Example 2: Assertion Pattern")
+assert_equals = {actual expected message ->
+  (if (is actual expected)
+    {(println "  ✓ PASS: " message)}
+    {(println "  ✗ FAIL: " message " (expected " expected ", got " actual ")")}
+  )
+}
+(assert_equals (add 2 2) 4 "Addition test")
+(assert_equals (subtract 10 5) 5 "Subtraction test")
+(assert_equals (multiply 3 4) 11 "Multiplication test (should fail)")
+(println "")

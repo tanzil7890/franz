@@ -1,0 +1,15 @@
+// Example 7: Conditional Processing
+(println "Example 7: Conditional Processing")
+process_value = {val ->
+  (if (is val 0)
+    {(println "Value is zero")}
+    {(if (is val void)
+      {(println "Value is void")}
+      {(println "Value is: " val)}
+    )}
+  )
+}
+(process_value 0)
+(process_value void)
+(process_value 42)
+(println "")

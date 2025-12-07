@@ -1,0 +1,40 @@
+// Example 1: Dice Game Simulator
+// Demonstrates random_int for game mechanics
+
+(println "=== Dice Game Simulator ===")
+(println "")
+
+// Roll a single die
+(println "Single Die Roll:")
+die = (add (random_int 6) 1)
+(println "  You rolled:" die)
+(println "")
+
+// Roll two dice
+(println "Two Dice Roll:")
+die1 = (add (random_int 6) 1)
+die2 = (add (random_int 6) 1)
+total = (add die1 die2)
+(println "  Die 1:" die1)
+(println "  Die 2:" die2)
+(println "  Total:" total)
+(println "")
+
+// Check for doubles
+doubles = (is die1 die2)
+(println "  Doubles:" doubles)
+(println "")
+
+// Roll for a game turn (5 dice - Yahtzee style)
+(println "Game Turn (5 dice):")
+d1 = (add (random_int 6) 1)
+d2 = (add (random_int 6) 1)
+d3 = (add (random_int 6) 1)
+d4 = (add (random_int 6) 1)
+d5 = (add (random_int 6) 1)
+turn_total = (add (add (add (add d1 d2) d3) d4) d5)
+(println "  Dice:" d1 d2 d3 d4 d5)
+(println "  Turn Total:" turn_total)
+(println "")
+
+(println "Game complete!")

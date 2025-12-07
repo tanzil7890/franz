@@ -1,0 +1,67 @@
+// Nested closures with multiple levels of capture
+// Run with: ./franz --scoping=lexical examples/scoping/lexical/working/02-nested-closures.franz
+
+(println "=== Nested Closures with Lexical Scoping ===")
+(println "")
+
+// Example 1: Two-level nesting
+(println "Example 1: Two-level nesting")
+outer = {->
+  x = 42
+  inner = {->
+    <- x
+  }
+  <- inner
+}
+
+get_x = (outer)
+result1 = (get_x)
+(println "  Result: " result1)
+(println "  ✓ Inner closure captures outer's x=42")
+(println "")
+
+// Example 2: Three-level nesting
+(println "Example 2: Three-level nesting")
+level1 = {->
+  a = 1
+  level2 = {->
+    b = 2
+    level3 = {->
+      c = 3
+      <- (add (add a b) c)
+    }
+    <- level3
+  }
+  <- level2
+}
+
+deep_closure = ((level1))
+result2 = (deep_closure)
+(println "  Result: " result2 " (1+2+3=6)")
+(println "  ✓ Deepest closure captures all outer environments")
+(println "")
+
+// Example 3: Closure factory with parameters
+(println "Example 3: Closure factory")
+make_calculator = {base ->
+  (println "  Creating calculator with base=" base)
+  <- {operation ->
+    <- {value ->
+      <- (if (is operation "add")
+        {-> <- (add base value)}
+        {-> <- (multiply base value)}
+      )
+    }
+  }
+}
+
+calc10 = (make_calculator 10)
+adder = (calc10 "add")
+multiplier = (calc10 "multiply")
+
+(println "  adder(5) = " (adder 5) " (10+5=15)")
+(println "  multiplier(5) = " (multiplier 5) " (10*5=50)")
+(println "  ✓ Each closure captures its own base value")
+(println "")
+
+(println "=== All nested closures work correctly ===")

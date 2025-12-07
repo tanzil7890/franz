@@ -1,0 +1,9 @@
+// Example 1: Integer Comparison
+(println "Example 1: Integer Comparison")
+x = 42
+y = 42
+z = 100
+(println "  x = 42, y = 42, z = 100")
+(println "  x == y? " (if (is x y) {<- "Yes"} {<- "No"}))
+(println "  x == z? " (if (is x z) {<- "Yes"} {<- "No"}))
+(println "")

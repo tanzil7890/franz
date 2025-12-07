@@ -1,0 +1,13 @@
+// Example 1: Search Function
+(println "Example 1: List Search")
+find = {target list ->
+  first = (get list 0)
+  <- (if (is first target)
+    {<- 1}
+    {<- 0}
+  )
+}
+numbers = [10, 20, 30]
+found = (find 10 numbers)
+(println "  Find 10 in [10, 20, 30]: " (if (is found 1) {<- "Found!"} {<- "Not found"}))
+(println "")

@@ -1,0 +1,51 @@
+// Multi-Library Application Example
+// Demonstrates safe usage of multiple libraries with namespace isolation
+
+// Load math library
+math = (use_as "test/namespace/math-module.franz")
+
+// Load string library
+str = (use_as "test/namespace/string-module.franz")
+
+(println "=== Multi-Library Calculator ===")
+(println)
+
+// Math operations
+(println "Math Operations:")
+(println "  5 squared =" (math.square 5))
+(println "  3 cubed =" (math.cube 3))
+(println "  10 doubled =" (math.double 10))
+
+(println)
+
+// String operations
+(println "String Operations:")
+(println "  Greet Franz:" (str.greet "Franz"))
+(println "  Shout Hello:" (str.shout "Hello"))
+(println "  Double Hi:" (str.double "Hi"))
+
+(println)
+
+// Demonstrate NO collision
+(println "No Collision Demo:")
+(println "  Both libraries have 'double' function:")
+(println "    math.double(7) =" (math.double 7) "(number)")
+(println "    str.double(\"Ab\") =" (str.double "Ab") "(string)")
+(println "  ✓ Both coexist safely!")
+
+(println)
+
+// Complex calculation using multiple libraries
+(println "Complex Example:")
+numbers =  [1, 2, 3, 4, 5]
+squared_numbers = (map numbers {n i -> <- (math.square n)})
+(println "  Squares of" numbers "=" squared_numbers)
+
+// Use result in string operation
+total = (reduce squared_numbers {sum n index -> <- (add sum n)} 0)
+total_str = (string total)
+result_msg = (str.greet (join "Total: " total_str))
+(println "  " result_msg)
+
+(println)
+(println "=== Application Complete ===")

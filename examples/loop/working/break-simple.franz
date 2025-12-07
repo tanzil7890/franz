@@ -1,0 +1,57 @@
+// Simple Break Examples
+// Basic early exit patterns
+
+(println "=== Simple Break Examples ===")
+(println "")
+
+// Example 1: Find first even
+(println "Example 1: Find first even (0-9)")
+result1 = (loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {(break i)}
+    {})
+})
+(println "Result:" result1)
+(println "")
+
+// Example 2: Search for 7
+(println "Example 2: Find number 7")
+result2 = (loop 15 {i ->
+  (if (is i 7)
+    {(break i)}
+    {})
+})
+(println "Result:" result2)
+(println "")
+
+// Example 3: Find first square > 50
+(println "Example 3: First i*i > 50")
+result3 = (loop 20 {i ->
+  square = (multiply i i)
+  (if (greater_than square 50)
+    {(break square)}
+    {})
+})
+(println "Result:" result3)
+(println "")
+
+// Example 4: Countdown with threshold
+(println "Example 4: Countdown (stop at 5)")
+result4 = (loop 11 {i ->
+  countdown = (subtract 10 i)
+  (if (less_than countdown 6)
+    {(break countdown)}
+    {(println "T-minus" countdown)})
+})
+(println "Stopped at:" result4)
+(println "")
+
+// Example 5: No break
+(println "Example 5: Loop without break")
+result5 = (loop 3 {i ->
+  (println "i=" i)
+})
+(println "Result:" result5)
+(println "")
+
+(println "All examples complete!")

@@ -1,0 +1,41 @@
+// Result Type Pattern (Similar to Rust's Result<T, E>)
+// Use ADT for error handling without exceptions
+
+(println "=== Result Type Example ===")
+(println "")
+
+// Divide with error handling
+safe_divide = {a b ->
+  (if (is b 0)
+    {<- (variant "Error" "Division by zero")}
+    {<- (variant "Ok" (divide a b))})
+}
+
+// Test safe division - Success case
+(println "Test 1: 10 / 2")
+result1 = (safe_divide 10 2)
+r1 = (match result1
+  "Ok" {-> (println "  ✓ Result: Success")}
+  "Error" {-> (println "  ✗ Error occurred")}
+)
+
+// Test safe division - Error case
+(println "")
+(println "Test 2: 10 / 0")
+result2 = (safe_divide 10 0)
+r2 = (match result2
+  "Ok" {-> (println "  ✗ Result: Success (unexpected)")}
+  "Error" {-> (println "  ✓ Error: Division by zero")}
+)
+
+// Test safe division - Another success
+(println "")
+(println "Test 3: 100 / 4")
+result3 = (safe_divide 100 4)
+r3 = (match result3
+  "Ok" {-> (println "  ✓ Result: Success")}
+  "Error" {-> (println "  ✗ Error occurred")}
+)
+
+(println "")
+(println "Result type pattern complete!")

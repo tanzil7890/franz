@@ -1,0 +1,60 @@
+(println "=== Real-World Loop Use Cases ===")
+(println "")
+
+(println "Use Case 1: Countdown Timer")
+(println "Launching in...")
+countdown = 10
+(loop 11 {i ->
+  remaining = (subtract countdown i)
+  (when (greater_than remaining 0)
+    {(println "T-minus" remaining)}
+  )
+})
+(println "Liftoff!")
+
+(println "")
+(println "Use Case 2: Temperature Conversion Table (Celsius to Fahrenheit)")
+(println "Celsius | Fahrenheit")
+(println "--------|-----------")
+(loop 11 {i ->
+  celsius = (multiply i 10)
+  fahrenheit = (add (multiply celsius 1.8) 32.0)
+  (println celsius "°C    |" fahrenheit "°F")
+})
+
+(println "")
+(println "Use Case 3: Simple Interest Calculator")
+principal = 1000
+rate = 0.05
+(println "Year | Balance")
+(println "-----|--------")
+mut balance = (float principal)
+(loop 10 {year ->
+  interest = (multiply balance rate)
+  balance = (add balance interest)
+  year_num = (add year 1)
+  (println year_num "    | $" balance)
+})
+
+(println "")
+(println "Use Case 4: Multiplication Table")
+number = 7
+(println "Multiplication table for" number ":")
+(loop 10 {i ->
+  multiplicand = (add i 1)
+  product = (multiply number multiplicand)
+  (println number "×" multiplicand "=" product)
+})
+
+(println "")
+(println "Use Case 5: Progress Bar Simulation")
+(println "Processing...")
+(loop 20 {i ->
+  progress = (multiply i 5)
+  (println "[" progress "% complete]")
+})
+(println "[100% complete]")
+(println "Done!")
+
+(println "")
+(println "All real-world examples completed!")

@@ -1,0 +1,61 @@
+// Function composition pattern with lexical closures
+// Run with: ./franz --scoping=lexical examples/scoping/lexical/patterns/02-function-composition.franz
+
+(println "=== Function Composition Pattern ===")
+(println "")
+
+// Pattern 1: Manual composition
+(println "Pattern 1: Manual composition")
+add10 = {x -> <- (add x 10)}
+times2 = {x -> <- (multiply x 2)}
+composed_manual = {x ->
+  step1 = (add10 x)
+  step2 = (times2 step1)
+  <- step2
+}
+result1 = (composed_manual 5)
+(println "  composed(5) = " result1 " ((5+10)*2=30)")
+(println "  ✓ Manual composition works")
+(println "")
+
+// Pattern 2: Composition factory
+(println "Pattern 2: Composition factory")
+compose = {f g ->
+  <- {x ->
+    <- (f (g x))
+  }
+}
+add5 = {x -> <- (add x 5)}
+square = {x -> <- (multiply x x)}
+add5_then_square = (compose square add5)
+result2 = (add5_then_square 3)
+(println "  compose(square, add5)(3) = " result2 " ((3+5)^2=64)")
+(println "  ✓ Composition factory works")
+(println "")
+
+// Pattern 3: Pipeline composition
+(println "Pattern 3: Pipeline composition")
+base_val = 100
+add_base = {x -> <- (add x base_val)}
+factor = 3
+multiply_factor = {x -> <- (multiply x factor)}
+subtract10 = {x -> <- (subtract x 10)}
+pipeline = (compose subtract10 (compose multiply_factor add_base))
+result3 = (pipeline 5)
+(println "  pipeline(5) = " result3 " (((5+100)*3)-10=305)")
+(println "  ✓ Multi-stage pipeline with closures")
+(println "")
+
+// Pattern 4: Closure factory composition
+(println "Pattern 4: Closure factory composition")
+make_adder = {n -> <- {x -> <- (add x n)}}
+make_multiplier = {n -> <- {x -> <- (multiply x n)}}
+add20 = (make_adder 20)
+times4 = (make_multiplier 4)
+composed_factory = (compose times4 add20)
+result4 = (composed_factory 5)
+(println "  compose(times4, add20)(5) = " result4 " ((5+20)*4=100)")
+(println "  ✓ Composed closures from factories")
+(println "")
+
+(println "=== Function composition pattern complete ===")

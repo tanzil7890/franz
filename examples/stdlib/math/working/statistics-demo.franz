@@ -1,0 +1,54 @@
+// Statistics Demo - Data Analysis with Math Module
+
+(use "stdlib/math.franz" {
+  (println "=== Data Analysis with Franz Math Module ===")
+  (println "")
+
+  // Sample dataset: Monthly sales figures
+  sales = (list 12500 15200 13800 16900 14300 18200 17500 19800 16400 15900 17200 20100)
+
+  (println "Monthly Sales Data (12 months):")
+  (println sales)
+  (println "")
+
+  // Calculate statistics
+  total = (sum sales)
+  avg = (average sales)
+  med = (median sales)
+
+  (println "Statistical Analysis:")
+  (println "  Total Annual Sales: $" (integer total))
+  (println "  Average Monthly Sales: $" (integer avg))
+  (println "  Median Monthly Sales: $" (integer med))
+  (println "")
+
+  // Find min and max
+  minimum = (reduce sales {acc item index ->
+    <- (min acc item)
+  } 999999)
+
+  maximum = (reduce sales {acc item index ->
+    <- (max acc item)
+  } 0)
+
+  (println "  Lowest Month: $" (integer minimum))
+  (println "  Highest Month: $" (integer maximum))
+  (println "  Range: $" (integer (subtract maximum minimum)))
+  (println "")
+
+  // Calculate growth rate
+  first_month = (get sales 0)
+  last_month = (get sales 11)
+  growth = (subtract last_month first_month)
+  growth_pct = (multiply (divide growth first_month) 100)
+
+  (println "Growth Analysis:")
+  (println "  First Month: $" (integer first_month))
+  (println "  Last Month: $" (integer last_month))
+  (println "  Growth: $" (integer growth))
+  (println "  Growth Rate:" (integer growth_pct) "%")
+  (println "")
+
+  // Standard deviation approximation using median absolute deviation
+  (println "✓ Statistics calculated successfully!")
+})

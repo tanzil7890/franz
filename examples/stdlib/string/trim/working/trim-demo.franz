@@ -1,0 +1,28 @@
+// Franz String Library - trim() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== trim() Function Demo ===")
+  (println "")
+
+  (println "1. Remove leading spaces")
+  (print "   Input: '  hello'  => ")
+  (print (trim "  hello"))
+  (println "")
+
+  (println "2. Remove trailing spaces")
+  (print "   Input: 'hello  '  => ")
+  (print (trim "hello  "))
+  (println "")
+
+  (println "3. Remove both")
+  (print "   Input: '  hello world  '  => ")
+  (print (trim "  hello world  "))
+  (println "")
+
+  (println "4. No trimming needed")
+  (print "   Input: 'hello'  => ")
+  (print (trim "hello"))
+  (println "")
+
+  (println "trim() demo complete!")
+})

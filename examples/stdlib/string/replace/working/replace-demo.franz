@@ -1,0 +1,23 @@
+// Franz String Library - replace() Demo
+
+(use "stdlib/string.franz" {
+  (println "=== replace() Function Demo ===")
+  (println "")
+
+  (println "1. Replace word in sentence")
+  (print "   replace('hello world', 'world', 'Franz') => ")
+  (print (replace "hello world" "world" "Franz"))
+  (println "")
+
+  (println "2. Replace all occurrences")
+  (print "   replace('aaa', 'a', 'b') => ")
+  (print (replace "aaa" "a" "b"))
+  (println "")
+
+  (println "3. Replace symbols")
+  (print "   replace('a-b-c', '-', '_') => ")
+  (print (replace "a-b-c" "-" "_"))
+  (println "")
+
+  (println "replace() demo complete!")
+})

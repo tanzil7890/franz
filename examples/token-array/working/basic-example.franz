@@ -1,0 +1,31 @@
+// Basic Example: Array-Based Tokens
+// This demonstrates that Franz now uses O(1) array-based token operations
+
+(println "=== Franz  Array-Based Tokens ===")
+(println "")
+
+// Simple assignment - tokens stored in array, not linked list
+x = 42
+(println "Variable x =" x)
+
+// Multiple assignments - O(1) append for each token
+a = 10
+b = 20
+c = 30
+sum = (add a (add b c))
+(println "Sum of a, b, c =" sum)
+
+// Function definition - tokens parsed from array with O(1) access
+double = {n -> (multiply n 2)}
+result = (double 21)
+(println "double(21) =" result)
+
+// Complex nested expression - benefits from better cache locality
+complex = (add (multiply (subtract 15 5) 3) (divide 100 10))
+(println "Complex calculation =" complex)
+
+(println "")
+(println "✓ All operations use industry-standard array-based tokens!")
+(println "✓ O(1) append during lexing (was O(n) with linked lists)")
+(println "✓ O(1) random access during parsing (was O(n))")
+(println "✓ Better CPU cache locality (contiguous memory)")

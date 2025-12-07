@@ -1,0 +1,63 @@
+// Example 3: Reproducible Testing
+// Demonstrates random_seed for deterministic testing
+
+(println "=== Reproducible Testing with random_seed ===")
+(println "")
+
+// Test Case 1: Verify same seed produces same results
+(println "Test Case 1: Reproducibility Verification")
+(random_seed 12345)
+test1_v1 = (random_int 100)
+test1_v2 = (random_range 0 10)
+
+(random_seed 12345)
+test1_v3 = (random_int 100)
+test1_v4 = (random_range 0 10)
+
+match1 = (is test1_v1 test1_v3)
+match2 = (is test1_v2 test1_v4)
+(println "  First run:  int=" test1_v1 "float=" test1_v2)
+(println "  Second run: int=" test1_v3 "float=" test1_v4)
+(println "  Both match:" (and match1 match2))
+(println "")
+
+// Test Case 2: Unit test for random system
+(println "Test Case 2: Unit Test Simulation")
+(println "  Testing dice roller...")
+(random_seed 999)
+dice = (add (random_int 6) 1)
+expected = (and (greater_than dice 0) (less_than dice 7))
+(println "  Dice value:" dice)
+(println "  Valid range:" expected)
+(println "  Test passed:" expected)
+(println "")
+
+// Test Case 3: Regression test
+(println "Test Case 3: Regression Test")
+(println "  Checking for behavior changes...")
+(random_seed 777)
+reg_v1 = (random)
+reg_v2 = (random)
+reg_v3 = (random)
+(println "  Values:" reg_v1 reg_v2 reg_v3)
+(println "  (These should remain consistent across versions)")
+(println "")
+
+// Test Case 4: A/B Testing simulation
+(println "Test Case 4: A/B Test Simulation")
+(println "  Group A (seed=100):")
+(random_seed 100)
+groupA_1 = (random_int 2)
+groupA_2 = (random_int 2)
+groupA_3 = (random_int 2)
+(println "    Users:" groupA_1 groupA_2 groupA_3)
+
+(println "  Group B (seed=200):")
+(random_seed 200)
+groupB_1 = (random_int 2)
+groupB_2 = (random_int 2)
+groupB_3 = (random_int 2)
+(println "    Users:" groupB_1 groupB_2 groupB_3)
+(println "")
+
+(println "All tests complete!")

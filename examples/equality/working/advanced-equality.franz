@@ -1,0 +1,132 @@
+// Advanced Equality Examples
+// Demonstrates practical uses of is() in Franz programs
+
+(println "=== Advanced Equality Examples ===")
+(println "")
+
+// Example 1: Search Function
+(println "Example 1: List Search")
+find = {target list ->
+  first = (get list 0)
+  <- (if (is first target)
+    {<- 1}
+    {<- 0}
+  )
+}
+numbers = [10, 20, 30]
+found = (find 10 numbers)
+(println "  Find 10 in [10, 20, 30]: " (if (is found 1) {<- "Found!"} {<- "Not found"}))
+(println "")
+
+// Example 2: Assertion Function
+(println "Example 2: Assertion Pattern")
+assert_equals = {actual expected message ->
+  (if (is actual expected)
+    {(println "  ✓ PASS: " message)}
+    {(println "  ✗ FAIL: " message " (expected " expected ", got " actual ")")}
+  )
+}
+(assert_equals (add 2 2) 4 "Addition test")
+(assert_equals (subtract 10 5) 5 "Subtraction test")
+(assert_equals (multiply 3 4) 11 "Multiplication test (should fail)")
+(println "")
+
+// Example 3: Type-Safe Comparison
+(println "Example 3: Type-Safe Comparison")
+safe_compare = {a b ->
+  type_a = (type a)
+  type_b = (type b)
+  <- (if (is type_a type_b)
+    {<- (is a b)}
+    {
+      (println "    Warning: Comparing different types (" type_a " vs " type_b ")")
+      <- 0
+    }
+  )
+}
+(println "  Compare 5 and 5:")
+(println "    Result: " (safe_compare 5 5))
+(println "  Compare 5 and \"5\":")
+(println "    Result: " (safe_compare 5 "5"))
+(println "")
+
+// Example 4: Deduplication Filter
+(println "Example 4: List Deduplication Check")
+has_duplicate = {list ->
+  first = (get list 0)
+  second = (get list 1)
+  <- (is first second)
+}
+dup_list = [5, 5, 6]
+unique_list = [1, 2, 3]
+(println "  [5, 5, 6] has duplicates? " (if (has_duplicate dup_list) {<- "Yes"} {<- "No"}))
+(println "  [1, 2, 3] has duplicates? " (if (has_duplicate unique_list) {<- "Yes"} {<- "No"}))
+(println "")
+
+// Example 5: Switch-Like Pattern
+(println "Example 5: Switch-Like Pattern")
+handle_command = {cmd ->
+  (if (is cmd "start")
+    {(println "    Starting application...")}
+    {(if (is cmd "stop")
+      {(println "    Stopping application...")}
+      {(if (is cmd "restart")
+        {(println "    Restarting application...")}
+        {(println "    Unknown command: " cmd)}
+      )}
+    )}
+  )
+}
+(handle_command "start")
+(handle_command "stop")
+(handle_command "status")
+(println "")
+
+// Example 6: Result Validation
+(println "Example 6: Result Validation")
+validate_result = {result expected_type ->
+  actual_type = (type result)
+  <- (if (is actual_type expected_type)
+    {
+      (println "    ✓ Type check passed")
+      <- 1
+    }
+    {
+      (println "    ✗ Type check failed: expected " expected_type ", got " actual_type)
+      <- 0
+    }
+  )
+}
+test_val = 42
+(println "  Validating integer:")
+(validate_result test_val "integer")
+(println "  Validating as string:")
+(validate_result test_val "string")
+(println "")
+
+// Example 7: Conditional Processing
+(println "Example 7: Conditional Processing")
+process_value = {val ->
+  (if (is val 0)
+    {(println "    Value is zero")}
+    {(if (is val void)
+      {(println "    Value is void")}
+      {(println (join "    Value is: " (string val)))}
+    )}
+  )
+}
+(process_value 0)
+(process_value void)
+(process_value 42)
+(println "")
+
+// Example 8: Equality Chain
+(println "Example 8: Multiple Equality Checks")
+all_equal = {a b c ->
+  <- (and (is a b) (is b c))
+}
+(println "  Are 5, 5, 5 all equal? " (if (all_equal 5 5 5) {<- "Yes"} {<- "No"}))
+(println "  Are 5, 5, 10 all equal? " (if (all_equal 5 5 10) {<- "Yes"} {<- "No"}))
+(println "")
+
+(println "=== All Advanced Examples Complete ===")

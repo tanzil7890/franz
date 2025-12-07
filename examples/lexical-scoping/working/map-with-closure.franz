@@ -1,0 +1,31 @@
+// Map with Lexical Closure Example
+// Demonstrates closures working with higher-order functions
+
+(println "=== Map with Lexical Closures ===")
+(println "")
+
+// Define a multiplier in outer scope
+multiplier = 3
+(println "Outer multiplier = " multiplier)
+
+// Create a closure that uses multiplier
+triple = {item index ->
+  <- (multiply item multiplier)
+}
+
+// Apply closure to a list
+numbers = [1, 2, 3, 4, 5]
+(println "Numbers: " numbers)
+
+result = (map numbers triple)
+(println "")
+(println "map(numbers, triple) = " result)
+(println "Expected: (3 6 9 12 15)")
+
+// Even if we define multiplier again, closure uses captured value
+(println "")
+multiplier = 999
+(println "Changed outer multiplier to 999")
+result2 = (map numbers triple)
+(println "map(numbers, triple) again = " result2)
+(println "Still uses captured multiplier=3 (lexical scoping)")

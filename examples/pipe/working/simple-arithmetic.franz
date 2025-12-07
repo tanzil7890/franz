@@ -1,0 +1,39 @@
+(println "=== Simple Arithmetic Pipeline Examples ===")
+(println "")
+
+(println "Example 1: Basic arithmetic chain")
+(println "Start with 5, add 3, multiply by 2, subtract 4")
+
+result1 = (pipe 5
+  {x -> <- (add x 3)}
+  {x -> <- (multiply x 2)}
+  {x -> <- (subtract x 4)})
+(println "Result: 5 -> 8 -> 16 -> 12 =" result1)
+(println "")
+
+(println "Example 2: Named functions")
+double = {x -> <- (multiply x 2)}
+add_ten = {x -> <- (add x 10)}
+halve = {x -> <- (divide x 2)}
+
+result2 = (pipe 20 double add_ten halve)
+(println "Result: 20 -> 40 -> 50 -> 25 =" result2)
+(println "")
+
+(println "Example 3: Long pipeline (temperature conversion)")
+(println "Celsius -> Fahrenheit -> Kelvin")
+
+celsius = 100
+celsius_to_fahrenheit = {c -> <- (add (multiply c 1.8) 32)}
+fahrenheit_to_kelvin = {f -> <- (multiply (subtract f 32) 0.5556)}
+
+kelvin = (pipe celsius celsius_to_fahrenheit fahrenheit_to_kelvin)
+(println celsius "°C = 212°F =" kelvin "K (approx)")
+(println "")
+
+(println "Example 4: Working with floats")
+result3 = (pipe 10
+  {x -> <- (float x)}
+  {x -> <- (divide x 3)}
+  {x -> <- (multiply x 2)})
+(println "10 -> 10.0 -> 3.333... -> 6.666... =" result3)

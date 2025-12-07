@@ -1,0 +1,108 @@
+// Data Processing Demo - Advanced list manipulation
+
+(use "stdlib/list.franz" {
+  (use "stdlib/math.franz" {
+    (println "=== Data Processing with List Module ===")
+    (println "")
+
+    // Dataset: E-commerce order quantities by day
+    daily_orders = (list 45 52 38 61 55 72 68 59 63 51 48 70 65 58 54)
+
+    (println "Daily Orders (15 days):" daily_orders)
+    (println "")
+
+    // 1. Sort to find trends
+    sorted_orders = (sort daily_orders)
+    (println "1. Sorted orders:" sorted_orders)
+    (println "   Lowest day:" (head sorted_orders))
+    highest = (head (reverse sorted_orders))
+    (println "   Highest day:" highest)
+    (println "")
+
+    // 2. Split into weeks using chunk
+    weeks = (chunk daily_orders 7)
+    (println "2. Split into weeks:")
+    (println "   Week 1:" (get weeks 0))
+    (println "   Week 2:" (get weeks 1))
+    (println "   Week 3 (partial):" (get weeks 2))
+    (println "")
+
+    // 3. Analyze each week
+    (println "3. Weekly Analysis:")
+    week1 = (get weeks 0)
+    week2 = (get weeks 1)
+
+    week1_total = (sum week1)
+    week2_total = (sum week2)
+    (println "   Week 1 total:" week1_total)
+    (println "   Week 2 total:" week2_total)
+
+    week1_avg = (average week1)
+    week2_avg = (average week2)
+    (println "   Week 1 average:" (integer week1_avg))
+    (println "   Week 2 average:" (integer week2_avg))
+    (println "")
+
+    // 4. Partition into high/low performance days (threshold: 60)
+    performance = (partition daily_orders {qty index -> <- (not (less_than qty 60))})
+    high_days = (get performance 0)
+    low_days = (get performance 1)
+
+    (println "4. Performance Analysis (threshold: 60):")
+    (println "   High performance days:" (length high_days) "days -" high_days)
+    (println "   Low performance days:" (length low_days) "days -" low_days)
+    (println "")
+
+    // 5. Check for patterns
+    has_peak = (any daily_orders {qty index -> <- (greater_than qty 70)})
+    all_above_30 = (all daily_orders {qty index -> <- (not (less_than qty 30))})
+
+    (println "5. Pattern Detection:")
+    (println "   Any peak days (>70):" has_peak)
+    (println "   All days above 30:" all_above_30)
+    (println "")
+
+    // 6. Sample data for detailed analysis
+    first_5 = (take daily_orders 5)
+    last_5 = (reverse (take (reverse daily_orders) 5))
+
+    (println "6. Sampling:")
+    (println "   First 5 days:" first_5)
+    (println "   Last 5 days:" last_5)
+    (println "")
+
+    // 7. Create baseline data
+    baseline = (filled 50 15)
+    (println "7. Baseline Comparison:")
+    (println "   Baseline (50 orders/day):" baseline)
+
+    // Compare with actual
+    actual_vs_baseline = (zip daily_orders baseline)
+    (println "   Actual vs Baseline (showing first 5):")
+    (loop 5 {i ->
+      pair = (get actual_vs_baseline i)
+      actual_val = (get pair 0)
+      baseline_val = (get pair 1)
+      diff = (subtract actual_val baseline_val)
+      (println "     Day" (add i 1) "- Actual:" actual_val "Baseline:" baseline_val "Diff:" diff)
+    })
+    (println "")
+
+    // 8. Combine multiple operations
+    (println "8. Combined Operations:")
+
+    // Get top 3 unique values
+    unique_vals = (unique daily_orders)
+    sorted_unique = (sort unique_vals)
+    top_3_unique = (reverse (take (reverse sorted_unique) 3))
+    (println "   Top 3 unique order counts:" top_3_unique)
+
+    // Flatten nested week data
+    all_weeks = (list week1 week2 (get weeks 2))
+    flattened_weeks = (flatten all_weeks)
+    (println "   Total days from weeks:" (length flattened_weeks))
+    (println "")
+
+    (println "✓ Data processing demo complete!")
+  })
+})
