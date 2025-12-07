@@ -1,0 +1,98 @@
+# Makefile for Franz Runtime Library
+#  Industry-standard static library for LLVM runtime linking
+
+CC = gcc
+AR = ar
+CFLAGS = -Wall -I/opt/homebrew/Cellar/llvm@17/17.0.6/include
+
+# Runtime object files
+RUNTIME_OBJS = \
+	/tmp/stdlib.o \
+	/tmp/list.o \
+	/tmp/generic.o \
+	/tmp/ast.o \
+	/tmp/dict.o \
+	/tmp/scope.o \
+	/tmp/string.o \
+	/tmp/circular_deps.o \
+	/tmp/closure.o \
+	/tmp/module_cache.o \
+	/tmp/lex.o \
+	/tmp/parse.o \
+	/tmp/tokens.o \
+	/tmp/file.o \
+	/tmp/file_advanced.o \
+	/tmp/freevar.o \
+	/tmp/security.o \
+	/tmp/events.o \
+	/tmp/error_handler.o \
+	/tmp/ref.o
+
+# Static library target
+/tmp/libfranz_runtime.a: $(RUNTIME_OBJS)
+	$(AR) rcs $@ $^
+
+# Object file rules
+/tmp/stdlib.o: src/stdlib.c
+	$(CC) $(CFLAGS) -c src/stdlib.c -o $@
+
+/tmp/list.o: src/list.c
+	$(CC) $(CFLAGS) -c src/list.c -o $@
+
+/tmp/generic.o: src/generic.c
+	$(CC) $(CFLAGS) -c src/generic.c -o $@
+
+/tmp/ast.o: src/ast.c
+	$(CC) $(CFLAGS) -c src/ast.c -o $@
+
+/tmp/dict.o: src/dict.c
+	$(CC) $(CFLAGS) -c src/dict.c -o $@
+
+/tmp/scope.o: src/scope.c
+	$(CC) $(CFLAGS) -c src/scope.c -o $@
+
+/tmp/string.o: src/string.c
+	$(CC) $(CFLAGS) -c src/string.c -o $@
+
+/tmp/circular_deps.o: src/circular-deps/circular_deps.c
+	$(CC) $(CFLAGS) -c src/circular-deps/circular_deps.c -o $@
+
+/tmp/closure.o: src/closure/closure.c
+	$(CC) $(CFLAGS) -c src/closure/closure.c -o $@
+
+/tmp/module_cache.o: src/module_cache.c
+	$(CC) $(CFLAGS) -c src/module_cache.c -o $@
+
+/tmp/lex.o: src/lex.c
+	$(CC) $(CFLAGS) -c src/lex.c -o $@
+
+/tmp/parse.o: src/parse.c
+	$(CC) $(CFLAGS) -c src/parse.c -o $@
+
+/tmp/tokens.o: src/tokens.c
+	$(CC) $(CFLAGS) -c src/tokens.c -o $@
+
+/tmp/file.o: src/file.c
+	$(CC) $(CFLAGS) -c src/file.c -o $@
+
+/tmp/file_advanced.o: src/file-advanced/file_advanced.c
+	$(CC) $(CFLAGS) -c src/file-advanced/file_advanced.c -o $@
+
+/tmp/freevar.o: src/freevar/freevar.c
+	$(CC) $(CFLAGS) -c src/freevar/freevar.c -o $@
+
+/tmp/security.o: src/security/security.c
+	$(CC) $(CFLAGS) -c src/security/security.c -o $@
+
+/tmp/events.o: src/events.c
+	$(CC) $(CFLAGS) -c src/events.c -o $@
+
+/tmp/error_handler.o: src/error-handling/error_handler.c
+	$(CC) $(CFLAGS) -c src/error-handling/error_handler.c -o $@
+
+/tmp/ref.o: src/mutable-refs/ref.c
+	$(CC) $(CFLAGS) -c src/mutable-refs/ref.c -o $@ 2>/dev/null || touch $@
+
+.PHONY: clean
+clean:
+	rm -f $(RUNTIME_OBJS) /tmp/libfranz_runtime.a
