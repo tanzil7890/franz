@@ -1,0 +1,4 @@
+mixed = [-5, -2, 0, 3, 7, -1, 4]
+is_positive = {x i -> <- (greater_than x 0)}
+positives = (filter mixed is_positive)
+(println positives)

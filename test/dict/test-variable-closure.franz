@@ -1,0 +1,19 @@
+// Test variable-stored closures
+(println "=== Variable-Stored Closure Test ===")
+(println "")
+
+// Test 1: Assign closure to variable
+(println "Test 1: Assign closure to variable")
+double_fn = {k v -> <- (multiply v 2)}
+(println "Closure assigned to variable")
+
+// Test 2: Use variable-stored closure
+(println "Test 2: Try to use variable-stored closure")
+scores = (dict "alice" 90)
+doubled = (dict_map scores double_fn)
+(println "Mapped dict with variable closure")
+
+result = (dict_get doubled "alice")
+(println "Result:" result)
+
+(println "✓ Test passed")

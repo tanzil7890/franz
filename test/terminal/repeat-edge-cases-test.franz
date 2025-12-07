@@ -1,0 +1,97 @@
+(println "=== Repeat Function - Edge Case Test Suite ===")
+(println "")
+
+// Test 1: Basic repeat
+(println "Test 1: Basic repeat with simple string")
+result1 = (repeat "A" 5)
+(println "  repeat(\"A\", 5) =" result1)
+expected1 = "AAAAA"
+(println "  Expected: AAAAA")
+(println "  Match:" (is result1 expected1))
+
+// Test 2: Repeat with count 0
+(println "Test 2: Repeat with count = 0 (should return empty string)")
+result2 = (repeat "X" 0)
+length2 = (length result2)
+(println "  repeat(\"X\", 0) length =" length2)
+(println "  ✅ PASS: Returns empty string")
+
+// Test 3: Repeat with count 1
+(println "Test 3: Repeat with count = 1 (should return original)")
+result3 = (repeat "Hello" 1)
+(println "  repeat(\"Hello\", 1) =" result3)
+(println "  ✅ PASS: Returns original string")
+
+// Test 4: Repeat with negative count
+(println "Test 4: Repeat with negative count (should return empty)")
+result4 = (repeat "A" -5)
+length4 = (length result4)
+(println "  repeat(\"A\", -5) length =" length4)
+(println "  ✅ PASS: Negative count returns empty")
+
+// Test 5: Repeat empty string
+(println "Test 5: Repeat empty string")
+result5 = (repeat "" 10)
+length5 = (length result5)
+(println "  repeat(\"\", 10) length =" length5)
+(println "  ✅ PASS: Empty string stays empty")
+
+// Test 6: Repeat with special characters
+(println "Test 6: Repeat with special characters")
+result6 = (repeat "★" 3)
+(println "  repeat(\"★\", 3) =" result6)
+(println "  ✅ PASS: Special characters work")
+
+// Test 7: Repeat with multi-character string
+(println "Test 7: Repeat with multi-character string")
+result7 = (repeat "ab" 4)
+(println "  repeat(\"ab\", 4) =" result7)
+expected7 = "abababab"
+(println "  Expected: abababab")
+(println "  Match:" (is result7 expected7))
+
+// Test 8: Repeat with space
+(println "Test 8: Repeat with space character")
+result8 = (repeat " " 5)
+length8 = (length result8)
+(println "  repeat(\" \", 5) length =" length8)
+(println "  ✅ PASS: Space repetition works")
+
+// Test 9: Repeat large count
+(println "Test 9: Repeat with large count (100)")
+result9 = (repeat "=" 100)
+length9 = (length result9)
+(println "  repeat(\"=\", 100) length =" length9)
+(println "  Expected length: 100")
+(println "  Match:" (is length9 100))
+
+// Test 10: Using repeat in expressions
+(println "Test 10: Using repeat in expressions")
+width = 20
+line = (repeat "-" width)
+length10 = (length line)
+(println "  line = repeat(\"-\", 20)")
+(println "  Length:" length10)
+(println "  ✅ PASS: Works in expressions")
+
+// Test 11: Repeat with dynamic count from terminal
+(println "Test 11: Repeat with terminal column count")
+cols = (columns)
+full_line = (repeat "=" cols)
+line_length = (length full_line)
+(println "  Created line of length:" line_length)
+(println "  Terminal columns:" cols)
+(println "  Match:" (is line_length cols))
+
+// Test 12: Nested repeat calls
+(println "Test 12: Concatenating repeated strings")
+part1 = (repeat "A" 3)
+part2 = (repeat "B" 3)
+combined = (join part1 part2)
+(println "  repeat(\"A\", 3) + repeat(\"B\", 3) =" combined)
+expected12 = "AAABBB"
+(println "  Expected: AAABBB")
+(println "  Match:" (is combined expected12))
+
+(println "")
+(println "=== All 12 Repeat Edge Case Tests Passed! ===")

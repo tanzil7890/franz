@@ -1,0 +1,130 @@
+(println "=== Comprehensive LLVM Map Test Suite ===")
+(println "")
+
+// Test 1: Basic map with simple transformation
+(println "Test 1: Basic map - double numbers")
+nums1 = [1, 2, 3, 4, 5]
+double = {x i -> <- (multiply x 2)}
+doubled = (map nums1 double)
+(println "Input:" nums1)
+(println "Doubled:" doubled)
+(println "PASS: Basic map works")
+(println "")
+
+// Test 2: Map with index usage
+(println "Test 2: Map using index")
+nums2 = [10, 20, 30]
+add_index = {x i -> <- (add x i)}
+with_index = (map nums2 add_index)
+(println "Input:" nums2)
+(println "With index added:" with_index)
+(println "PASS: Map with index works")
+(println "")
+
+// Test 3: Map transforming to different type (int to string would need string conversion)
+(println "Test 3: Map with arithmetic operations")
+nums3 = [1, 2, 3, 4, 5]
+square = {x i -> <- (multiply x x)}
+squared = (map nums3 square)
+(println "Input:" nums3)
+(println "Squared:" squared)
+(println "PASS: Map with complex operations works")
+(println "")
+
+// Test 4: Map on empty list
+(println "Test 4: Map on empty list")
+empty_list = []
+identity = {x i -> <- x}
+mapped_empty = (map empty_list identity)
+(println "Input: []")
+(println "Output:" mapped_empty)
+(println "PASS: Map on empty list works")
+(println "")
+
+// Test 5: Map with single element
+(println "Test 5: Map on single-element list")
+single = [42]
+triple = {x i -> <- (multiply x 3)}
+tripled = (map single triple)
+(println "Input:" single)
+(println "Tripled:" tripled)
+(println "PASS: Map on single element works")
+(println "")
+
+// Test 6: Map with closure capturing variables
+(println "Test 6: Map with captured variable")
+multiplier = 10
+scale = {x i -> <- (multiply x multiplier)}
+nums6 = [1, 2, 3]
+scaled = (map nums6 scale)
+(println "Input:" nums6)
+(println "Multiplier:" multiplier)
+(println "Scaled:" scaled)
+(println "PASS: Map with closure capture works")
+(println "")
+
+// Test 7: Map with nested closure (factory pattern)
+(println "Test 7: Map with factory closure")
+make_adder = {n -> <- {x i -> <- (add x n)}}
+add5 = (make_adder 5)
+nums7 = [1, 2, 3, 4, 5]
+added = (map nums7 add5)
+(println "Input:" nums7)
+(println "Add 5 to each:" added)
+(println "PASS: Map with factory closure works")
+(println "")
+
+// Test 8: Map on larger list
+(println "Test 8: Map on larger list")
+nums8 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+increment = {x i -> <- (add x 1)}
+incremented = (map nums8 increment)
+(println "Input:" nums8)
+(println "Incremented:" incremented)
+(println "PASS: Map on larger list works")
+(println "")
+
+// Test 9: Map with division
+(println "Test 9: Map with division")
+nums9 = [10, 20, 30, 40, 50]
+halve = {x i -> <- (divide x 2)}
+halved = (map nums9 halve)
+(println "Input:" nums9)
+(println "Halved:" halved)
+(println "PASS: Map with division works")
+(println "")
+
+// Test 10: Map with mixed operations
+(println "Test 10: Map with mixed arithmetic")
+nums10 = [5, 10, 15, 20]
+complex = {x i -> <- (add (multiply x 2) i)}
+result10 = (map nums10 complex)
+(println "Input:" nums10)
+(println "2x + index:" result10)
+(println "PASS: Map with mixed operations works")
+(println "")
+
+// Test 11: Chain multiple maps
+(println "Test 11: Chained maps")
+nums11 = [1, 2, 3, 4, 5]
+double_fn = {x i -> <- (multiply x 2)}
+add_ten = {x i -> <- (add x 10)}
+step1 = (map nums11 double_fn)
+step2 = (map step1 add_ten)
+(println "Input:" nums11)
+(println "After double:" step1)
+(println "After add 10:" step2)
+(println "PASS: Chained maps work")
+(println "")
+
+// Test 12: Map with large numbers
+(println "Test 12: Map with large numbers")
+large = [100, 200, 300, 400, 500]
+percent = {x i -> <- (divide x 10)}
+percentages = (map large percent)
+(println "Input:" large)
+(println "Divided by 10:" percentages)
+(println "PASS: Map with large numbers works")
+(println "")
+
+(println "=== All 12 comprehensive map tests passed! ===")

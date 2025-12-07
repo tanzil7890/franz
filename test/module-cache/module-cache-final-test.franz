@@ -1,0 +1,198 @@
+// Module Caching - Final Comprehensive Test Suite
+// All tests with proper scope handling
+
+(println "╔══════════════════════════════════════════════╗")
+(println "║  Module Caching - Final Test Suite          ║")
+(println "╚══════════════════════════════════════════════╝")
+(println "")
+
+// Test 1: Basic module loading
+(println "Test 1: Basic module loading")
+result1 = (use "test/module-cache/test-module.franz" {
+  <- (square 7)
+})
+test1_pass = (is result1 49)
+(if test1_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL - Expected 49")}
+)
+
+// Test 2: Cache hit on second load
+(println "Test 2: Second load (cache hit)")
+result2 = (use "test/module-cache/test-module.franz" {
+  <- (add_ten 5)
+})
+test2_pass = (is result2 15)
+(if test2_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 3: Cache persistence
+(println "Test 3: Third load (persistence)")
+result3 = (use "test/module-cache/test-module.franz" {
+  <- test_value
+})
+test3_pass = (is result3 42)
+(if test3_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 4: Performance test - 100 iterations
+(println "Test 4: 100 iterations (performance)")
+test4_pass = 1
+(loop 100 {i ->
+  r = (use "test/module-cache/test-module.franz" {
+    <- (square 5)
+  })
+  (if (is r 25) {<- 1} {test4_pass = 0 <- 0})
+})
+(if (is test4_pass 1)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 5: Nested module loads
+(println "Test 5: Nested use calls")
+nested = (use "test/module-cache/test-module.franz" {
+  outer = (square 3)
+  inner = (use "test/use/math-module.franz" {
+    <- (add outer (cube 2))
+  })
+  <- inner
+})
+test5_pass = (is nested 17)
+(if test5_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 6: Outer scope access
+(println "Test 6: Outer scope access")
+multiplier = 10
+result6 = (use "test/module-cache/test-module.franz" {
+  <- (multiply (square 3) multiplier)
+})
+test6_pass = (is result6 90)
+(if test6_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 7: Multiple different modules
+(println "Test 7: Multiple different modules")
+r7a = (use "test/module-cache/test-module.franz" {
+  <- (square 4)
+})
+r7b = (use "test/use/math-module.franz" {
+  <- (cube 3)
+})
+test7_pass = (is (add r7a r7b) 43)
+(if test7_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 8: Module with map
+(println "Test 8: Module with map")
+numbers = (list 1 2 3 4 5)
+mapped = (use "test/module-cache/test-module.franz" {
+  <- (map numbers {n idx -> <- (square n)})
+})
+first = (get mapped 0)
+last = (get mapped 4)
+test8_pass = (is (add first last) 26)
+(if test8_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 9: Module with reduce
+(println "Test 9: Module with reduce")
+sum_sq = (use "test/module-cache/test-module.franz" {
+  nums = (list 1 2 3 4)
+  <- (reduce nums {acc n idx -> <- (add acc (square n))} 0)
+})
+test9_pass = (is sum_sq 30)
+(if test9_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 10: Complex expressions
+(println "Test 10: Complex expressions")
+result10 = (use "test/module-cache/test-module.franz" {
+  a = (square 5)
+  b = (add_ten a)
+  c = (square 2)
+  <- (add b c)
+})
+test10_pass = (is result10 39)
+(if test10_pass
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+// Test 11: Module with conditionals
+(println "Test 11: Module with conditionals")
+vals = (list 2 10)
+r11a = (use "test/module-cache/test-module.franz" {
+  sq = (square (get vals 0))
+  <- (if (greater_than sq 20) {<- "large"} {<- "small"})
+})
+r11b = (use "test/module-cache/test-module.franz" {
+  sq = (square (get vals 1))
+  <- (if (greater_than sq 20) {<- "large"} {<- "small"})
+})
+test11_pass = (is r11a "small")
+test11_pass2 = (is r11b "large")
+(if test11_pass
+  {
+    (if test11_pass2
+      {<- (println "✓ PASS")}
+      {<- (println "✗ FAIL - part 2")}
+    )
+  }
+  {<- (println "✗ FAIL - part 1")}
+)
+
+// Test 12: Benchmark with timing
+(println "Test 12: Performance benchmark with timing")
+start_time = (time)
+(loop 100 {i ->
+  (use "test/module-cache/test-module.franz" {
+    x = (square 5)
+  })
+})
+end_time = (time)
+elapsed = (subtract end_time start_time)
+(println "  100 loads in" elapsed "seconds")
+test12_pass = (less_than elapsed 1.0)
+(if test12_pass
+  {<- (println "✓ PASS - Fast enough (<1s)")}
+  {<- (println "✗ FAIL - Too slow")}
+)
+
+// Test 13: Stress test (1000 iterations)
+(println "Test 13: Stress test (1000 iterations)")
+test13_start = (time)
+test13_pass = 1
+(loop 1000 {i ->
+  r = (use "test/module-cache/test-module.franz" {
+    <- (square 3)
+  })
+  (if (is r 9) {<- 1} {test13_pass = 0 <- 0})
+})
+test13_end = (time)
+test13_elapsed = (subtract test13_end test13_start)
+(println "  1000 loads in" test13_elapsed "seconds")
+(if (is test13_pass 1)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")}
+)
+
+(println "")
+(println "══════════════════════════════════════════════")
+(println "✓ All 13 tests completed successfully")
+(println "══════════════════════════════════════════════")

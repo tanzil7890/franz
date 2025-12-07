@@ -1,0 +1,5 @@
+(println "Test: Dict get operation")
+d = (dict "name" "Ada")
+(println "✓ Dict created")
+value = (dict_get d "name")
+(println "✓ Dict get succeeded")

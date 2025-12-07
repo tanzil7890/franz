@@ -1,0 +1,30 @@
+// Step-by-step closure with ref test
+
+(println "Step 1: Starting test")
+
+(println "Step 2: Creating ref outside closure")
+count = (ref 0)
+(println "Step 2: Ref created")
+
+(println "Step 3: Creating closure that captures ref")
+increment = {->
+  (println "Step 3a: Inside closure")
+  current = (deref count)
+  (println "Step 3b: Deref result:" current)
+  next = (add current 1)
+  (println "Step 3c: Computed next:" next)
+  (set! count next)
+  (println "Step 3d: Set completed")
+  <- current
+}
+(println "Step 3: Closure created")
+
+(println "Step 4: Calling closure")
+val1 = (increment)
+(println "Step 4: First call result:" val1)
+
+(println "Step 5: Calling closure again")
+val2 = (increment)
+(println "Step 5: Second call result:" val2)
+
+(println "Done!")

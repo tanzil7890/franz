@@ -1,0 +1,17 @@
+// Simple ref/deref/set! test for LLVM mode
+
+(println "=== Simple Ref Test ===")
+
+// Test 1: Create ref and deref
+x = (ref 42)
+(println "Test 1 - Created (ref 42)")
+val = (deref x)
+(println "Test 1 - Deref result: " val)
+
+// Test 2: Update ref
+(set! x 100)
+(println "Test 2 - After (set! x 100)")
+new_val = (deref x)
+(println "Test 2 - New value: " new_val)
+
+(println "✓ All simple tests passed!")

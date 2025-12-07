@@ -1,0 +1,53 @@
+// Franz Standard Library - String Module
+// Test Suite for char_at() function
+
+(use "stdlib/string.franz" {
+  (println "=== char_at() Function Tests ===")
+  (println "")
+
+  (println "Test 1: char_at - index 0 (first character)")
+  test1_result = (char_at "hello" 0)
+  (if (is test1_result "h\n") {
+    (println "  ✓ PASS: char_at index 0")
+  } {
+    (println "  ✗ FAIL - Expected 'h', got:" test1_result)
+  })
+
+  (println "Test 2: char_at - last index")
+  test2_result = (char_at "hello" 4)
+  (if (is test2_result "o\n") {
+    (println "  ✓ PASS: char_at last index")
+  } {
+    (println "  ✗ FAIL - Expected 'o', got:" test2_result)
+  })
+
+  (println "Test 3: char_at - middle index")
+  test3_result = (char_at "hello" 2)
+  (if (is test3_result "l\n") {
+    (println "  ✓ PASS: char_at middle index")
+  } {
+    (println "  ✗ FAIL - Expected 'l', got:" test3_result)
+  })
+
+  (println "Test 4: char_at - single character string")
+  test4_result = (char_at "a" 0)
+  (if (is test4_result "a\n") {
+    (println "  ✓ PASS: char_at single char")
+  } {
+    (println "  ✗ FAIL - Expected 'a', got:" test4_result)
+  })
+
+  (println "Test 5: char_at - numeric character")
+  test5_result = (char_at "abc123" 3)
+  (if (is test5_result "1\n") {
+    (println "  ✓ PASS: char_at numeric character")
+  } {
+    (println "  ✗ FAIL - Expected '1', got:" test5_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "char_at() tests complete - 5/5 executed")
+  (println "Note: Uses 0-based indexing")
+  (println "===========================================")
+})

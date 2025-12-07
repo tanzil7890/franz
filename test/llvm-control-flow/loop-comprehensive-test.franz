@@ -1,0 +1,375 @@
+(println "=== Comprehensive Loop Test Suite ===")
+(println "")
+
+(println "===== Category 1: Basic Loop Functionality =====")
+(println "")
+
+(println "Test 1: Simple loop 0 to 4")
+mut result1 = 0
+(loop 5 {i ->
+  result1 = (add result1 i)
+})
+(println "Sum 0+1+2+3+4 =" result1)
+expected1 = 10
+(println (if (is result1 expected1) "PASS" "FAIL"))
+
+(println "")
+(println "Test 2: Loop with single iteration")
+mut result2 = 0
+(loop 1 {i ->
+  result2 = (add result2 100)
+})
+(println "Result:" result2)
+(println (if (is result2 100) "PASS" "FAIL"))
+
+(println "")
+(println "Test 3: Loop with zero count")
+mut result3 = 99
+(loop 0 {i ->
+  result3 = 0
+})
+(println "Result (should be unchanged):" result3)
+(println (if (is result3 99) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 2: Arithmetic and Computation =====")
+(println "")
+
+(println "Test 4: Factorial calculation")
+mut factorial = 1
+(loop 5 {i ->
+  n = (add i 1)
+  factorial = (multiply factorial n)
+})
+(println "5! =" factorial)
+(println (if (is factorial 120) "PASS" "FAIL"))
+
+(println "")
+(println "Test 5: Sum of squares")
+mut sum_squares = 0
+(loop 4 {i ->
+  square = (multiply i i)
+  sum_squares = (add sum_squares square)
+})
+(println "0^2 + 1^2 + 2^2 + 3^2 =" sum_squares)
+(println (if (is sum_squares 14) "PASS" "FAIL"))
+
+(println "")
+(println "Test 6: Fibonacci-style accumulation")
+mut fib_a = 0
+mut fib_b = 1
+(loop 5 {i ->
+  temp = fib_b
+  fib_b = (add fib_a fib_b)
+  fib_a = temp
+})
+(println "5th Fibonacci number:" fib_b)
+(println (if (is fib_b 8) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 3: Parameter Usage =====")
+(println "")
+
+(println "Test 7: Using loop index in computation")
+mut doubled_sum = 0
+(loop 10 {index ->
+  doubled = (multiply index 2)
+  doubled_sum = (add doubled_sum doubled)
+})
+(println "Sum of (0*2 + 1*2 + ... + 9*2):" doubled_sum)
+expected7 = 90
+(println (if (is doubled_sum expected7) "PASS" "FAIL"))
+
+(println "")
+(println "Test 8: Index squared plus index")
+mut combo_sum = 0
+(loop 5 {idx ->
+  squared = (multiply idx idx)
+  combo = (add squared idx)
+  combo_sum = (add combo_sum combo)
+})
+(println "Sum of (i^2 + i) for i=0..4:" combo_sum)
+expected8 = 40
+(println (if (is combo_sum expected8) "PASS" "FAIL"))
+
+(println "")
+(println "Test 9: Parameter used multiple times")
+mut triple_sum = 0
+(loop 4 {n ->
+  triple = (add n (add n n))
+  triple_sum = (add triple_sum triple)
+})
+(println "Sum of 3*n for n=0..3:" triple_sum)
+expected9 = 18
+(println (if (is triple_sum expected9) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 4: Type Mixing =====")
+(println "")
+
+(println "Test 10: Integer loop with float arithmetic")
+mut float_sum = 0.0
+(loop 3 {i ->
+  fval = (float i)
+  half = (divide fval 2.0)
+  float_sum = (add float_sum half)
+})
+(println "Sum of (i/2) for i=0..2:" float_sum)
+(println "PASS: Type mixing works")
+
+(println "")
+(println "Test 11: Loop with string operations")
+mut count11 = 0
+(loop 3 {i ->
+  msg = (join "Iteration" (format-int i 0))
+  count11 = (add count11 1)
+})
+(println "String loop completed:" count11 "iterations")
+(println (if (is count11 3) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 5: Edge Cases =====")
+(println "")
+
+(println "Test 12: Large loop count")
+mut large_sum = 0
+(loop 100 {i ->
+  large_sum = (add large_sum 1)
+})
+(println "100 iterations completed, sum:" large_sum)
+(println (if (is large_sum 100) "PASS" "FAIL"))
+
+(println "")
+(println "Test 13: Nested computation")
+mut nested_result = 0
+(loop 5 {i ->
+  temp = (multiply i 2)
+  temp2 = (add temp 1)
+  temp3 = (multiply temp2 3)
+  nested_result = (add nested_result temp3)
+})
+(println "Nested computation result:" nested_result)
+expected13 = 75
+(println (if (is nested_result expected13) "PASS" "FAIL"))
+
+(println "")
+(println "Test 14: Loop with comparisons")
+mut comparison_count = 0
+(loop 10 {i ->
+  (when (greater_than i 4)
+    {comparison_count = (add comparison_count 1)}
+  )
+})
+(println "Values > 4 count:" comparison_count)
+(println (if (is comparison_count 5) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 6: Variable Scope =====")
+(println "")
+
+(println "Test 15: Outer variable accessible in loop")
+outer_var = 1000
+mut inner_sum = 0
+(loop 3 {i ->
+  inner_sum = (add inner_sum outer_var)
+})
+(println "Sum of outer_var (1000) * 3:" inner_sum)
+(println (if (is inner_sum 3000) "PASS" "FAIL"))
+
+(println "")
+(println "Test 16: Loop parameter shadows outer variable")
+shadowed = 999
+(loop 2 {shadowed ->
+  (println "Inner shadowed:" shadowed)
+})
+(println "Outer shadowed (should be unchanged):" shadowed)
+(println (if (is shadowed 999) "PASS" "FAIL"))
+
+(println "")
+(println "Test 17: Multiple variables in loop body")
+mut multi_a = 0
+mut multi_b = 0
+mut multi_c = 0
+(loop 4 {i ->
+  multi_a = (add multi_a i)
+  multi_b = (add multi_b (multiply i 2))
+  multi_c = (add multi_c (multiply i 3))
+})
+(println "multi_a:" multi_a "multi_b:" multi_b "multi_c:" multi_c)
+check17 = (and (is multi_a 6) (and (is multi_b 12) (is multi_c 18)))
+(println (if check17 "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 7: Integration with Other Features =====")
+(println "")
+
+(println "Test 18: Loop with if statement")
+mut positive_sum = 0
+(loop 10 {i ->
+  adjusted = (subtract i 5)
+  positive_sum = (add positive_sum (if (greater_than adjusted 0) adjusted 0))
+})
+(println "Sum of positive (i-5) values:" positive_sum)
+expected18 = 10
+(println (if (is positive_sum expected18) "PASS" "FAIL"))
+
+(println "")
+(println "Test 19: Loop with when statement")
+mut when_count = 0
+(loop 8 {i ->
+  (when (is (remainder i 2) 0)
+    {when_count = (add when_count 1)}
+  )
+})
+(println "Even number count (0-7):" when_count)
+(println (if (is when_count 4) "PASS" "FAIL"))
+
+(println "")
+(println "Test 20: Loop with unless statement")
+mut unless_sum = 0
+(loop 6 {i ->
+  (unless (is i 3)
+    {unless_sum = (add unless_sum i)}
+  )
+})
+(println "Sum excluding 3:" unless_sum)
+expected20 = 12
+(println (if (is unless_sum expected20) "PASS" "FAIL"))
+
+(println "")
+(println "Test 21: Loop with cond expression")
+mut cond_result = 0
+(loop 10 {i ->
+  value = (cond
+    ((less_than i 3) 1)
+    ((less_than i 7) 2)
+    (else 3)
+  )
+  cond_result = (add cond_result value)
+})
+(println "Cond-based sum:" cond_result)
+expected21 = 20
+(println (if (is cond_result expected21) "PASS" "FAIL"))
+
+(println "")
+(println "Test 22: Loop with logical operators")
+mut logic_count = 0
+(loop 15 {i ->
+  (when (and (greater_than i 4) (less_than i 10))
+    {logic_count = (add logic_count 1)}
+  )
+})
+(println "Values in range (5-9):" logic_count)
+(println (if (is logic_count 5) "PASS" "FAIL"))
+
+(println "")
+(println "Test 23: Loop with type guards")
+mut type_sum = 0
+(loop 5 {i ->
+  (when (is_int i)
+    {type_sum = (add type_sum i)}
+  )
+})
+(println "Type guard sum:" type_sum)
+expected23 = 10
+(println (if (is type_sum expected23) "PASS" "FAIL"))
+
+(println "")
+(println "Test 24: Loop with math functions")
+mut math_sum = 0.0
+(loop 5 {i ->
+  val = (float i)
+  sqr = (sqrt (power val 2.0))
+  math_sum = (add math_sum sqr)
+})
+(println "Math function sum:" math_sum)
+(println "PASS: Math functions work in loop")
+
+(println "")
+(println "===== Category 8: Real-World Use Cases =====")
+(println "")
+
+(println "Test 25: Countdown timer simulation")
+countdown = 5
+(loop 6 {i ->
+  remaining = (subtract countdown i)
+  (when (greater_than remaining 0)
+    {(println "T-minus" remaining)}
+  )
+})
+(println "PASS: Countdown completed")
+
+(println "")
+(println "Test 26: Running average calculation")
+mut running_total = 0
+(loop 5 {i ->
+  running_total = (add running_total (multiply i 10))
+  count = (add i 1)
+  avg = (divide running_total count)
+  (println "After" count "items, average =" avg)
+})
+(println "PASS: Running average computed")
+
+(println "")
+(println "Test 27: Power sequence generation")
+mut power_sum = 0
+base = 2
+(loop 5 {i ->
+  pwr = (power base (float i))
+  int_pwr = (integer pwr)
+  power_sum = (add power_sum int_pwr)
+  (println "2^" i "=" int_pwr)
+})
+(println "Sum of 2^0 through 2^4:" power_sum)
+expected27 = 31
+(println (if (is power_sum expected27) "PASS" "FAIL"))
+
+(println "")
+(println "Test 28: Min/max tracking")
+mut min_val = 999
+mut max_val = 0
+(loop 10 {i ->
+  value = (multiply i i)
+  min_val = (min min_val value)
+  max_val = (max max_val value)
+})
+(println "Min:" min_val "Max:" max_val)
+check28 = (and (is min_val 0) (is max_val 81))
+(println (if check28 "PASS" "FAIL"))
+
+(println "")
+(println "Test 29: Complex multi-variable state")
+mut state_a = 1
+mut state_b = 1
+mut state_c = 0
+(loop 7 {i ->
+  new_c = (add state_a state_b)
+  state_a = state_b
+  state_b = new_c
+  state_c = new_c
+})
+(println "Final state_c (Fibonacci-like):" state_c)
+(println "PASS: Complex state tracking works")
+
+(println "")
+(println "Test 30: Character/string building simulation")
+mut char_count = 0
+(loop 26 {i ->
+  ascii_offset = (add i 65)
+  char_count = (add char_count 1)
+})
+(println "Built" char_count "characters (A-Z)")
+(println (if (is char_count 26) "PASS" "FAIL"))
+
+(println "")
+(println "===== Test Summary =====")
+(println "✅ All 30 comprehensive loop tests completed!")
+(println "Coverage:")
+(println "  - Basic functionality (3 tests)")
+(println "  - Arithmetic/computation (3 tests)")
+(println "  - Parameter usage (3 tests)")
+(println "  - Type mixing (2 tests)")
+(println "  - Edge cases (3 tests)")
+(println "  - Variable scope (3 tests)")
+(println "  - Integration with other features (6 tests)")
+(println "  - Real-world use cases (7 tests)")

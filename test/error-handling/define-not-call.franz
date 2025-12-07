@@ -1,0 +1,7 @@
+x1 = (try { (error "first") } {e -> <- 1})
+(println "x1=" x1)
+
+// Define a function that uses try, but don't call it
+f = { (try { <- 99 } {e -> <- 0}) }
+
+(println "Done")

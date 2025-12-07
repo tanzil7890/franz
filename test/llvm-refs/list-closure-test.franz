@@ -1,0 +1,16 @@
+// Test if closures can capture lists (also Generic*)
+
+(println "Step 1: Create list")
+nums = [1, 2, 3]
+
+(println "Step 2: Create closure that captures list")
+get_first = {->
+  first = (head nums)
+  <- first
+}
+
+(println "Step 3: Call closure")
+result = (get_first)
+(println "Result:" result)
+
+(println "Done!")

@@ -1,0 +1,16 @@
+// Minimal test for dict_map
+(println "=== Minimal Dict Map Test ===")
+(println "")
+
+// Test: inline closure
+(println "Test: dict_map with inline closure")
+scores = (dict "alice" 90 "bob" 85)
+(println "Created dict")
+
+doubled = (dict_map scores {k v -> <- (multiply v 2)})
+(println "Mapped dict")
+
+alice_doubled = (dict_get doubled "alice")
+(println "alice doubled:" alice_doubled)
+
+(println "✓ Test passed")

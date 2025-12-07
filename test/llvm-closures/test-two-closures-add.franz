@@ -1,0 +1,13 @@
+(println "Test: Two closures + arithmetic")
+
+get_five = {-> <- 5}
+get_ten = {-> <- 10}
+
+a = (get_five)
+b = (get_ten)
+(println "a =" a)
+(println "b =" b)
+
+result = (add a b)
+(println "a + b =" result)
+(println "Expected: 15")

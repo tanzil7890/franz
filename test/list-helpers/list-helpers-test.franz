@@ -1,0 +1,132 @@
+// Test new list helper functions: head, tail, cons, empty?
+
+(println "=== Testing List Helper Functions ===\n")
+
+// Test 1: head function
+(println "1. Testing head:")
+lst1 = (list 1 2 3 4 5)
+(println "   List: " lst1)
+(println "   head: " (head lst1))
+
+empty_lst = (list)
+(println "   Empty list: " empty_lst)
+(println "   head of empty: " (head empty_lst))
+
+// Test 2: tail function
+(println "\n2. Testing tail:")
+(println "   List: " lst1)
+(println "   tail: " (tail lst1))
+
+single = (list 42)
+(println "   Single element list: " single)
+(println "   tail of single: " (tail single))
+
+(println "   Empty list: " empty_lst)
+(println "   tail of empty: " (tail empty_lst))
+
+// Test 3: cons function
+(println "\n3. Testing cons:")
+(println "   cons 0 to " lst1)
+(println "   Result: " (cons 0 lst1))
+
+(println "   cons 100 to " empty_lst)
+(println "   Result: " (cons 100 empty_lst))
+
+// Test 4: empty? function
+(println "\n4. Testing empty?:")
+(println "   empty? " lst1 " = " (empty? lst1))
+(println "   empty? " empty_lst " = " (empty? empty_lst))
+(println "   empty? " single " = " (empty? single))
+
+// Test 5: Recursive list processing pattern
+(println "\n5. Recursive Pattern (sum of list):")
+
+sum_list = {lst ->
+  <- (if (empty? lst)
+    {<- 0}
+    {<- (add (head lst) (sum_list (tail lst)))}
+  )
+}
+
+test_list = (list 1 2 3 4 5)
+(println "   sum of " test_list " = " (sum_list test_list))
+
+// Test 6: Build list using cons
+(println "\n6. Building list with cons:")
+
+build_list = {n ->
+  <- (if (is n 0)
+    {<- (list)}
+    {<- (cons n (build_list (subtract n 1)))}
+  )
+}
+
+(println "   build_list(5) = " (build_list 5))
+
+// Test 7: map implementation using head/tail
+(println "\n7. Custom map using head/tail:")
+
+my_map = {lst fn ->
+  <- (if (empty? lst)
+    {<- (list)}
+    {<- (cons (fn (head lst)) (my_map (tail lst) fn))}
+  )
+}
+
+double = {x -> <- (multiply x 2)}
+numbers = (list 1 2 3 4 5)
+(println "   my_map double " numbers)
+(println "   Result: " (my_map numbers double))
+
+// Test 8: filter implementation
+(println "\n8. Custom filter using head/tail:")
+
+my_filter = {lst fn ->
+  <- (if (empty? lst)
+    {<- (list)}
+    {
+      h = (head lst)
+      t = (tail lst)
+      <- (if (fn h)
+        {<- (cons h (my_filter t fn))}
+        {<- (my_filter t fn)}
+      )
+    }
+  )
+}
+
+is_even = {x -> <- (is (remainder x 2) 0)}
+(println "   my_filter is_even " numbers)
+(println "   Result: " (my_filter numbers is_even))
+
+// Test 9: reverse list
+(println "\n9. Reverse list:")
+
+reverse_helper = {lst acc ->
+  <- (if (empty? lst)
+    {<- acc}
+    {<- (reverse_helper (tail lst) (cons (head lst) acc))}
+  )
+}
+
+reverse = {lst ->
+  <- (reverse_helper lst (list))
+}
+
+(println "   reverse " numbers)
+(println "   Result: " (reverse numbers))
+
+// Test 10: length using recursion
+(println "\n10. Custom length using head/tail:")
+
+my_length = {lst ->
+  <- (if (empty? lst)
+    {<- 0}
+    {<- (add 1 (my_length (tail lst)))}
+  )
+}
+
+(println "   my_length " numbers " = " (my_length numbers))
+(println "   my_length " empty_lst " = " (my_length empty_lst))
+
+(println "\n=== All Tests Complete ===")

@@ -1,0 +1,34 @@
+(println "=== List Files Test ===")
+
+(println "Creating test directory and files...")
+(create_dir "test-list-dir")
+(write_file "test-list-dir/file1.txt" "content1")
+(write_file "test-list-dir/file2.txt" "content2")
+(write_file "test-list-dir/file3.txt" "content3")
+
+(println "")
+(println "Listing files in test-list-dir:")
+files = (list_files "test-list-dir")
+(println "Files list:")
+(println files)
+
+(println "")
+(println "Getting list length:")
+len = (length files)
+(println "Number of files:" len)
+
+(println "")
+(println "Accessing individual files:")
+(if (greater_than len 0)
+  {
+    first_file = (head files)
+    (println "First file:" first_file)
+  }
+  {(println "No files found")})
+
+(println "")
+(println "Iterating through all files:")
+(println "TODO: Need map or loop to iterate")
+
+(println "")
+(println "=== Test complete ===")

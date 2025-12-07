@@ -1,0 +1,84 @@
+(println "=== Break Statement - Both Forms Test ===")
+(println "")
+
+(println "Test 1: (break) without value")
+result1 = (loop 10 {i ->
+  (println "  i=" i)
+  (if (is i 3)
+    {(break)}      // No value - should return 0
+    {})
+})
+(println "Result:" result1 "Expected: 0")
+(println "")
+
+(println "Test 2: (break value) with value")
+result2 = (loop 10 {i ->
+  (if (is i 5)
+    {(break 42)}   // With value - should return 42
+    {})
+})
+(println "Result:" result2 "Expected: 42")
+(println "")
+
+(println "Test 3: (break) on first iteration")
+result3 = (loop 10 {i ->
+  (break)          // Immediate exit with 0
+})
+(println "Result:" result3 "Expected: 0")
+(println "")
+
+(println "Test 4: (break value) on first iteration")
+result4 = (loop 10 {i ->
+  (break 99)       // Immediate exit with 99
+})
+(println "Result:" result4 "Expected: 99")
+(println "")
+
+(println "Test 5: Conditional - break without value")
+result5 = (loop 20 {i ->
+  (if (is (remainder i 7) 0)
+    {(break)}
+    {})
+})
+(println "Result:" result5 "Expected: 0 (first multiple of 7)")
+(println "")
+
+(println "Test 6: Conditional - break with value")
+result6 = (loop 20 {i ->
+  (if (is (remainder i 7) 0)
+    {(break i)}
+    {})
+})
+(println "Result:" result6 "Expected: 0 (first multiple of 7)")
+(println "")
+
+(println "Test 7: Mixed - break without value in search")
+found = 0
+result7 = (loop 10 {i ->
+  (if (is i 6)
+    {
+      found = i
+      (break)      // Found it, exit without returning i
+    }
+    {})
+})
+(println "Loop result:" result7 "Expected: 0")
+(println "Found value:" found "Expected: 6")
+(println "")
+
+(println "Test 8: Nested loops - both forms")
+outer = (loop 5 {i ->
+  inner = (loop 5 {j ->
+    (if (is j 2)
+      {(break)}    // Inner break without value
+      {})
+  })
+
+  (if (is i 3)
+    {(break i)}    // Outer break with value
+    {})
+})
+(println "Result:" outer "Expected: 3")
+(println "")
+
+(println "All tests complete!")

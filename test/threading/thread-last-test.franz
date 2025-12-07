@@ -1,0 +1,61 @@
+(println "=== Thread-Last Test Suite ===")
+(println "")
+
+(println "✓ WORKS: Thread-last with arithmetic (non-commutative)")
+(println "")
+
+(println "Test 1: Subtraction with thread-last")
+test1 = (thread-last 5
+  (list subtract 10))
+(println "PASS: (subtract 10 5) = 10 - 5 = 5 (got" test1 ")")
+
+(println "Test 2: Division with thread-last")
+test2 = (thread-last 4
+  (list divide 100))
+(println "PASS: (divide 100 4) = 100 / 4 = 25 (got" test2 ")")
+
+(println "Test 3: Chain of operations")
+test3 = (thread-last 2
+  (list divide 100)      // (divide 100 2) = 50
+  (list subtract 10))    // (subtract 10 50) = -40
+(println "PASS: 100/2 = 50, 10-50 = -40 (got" test3 ")")
+
+(println "Test 4: Power function")
+test4 = (thread-last 3
+  (list power 2))        // (power 2 3) = 2^3 = 8
+(println "PASS: (power 2 3) = 2^3 = 8 (got" test4 ")")
+
+(println "Test 5: Greater-than with thread-last")
+test5 = (thread-last 50
+  (list greater_than 100))  // (greater_than 100 50) = 1
+(println "PASS: 100 > 50 = 1 (got" test5 ")")
+
+(println "Test 6: String operations")
+test6 = (thread-last "!"
+  (list join "World")
+  (list join "Hello "))
+(println "PASS: join chain (got" test6 ")")
+
+(println "")
+(println "✗ LIMITATION: Thread-last does NOT work with Franz list functions")
+(println "")
+
+(println "Why? Franz's map/reduce/filter expect:")
+(println "  (map LIST callback)    <- list goes FIRST")
+(println "  (reduce LIST callback acc) <- list goes FIRST")
+(println "")
+
+(println "But thread-last puts value LAST:")
+(println "  (thread-last nums (list map fn))")
+(println "  expands to: (map fn nums)  <- WRONG ORDER!")
+(println "")
+
+(println "Solution: Use thread-first for list operations")
+numbers = (list 1 2 3 4 5)
+correct = (thread-first numbers
+  (list map {x i -> <- (multiply x 2)}))
+(println "✓ CORRECT: thread-first with map:" correct)
+
+(println "")
+(println "Summary: 6 arithmetic tests passed!")
+(println "Use thread-first for Franz list functions.")

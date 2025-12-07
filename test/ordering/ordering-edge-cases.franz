@@ -1,0 +1,97 @@
+(println "=== Ordering Edge Case Tests ===")
+(println "")
+
+(println "Edge 1: Large positive integers")
+ok1 = (less_than 999999 1000000)
+(println (if ok1 {<- "  PASS: 999999 < 1000000 → 1"} {<- "  FAIL"}))
+
+(println "Edge 2: Large negative integers")
+ok2 = (less_than -1000000 -999999)
+(println (if ok2 {<- "  PASS: -1000000 < -999999 → 1"} {<- "  FAIL"}))
+
+(println "Edge 3: Very small positive floats")
+ok3 = (less_than 0.0001 0.001)
+(println (if ok3 {<- "  PASS: 0.0001 < 0.001 → 1"} {<- "  FAIL"}))
+
+(println "Edge 4: Very small negative floats")
+ok4 = (greater_than -0.0001 -0.001)
+(println (if ok4 {<- "  PASS: -0.0001 > -0.001 → 1"} {<- "  FAIL"}))
+
+(println "Edge 5: Zero vs negative zero (float)")
+ok5 = (is (less_than 0.0 -0.0) 0)
+(println (if ok5 {<- "  PASS: 0.0 < -0.0 → 0 (equal)"} {<- "  FAIL"}))
+
+(println "Edge 6: Zero vs negative zero (greater_than)")
+ok6 = (is (greater_than 0.0 -0.0) 0)
+(println (if ok6 {<- "  PASS: 0.0 > -0.0 → 0 (equal)"} {<- "  FAIL"}))
+
+(println "Edge 7: Very close floats (precision test)")
+ok7 = (is (less_than 1.0000001 1.0000002) 1)
+(println (if ok7 {<- "  PASS: 1.0000001 < 1.0000002 → 1"} {<- "  FAIL"}))
+
+(println "Edge 8: Integer boundary - zero comparison")
+ok8 = (is (less_than 0 0) 0)
+(println (if ok8 {<- "  PASS: 0 < 0 → 0"} {<- "  FAIL"}))
+
+(println "Edge 9: Mixed - integer 1 vs float 1.0 (less_than)")
+ok9 = (is (less_than 1 1.0) 0)
+(println (if ok9 {<- "  PASS: 1 < 1.0 → 0 (equal via coercion)"} {<- "  FAIL"}))
+
+(println "Edge 10: Mixed - integer 1 vs float 1.0 (greater_than)")
+ok10 = (is (greater_than 1 1.0) 0)
+(println (if ok10 {<- "  PASS: 1 > 1.0 → 0 (equal via coercion)"} {<- "  FAIL"}))
+
+(println "Edge 11: Mixed - integer 0 vs float 0.0")
+ok11 = (is (less_than 0 0.0) 0)
+(println (if ok11 {<- "  PASS: 0 < 0.0 → 0 (equal)"} {<- "  FAIL"}))
+
+(println "Edge 12: Mixed - negative integer vs float")
+ok12 = (less_than -5 -4.5)
+(println (if ok12 {<- "  PASS: -5 < -4.5 → 1"} {<- "  FAIL"}))
+
+(println "Edge 13: Chain comparison pattern (a < b < c)")
+edge13_a = 1
+edge13_b = 5
+edge13_c = 10
+ok13 = (and (less_than edge13_a edge13_b) (less_than edge13_b edge13_c))
+(println (if ok13 {<- "  PASS: 1 < 5 < 10 → 1"} {<- "  FAIL"}))
+
+(println "Edge 14: Chain comparison pattern (a > b > c)")
+ok14 = (and (greater_than edge13_c edge13_b) (greater_than edge13_b edge13_a))
+(println (if ok14 {<- "  PASS: 10 > 5 > 1 → 1"} {<- "  FAIL"}))
+
+(println "Edge 15: Self-comparison less_than")
+edge15_x = 42
+ok15 = (is (less_than edge15_x edge15_x) 0)
+(println (if ok15 {<- "  PASS: x < x → 0 (always false)"} {<- "  FAIL"}))
+
+(println "Edge 16: Self-comparison greater_than")
+ok16 = (is (greater_than edge15_x edge15_x) 0)
+(println (if ok16 {<- "  PASS: x > x → 0 (always false)"} {<- "  FAIL"}))
+
+(println "Edge 17: Float vs int boundary - 5.0 vs 5")
+ok17 = (is (less_than 5.0 5) 0)
+(println (if ok17 {<- "  PASS: 5.0 < 5 → 0 (equal)"} {<- "  FAIL"}))
+
+(println "Edge 18: Float vs int boundary - 4.999 vs 5")
+ok18 = (less_than 4.999 5)
+(println (if ok18 {<- "  PASS: 4.999 < 5 → 1"} {<- "  FAIL"}))
+
+(println "Edge 19: Large float vs large int")
+ok19 = (greater_than 1000000.0 999999)
+(println (if ok19 {<- "  PASS: 1000000.0 > 999999 → 1"} {<- "  FAIL"}))
+
+(println "Edge 20: Transitivity test (if a<b and b<c, then a<c)")
+edge20_a = 3
+edge20_b = 7
+edge20_c = 15
+edge20_ab = (less_than edge20_a edge20_b)
+edge20_bc = (less_than edge20_b edge20_c)
+edge20_ac = (less_than edge20_a edge20_c)
+ok20 = (and (and edge20_ab edge20_bc) edge20_ac)
+(println (if ok20 {<- "  PASS: Transitivity holds (3<7, 7<15, 3<15)"} {<- "  FAIL"}))
+
+(println "")
+total = (add ok1 ok2 ok3 ok4 ok5 ok6 ok7 ok8 ok9 ok10 ok11 ok12 ok13 ok14 ok15 ok16 ok17 ok18 ok19 ok20)
+(println "Edge cases passed: " total "/20")
+(println (if (is total 20) {<- "✓ All edge case tests PASSED!"} {<- "✗ Some edge cases FAILED"}))

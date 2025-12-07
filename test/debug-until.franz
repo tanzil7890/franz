@@ -1,0 +1,13 @@
+// Debug: Test until loop with simple counter
+(println "Testing until loop...")
+
+result = (until "stop" {state n ->
+  (println "Iteration " n " state: " state)
+
+  // Return "stop" when n reaches 5
+  <- (if (is n 5)
+    {<- "stop"}
+    {<- "continue"})
+})
+
+(println "Final result: " result)

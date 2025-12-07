@@ -1,0 +1,21 @@
+(println "=== Test: 5-level nested closure ===")
+
+(println "Step 1: Define make_penta")
+make_penta = {a -> <- {b -> <- {c -> <- {d -> <- {e -> <- (multiply (multiply (multiply (multiply a b) c) d) e)}}}}}
+
+(println "Step 2: Call make_penta(2)")
+penta2 = (make_penta 2)
+
+(println "Step 3: Call penta2(2)")
+penta2_2 = (penta2 2)
+
+(println "Step 4: Call penta2_2(2)")
+penta2_2_2 = (penta2_2 2)
+
+(println "Step 5: Call penta2_2_2(2)")
+penta2_2_2_2 = (penta2_2_2 2)
+
+(println "Step 6: Call penta2_2_2_2(3)")
+result = (penta2_2_2_2 3)
+(println "Result:" result)
+(println "Expected: 48")

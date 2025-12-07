@@ -1,0 +1,34 @@
+//  Simple parameterized handler test
+// Test single parameter unpacking: {x -> expr}
+
+(println "===  Simple Parameter Test ===")
+(println "")
+
+(println "Test 1: Single parameter handler with Some variant")
+some_value = (variant "Some" 42)
+result1 = (match some_value
+  "Some" {x -> <- x}
+  "None" {-> <- 0})
+(println "✓ Extracted value:" result1)
+(println "  Expected: 42")
+
+(println "")
+(println "Test 2: Single parameter handler with string value")
+some_string = (variant "Some" "Hello")
+result2 = (match some_string
+  "Some" {s -> <- s}
+  "None" {-> <- "empty"})
+(println "✓ Extracted string:" result2)
+(println "  Expected: Hello")
+
+(println "")
+(println "Test 3: Verify None still works (0 parameters)")
+none_value = (variant "None")
+result3 = (match none_value
+  "Some" {x -> <- x}
+  "None" {-> <- 999})
+(println "✓ None matched:" result3)
+(println "  Expected: 999")
+
+(println "")
+(println "=== All 3  simple tests passed! ===")

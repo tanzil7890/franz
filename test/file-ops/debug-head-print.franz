@@ -1,0 +1,15 @@
+(println "=== Debug Head Print Test ===")
+
+nums = [10, 20, 30]
+(println "List:" nums)
+
+first = (head nums)
+(println "Type of first: should be Generic*")
+(println "Value of first:")
+(println first)
+(println "Expected: 10")
+
+(println "")
+(println "Using first in arithmetic:")
+result = (add first 5)
+(println "first + 5 =" result)

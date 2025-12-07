@@ -1,0 +1,8 @@
+// Simple use_as() Test
+
+(println "Testing use_as()...")
+(use_as "examples/circular-deps/working/helper.franz" "math")
+(println "use_as() completed")
+(println "Attempting to call math_double...")
+result = (math_double 5)
+(println "Result:" result)

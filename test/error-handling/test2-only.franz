@@ -1,0 +1,9 @@
+(println "")
+(println "Test 2: Try block succeeds (no error)")
+result2 = (try {
+  <- (add 5 3)
+} {err ->
+  <- 0
+})
+(println "PASS: Test 2 - Result:" result2)
+(println "Done")

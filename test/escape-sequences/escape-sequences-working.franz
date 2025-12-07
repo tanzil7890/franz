@@ -1,0 +1,142 @@
+(println "=== Escape Sequence Tests ===")
+(println "")
+
+// Test 1: Newline
+(println "Test 1: Newline (\\n)")
+test1 = "Line1\nLine2"
+len1 = (length test1)
+ok1 = (is len1 11)
+(println (if ok1 {<- "PASS"} {<- "FAIL"}))
+
+// Test 2: Tab
+(println "Test 2: Tab (\\t)")
+test2 = "Col1\tCol2"
+len2 = (length test2)
+ok2 = (is len2 9)
+(println (if ok2 {<- "PASS"} {<- "FAIL"}))
+
+// Test 3: Carriage Return
+(println "Test 3: Carriage Return (\\r)")
+test3 = "Before\rAfter"
+len3 = (length test3)
+ok3 = (is len3 12)
+(println (if ok3 {<- "PASS"} {<- "FAIL"}))
+
+// Test 4: Backslash
+(println "Test 4: Backslash (\\\\)")
+test4 = "C:\\Users\\file"
+len4 = (length test4)
+ok4 = (is len4 13)
+(println (if ok4 {<- "PASS"} {<- "FAIL"}))
+
+// Test 5: Quote
+(println "Test 5: Quote (\\\")")
+test5 = "Say \"Hi\""
+len5 = (length test5)
+ok5 = (is len5 8)
+(println (if ok5 {<- "PASS"} {<- "FAIL"}))
+
+// Test 6: Bell
+(println "Test 6: Bell (\\a)")
+test6 = "Alert\a"
+len6 = (length test6)
+ok6 = (is len6 6)
+(println (if ok6 {<- "PASS"} {<- "FAIL"}))
+
+// Test 7: Backspace
+(println "Test 7: Backspace (\\b)")
+test7 = "Text\b"
+len7 = (length test7)
+ok7 = (is len7 5)
+(println (if ok7 {<- "PASS"} {<- "FAIL"}))
+
+// Test 8: Form Feed
+(println "Test 8: Form Feed (\\f)")
+test8 = "Page1\fPage2"
+len8 = (length test8)
+ok8 = (is len8 11)
+(println (if ok8 {<- "PASS"} {<- "FAIL"}))
+
+// Test 9: Vertical Tab
+(println "Test 9: Vertical Tab (\\v)")
+test9 = "Line1\vLine2"
+len9 = (length test9)
+ok9 = (is len9 11)
+(println (if ok9 {<- "PASS"} {<- "FAIL"}))
+
+// Test 10: Escape
+(println "Test 10: Escape (\\e)")
+test10 = "\e[31m"
+len10 = (length test10)
+ok10 = (is len10 5)
+(println (if ok10 {<- "PASS"} {<- "FAIL"}))
+
+// Test 11: Hex Escape
+(println "Test 11: Hex (\\x41 = A)")
+test11 = "\x41"
+ok11 = (is test11 "A")
+(println (if ok11 {<- "PASS"} {<- "FAIL"}))
+
+// Test 12: Multiple Hex
+(println "Test 12: Multi Hex")
+test12 = "\x48\x69"
+ok12 = (is test12 "Hi")
+(println (if ok12 {<- "PASS"} {<- "FAIL"}))
+
+// Test 13: Mixed
+(println "Test 13: Mixed Escapes")
+test13 = "A\nB\tC\"D\\E"
+len13 = (length test13)
+ok13 = (is len13 9)
+(println (if ok13 {<- "PASS"} {<- "FAIL"}))
+
+// Test 14: Empty
+(println "Test 14: Empty String")
+test14 = ""
+len14 = (length test14)
+ok14 = (is len14 0)
+(println (if ok14 {<- "PASS"} {<- "FAIL"}))
+
+// Test 15: Only Escapes
+(println "Test 15: Only Escapes")
+test15 = "\n\t\r"
+len15 = (length test15)
+ok15 = (is len15 3)
+(println (if ok15 {<- "PASS"} {<- "FAIL"}))
+
+// Test 16: Uppercase Hex
+(println "Test 16: Uppercase Hex")
+test16 = "\x4A"
+ok16 = (is test16 "J")
+(println (if ok16 {<- "PASS"} {<- "FAIL"}))
+
+// Test 17: Lowercase Hex
+(println "Test 17: Lowercase Hex")
+test17 = "\x7a"
+ok17 = (is test17 "z")
+(println (if ok17 {<- "PASS"} {<- "FAIL"}))
+
+// Test 18: String Compare
+(println "Test 18: String Compare")
+test18a = "Hello\nWorld"
+test18b = "Hello\nWorld"
+ok18 = (is test18a test18b)
+(println (if ok18 {<- "PASS"} {<- "FAIL"}))
+
+// Test 19: Escape in List
+(println "Test 19: Escape in List")
+list19 = (list "A\nB" "C\tD")
+first19 = (get list19 0)
+len19 = (length first19)
+ok19 = (is len19 3)
+(println (if ok19 {<- "PASS"} {<- "FAIL"}))
+
+// Test 20: Multiple Backslashes
+(println "Test 20: Multiple Backslashes")
+test20 = "\\\\\\\\"
+len20 = (length test20)
+ok20 = (is len20 4)
+(println (if ok20 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "All 20 tests complete!")

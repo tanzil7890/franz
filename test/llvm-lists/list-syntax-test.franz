@@ -1,0 +1,24 @@
+(println "=== List Literal Syntax Tests ===")
+(println "")
+
+(println "Test 1: Empty list")
+x = []
+(println "Empty list created:" x)
+
+(println "")
+(println "Test 2: Integer list")
+nums = [1, 2, 3]
+(println "Integer list created:" nums)
+
+(println "")
+(println "Test 3: Mixed type list")
+data = [1, "hello", 3.14]
+(println "Mixed list created:" data)
+
+(println "")
+(println "Test 4: Nested lists")
+matrix = [[1, 2], [3, 4]]
+(println "Nested list created:" matrix)
+
+(println "")
+(println "All syntax tests passed!")

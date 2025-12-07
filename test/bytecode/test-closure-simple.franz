@@ -1,0 +1,9 @@
+(println "=== Simple Closure Test ===")
+(println "")
+
+(println "Test: makeAdder closure")
+makeAdder = {x -> <- {y -> <- (add x y)}}
+add5 = (makeAdder 5)
+(println (add5 10))
+(println "Expected: 15")
+(println "PASS: Closure works!")

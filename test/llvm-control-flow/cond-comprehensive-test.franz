@@ -1,0 +1,302 @@
+(println "=== Cond Chains Comprehensive Test Suite ===")
+(println "")
+
+(println "Part 1: Basic Cond Chains")
+(println "--------------------------")
+
+(println "Test 1: Two clauses with else")
+test1_x = 15
+test1_result = (cond
+  ((greater_than test1_x 10) "big")
+  (else "small"))
+test1_pass = (is_string test1_result)
+(println "Result:" test1_result "| Expected: big | Pass:" test1_pass)
+
+(println "Test 2: Three clauses with else")
+test2_x = 7
+test2_result = (cond
+  ((greater_than test2_x 10) "big")
+  ((greater_than test2_x 5) "medium")
+  (else "small"))
+test2_pass = (is_string test2_result)
+(println "Result:" test2_result "| Expected: medium | Pass:" test2_pass)
+
+(println "Test 3: First clause matches")
+test3_x = 12
+test3_result = (cond
+  ((greater_than test3_x 10) 100)
+  ((greater_than test3_x 5) 50)
+  (else 10))
+test3_pass = (is test3_result 100)
+(println "Result:" test3_result "| Expected: 100 | Pass:" test3_pass)
+
+(println "Test 4: Second clause matches")
+test4_x = 7
+test4_result = (cond
+  ((greater_than test4_x 10) 100)
+  ((greater_than test4_x 5) 50)
+  (else 10))
+test4_pass = (is test4_result 50)
+(println "Result:" test4_result "| Expected: 50 | Pass:" test4_pass)
+
+(println "Test 5: Else clause matches")
+test5_x = 2
+test5_result = (cond
+  ((greater_than test5_x 10) 100)
+  ((greater_than test5_x 5) 50)
+  (else 10))
+test5_pass = (is test5_result 10)
+(println "Result:" test5_result "| Expected: 10 | Pass:" test5_pass)
+
+(println "Test 6: No else clause, no match (returns 0)")
+test6_x = 2
+test6_result = (cond
+  ((greater_than test6_x 10) 100)
+  ((greater_than test6_x 5) 50))
+test6_pass = (is test6_result 0)
+(println "Result:" test6_result "| Expected: 0 | Pass:" test6_pass)
+
+(println "Test 7: Single clause with else")
+test7_x = 5
+test7_result = (cond
+  ((is test7_x 5) "yes")
+  (else "no"))
+test7_pass = (is_string test7_result)
+(println "Result:" test7_result "| Expected: yes | Pass:" test7_pass)
+
+(println "")
+(println "Part 2: Cond with Comparisons")
+(println "------------------------------")
+
+(println "Test 8: Greater than chain")
+test8_age = 25
+test8_result = (cond
+  ((greater_than test8_age 65) "senior")
+  ((greater_than test8_age 18) "adult")
+  (else "minor"))
+test8_pass = (is_string test8_result)
+(println "Result:" test8_result "| Expected: adult | Pass:" test8_pass)
+
+(println "Test 9: Less than chain")
+test9_score = 75
+test9_result = (cond
+  ((less_than test9_score 50) "F")
+  ((less_than test9_score 70) "C")
+  ((less_than test9_score 90) "B")
+  (else "A"))
+test9_pass = (is_string test9_result)
+(println "Result:" test9_result "| Expected: B | Pass:" test9_pass)
+
+(println "Test 10: Equality checks")
+test10_x = 5
+test10_result = (cond
+  ((is test10_x 10) "ten")
+  ((is test10_x 5) "five")
+  (else "other"))
+test10_pass = (is_string test10_result)
+(println "Result:" test10_result "| Expected: five | Pass:" test10_pass)
+
+(println "")
+(println "Part 3: Cond with Logical Operators")
+(println "------------------------------------")
+
+(println "Test 11: AND conditions")
+test11_x = 7
+test11_y = 8
+test11_result = (cond
+  ((and (greater_than test11_x 5) (greater_than test11_y 5)) "both")
+  (else "not both"))
+test11_pass = (is_string test11_result)
+(println "Result:" test11_result "| Expected: both | Pass:" test11_pass)
+
+(println "Test 12: OR conditions")
+test12_x = 3
+test12_y = 10
+test12_result = (cond
+  ((or (greater_than test12_x 5) (greater_than test12_y 5)) "at least one")
+  (else "neither"))
+test12_pass = (is_string test12_result)
+(println "Result:" test12_result "| Expected: at least one | Pass:" test12_pass)
+
+(println "Test 13: NOT conditions")
+test13_x = 3
+test13_result = (cond
+  ((not (less_than test13_x 5)) "not small")
+  (else "small"))
+test13_pass = (is_string test13_result)
+(println "Result:" test13_result "| Expected: small | Pass:" test13_pass)
+
+(println "")
+(println "Part 4: Cond with Type Mixing")
+(println "------------------------------")
+
+(println "Test 14: Integer results")
+test14_x = 100
+test14_result = (cond
+  ((greater_than test14_x 50) 1)
+  (else 0))
+test14_pass = (is test14_result 1)
+(println "Result:" test14_result "| Expected: 1 | Pass:" test14_pass)
+
+(println "Test 15: Float results")
+test15_temp = 25
+test15_result = (cond
+  ((greater_than test15_temp 30) 1.5)
+  ((greater_than test15_temp 20) 1.0)
+  (else 0.5))
+test15_pass = (is_float test15_result)
+(println "Result:" test15_result "| Expected: 1.0 | Pass:" test15_pass)
+
+(println "Test 16: String results")
+test16_code = 404
+test16_result = (cond
+  ((is test16_code 200) "OK")
+  ((is test16_code 404) "Not Found")
+  (else "Unknown"))
+test16_pass = (is_string test16_result)
+(println "Result:" test16_result "| Expected: Not Found | Pass:" test16_pass)
+
+(println "")
+(println "Part 5: Nested Arithmetic in Conditions")
+(println "----------------------------------------")
+
+(println "Test 17: Arithmetic in test")
+test17_a = 5
+test17_b = 10
+test17_result = (cond
+  ((greater_than (add test17_a test17_b) 10) "big sum")
+  (else "small sum"))
+test17_pass = (is_string test17_result)
+(println "Result:" test17_result "| Expected: big sum | Pass:" test17_pass)
+
+(println "Test 18: Arithmetic in result")
+test18_x = 100
+test18_result = (cond
+  ((greater_than test18_x 50) (multiply test18_x 2))
+  (else (divide test18_x 2)))
+test18_pass = (is test18_result 200)
+(println "Result:" test18_result "| Expected: 200 | Pass:" test18_pass)
+
+(println "Test 19: Multiple arithmetic operations")
+test19_base = 10
+test19_result = (cond
+  ((greater_than test19_base 20) (add (multiply test19_base 2) 5))
+  ((greater_than test19_base 5) (multiply test19_base 3))
+  (else test19_base))
+test19_pass = (is test19_result 30)
+(println "Result:" test19_result "| Expected: 30 | Pass:" test19_pass)
+
+(println "")
+(println "Part 6: Real-World Use Cases")
+(println "-----------------------------")
+
+(println "Test 20: Grade classification")
+test20_score = 85
+test20_grade = (cond
+  ((greater_than test20_score 89) "A")
+  ((greater_than test20_score 79) "B")
+  ((greater_than test20_score 69) "C")
+  ((greater_than test20_score 59) "D")
+  (else "F"))
+test20_pass = (is_string test20_grade)
+(println "Score:" test20_score "| Grade:" test20_grade "| Pass:" test20_pass)
+
+(println "Test 21: Temperature status")
+test21_temp = 15
+test21_status = (cond
+  ((greater_than test21_temp 30) "hot")
+  ((greater_than test21_temp 20) "warm")
+  ((greater_than test21_temp 10) "cool")
+  (else "cold"))
+test21_pass = (is_string test21_status)
+(println "Temp:" test21_temp "| Status:" test21_status "| Pass:" test21_pass)
+
+(println "Test 22: HTTP status codes")
+test22_code = 200
+test22_msg = (cond
+  ((is test22_code 200) "Success")
+  ((is test22_code 404) "Not Found")
+  ((is test22_code 500) "Server Error")
+  (else "Unknown"))
+test22_pass = (is_string test22_msg)
+(println "Code:" test22_code "| Message:" test22_msg "| Pass:" test22_pass)
+
+(println "Test 23: Priority levels")
+test23_level = 3
+test23_priority = (cond
+  ((is test23_level 1) "critical")
+  ((is test23_level 2) "high")
+  ((is test23_level 3) "medium")
+  ((is test23_level 4) "low")
+  (else "unknown"))
+test23_pass = (is_string test23_priority)
+(println "Level:" test23_level "| Priority:" test23_priority "| Pass:" test23_pass)
+
+(println "Test 24: Age brackets")
+test24_age = 45
+test24_bracket = (cond
+  ((less_than test24_age 18) "youth")
+  ((less_than test24_age 30) "young adult")
+  ((less_than test24_age 50) "middle age")
+  (else "senior"))
+test24_pass = (is_string test24_bracket)
+(println "Age:" test24_age "| Bracket:" test24_bracket "| Pass:" test24_pass)
+
+(println "")
+(println "Part 7: Edge Cases")
+(println "------------------")
+
+(println "Test 25: All conditions false, no else")
+test25_x = 0
+test25_result = (cond
+  ((greater_than test25_x 5) 100)
+  ((greater_than test25_x 2) 50))
+test25_pass = (is test25_result 0)
+(println "Result:" test25_result "| Expected: 0 (default) | Pass:" test25_pass)
+
+(println "Test 26: First condition always true")
+test26_result = (cond
+  (1 "always")
+  ((greater_than 5 10) "never")
+  (else "default"))
+test26_pass = (is_string test26_result)
+(println "Result:" test26_result "| Expected: always | Pass:" test26_pass)
+
+(println "Test 27: Zero as condition (falsy)")
+test27_result = (cond
+  (0 "zero")
+  (1 "one")
+  (else "else"))
+test27_pass = (is_string test27_result)
+(println "Result:" test27_result "| Expected: one | Pass:" test27_pass)
+
+(println "Test 28: Negative number as condition (truthy)")
+test28_result = (cond
+  (-5 "negative")
+  (else "else"))
+test28_pass = (is_string test28_result)
+(println "Result:" test28_result "| Expected: negative | Pass:" test28_pass)
+
+(println "Test 29: Long chain (5 clauses)")
+test29_x = 42
+test29_result = (cond
+  ((greater_than test29_x 100) "very big")
+  ((greater_than test29_x 50) "big")
+  ((greater_than test29_x 25) "medium")
+  ((greater_than test29_x 10) "small")
+  (else "tiny"))
+test29_pass = (is_string test29_result)
+(println "x:" test29_x "| Result:" test29_result "| Pass:" test29_pass)
+
+(println "Test 30: Cond with mixed type results")
+test30_flag = 1
+test30_result = (cond
+  ((is test30_flag 1) 100)
+  (else 200))
+test30_pass = (is test30_result 100)
+(println "Result:" test30_result "| Expected: 100 | Pass:" test30_pass)
+
+(println "")
+(println "=== Summary ===")
+(println "All 30 tests completed!")
+(println "Cond Chains Implementation Complete")

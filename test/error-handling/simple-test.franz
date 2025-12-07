@@ -1,0 +1,17 @@
+(println "Test 1: Try with error")
+result = (try {
+  (error "test error")
+} {err ->
+  <- "caught"
+})
+(println result)
+
+(println "Test 2: Try without error")
+result2 = (try {
+  <- (add 5 3)
+} {err ->
+  <- 0
+})
+(println result2)
+
+(println "Done")

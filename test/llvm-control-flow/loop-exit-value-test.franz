@@ -1,0 +1,26 @@
+(println "=== Loop Early Exit Value Test ===")
+(println "")
+
+(println "Test 1: Exit with constant 42")
+result1 = (loop 10 {i ->
+  <- 42
+})
+(println "Result:" result1 "Expected: 42")
+(println "")
+
+(println "Test 2: Exit with i when i=3")
+result2 = (loop 10 {i ->
+  (if (is i 3)
+    {<- i}
+    {<- 0})
+})
+(println "Result:" result2 "Expected: 3")
+(println "")
+
+(println "Test 3: Exit with computed value")
+result3 = (loop 10 {i ->
+  (if (is i 5)
+    {<- (multiply i 10)}
+    {<- 0})
+})
+(println "Result:" result3 "Expected: 50")

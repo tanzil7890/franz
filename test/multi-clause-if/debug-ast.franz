@@ -1,0 +1,8 @@
+// Simple test to see AST structure
+result = (if
+  (is 1 0) {<- "zero"}
+  (is 1 1) {<- "one"}
+  {<- "other"}
+)
+
+(println "Result: " result)

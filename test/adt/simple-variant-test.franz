@@ -1,0 +1,3 @@
+(println "Creating simple variant...")
+some = (variant "Some" 42)
+(println "Variant created successfully!")

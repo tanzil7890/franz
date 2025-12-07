@@ -1,0 +1,198 @@
+(println "=== Type Guards Comprehensive Test Suite ===")
+(println "")
+
+(println "Part 1: is_int Tests")
+(println "---------------------")
+
+(println "Test 1: is_int with integer literal")
+test1_result = (is_int 42)
+test1_pass = (is test1_result 1)
+(println "Result:" test1_result "| Expected: 1 | Pass:" test1_pass)
+
+(println "Test 2: is_int with float literal")
+test2_result = (is_int 3.14)
+test2_pass = (is test2_result 0)
+(println "Result:" test2_result "| Expected: 0 | Pass:" test2_pass)
+
+(println "Test 3: is_int with string literal")
+test3_result = (is_string "hello")
+test3_pass = (is test3_result 1)
+(println "Result:" test3_result "| Expected: 1 | Pass:" test3_pass)
+
+(println "Test 4: is_int with integer variable")
+test4_x = 100
+test4_result = (is_int test4_x)
+test4_pass = (is test4_result 1)
+(println "Result:" test4_result "| Expected: 1 | Pass:" test4_pass)
+
+(println "Test 5: is_int with negative integer")
+test5_result = (is_int -5)
+test5_pass = (is test5_result 1)
+(println "Result:" test5_result "| Expected: 1 | Pass:" test5_pass)
+
+(println "Test 6: is_int with arithmetic result")
+test6_result = (is_int (add 10 20))
+test6_pass = (is test6_result 1)
+(println "Result:" test6_result "| Expected: 1 | Pass:" test6_pass)
+
+(println "Test 7: is_int with zero")
+test7_result = (is_int 0)
+test7_pass = (is test7_result 1)
+(println "Result:" test7_result "| Expected: 1 | Pass:" test7_pass)
+
+(println "")
+(println "Part 2: is_float Tests")
+(println "-----------------------")
+
+(println "Test 8: is_float with float literal")
+test8_result = (is_float 3.14)
+test8_pass = (is test8_result 1)
+(println "Result:" test8_result "| Expected: 1 | Pass:" test8_pass)
+
+(println "Test 9: is_float with integer literal")
+test9_result = (is_float 42)
+test9_pass = (is test9_result 0)
+(println "Result:" test9_result "| Expected: 0 | Pass:" test9_pass)
+
+(println "Test 10: is_float with float variable")
+test10_x = 2.71
+test10_result = (is_float test10_x)
+test10_pass = (is test10_result 1)
+(println "Result:" test10_result "| Expected: 1 | Pass:" test10_pass)
+
+(println "Test 11: is_float with negative float")
+test11_result = (is_float -3.5)
+test11_pass = (is test11_result 1)
+(println "Result:" test11_result "| Expected: 1 | Pass:" test11_pass)
+
+(println "Test 12: is_float with float arithmetic")
+test12_result = (is_float (multiply 2.5 3.0))
+test12_pass = (is test12_result 1)
+(println "Result:" test12_result "| Expected: 1 | Pass:" test12_pass)
+
+(println "Test 13: is_float with zero float")
+test13_result = (is_float 0.0)
+test13_pass = (is test13_result 1)
+(println "Result:" test13_result "| Expected: 1 | Pass:" test13_pass)
+
+(println "")
+(println "Part 3: is_string Tests")
+(println "------------------------")
+
+(println "Test 14: is_string with string literal")
+test14_result = (is_string "hello")
+test14_pass = (is test14_result 1)
+(println "Result:" test14_result "| Expected: 1 | Pass:" test14_pass)
+
+(println "Test 15: is_string with integer")
+test15_result = (is_string 42)
+test15_pass = (is test15_result 0)
+(println "Result:" test15_result "| Expected: 0 | Pass:" test15_pass)
+
+(println "Test 16: is_string with empty string")
+test16_result = (is_string "")
+test16_pass = (is test16_result 1)
+(println "Result:" test16_result "| Expected: 1 | Pass:" test16_pass)
+
+(println "Test 17: is_string with string variable")
+test17_msg = "Franz rocks!"
+test17_result = (is_string test17_msg)
+test17_pass = (is test17_result 1)
+(println "Result:" test17_result "| Expected: 1 | Pass:" test17_pass)
+
+(println "Test 18: is_string with joined string")
+test18_result = (is_string (join "hello" " " "world"))
+test18_pass = (is test18_result 1)
+(println "Result:" test18_result "| Expected: 1 | Pass:" test18_pass)
+
+(println "")
+(println "Part 4: Type Guards with If Statements")
+(println "---------------------------------------")
+
+(println "Test 19: Type-based branching (integer)")
+test19_val = 42
+test19_result = (if (is_int test19_val) 100 200)
+test19_pass = (is test19_result 100)
+(println "Result:" test19_result "| Expected: 100 | Pass:" test19_pass)
+
+(println "Test 20: Type-based branching (float)")
+test20_val = 3.14
+test20_result = (if (is_float test20_val) 100 200)
+test20_pass = (is test20_result 100)
+(println "Result:" test20_result "| Expected: 100 | Pass:" test20_pass)
+
+(println "Test 21: Type-based branching (string)")
+test21_val = "test"
+test21_result = (if (is_string test21_val) 100 200)
+test21_pass = (is test21_result 100)
+(println "Result:" test21_result "| Expected: 100 | Pass:" test21_pass)
+
+(println "Test 22: Type guard with NOT (integer)")
+test22_val = 42
+test22_result = (if (not (is_float test22_val)) 1 0)
+test22_pass = (is test22_result 1)
+(println "Result:" test22_result "| Expected: 1 | Pass:" test22_pass)
+
+(println "Test 23: Type guard with OR (int or float)")
+test23_val = 42
+test23_result = (if (or (is_int test23_val) (is_float test23_val)) 1 0)
+test23_pass = (is test23_result 1)
+(println "Result:" test23_result "| Expected: 1 | Pass:" test23_pass)
+
+(println "Test 24: Type guard with AND (not int and not float)")
+test24_val = "hello"
+test24_result = (if (and (not (is_int test24_val)) (not (is_float test24_val))) 1 0)
+test24_pass = (is test24_result 1)
+(println "Result:" test24_result "| Expected: 1 | Pass:" test24_pass)
+
+(println "")
+(println "Part 5: Type Guards with When/Unless")
+(println "-------------------------------------")
+
+(println "Test 25: When with is_int")
+test25_val = 42
+test25_result = (when (is_int test25_val) 999)
+test25_pass = (is test25_result 999)
+(println "Result:" test25_result "| Expected: 999 | Pass:" test25_pass)
+
+(println "Test 26: When with is_float (false)")
+test26_val = 42
+test26_result = (when (is_float test26_val) 999)
+test26_pass = (is test26_result 0)
+(println "Result:" test26_result "| Expected: 0 | Pass:" test26_pass)
+
+(println "Test 27: Unless with is_string (false)")
+test27_val = "text"
+test27_result = (unless (is_string test27_val) 999)
+test27_pass = (is test27_result 0)
+(println "Result:" test27_result "| Expected: 0 | Pass:" test27_pass)
+
+(println "Test 28: Unless with is_int (true)")
+test28_val = "text"
+test28_result = (unless (is_int test28_val) 777)
+test28_pass = (is test28_result 777)
+(println "Result:" test28_result "| Expected: 777 | Pass:" test28_pass)
+
+(println "")
+(println "Part 6: Real-World Use Cases")
+(println "-----------------------------")
+
+(println "Test 29: Type-safe arithmetic")
+test29_a = 10
+test29_b = 20
+test29_result = (if (and (is_int test29_a) (is_int test29_b)) (add test29_a test29_b) 0)
+test29_pass = (is test29_result 30)
+(println "Result:" test29_result "| Expected: 30 | Pass:" test29_pass)
+
+(println "Test 30: Type validation for division")
+test30_num = 100
+test30_denom = 5
+test30_check = (and (is_int test30_num) (is_int test30_denom))
+test30_result = (if test30_check (divide test30_num test30_denom) 0)
+test30_pass = (is test30_result 20)
+(println "Result:" test30_result "| Expected: 20 | Pass:" test30_pass)
+
+(println "")
+(println "=== Summary ===")
+(println "All 30 tests completed!")
+(println "Type Guards Implementation Complete")

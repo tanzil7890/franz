@@ -1,0 +1,11 @@
+// Simple LLVM Reduce Test
+(println "=== Simple LLVM Reduce Test ===")
+
+// Test 1: Sum of numbers
+(println "\nTest 1: Sum of numbers [1, 2, 3, 4, 5]")
+numbers = [1, 2, 3, 4, 5]
+sum_fn = {acc item idx -> <- (add acc item)}
+total = (reduce numbers sum_fn 0)
+(println "  Sum:" total)
+
+(println "\n=== Simple Reduce Test Complete ===")

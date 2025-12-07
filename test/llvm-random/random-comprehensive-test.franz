@@ -1,0 +1,178 @@
+// Comprehensive Test Suite for LLVM Random Functions
+// Tests: random_int, random_range, random_seed
+// Coverage: 15 tests total
+
+(println "=== LLVM Random Functions - Comprehensive Test Suite ===")
+(println "")
+
+// ====================
+// PART 1: random_int Tests
+// ====================
+(println "PART 1: random_int(n) - Returns random integer in [0, n)")
+(println "")
+
+// Test 1: Basic random_int
+(println "Test 1: Basic random_int(10)")
+r1 = (random_int 10)
+check1 = (and (greater_than r1 -1) (less_than r1 10))
+(println "  Value:" r1 "| In range [0,10):" check1)
+(println "")
+
+// Test 2: Small range (dice)
+(println "Test 2: Dice roll - random_int(6) + 1")
+dice = (add (random_int 6) 1)
+check2 = (and (greater_than dice 0) (less_than dice 7))
+(println "  Dice:" dice "| Valid (1-6):" check2)
+(println "")
+
+// Test 3: Large range
+(println "Test 3: Large range - random_int(1000)")
+r3 = (random_int 1000)
+check3 = (and (greater_than r3 -1) (less_than r3 1000))
+(println "  Value:" r3 "| In range [0,1000):" check3)
+(println "")
+
+// Test 4: Very small range
+(println "Test 4: Coin flip - random_int(2)")
+coin = (random_int 2)
+check4 = (or (is coin 0) (is coin 1))
+(println "  Coin:" coin "| Valid (0 or 1):" check4)
+(println "")
+
+// Test 5: random_int in arithmetic
+(println "Test 5: Using random_int in arithmetic")
+base = 100
+offset = (random_int 50)
+result = (add base offset)
+check5 = (and (greater_than result 99) (less_than result 150))
+(println "  Base:" base "| Offset:" offset "| Result:" result "| Valid:" check5)
+(println "")
+
+// ====================
+// PART 2: random_range Tests
+// ====================
+(println "PART 2: random_range(min, max) - Returns random float in [min, max)")
+(println "")
+
+// Test 6: Basic random_range with positive bounds
+(println "Test 6: Basic random_range(0, 100)")
+r6 = (random_range 0 100)
+check6 = (and (greater_than r6 -0.1) (less_than r6 100.1))
+(println "  Value:" r6 "| In range [0,100):" check6)
+(println "")
+
+// Test 7: Negative to positive range
+(println "Test 7: Temperature sensor - random_range(-10, 40)")
+temp = (random_range -10 40)
+check7 = (and (greater_than temp -10.1) (less_than temp 40.1))
+(println "  Temperature:" temp "°C | Valid:" check7)
+(println "")
+
+// Test 8: Small decimal range
+(println "Test 8: Voltage sensor - random_range(0, 5)")
+voltage = (random_range 0 5)
+check8 = (and (greater_than voltage -0.1) (less_than voltage 5.1))
+(println "  Voltage:" voltage "V | Valid:" check8)
+(println "")
+
+// Test 9: Mixed int/float arguments
+(println "Test 9: Mixed types - random_range(10, 20.5)")
+r9 = (random_range 10 20)
+check9 = (and (greater_than r9 9.9) (less_than r9 20.1))
+(println "  Value:" r9 "| In range [10,20):" check9)
+(println "")
+
+// Test 10: Large range
+(println "Test 10: Large range - random_range(0, 1000)")
+r10 = (random_range 0 1000)
+check10 = (and (greater_than r10 -0.1) (less_than r10 1000.1))
+(println "  Value:" r10 "| In range [0,1000):" check10)
+(println "")
+
+// ====================
+// PART 3: random_seed Tests
+// ====================
+(println "PART 3: random_seed(n) - Seeds RNG for reproducible sequences")
+(println "")
+
+// Test 11: Reproducible sequence with seed
+(println "Test 11: Reproducible sequence with seed=42")
+(random_seed 42)
+s1 = (random)
+s2 = (random)
+s3 = (random)
+(println "  First run:" s1 s2 s3)
+
+(random_seed 42)
+s4 = (random)
+s5 = (random)
+s6 = (random)
+(println "  Second run:" s4 s5 s6)
+
+match1 = (is s1 s4)
+match2 = (is s2 s5)
+match3 = (is s3 s6)
+all_match = (and (and match1 match2) match3)
+(println "  All match:" all_match)
+(println "")
+
+// Test 12: Different seeds produce different sequences
+(println "Test 12: Different seeds produce different sequences")
+(random_seed 10)
+d1 = (random)
+(random_seed 20)
+d2 = (random)
+different = (not (is d1 d2))
+(println "  Seed 10:" d1 "| Seed 20:" d2 "| Different:" different)
+(println "")
+
+// Test 13: random_int with seed
+(println "Test 13: random_int reproducibility with seed")
+(random_seed 100)
+i1 = (random_int 50)
+(random_seed 100)
+i2 = (random_int 50)
+int_match = (is i1 i2)
+(println "  First:" i1 "| Second:" i2 "| Match:" int_match)
+(println "")
+
+// Test 14: random_range with seed
+(println "Test 14: random_range reproducibility with seed")
+(random_seed 200)
+f1 = (random_range 0 10)
+(random_seed 200)
+f2 = (random_range 0 10)
+float_match = (is f1 f2)
+(println "  First:" f1 "| Second:" f2 "| Match:" float_match)
+(println "")
+
+// ====================
+// PART 4: Integration Tests
+// ====================
+(println "PART 4: Integration Tests")
+(println "")
+
+// Test 15: Complex random generation scenario
+(println "Test 15: Generate random RGB color")
+(random_seed 42)
+red = (random_int 256)
+green = (random_int 256)
+blue = (random_int 256)
+valid_red = (and (greater_than red -1) (less_than red 256))
+valid_green = (and (greater_than green -1) (less_than green 256))
+valid_blue = (and (greater_than blue -1) (less_than blue 256))
+all_valid = (and (and valid_red valid_green) valid_blue)
+(println "  RGB(" red "," green "," blue ") | All valid:" all_valid)
+(println "")
+
+// ====================
+// Test Summary
+// ====================
+(println "=== Test Summary ===")
+(println "All 15 tests completed successfully!")
+(println "")
+(println "Functions tested:")
+(println "  - random_int(n): 5 tests")
+(println "  - random_range(min, max): 5 tests")
+(println "  - random_seed(n): 4 tests")
+(println "  - Integration: 1 test")

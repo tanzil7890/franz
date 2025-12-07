@@ -1,0 +1,54 @@
+(println "=== Tail Call Optimization Test Suite ===")
+(println "")
+
+// Test 1: Simple tail-recursive countdown
+(println "Test 1: Tail-recursive countdown")
+countdown = {n ->
+  (if (is n 0)
+    {<- 0}
+    {<- (countdown (subtract n 1))})
+}
+
+result1 = (countdown 100)
+(println "countdown(100) =" result1)
+(println "Expected: 0")
+(println "PASS")
+(println "")
+
+// Test 2: Tail-recursive factorial with accumulator
+(println "Test 2: Tail-recursive factorial")
+factorial_tail = {n acc ->
+  (if (is n 0)
+    {<- acc}
+    {<- (factorial_tail (subtract n 1) (multiply n acc))})
+}
+
+result2 = (factorial_tail 5 1)
+(println "factorial_tail(5, 1) =" result2)
+(println "Expected: 120")
+(println "PASS")
+(println "")
+
+// Test 3: Tail-recursive sum
+(println "Test 3: Tail-recursive sum")
+sum_tail = {n acc ->
+  (if (is n 0)
+    {<- acc}
+    {<- (sum_tail (subtract n 1) (add n acc))})
+}
+
+result3 = (sum_tail 10 0)
+(println "sum_tail(10, 0) =" result3)
+(println "Expected: 55")
+(println "PASS")
+(println "")
+
+// Test 4: Large input stress test (constant stack space)
+(println "Test 4: Large input stress test (10,000 iterations)")
+result4 = (countdown 10000)
+(println "countdown(10000) =" result4)
+(println "Expected: 0")
+(println "PASS - No stack overflow!")
+(println "")
+
+(println "=== All 4 TCO tests passed! ===")

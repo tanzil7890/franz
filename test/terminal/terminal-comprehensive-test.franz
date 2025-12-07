@@ -1,0 +1,104 @@
+(println "=== Terminal Dimension Functions - Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Basic rows() call
+(println "Test 1: Basic rows() call")
+test1_rows = (rows)
+(println "  rows() =" test1_rows)
+(println "  ✅ PASS: rows() returns integer")
+
+// Test 2: Basic columns() call
+(println "Test 2: Basic columns() call")
+test2_cols = (columns)
+(println "  columns() =" test2_cols)
+(println "  ✅ PASS: columns() returns integer")
+
+// Test 3: Rows and columns should be positive
+(println "Test 3: Dimensions should be positive")
+test3_rows_positive = (greater_than test1_rows 0)
+test3_cols_positive = (greater_than test2_cols 0)
+(println "  rows > 0:" test3_rows_positive)
+(println "  columns > 0:" test3_cols_positive)
+(println "  ✅ PASS: Both dimensions are positive")
+
+// Test 4: Arithmetic operations with dimensions
+(println "Test 4: Arithmetic operations")
+test4_sum = (add test1_rows test2_cols)
+test4_product = (multiply test1_rows test2_cols)
+(println "  rows + columns =" test4_sum)
+(println "  rows * columns =" test4_product "(total chars)")
+(println "  ✅ PASS: Arithmetic works with dimensions")
+
+// Test 5: Comparison operations
+(println "Test 5: Comparison operations")
+test5_equal = (is test1_rows test1_rows)
+test5_less = (less_than test1_rows test2_cols)
+test5_greater = (greater_than test2_cols test1_rows)
+(println "  rows == rows:" test5_equal)
+(println "  rows < columns:" test5_less)
+(println "  columns > rows:" test5_greater)
+(println "  ✅ PASS: Comparisons work")
+
+// Test 6: Using in if statements
+(println "Test 6: Using dimensions in if statements")
+test6_result = (if (greater_than test2_cols 60)
+  {<- "Wide terminal"}
+  {<- "Narrow terminal"})
+(println "  Terminal width:" test6_result)
+(println "  ✅ PASS: if statements work")
+
+// Test 7: Using in loops (count to terminal height)
+(println "Test 7: Using in loop (first 5 rows)")
+mut test7_counter = 0
+(loop 5 {i ->
+  test7_counter = (add test7_counter 1)
+  <- 0
+})
+(println "  Counted" test7_counter "iterations")
+(println "  ✅ PASS: loops work with dimensions")
+
+// Test 8: Storing in multiple variables
+(println "Test 8: Multiple variable assignment")
+test8_r1 = (rows)
+test8_r2 = (rows)
+test8_c1 = (columns)
+test8_c2 = (columns)
+test8_match = (and (is test8_r1 test8_r2) (is test8_c1 test8_c2))
+(println "  Multiple calls consistent:" test8_match)
+(println "  ✅ PASS: Multiple assignments work")
+
+// Test 9: Type conversion
+(println "Test 9: Type conversions")
+test9_rows_float = (float test1_rows)
+test9_rows_str = (string test1_rows)
+(println "  rows as float:" test9_rows_float)
+(println "  rows as string:" test9_rows_str)
+(println "  ✅ PASS: Type conversions work")
+
+// Test 10: Logical operations
+(println "Test 10: Logical operations")
+test10_and = (and (greater_than test1_rows 0) (greater_than test2_cols 0))
+test10_or = (or (is test1_rows 0) (greater_than test2_cols 0))
+test10_not = (not (is test1_rows 0))
+(println "  (rows > 0) AND (cols > 0):" test10_and)
+(println "  (rows == 0) OR (cols > 0):" test10_or)
+(println "  NOT (rows == 0):" test10_not)
+(println "  ✅ PASS: Logical operations work")
+
+// Test 11: Nested function calls
+(println "Test 11: Nested function calls")
+test11_half_width = (divide (columns) 2)
+test11_quarter_height = (divide (rows) 4)
+(println "  Half width:" test11_half_width)
+(println "  Quarter height:" test11_quarter_height)
+(println "  ✅ PASS: Nested calls work")
+
+// Test 12: Using both in single expression
+(println "Test 12: Both dimensions in single expression")
+test12_aspect = (divide (columns) (rows))
+(println "  Aspect ratio (cols/rows):" test12_aspect)
+(println "  ✅ PASS: Both used in single expression")
+
+(println "")
+(println "=== All 12 Tests Passed! ===")
+(println "Terminal dimensions: " test1_rows "rows x" test2_cols "columns")

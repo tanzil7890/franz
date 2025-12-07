@@ -1,0 +1,24 @@
+(println "=== Test: 6-level nested closure (stress test) ===")
+
+(println "Step 1: Define make_hexa")
+make_hexa = {a -> <- {b -> <- {c -> <- {d -> <- {e -> <- {f -> <- (add (add (add (add (add a b) c) d) e) f)}}}}}}
+
+(println "Step 2: Call make_hexa(1)")
+hexa1 = (make_hexa 1)
+
+(println "Step 3: Call hexa1(2)")
+hexa1_2 = (hexa1 2)
+
+(println "Step 4: Call hexa1_2(3)")
+hexa1_2_3 = (hexa1_2 3)
+
+(println "Step 5: Call hexa1_2_3(4)")
+hexa1_2_3_4 = (hexa1_2_3 4)
+
+(println "Step 6: Call hexa1_2_3_4(5)")
+hexa1_2_3_4_5 = (hexa1_2_3_4 5)
+
+(println "Step 7: Call hexa1_2_3_4_5(6)")
+result = (hexa1_2_3_4_5 6)
+(println "Result:" result)
+(println "Expected: 21")

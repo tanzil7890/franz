@@ -1,0 +1,50 @@
+(println "=== Polymorphic Float Functions Test ===")
+(println "")
+
+(println "Test 1: Polymorphic add with floats")
+add_two = {a b -> <- (add a b)}
+result1 = (add_two 2.5 3.5)
+(println "add_two(2.5, 3.5) =" result1)
+(println "Expected: 6.0 or 6.000000")
+(println "")
+
+(println "Test 2: Polymorphic multiply with floats")
+mult_two = {a b -> <- (multiply a b)}
+result2 = (mult_two 2.5 4.0)
+(println "mult_two(2.5, 4.0) =" result2)
+(println "Expected: 10.0 or 10.000000")
+(println "")
+
+(println "Test 3: Polymorphic subtract with floats")
+sub_two = {a b -> <- (subtract a b)}
+result3 = (sub_two 10.5 3.5)
+(println "sub_two(10.5, 3.5) =" result3)
+(println "Expected: 7.0 or 7.000000")
+(println "")
+
+(println "Test 4: Polymorphic divide with floats")
+div_two = {a b -> <- (divide a b)}
+result4 = (div_two 15.0 3.0)
+(println "div_two(15.0, 3.0) =" result4)
+(println "Expected: 5.0 or 5.000000")
+(println "")
+
+(println "Test 5: Polymorphic function with mixed int and float")
+add_mixed = {a b -> <- (add a b)}
+result5a = (add_mixed 5 3)
+result5b = (add_mixed 2.5 3.5)
+(println "add_mixed(5, 3) =" result5a)
+(println "add_mixed(2.5, 3.5) =" result5b)
+(println "Expected: 8 and 6.0")
+(println "")
+
+(println "Test 6: Chained polymorphic operations")
+compute = {a b c -> <- (add (multiply a b) c)}
+result6a = (compute 2 3 4)
+result6b = (compute 2.5 3.0 1.5)
+(println "compute(2, 3, 4) =" result6a)
+(println "compute(2.5, 3.0, 1.5) =" result6b)
+(println "Expected: 10 and 9.0")
+(println "")
+
+(println "=== All Polymorphic Float Tests Complete ===")

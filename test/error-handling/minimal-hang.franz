@@ -1,0 +1,2 @@
+x1 = (try { (error "test") } {e -> <- 99})
+(println "done")

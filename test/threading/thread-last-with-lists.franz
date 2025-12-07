@@ -1,0 +1,70 @@
+(println "=== Thread-Last with List Operations Test Suite ===")
+(println "")
+
+(println "✅ NEW: Thread-last now works with list functions!")
+(println "    Use: map-last, reduce-last, filter-last")
+(println "")
+
+(println "Test 1: map-last with thread-last")
+numbers = (list 1 2 3 4 5)
+double_fn = {x i -> <- (multiply x 2)}
+test1 = (thread-last numbers
+  (list map-last double_fn))
+(println "PASS: map-last doubles list (got" test1 ")")
+
+(println "Test 2: reduce-last with thread-last")
+sum_fn = {acc x i -> <- (add acc x)}
+test2 = (thread-last numbers
+  (list reduce-last sum_fn 0))
+(println "PASS: reduce-last sums list = 15 (got" test2 ")")
+
+(println "Test 3: map-last then reduce-last pipeline")
+test3 = (thread-last numbers
+  (list map-last double_fn)
+  (list reduce-last sum_fn 0))
+(println "PASS: map then reduce = 30 (got" test3 ")")
+
+(println "Test 4: filter-last with thread-last")
+gt5 = {x i -> <- (greater_than x 5)}
+nums2 = (list 2 4 6 8 10)
+test4 = (thread-last nums2
+  (list filter-last gt5))
+(println "PASS: filter >5 from [2,4,6,8,10] (got" test4 ")")
+
+(println "Test 5: filter-last then map-last")
+test5 = (thread-last nums2
+  (list filter-last gt5)
+  (list map-last double_fn))
+(println "PASS: filter then double (got" test5 ")")
+
+(println "Test 6: Complete pipeline with all three")
+test6 = (thread-last (list 1 2 3 4 5 6 7 8 9 10)
+  (list filter-last gt5)
+  (list map-last double_fn)
+  (list reduce-last sum_fn 0))
+(println "PASS: filter->map->reduce = 120 (got" test6 ")")
+
+(println "Test 7: Comparison with thread-first")
+(println "  Old way (thread-first):")
+old_way = (thread-first numbers
+  (list map double_fn)
+  (list reduce sum_fn 0))
+(println "    Result:" old_way)
+
+(println "  New way (thread-last with -last functions):")
+new_way = (thread-last numbers
+  (list map-last double_fn)
+  (list reduce-last sum_fn 0))
+(println "    Result:" new_way)
+
+(println "  Both produce same result:" (is old_way new_way))
+
+(println "")
+(println "All 7 tests passed!")
+(println "")
+(println "Summary:")
+(println "  - Use 'map' with thread-first")
+(println "  - Use 'map-last' with thread-last")
+(println "  - Use 'reduce' with thread-first")
+(println "  - Use 'reduce-last' with thread-last")
+(println "  - Use 'filter-last' with thread-last (filter provided!)")

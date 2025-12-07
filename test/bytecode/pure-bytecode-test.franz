@@ -1,0 +1,49 @@
+(println "=== Pure Bytecode VM Tests ===")
+(println "")
+
+(println "Test 1: Simple function")
+f1 = {x -> <- (add x 10)}
+(println (f1 5))
+(println "PASS: Simple function works")
+(println "")
+
+(println "Test 2: Function with multiple parameters")
+f2 = {x y -> <- (add x y)}
+(println (f2 3 7))
+(println "PASS: Multi-parameter function works")
+(println "")
+
+(println "Test 3: Nested function call")
+double = {x -> <- (add x x)}
+quad = {x -> <- (double (double x))}
+(println (quad 5))
+(println "PASS: Nested function calls work")
+(println "")
+
+(println "Test 4: Recursion - factorial")
+factorial = {n -> <- (if (is n 0) 1 (multiply n (factorial (subtract n 1))))}
+(println (factorial 5))
+(println "PASS: Recursion works")
+(println "")
+
+(println "Test 5: Recursion - fibonacci")
+fib = {n -> <- (if (less_than n 2) n (add (fib (subtract n 1)) (fib (subtract n 2))))}
+(println (fib 10))
+(println "PASS: Fibonacci works")
+(println "")
+
+(println "Test 6: Higher-order function")
+apply = {fn x -> <- (fn x)}
+inc = {x -> <- (add x 1)}
+(println (apply inc 5))
+(println "PASS: Higher-order functions work")
+(println "")
+
+(println "Test 7: Function returning function")
+makeAdder = {x -> <- {y -> <- (add x y)}}
+add5 = (makeAdder 5)
+(println (add5 10))
+(println "PASS: Functions returning functions work (lexical scoping)")
+(println "")
+
+(println "All tests passed!")

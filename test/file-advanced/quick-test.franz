@@ -1,0 +1,43 @@
+(println "===  Quick Advanced File Operations Test ===")
+(println "")
+
+(println "Test 1: create_dir - Create test directory")
+result1 = (create_dir "test-dir-temp")
+(println "Created directory, result:" result1)
+
+(println "")
+(println "Test 2: dir_exists - Check if directory exists")
+exists1 = (dir_exists "test-dir-temp")
+(println "Directory exists:" exists1)
+
+(println "")
+(println "Test 3: write_binary - Write binary data")
+(write_binary "test-dir-temp/binary-test.bin" "Hello Binary!")
+(println "Binary file written")
+
+(println "")
+(println "Test 4: file_size - Get file size")
+size = (file_size "test-dir-temp/binary-test.bin")
+(println "File size:" size "bytes")
+
+(println "")
+(println "Test 5: is_directory - Check if path is directory")
+is_dir1 = (is_directory "test-dir-temp")
+is_dir2 = (is_directory "test-dir-temp/binary-test.bin")
+(println "test-dir-temp is directory:" is_dir1)
+(println "binary-test.bin is directory:" is_dir2)
+
+(println "")
+(println "Test 6: list_files - List files in directory")
+files = (list_files "test-dir-temp")
+(println "Files in test-dir-temp:")
+(println files)
+
+(println "")
+(println "Test 7: read_binary - Read binary data")
+data = (read_binary "test-dir-temp/binary-test.bin")
+(println "Binary data read:" data)
+
+(println "")
+(println "=== Quick test complete! ===")
+(println "Note: Cleanup test-dir-temp manually")

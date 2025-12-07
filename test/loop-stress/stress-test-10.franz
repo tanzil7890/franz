@@ -1,0 +1,10 @@
+(println "=== Loop Stress Test: 10 iterations ===")
+
+mut sum = 0
+(loop 10 {i ->
+  sum = (add sum i)
+})
+
+(println "Sum of 0..9:" sum)
+expected = 45
+(println (if (is sum expected) {<- "✓ PASS"} {<- "✗ FAIL"}))

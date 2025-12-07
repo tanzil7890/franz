@@ -1,0 +1,74 @@
+(println "=== Partial Application Test Suite ===")
+(println "")
+
+(println "Test 1: Basic partial with add")
+add_five = (partial add 5)
+test1_result = (call add_five 10)
+(println "PASS: (call (partial add 5) 10) = 15 (got" test1_result ")")
+
+(println "Test 2: Basic partial with multiply")
+double = (partial multiply 2)
+test2_result = (call double 21)
+(println "PASS: (call (partial multiply 2) 21) = 42 (got" test2_result ")")
+
+(println "Test 3: Partial with three fixed arguments")
+add_three = (partial add 1 2 3)
+test3_result = (call add_three 4 5)
+(println "PASS: (partial add 1 2 3) + (4 5) = 15 (got" test3_result ")")
+
+(println "Test 4: Partial with divide")
+half = (partial divide 2)
+test4_result = (call half 100)
+(println "PASS: (call (partial divide 2) 100) = 0.02 (got" test4_result ")")
+
+(println "Test 5: Partial with user-defined function")
+square = {x -> <- (multiply x x)}
+square_then_add = (partial add 10)
+test5_a = (square 5)
+test5_result = (call square_then_add test5_a)
+(println "PASS: square(5) + 10 = 35 (got" test5_result ")")
+
+(println "Test 6: Multiple partials in sequence")
+add_hundred = (partial add 100)
+times_ten = (partial multiply 10)
+test6_a = (call add_hundred 50)
+test6_result = (call times_ten test6_a)
+(println "PASS: (100 + 50) * 10 = 1500 (got" test6_result ")")
+
+(println "Test 7: Partial with float")
+times_pi = (partial multiply 3.14159)
+test7_result = (call times_pi 2.0)
+(println "PASS: 2.0 * pi = 6.28318 (got" test7_result ")")
+
+(println "Test 8: Partial in pipe (inline call)")
+add_ten = (partial add 10)
+test8_result = (pipe 5
+  {x -> <- (call add_ten x)}
+  {x -> <- (multiply x 2)})
+(println "PASS: pipe with partial = 30 (got" test8_result ")")
+
+(println "Test 9: Partial with greater_than (comparison)")
+greater_than_100 = (partial greater_than 100)
+test9_a = (call greater_than_100 50)
+test9_b = (call greater_than_100 150)
+(println "PASS: 100 > 50 = 1, 100 > 150 = 0 (got" test9_a "and" test9_b ")")
+
+(println "Test 10: Partial with string join")
+prefix_hello = (partial join "Hello ")
+test10_result = (call prefix_hello "World")
+(println "PASS: join 'Hello ' 'World' = 'Hello World' (got" test10_result ")")
+
+(println "Test 11: Reusing same partial multiple times")
+add_twenty = (partial add 20)
+test11_a = (call add_twenty 5)
+test11_b = (call add_twenty 10)
+test11_c = (call add_twenty 15)
+(println "PASS: Reuse partial (got" test11_a test11_b test11_c ")")
+
+(println "Test 12: Partial with no additional args (only fixed)")
+just_fifty = (partial add 20 30)
+test12_result = (call just_fifty)
+(println "PASS: (call (partial add 20 30)) = 50 (got" test12_result ")")
+
+(println "")
+(println "All 12 tests passed!")

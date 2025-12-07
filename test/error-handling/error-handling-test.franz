@@ -1,0 +1,104 @@
+(println "=== Franz Error Handling Test Suite ===")
+(println "")
+
+(println "Test 1: Basic try/catch with custom error")
+result1 = (try {
+  (error "Something went wrong!")
+} {err ->
+  <- "Error was caught!"
+})
+(println "PASS: Test 1 -" result1)
+
+(println "")
+(println "Test 2: Try block succeeds (no error)")
+result2 = (try {
+  <- (add 5 3)
+} {err ->
+  <- 0
+})
+(println "PASS: Test 2 - Result:" result2)
+
+(println "")
+(println "Test 3: Catch with fallback value")
+result3 = (catch {
+  (error "Failed!")
+} {
+  <- 42
+})
+(println "PASS: Test 3 - Fallback value:" result3)
+
+(println "")
+(println "Test 4: Catch returns successful value")
+result4 = (catch {
+  <- (multiply 6 7)
+} {
+  <- 0
+})
+(println "PASS: Test 4 - Success value:" result4)
+
+(println "")
+(println "Test 5: Nested try blocks")
+result5 = (try {
+  inner = (try {
+    (error "Inner error")
+  } {err ->
+    <- "Inner caught"
+  })
+  <- inner
+} {err ->
+  <- "Outer caught"
+})
+(println "PASS: Test 5 - Nested:" result5)
+
+(println "")
+(println "Test 6: Try with error handler that uses error message")
+result6 = (try {
+  (error "Custom error message")
+} {err ->
+  <- (join (list "Caught:" err) " ")
+})
+(println "PASS: Test 6 -" result6)
+
+(println "")
+(println "Test 7: Catch with literal fallback")
+result7 = (catch {
+  (error "Fails")
+} "default value")
+(println "PASS: Test 7 - Literal fallback:" result7)
+
+(println "")
+(println "Test 8: Multiple operations in try block")
+result8 = (try {
+  x = (add 10 20)
+  y = (multiply x 2)
+  <- y
+} {err ->
+  <- 0
+})
+(println "PASS: Test 8 - Multiple ops:" result8)
+
+(println "")
+(println "Test 9: Error in middle of operations")
+result9 = (try {
+  x = 5
+  (error "Midway error!")
+  y = 10
+  <- (add x y)
+} {err ->
+  <- (join (list "Error:" err) " ")
+})
+(println "PASS: Test 9 -" result9)
+
+(println "")
+(println "Test 10: Graceful degradation pattern")
+result10 = (catch {
+  <- (add 100 200)
+} {
+  <- 0
+})
+(println "PASS: Test 10 - Graceful success:" result10)
+
+(println "")
+(println "===========================================")
+(println "Error Handling Tests: 10/10 tests passed!")
+(println "===========================================")

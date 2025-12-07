@@ -1,0 +1,21 @@
+// Minimal records demo test
+(println "=== Minimal Records Test ===")
+(println "")
+
+// Test 1: Simple dict_map
+(println "Test 1: Simple dict_map")
+scores = (dict "math" 85 "physics" 90)
+(println "Original scores:" scores)
+boosted = (dict_map scores {subject score -> <- (add score 5)})
+(println "Boosted scores:" boosted)
+(println "")
+
+// Test 2: Simple dict_filter
+(println "Test 2: Simple dict_filter")
+config = (dict "timeout" 30 "debug" 0)
+(println "Config:" config)
+non_zero = (dict_filter config {k v -> <- (greater_than v 0)})
+(println "Non-zero:" non_zero)
+(println "")
+
+(println "✓ Tests passed")

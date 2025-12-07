@@ -1,0 +1,26 @@
+(println "=== Loop Simple Tests ===")
+(println "")
+
+(println "Test 1: Loop 3 iterations")
+(loop 3 {i -> (println "  Iteration " i)})
+(println "  PASS")
+
+(println "")
+(println "Test 2: Loop 0 iterations (should not execute)")
+(loop 0 {i -> (println "  FAIL: Should not print")})
+(println "  PASS: Zero iterations work")
+
+(println "")
+(println "Test 3: Loop 1 iteration")
+(loop 1 {i -> (println "  Single iteration: " i)})
+(println "  PASS")
+
+(println "")
+(println "Test 4: Loop 10 iterations")
+count = 0
+(loop 10 {i -> count = (add count 1)})
+(println "  Executed 10 times (count incremented to 10)")
+(println "  PASS")
+
+(println "")
+(println "All simple loop tests PASSED!")

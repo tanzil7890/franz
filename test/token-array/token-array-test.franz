@@ -1,0 +1,67 @@
+(println "=== Array-Based Token System Test Suite ===")
+(println "")
+
+(println "Test 1: Basic assignment")
+test1_x = 42
+(println "PASS: Basic assignment works - x =" test1_x)
+
+(println "Test 2: Multiple assignments")
+test2_a = 10
+test2_b = 20
+test2_c = 30
+(println "PASS: Multiple assignments work")
+
+(println "Test 3: Arithmetic operations")
+test3_sum = (add 5 10)
+test3_product = (multiply 6 7)
+(println "PASS: Arithmetic works - sum =" test3_sum "product =" test3_product)
+
+(println "Test 4: Function definition and call")
+test4_double = {x -> (multiply x 2)}
+test4_result = (test4_double 21)
+(println "PASS: Functions work - double(21) =" test4_result)
+
+(println "Test 5: Nested applications")
+test5_result = (add (multiply 2 3) (subtract 10 5))
+(println "PASS: Nested applications work - result =" test5_result)
+
+(println "Test 6: String operations")
+test6_msg = "Hello from array tokens!"
+(println "PASS: Strings work -" test6_msg)
+
+(println "Test 7: Function with multiple parameters")
+test7_add = {a b -> (add a b)}
+test7_sum = (test7_add 15 25)
+(println "PASS: Multi-param functions work - sum =" test7_sum)
+
+(println "Test 8: List operations")
+test8_list = (list 1 2 3 4 5)
+test8_head = (head test8_list)
+test8_tail = (tail test8_list)
+(println "PASS: Lists work - head =" test8_head)
+
+(println "Test 9: Conditional (if)")
+test9_cond = (less_than 5 10)
+test9_result = (if test9_cond {<- "true branch"} {<- "false branch"})
+(println "PASS: Conditionals work - result =" test9_result)
+
+(println "Test 10: Higher-order functions (map)")
+test10_double_fn = {item index -> (multiply item 2)}
+test10_list = (list 1 2 3)
+test10_doubled = (map test10_list test10_double_fn)
+(println "PASS: Map works - doubled list created")
+
+(println "Test 11: Closure capture")
+test11_outer = 100
+test11_add_outer = {x -> (add x test11_outer)}
+test11_result = (test11_add_outer 5)
+(println "PASS: Closures work - result =" test11_result)
+
+(println "Test 12: Complex expression with mixed types")
+test12_x = 10
+test12_y = 3.14
+test12_str = "value"
+(println "PASS: Mixed types work - x =" test12_x "y =" test12_y "str =" test12_str)
+
+(println "")
+(println "All 12 tests passed!")

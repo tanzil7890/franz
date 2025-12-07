@@ -1,0 +1,24 @@
+// Debug closure factory pattern
+
+(println "=== Testing Closure Factory ===")
+
+(println "Step 1: Define factory")
+make_counter = {start ->
+  count = (ref start)
+  <- {->
+    current = (deref count)
+    next = (add current 1)
+    (set! count next)
+    <- current
+  }
+}
+
+(println "Step 2: Call factory")
+counter = (make_counter 0)
+
+(println "Step 3: Call counter")
+val = (counter)
+
+(println "Step 4: Result:" val)
+
+(println "Done!")

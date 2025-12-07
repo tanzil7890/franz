@@ -1,0 +1,5 @@
+(println "=== Simple Closure Test ===")
+
+// Test 1: Basic function without capture
+add_ten = {x -> <- (add x 10)}
+(println "add_ten(5) =" (add_ten 5))

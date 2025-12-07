@@ -1,0 +1,31 @@
+//  Test parameter extraction without printing
+// Verify handlers receive parameters correctly
+
+(println "===  Parameter Extraction Test ===")
+(println "")
+
+(println "Test 1: Extract and return integer value")
+some_int = (variant "Some" 42)
+result1 = (match some_int
+  "Some" {x -> <- x}
+  "None" {-> <- 0})
+(println "✓ Integer extraction completed")
+
+(println "")
+(println "Test 2: Use parameter in calculation")
+some_num = (variant "Some" 10)
+result2 = (match some_num
+  "Some" {n -> <- (multiply n 2)}
+  "None" {-> <- 0})
+(println "✓ Calculation with parameter completed")
+
+(println "")
+(println "Test 3: Multiple parameters")
+person = (variant "Person" 25 30)
+result3 = (match person
+  "Person" {age1 age2 -> <- (add age1 age2)}
+  "Guest" {-> <- 0})
+(println "✓ Multiple parameters completed")
+
+(println "")
+(println "=== All extraction tests passed! ===")

@@ -1,0 +1,15 @@
+// Circular Dependency Test
+// Tests that circular dependencies are properly detected and reported
+
+(println "=== Circular Dependency Test ===")
+(println "")
+
+(println "Test: Import module with circular dependency")
+(println "This should fail with circular dependency error:")
+(println "")
+
+// This will trigger: a.franz -> b.franz -> a.franz (circular!)
+(use "examples/circular-deps/circular/a.franz")
+
+(println "")
+(println "If you see this, circular dependency detection failed!")

@@ -1,0 +1,91 @@
+(println "=== Type System + Lexical Scoping: Comprehensive Test Suite ===")
+(println "")
+
+(println "[Test 1] Simple closure type annotation")
+(sig add_one (int -> int))
+add_one = {x -> <- (add x 1)}
+(if (is (add_one 5) 6)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 2] Closure factory (higher-order)")
+(sig make_adder (int -> (int -> int)))
+make_adder = {n -> <- {x -> <- (add x n)}}
+(if (is ((make_adder 5) 10) 15)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 3] Three-level nested closure")
+level1 = {-> a = 1 level2 = {-> b = 2 level3 = {-> <- (add a b)} <- level3} <- level2}
+(if (is (((level1))) 3)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 4] Polymorphic identity")
+(sig identity (a -> a))
+identity = {x -> <- x}
+(if (is (identity 42) 42)
+  {-> (println "  ✓ PASS (int)")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 5] Free variable capture")
+multiplier = 3
+(if (is ({x -> <- (multiply x multiplier)} 7) 21)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 6] Independent closures")
+make_mult = {f -> <- {n -> <- (multiply n f)}}
+(if (is ((make_mult 2) 5) 10)
+  {-> (println "  ✓ PASS (times2)")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 7] Map with closure")
+(if (is (head (map (list 1 2 3) {x i -> <- (multiply x 2)})) 2)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 8] Function composition")
+compose = {f g x -> <- (f (g x))}
+(if (is (compose {x -> <- (multiply x 2)} {x -> <- (add x 10)} 5) 30)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 9] Reduce with closure")
+(if (is (reduce (list 1 2 3 4 5) {acc item i -> <- (add acc item)} 0) 15)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 10] Filter with closure")
+threshold = 3
+(if (is (length (filter (list 1 2 3 4 5) {x i -> <- (greater_than x threshold)})) 2)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 11] Pipe with closures")
+base = 100
+(if (is (pipe 10 {x -> <- (add x base)} {x -> <- (divide x 2)}) 55)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "[Test 12] Partial application")
+make_power = {exp -> <- {base -> <- (power base exp)}}
+(if (is ((make_power 2) 5) 25)
+  {-> (println "  ✓ PASS")}
+  {-> (println "  ✗ FAIL")}
+)
+
+(println "")
+(println "=== All 12 Tests Complete ===")
+(println " Type system + lexical scoping validated")

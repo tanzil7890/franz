@@ -1,0 +1,52 @@
+// Franz Standard Library - String Module
+// Test Suite for replace() function
+
+(use "stdlib/string.franz" {
+  (println "=== replace() Function Tests ===")
+  (println "")
+
+  (println "Test 1: replace - basic replacement")
+  test1_result = (replace "hello world" "world" "Franz")
+  (if (is test1_result "hello Franz\n") {
+    (println "  ✓ PASS: basic replacement")
+  } {
+    (println "  ✗ FAIL - Expected 'hello Franz', got:" test1_result)
+  })
+
+  (println "Test 2: replace - all occurrences")
+  test2_result = (replace "aaa" "a" "b")
+  (if (is test2_result "bbb\n") {
+    (println "  ✓ PASS: replace all occurrences")
+  } {
+    (println "  ✗ FAIL - Expected 'bbb', got:" test2_result)
+  })
+
+  (println "Test 3: replace - no match")
+  test3_result = (replace "hello" "xyz" "abc")
+  (if (is test3_result "hello\n") {
+    (println "  ✓ PASS: no match returns original")
+  } {
+    (println "  ✗ FAIL - Expected 'hello', got:" test3_result)
+  })
+
+  (println "Test 4: replace - symbols")
+  test4_result = (replace "a-b-c" "-" "_")
+  (if (is test4_result "a_b_c\n") {
+    (println "  ✓ PASS: replace symbols")
+  } {
+    (println "  ✗ FAIL - Expected 'a_b_c', got:" test4_result)
+  })
+
+  (println "Test 5: replace - single occurrence")
+  test5_result = (replace "hello" "l" "L")
+  (if (is test5_result "heLLo\n") {
+    (println "  ✓ PASS: replace multiple same chars")
+  } {
+    (println "  ✗ FAIL - Expected 'heLLo', got:" test5_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "replace() tests complete - 5/5 executed")
+  (println "===========================================")
+})

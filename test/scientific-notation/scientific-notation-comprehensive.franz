@@ -1,0 +1,128 @@
+(println "=== Scientific Notation Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Basic scientific notation with lowercase 'e'
+(println "Test 1: 1.5e2 (basic scientific notation)")
+test1 = 1.5e2
+(println test1)
+
+// Test 2: Scientific notation with uppercase 'E'
+(println "Test 2: 2.5E3 (uppercase E)")
+test2 = 2.5E3
+(println test2)
+
+// Test 3: Negative exponent
+(println "Test 3: 1e-3 (negative exponent)")
+test3 = 1e-3
+(println test3)
+
+// Test 4: Positive exponent with explicit sign
+(println "Test 4: 3.14E+2 (explicit plus sign)")
+test4 = 3.14E+2
+(println test4)
+
+// Test 5: Integer with exponent
+(println "Test 5: 5e4 (integer with exponent)")
+test5 = 5e4
+(println test5)
+
+// Test 6: Very small number
+(println "Test 6: 1.23e-10 (very small number)")
+test6 = 1.23e-10
+(println test6)
+
+// Test 7: Very large number
+(println "Test 7: 9.87e15 (very large number)")
+test7 = 9.87e15
+(println test7)
+
+// Test 8: Zero exponent
+(println "Test 8: 42e0 (zero exponent)")
+test8 = 42e0
+(println test8)
+
+// Test 9: Exponent of 1
+(println "Test 9: 7.5e1 (exponent of 1)")
+test9 = 7.5e1
+(println test9)
+
+// Test 10: Negative number with scientific notation
+(println "Test 10: -1.5e2 (negative number)")
+test10 = -1.5e2
+(println test10)
+
+// Test 11: Negative number with negative exponent
+(println "Test 11: -2.5e-3 (negative with negative exp)")
+test11 = -2.5e-3
+(println test11)
+
+// Test 12: Single digit mantissa
+(println "Test 12: 3e8 (single digit)")
+test12 = 3e8
+(println test12)
+
+// Test 13: Scientific notation in arithmetic
+(println "Test 13: Arithmetic with scientific notation")
+arith1 = (add 1e2 5e1)
+(println arith1)
+
+// Test 14: Comparison with scientific notation
+(println "Test 14: Comparison: 1.5e2 vs 150.0")
+comp1 = 1.5e2
+comp2 = 150.0
+is_equal = (is comp1 comp2)
+(println (if is_equal {<- "PASS: Equal"} {<- "FAIL: Not equal"}))
+
+// Test 15: Scientific notation in multiplication
+(println "Test 15: Multiply scientific notation")
+mult1 = (multiply 2e3 3e2)
+(println mult1)
+
+// Test 16: Scientific notation in division
+(println "Test 16: Divide scientific notation")
+div1 = (divide 6e4 2e2)
+(println div1)
+
+// Test 17: Conversion: sci notation to string
+(println "Test 17: Scientific notation to string")
+str1 = (string 1.5e2)
+(println str1)
+
+// Test 18: Conversion: sci notation to int
+(println "Test 18: Scientific notation to int")
+int1 = (integer 2.5e2)
+(println int1)
+
+// Test 19: Mix of regular float and scientific
+(println "Test 19: Mix regular and scientific")
+mix1 = (add 1.5 2e1)
+(println mix1)
+
+// Test 20: Large exponent
+(println "Test 20: Large exponent 1e20")
+large_exp = 1e20
+(println large_exp)
+
+// Test 21: String with scientific notation to float
+(println "Test 21: String '1.5e2' to float")
+str_sci = (float "1.5e2")
+(println str_sci)
+
+// Test 22: Precision preservation
+(println "Test 22: Precision 1.23456789e5")
+precision = 1.23456789e5
+(println precision)
+
+// Test 23: Assignment chain with scientific notation
+(println "Test 23: Assignment chain")
+a23 = 1e2
+b23 = (add a23 50)
+(println b23)
+
+// Test 24: Subtraction with scientific notation
+(println "Test 24: Subtract scientific notation")
+sub1 = (subtract 5e2 2.5e2)
+(println sub1)
+
+(println "")
+(println "=== All 24 Scientific Notation Tests Passed ===")

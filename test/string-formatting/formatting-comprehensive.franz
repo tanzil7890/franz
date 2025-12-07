@@ -1,0 +1,222 @@
+(println "=== String Formatting Comprehensive Test ===")
+(println "")
+
+(println "--- format-int: Binary Format ---")
+(println "Test 1: format-int 0 to binary")
+test1 = (format-int 0 2)
+(println test1)
+
+(println "Test 2: format-int 1 to binary")
+test2 = (format-int 1 2)
+(println test2)
+
+(println "Test 3: format-int 255 to binary")
+test3 = (format-int 255 2)
+(println test3)
+
+(println "Test 4: format-int large number to binary")
+test4 = (format-int 65535 2)
+(println test4)
+
+(println "Test 5: format-int negative number to binary")
+test5 = (format-int (subtract 0 42) 2)
+(println test5)
+
+(println "")
+(println "--- format-int: Octal Format ---")
+(println "Test 6: format-int 0 to octal")
+test6 = (format-int 0 8)
+(println test6)
+
+(println "Test 7: format-int 8 to octal")
+test7 = (format-int 8 8)
+(println test7)
+
+(println "Test 8: format-int 255 to octal")
+test8 = (format-int 255 8)
+(println test8)
+
+(println "Test 9: format-int 511 to octal")
+test9 = (format-int 511 8)
+(println test9)
+
+(println "Test 10: format-int negative octal")
+test10 = (format-int (subtract 0 64) 8)
+(println test10)
+
+(println "")
+(println "--- format-int: Decimal Format ---")
+(println "Test 11: format-int 0 to decimal")
+test11 = (format-int 0 10)
+(println test11)
+
+(println "Test 12: format-int 12345 to decimal")
+test12 = (format-int 12345 10)
+(println test12)
+
+(println "Test 13: format-int negative decimal")
+test13 = (format-int (subtract 0 9999) 10)
+(println test13)
+
+(println "")
+(println "--- format-int: Hexadecimal Format ---")
+(println "Test 14: format-int 0 to hex")
+test14 = (format-int 0 16)
+(println test14)
+
+(println "Test 15: format-int 16 to hex")
+test15 = (format-int 16 16)
+(println test15)
+
+(println "Test 16: format-int 255 to hex")
+test16 = (format-int 255 16)
+(println test16)
+
+(println "Test 17: format-int 3735928559 (DEADBEEF) to hex")
+test17 = (format-int 3735928559 16)
+(println test17)
+
+(println "Test 18: format-int negative hex")
+test18 = (format-int (subtract 0 256) 16)
+(println test18)
+
+(println "")
+(println "--- format-int: Mixed Base Conversions ---")
+(println "Test 19: Convert hex literal to binary string")
+hexval = 0xFF
+test19 = (format-int hexval 2)
+(println test19)
+
+(println "Test 20: Convert binary literal to hex string")
+binval = 0b11111111
+test20 = (format-int binval 16)
+(println test20)
+
+(println "Test 21: Convert octal literal to binary string")
+octval = 0o377
+test21 = (format-int octval 2)
+(println test21)
+
+(println "Test 22: All bases for same number (42)")
+dec42 = 42
+bin42 = (format-int dec42 2)
+oct42 = (format-int dec42 8)
+hex42 = (format-int dec42 16)
+(println bin42)
+(println oct42)
+(println hex42)
+
+(println "")
+(println "--- format-float: Precision 0 ---")
+(println "Test 23: format-float 3.14159 with precision 0")
+test23 = (format-float 3.14159 0)
+(println test23)
+
+(println "Test 24: format-float 2.71828 with precision 0")
+test24 = (format-float 2.71828 0)
+(println test24)
+
+(println "Test 25: format-float negative with precision 0")
+test25 = (format-float (subtract 0.0 5.7) 0)
+(println test25)
+
+(println "")
+(println "--- format-float: Low Precision ---")
+(println "Test 26: format-float 3.14159 with precision 1")
+test26 = (format-float 3.14159 1)
+(println test26)
+
+(println "Test 27: format-float 3.14159 with precision 2")
+test27 = (format-float 3.14159 2)
+(println test27)
+
+(println "Test 28: format-float 3.14159 with precision 3")
+test28 = (format-float 3.14159 3)
+(println test28)
+
+(println "")
+(println "--- format-float: High Precision ---")
+(println "Test 29: format-float 3.14159 with precision 5")
+test29 = (format-float 3.14159 5)
+(println test29)
+
+(println "Test 30: format-float 3.14159 with precision 10")
+test30 = (format-float 3.14159 10)
+(println test30)
+
+(println "Test 31: format-float 1.23456789 with precision 8")
+test31 = (format-float 1.23456789 8)
+(println test31)
+
+(println "")
+(println "--- format-float: Scientific Notation Results ---")
+(println "Test 32: format-float from scientific notation")
+sciVal = 1.5e2
+test32 = (format-float sciVal 2)
+(println test32)
+
+(println "Test 33: format-float from negative exponent")
+smallVal = 1.5e-3
+test33 = (format-float smallVal 5)
+(println test33)
+
+(println "Test 34: format-float from large scientific")
+largeVal = 6.022e23
+test34 = (format-float largeVal 2)
+(println test34)
+
+(println "")
+(println "--- format-float: Hex Float Results ---")
+(println "Test 35: format-float from hex float 0x1.0p0")
+hexFloat1 = 0x1.0p0
+test35 = (format-float hexFloat1 1)
+(println test35)
+
+(println "Test 36: format-float from hex float 0x1.8p3")
+hexFloat2 = 0x1.8p3
+test36 = (format-float hexFloat2 2)
+(println test36)
+
+(println "Test 37: format-float from hex float 0x1.Ap-3")
+hexFloat3 = 0x1.Ap-3
+test37 = (format-float hexFloat3 6)
+(println test37)
+
+(println "")
+(println "--- format-float: Edge Cases ---")
+(println "Test 38: format-float 0.0 with precision 2")
+test38 = (format-float 0.0 2)
+(println test38)
+
+(println "Test 39: format-float negative with precision 4")
+test39 = (format-float (subtract 0.0 123.456) 4)
+(println test39)
+
+(println "Test 40: format-float very small number")
+test40 = (format-float 0.00001 7)
+(println test40)
+
+(println "")
+(println "--- Mixed Format Operations ---")
+(println "Test 41: Arithmetic then format-int")
+sum = (add 100 55)
+test41 = (format-int sum 16)
+(println test41)
+
+(println "Test 42: Arithmetic then format-float")
+product = (multiply 3.14159 2.0)
+test42 = (format-float product 3)
+(println test42)
+
+(println "Test 43: Format chain - hex to int to binary")
+original = 0xAB
+test43 = (format-int original 2)
+(println test43)
+
+(println "Test 44: Format chain - binary to int to hex")
+original2 = 0b10101011
+test44 = (format-int original2 16)
+(println test44)
+
+(println "")
+(println "=== All 44 Formatting Tests Complete ===")

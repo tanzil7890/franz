@@ -1,0 +1,4 @@
+(println "1: Before try")
+x1 = (try { (println "2: In try block") (error "first") } {e -> (println "3: In error handler") <- 1})
+(println "4: After try, x1 =" x1)
+(println "5: Done")

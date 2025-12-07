@@ -1,0 +1,482 @@
+(use "stdlib/math.franz" {
+  (println "=== Math Module Comprehensive Test Suite ===")
+  (println "")
+
+  test_count = 0
+  pass_count = 0
+
+  // ===== Constants Tests =====
+  (println "Testing Constants:")
+
+  test_count = (add test_count 1)
+  test_1_1 = (if (greater_than PI 3.14) {
+    <- (if (less_than PI 3.15) {
+      <- 1
+    } {
+      <- 0
+    })
+  } {
+    <- 0
+  })
+  (if (is test_1_1 1) {
+    (println "  ✓ Test 1.1: PI constant is approximately 3.14159")
+  } {
+    (println "  ✗ Test 1.1: FAILED")
+  })
+  pass_count = (add pass_count test_1_1)
+
+  test_count = (add test_count 1)
+  (if (greater_than E 2.71) {
+    (if (less_than E 2.72) {
+      pass_count = (add pass_count 1)
+      (println "  ✓ Test 1.2: E constant is approximately 2.71828")
+    } {
+      (println "  ✗ Test 1.2: FAILED - E too large")
+    })
+  } {
+    (println "  ✗ Test 1.2: FAILED - E too small")
+  })
+
+  (println "")
+
+  // ===== abs Tests =====
+  (println "Testing abs:")
+
+  test_count = (add test_count 1)
+  (if (is (abs -5) 5) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 2.1: abs(-5) = 5")
+  } {
+    (println "  ✗ Test 2.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (abs 5) 5) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 2.2: abs(5) = 5")
+  } {
+    (println "  ✗ Test 2.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (abs 0) 0) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 2.3: abs(0) = 0")
+  } {
+    (println "  ✗ Test 2.3: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  abs_float = (abs -3.5)
+  (if (greater_than abs_float 3.49) {
+    (if (less_than abs_float 3.51) {
+      pass_count = (add pass_count 1)
+      (println "  ✓ Test 2.4: abs(-3.5) = 3.5")
+    } {
+      (println "  ✗ Test 2.4: FAILED")
+    })
+  } {
+    (println "  ✗ Test 2.4: FAILED")
+  })
+
+  (println "")
+
+  // ===== sqrt Tests =====
+  (println "Testing sqrt:")
+
+  test_count = (add test_count 1)
+  (if (is (sqrt 16) 4) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 3.1: sqrt(16) = 4")
+  } {
+    (println "  ✗ Test 3.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (sqrt 25) 5) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 3.2: sqrt(25) = 5")
+  } {
+    (println "  ✗ Test 3.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (sqrt 1) 1) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 3.3: sqrt(1) = 1")
+  } {
+    (println "  ✗ Test 3.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== floor Tests =====
+  (println "Testing floor:")
+
+  test_count = (add test_count 1)
+  (if (is (floor 3.7) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 4.1: floor(3.7) = 3")
+  } {
+    (println "  ✗ Test 4.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (floor 3.2) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 4.2: floor(3.2) = 3")
+  } {
+    (println "  ✗ Test 4.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (floor -2.5) -2) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 4.3: floor(-2.5) = -2")
+  } {
+    (println "  ✗ Test 4.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== ceil Tests =====
+  (println "Testing ceil:")
+
+  test_count = (add test_count 1)
+  (if (is (ceil 3.2) 4) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 5.1: ceil(3.2) = 4")
+  } {
+    (println "  ✗ Test 5.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (ceil 3.7) 4) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 5.2: ceil(3.7) = 4")
+  } {
+    (println "  ✗ Test 5.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (ceil 3.0) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 5.3: ceil(3.0) = 3")
+  } {
+    (println "  ✗ Test 5.3: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (ceil -2.5) -2) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 5.4: ceil(-2.5) = -2")
+  } {
+    (println "  ✗ Test 5.4: FAILED")
+  })
+
+  (println "")
+
+  // ===== round Tests =====
+  (println "Testing round:")
+
+  test_count = (add test_count 1)
+  (if (is (round 3.5) 4) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 6.1: round(3.5) = 4")
+  } {
+    (println "  ✗ Test 6.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (round 3.2) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 6.2: round(3.2) = 3")
+  } {
+    (println "  ✗ Test 6.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (round 3.9) 4) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 6.3: round(3.9) = 4")
+  } {
+    (println "  ✗ Test 6.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== max Tests =====
+  (println "Testing max:")
+
+  test_count = (add test_count 1)
+  (if (is (max 3 7) 7) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 7.1: max(3, 7) = 7")
+  } {
+    (println "  ✗ Test 7.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (max 10 5) 10) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 7.2: max(10, 5) = 10")
+  } {
+    (println "  ✗ Test 7.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (max -3 -7) -3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 7.3: max(-3, -7) = -3")
+  } {
+    (println "  ✗ Test 7.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== min Tests =====
+  (println "Testing min:")
+
+  test_count = (add test_count 1)
+  (if (is (min 3 7) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 8.1: min(3, 7) = 3")
+  } {
+    (println "  ✗ Test 8.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (min 10 5) 5) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 8.2: min(10, 5) = 5")
+  } {
+    (println "  ✗ Test 8.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (min -3 -7) -7) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 8.3: min(-3, -7) = -7")
+  } {
+    (println "  ✗ Test 8.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== clamp Tests =====
+  (println "Testing clamp:")
+
+  test_count = (add test_count 1)
+  (if (is (clamp 15 0 10) 10) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 9.1: clamp(15, 0, 10) = 10")
+  } {
+    (println "  ✗ Test 9.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (clamp -5 0 10) 0) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 9.2: clamp(-5, 0, 10) = 0")
+  } {
+    (println "  ✗ Test 9.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (clamp 5 0 10) 5) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 9.3: clamp(5, 0, 10) = 5")
+  } {
+    (println "  ✗ Test 9.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== sum Tests =====
+  (println "Testing sum:")
+
+  test_count = (add test_count 1)
+  (if (is (sum (list 1 2 3 4 5)) 15) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 10.1: sum([1,2,3,4,5]) = 15")
+  } {
+    (println "  ✗ Test 10.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (sum (list 10 20 30)) 60) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 10.2: sum([10,20,30]) = 60")
+  } {
+    (println "  ✗ Test 10.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (sum (list)) 0) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 10.3: sum([]) = 0")
+  } {
+    (println "  ✗ Test 10.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== average Tests =====
+  (println "Testing average:")
+
+  test_count = (add test_count 1)
+  (if (is (average (list 1 2 3 4 5)) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 11.1: average([1,2,3,4,5]) = 3")
+  } {
+    (println "  ✗ Test 11.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (average (list 10 20 30)) 20) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 11.2: average([10,20,30]) = 20")
+  } {
+    (println "  ✗ Test 11.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (average (list 2 4 6 8)) 5) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 11.3: average([2,4,6,8]) = 5")
+  } {
+    (println "  ✗ Test 11.3: FAILED")
+  })
+
+  (println "")
+
+  // ===== median Tests =====
+  (println "Testing median:")
+
+  test_count = (add test_count 1)
+  (if (is (median (list 1 2 3 4 5)) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 12.1: median([1,2,3,4,5]) = 3")
+  } {
+    (println "  ✗ Test 12.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  med_even = (median (list 1 2 3 4))
+  (if (greater_than med_even 2.49) {
+    (if (less_than med_even 2.51) {
+      pass_count = (add pass_count 1)
+      (println "  ✓ Test 12.2: median([1,2,3,4]) = 2.5")
+    } {
+      (println "  ✗ Test 12.2: FAILED")
+    })
+  } {
+    (println "  ✗ Test 12.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (median (list 5 1 3 2 4)) 3) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 12.3: median([5,1,3,2,4]) = 3 (unsorted input)")
+  } {
+    (println "  ✗ Test 12.3: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (median (list 7)) 7) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 12.4: median([7]) = 7")
+  } {
+    (println "  ✗ Test 12.4: FAILED")
+  })
+
+  (println "")
+
+  // ===== factorial Tests =====
+  (println "Testing factorial:")
+
+  test_count = (add test_count 1)
+  (if (is (factorial 0) 1) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 13.1: factorial(0) = 1")
+  } {
+    (println "  ✗ Test 13.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (factorial 1) 1) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 13.2: factorial(1) = 1")
+  } {
+    (println "  ✗ Test 13.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (factorial 5) 120) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 13.3: factorial(5) = 120")
+  } {
+    (println "  ✗ Test 13.3: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (factorial 6) 720) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 13.4: factorial(6) = 720")
+  } {
+    (println "  ✗ Test 13.4: FAILED")
+  })
+
+  (println "")
+
+  // ===== gcd Tests =====
+  (println "Testing gcd:")
+
+  test_count = (add test_count 1)
+  (if (is (gcd 48 18) 6) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 14.1: gcd(48, 18) = 6")
+  } {
+    (println "  ✗ Test 14.1: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (gcd 100 50) 50) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 14.2: gcd(100, 50) = 50")
+  } {
+    (println "  ✗ Test 14.2: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (gcd 17 19) 1) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 14.3: gcd(17, 19) = 1 (coprime)")
+  } {
+    (println "  ✗ Test 14.3: FAILED")
+  })
+
+  test_count = (add test_count 1)
+  (if (is (gcd -48 18) 6) {
+    pass_count = (add pass_count 1)
+    (println "  ✓ Test 14.4: gcd(-48, 18) = 6 (handles negatives)")
+  } {
+    (println "  ✗ Test 14.4: FAILED")
+  })
+
+  (println "")
+
+  // ===== Summary =====
+  (println "=== Test Summary ===")
+  (println (join "Total Tests: " (string test_count)))
+  (println (join "Passed: " (string pass_count)))
+  failed_count = (subtract test_count pass_count)
+  (println (join "Failed: " (string failed_count)))
+  (println "")
+
+  (if (is failed_count 0) {
+    (println "✓ All tests passed!")
+  } {
+    (println "✗ Some tests failed")
+  })
+})

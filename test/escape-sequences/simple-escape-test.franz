@@ -1,0 +1,10 @@
+// Simple Escape Sequence Test
+(println "Testing basic escape sequences:")
+(println "")
+(println "Newline test:\nLine 1\nLine 2\nLine 3")
+(println "")
+(println "Tab test:\tColumn1\tColumn2\tColumn3")
+(println "")
+(println "Escaped quote: \"Hello\" world")
+(println "")
+(println "Escaped backslash: C:\\Users\\file.txt")

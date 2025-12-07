@@ -1,0 +1,9 @@
+(println "Test 1:")
+x1 = (try { (error "test") } {e -> <- 99})
+(println "x1 =" x1)
+
+(println "Test 2:")
+x2 = (try { (error "test2") } {e -> <- (join (list "Error:" e) " ")})
+(println "x2 =" x2)
+
+(println "Done")

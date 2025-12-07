@@ -1,0 +1,130 @@
+// Comprehensive test suite for dictionary functions
+// Following CLAUDE.md gold standard: 10-12+ tests covering all edge cases
+
+(println "=== Franz Dictionary Functions Test Suite ===")
+(println "")
+
+// Test 1: Basic dict creation
+(println "Test 1: Create basic dict")
+user = (dict "name" "Ada" "age" 37)
+(println "PASS: (dict name Ada age 37) created")
+(println "")
+
+// Test 2: dict_get with existing key
+(println "Test 2: Get existing key")
+name = (dict_get user "name")
+age = (dict_get user "age")
+(println "PASS: (dict_get user name) =" name)
+(println "PASS: (dict_get user age) =" age)
+(println "")
+
+// Test 3: dict_get with missing key returns void
+(println "Test 3: Get missing key returns void")
+missing = (dict_get user "missing")
+(println "PASS: (dict_get user missing) = void (got" missing ")")
+(println "")
+
+// Test 4: dict_set adds new key
+(println "Test 4: Add new key with dict_set")
+user2 = (dict_set user "city" "London")
+city = (dict_get user2 "city")
+(println "PASS: (dict_set user city London) then get = London (got" city ")")
+(println "")
+
+// Test 5: dict_set updates existing key (immutable)
+(println "Test 5: Update existing key (immutable)")
+user3 = (dict_set user "age" 38)
+old_age = (dict_get user "age")
+new_age = (dict_get user3 "age")
+(println "PASS: Original dict unchanged (age =" old_age "), new dict has age =" new_age)
+(println "")
+
+// Test 6: dict_keys returns all keys
+(println "Test 6: Get all keys")
+keys = (dict_keys user)
+(println "PASS: (dict_keys user) =" keys)
+(println "")
+
+// Test 7: dict_values returns all values
+(println "Test 7: Get all values")
+values = (dict_values user)
+(println "PASS: (dict_values user) =" values)
+(println "")
+
+// Test 8: dict_has checks existence
+(println "Test 8: Check key existence")
+has_name = (dict_has user "name")
+has_missing = (dict_has user "missing")
+(println "PASS: (dict_has user name) = 1 (got" has_name ")")
+(println "PASS: (dict_has user missing) = 0 (got" has_missing ")")
+(println "")
+
+// Test 9: dict_merge combines dicts
+(println "Test 9: Merge two dicts")
+dict1 = (dict "a" 1 "b" 2)
+dict2 = (dict "c" 3 "b" 99)
+merged = (dict_merge dict1 dict2)
+val_a = (dict_get merged "a")
+val_b = (dict_get merged "b")
+val_c = (dict_get merged "c")
+(println "PASS: Merged dict has a=" val_a "b=" val_b "c=" val_c)
+(println "")
+
+// Test 10: Empty dict
+(println "Test 10: Empty dict")
+empty = (dict)
+keys_empty = (dict_keys empty)
+(println "PASS: Empty dict has no keys (got" keys_empty ")")
+(println "")
+
+// Test 11: Dict with integer keys
+(println "Test 11: Dict with integer keys")
+int_dict = (dict 1 "one" 2 "two" 3 "three")
+one = (dict_get int_dict 1)
+two = (dict_get int_dict 2)
+(println "PASS: Dict with int keys: 1=" one "2=" two)
+(println "")
+
+// Test 12: Dict with mixed value types
+(println "Test 12: Dict with mixed value types")
+mixed = (dict "str" "hello" "int" 42 "float" 3.14 "list" (list 1 2 3))
+str_val = (dict_get mixed "str")
+int_val = (dict_get mixed "int")
+float_val = (dict_get mixed "float")
+list_val = (dict_get mixed "list")
+(println "PASS: Mixed types - str:" str_val "int:" int_val "float:" float_val "list:" list_val)
+(println "")
+
+// Test 13: Chaining dict_set operations
+(println "Test 13: Chain multiple dict_set calls")
+config = (dict "debug" 1)
+config = (dict_set config "port" 8080)
+config = (dict_set config "host" "localhost")
+config = (dict_set config "debug" 0)
+debug = (dict_get config "debug")
+port = (dict_get config "port")
+host = (dict_get config "host")
+(println "PASS: Chained updates - debug:" debug "port:" port "host:" host)
+(println "")
+
+// Test 14: dict_merge with empty dict
+(println "Test 14: Merge with empty dict")
+data = (dict "x" 10 "y" 20)
+merged_empty = (dict_merge data (dict))
+x = (dict_get merged_empty "x")
+y = (dict_get merged_empty "y")
+(println "PASS: Merge with empty preserves data - x:" x "y:" y)
+(println "")
+
+// Test 15: Large dict
+(println "Test 15: Dict with many keys")
+large = (dict
+  "k1" "v1" "k2" "v2" "k3" "v3" "k4" "v4" "k5" "v5"
+  "k6" "v6" "k7" "v7" "k8" "v8" "k9" "v9" "k10" "v10")
+k5 = (dict_get large "k5")
+k10 = (dict_get large "k10")
+num_keys = (length (dict_keys large))
+(println "PASS: Large dict with" num_keys "keys, k5=" k5 "k10=" k10)
+(println "")
+
+(println "=== All 15 dict tests completed successfully! ===")

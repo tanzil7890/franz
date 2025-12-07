@@ -1,0 +1,16 @@
+// Minimal test - just deref inside closure
+
+(println "Step 1: Create ref")
+count = (ref 42)
+
+(println "Step 2: Create closure")
+test_fn = {->
+  val = (deref count)
+  <- val
+}
+
+(println "Step 3: Call closure")
+result = (test_fn)
+(println "Result:" result)
+
+(println "Done!")

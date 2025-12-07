@@ -1,0 +1,12 @@
+// Simple test: use match inside a closure
+(println "Testing match inside closure")
+
+test_fn = {x ->
+  result = (match x
+    "A" {-> <- 1}
+    "B" {-> <- 2})
+  <- result
+}
+
+val = (test_fn "A")
+(println "Result:" val)

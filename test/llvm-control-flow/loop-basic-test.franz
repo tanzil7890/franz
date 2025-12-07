@@ -1,0 +1,19 @@
+(println "=== Basic Loop Test ===")
+(println "")
+
+(println "Test 1: Simple loop printing 0 to 4")
+(loop 5 {i -> (println i)})
+(println "PASS: Simple loop executed")
+
+(println "")
+(println "Test 2: Loop with zero count")
+(loop 0 {i -> (println "Should not print")})
+(println "PASS: Zero count loop handled")
+
+(println "")
+(println "Test 3: Loop with arithmetic")
+(loop 3 {i -> (println "Value:" i "Squared:" (multiply i i))})
+(println "PASS: Loop with arithmetic")
+
+(println "")
+(println "All basic tests passed!")

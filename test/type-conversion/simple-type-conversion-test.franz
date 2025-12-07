@@ -1,0 +1,29 @@
+// Simple Type Conversion Demo Test
+// Quick validation that integer(), float(), and string() work
+
+(println "=== Simple Type Conversion Test ===")
+(println "")
+
+// Test 1: String to Integer
+(println "Test 1: integer(\"42\") = " (integer "42"))
+
+// Test 2: Integer to String
+(println "Test 2: string(100) = \"" (string 100) "\"")
+
+// Test 3: String to Float
+(println "Test 3: float(\"3.14\") = " (float "3.14"))
+
+// Test 4: Float to Integer
+(println "Test 4: integer(9.9) = " (integer 9.9))
+
+// Test 5: Integer to Float
+(println "Test 5: float(42) = " (float 42))
+
+// Test 6: Practical Example
+input_str = "25"
+age = (integer input_str)
+next_year = (add age 1)
+(println "Test 6: If age is \"25\", next year you'll be " next_year)
+
+(println "")
+(println "=== All Simple Tests Complete ===")

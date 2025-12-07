@@ -1,0 +1,151 @@
+(println "=== Equality (is) Comprehensive Tests ===")
+(println "")
+
+// ============================================
+// Test 1: Integer Equality (Same Values)
+// ============================================
+(println "Test 1: Integer equality (same)")
+ok1 = (is 5 5)
+(println "  (is 5 5) = " ok1)
+(println (if ok1 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 2: Integer Inequality (Different Values)
+// ============================================
+(println "Test 2: Integer inequality (different)")
+ok2 = (not (is 5 3))
+(println "  (is 5 3) = " (is 5 3))
+(println (if ok2 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 3: Integer Zero Equality
+// ============================================
+(println "Test 3: Integer zero equality")
+ok3 = (is 0 0)
+(println (if ok3 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 4: Negative Integer Equality
+// ============================================
+(println "Test 4: Negative integer equality")
+ok4 = (is -42 -42)
+(println (if ok4 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 5: Float Equality
+// ============================================
+(println "Test 5: Float equality")
+ok5 = (is 3.14 3.14)
+(println (if ok5 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 6: Float Inequality
+// ============================================
+(println "Test 6: Float inequality")
+ok6 = (not (is 3.14 2.71))
+(println (if ok6 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 7: Mixed Int/Float Equality
+// ============================================
+(println "Test 7: Mixed int/float (1.0 == 1)")
+ok7 = (is 1.0 1)
+(println "  (is 1.0 1) = " ok7)
+(println (if ok7 {<- "PASS (numeric coercion)"} {<- "FAIL"}))
+
+// ============================================
+// Test 8: Mixed Int/Float (5.0 == 5)
+// ============================================
+(println "Test 8: Mixed int/float (5.0 == 5)")
+ok8 = (is 5.0 5)
+(println (if ok8 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 9: String Equality (Same)
+// ============================================
+(println "Test 9: String equality (same)")
+ok9 = (is "hello" "hello")
+(println (if ok9 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 10: String Inequality
+// ============================================
+(println "Test 10: String inequality")
+ok10 = (not (is "hello" "world"))
+(println (if ok10 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 11: Empty String Equality
+// ============================================
+(println "Test 11: Empty string equality")
+ok11 = (is "" "")
+(println (if ok11 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 12: String with Spaces
+// ============================================
+(println "Test 12: String with spaces")
+ok12 = (is "hello world" "hello world")
+(println (if ok12 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 13: List Equality (Same Elements)
+// ============================================
+(println "Test 13: List equality (same elements)")
+ok13 = (is (list 1 2 3) (list 1 2 3))
+(println (if ok13 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 14: List Inequality (Different Elements)
+// ============================================
+(println "Test 14: List inequality (different)")
+ok14 = (not (is (list 1 2) (list 3 4)))
+(println (if ok14 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 15: Empty List Equality
+// ============================================
+(println "Test 15: Empty list equality")
+ok15 = (is (list) (list))
+(println (if ok15 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 16: Nested List Equality
+// ============================================
+(println "Test 16: Nested list equality")
+ok16 = (is (list (list 1 2) (list 3 4)) (list (list 1 2) (list 3 4)))
+(println (if ok16 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 17: Void Equality
+// ============================================
+(println "Test 17: Void equality")
+ok17 = (is void void)
+(println (if ok17 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 18: Different Type Comparison (Int vs String)
+// ============================================
+(println "Test 18: Different types (int vs string)")
+ok18 = (not (is 5 "5"))
+(println "  (is 5 \"5\") = " (is 5 "5"))
+(println (if ok18 {<- "PASS (different types)"} {<- "FAIL"}))
+
+// ============================================
+// Test 19: Different Type Comparison (Int vs Void)
+// ============================================
+(println "Test 19: Different types (int vs void)")
+ok19 = (not (is 0 void))
+(println (if ok19 {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 20: Variable Equality
+// ============================================
+(println "Test 20: Variable equality")
+x20 = 42
+y20 = 42
+ok20 = (is x20 y20)
+(println (if ok20 {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "=== All 20 Equality Tests Complete ===")

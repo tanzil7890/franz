@@ -1,0 +1,25 @@
+(println "=== Test: EXACT Example 8 pattern ===")
+
+min_of_three = {a b c ->
+  (if (and (less_than a b) (less_than a c))
+    {<- a}
+    {(if (less_than b c) {<- b} {<- c})})
+}
+
+max_of_three = {a b c ->
+  (if (and (greater_than a b) (greater_than a c))
+    {<- a}
+    {(if (greater_than b c) {<- b} {<- c})})
+}
+
+// EXACT pattern from Example 8
+sort_three = {a b c ->
+  min_val = (min_of_three a b c)
+  max_val = (max_of_three a b c)
+  mid = (subtract (add a b c) (add min_val max_val))
+  <- mid
+}
+
+result = (sort_three 30 10 20)
+(println "Result:" result)
+(println "Expected: 20")

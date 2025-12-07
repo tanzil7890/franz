@@ -1,0 +1,279 @@
+(println "=== Escape Sequence Comprehensive Tests ===")
+(println "")
+
+// ============================================
+// Test 1: Newline Escape (\n)
+// ============================================
+(println "Test 1: Newline escape (\\n)")
+t1_str = "Line1\nLine2"
+t1_expected_len = 11
+t1_actual_len = (length t1_str)
+t1_ok = (is t1_actual_len t1_expected_len)
+(println "  String: \"Line1\\nLine2\"")
+(println "  Length: " t1_actual_len " (expected " t1_expected_len ")")
+(println (if t1_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 2: Tab Escape (\t)
+// ============================================
+(println "Test 2: Tab escape (\\t)")
+t2_str = "Col1\tCol2"
+t2_expected_len = 9
+t2_actual_len = (length t2_str)
+t2_ok = (is t2_actual_len t2_expected_len)
+(println "  String: \"Col1\\tCol2\"")
+(println "  Length: " t2_actual_len " (expected " t2_expected_len ")")
+(println (if t2_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 3: Carriage Return (\r)
+// ============================================
+(println "Test 3: Carriage return (\\r)")
+t3_str = "Before\rAfter"
+t3_expected_len = 12
+t3_actual_len = (length t3_str)
+t3_ok = (is t3_actual_len t3_expected_len)
+(println "  String length: " t3_actual_len " (expected " t3_expected_len ")")
+(println (if t3_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 4: Backslash Escape (\\)
+// ============================================
+(println "Test 4: Backslash escape (\\\\)")
+t4_str = "C:\\Users\\file.txt"
+t4_expected_len = 17
+t4_actual_len = (length t4_str)
+t4_ok = (is t4_actual_len t4_expected_len)
+(println "  String: \"C:\\\\Users\\\\file.txt\"")
+(println "  Length: " t4_actual_len " (expected " t4_expected_len ")")
+(println (if t4_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 5: Double Quote Escape (\")
+// ============================================
+(println "Test 5: Double quote escape (\\\")")
+t5_str = "She said \"Hello\" to me"
+t5_expected_len = 22
+t5_actual_len = (length t5_str)
+t5_ok = (is t5_actual_len t5_expected_len)
+(println "  String: \"She said \\\"Hello\\\" to me\"")
+(println "  Length: " t5_actual_len " (expected " t5_expected_len ")")
+(println (if t5_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 6: Bell/Alert Escape (\a)
+// ============================================
+(println "Test 6: Bell escape (\\a)")
+t6_str = "Alert\a"
+t6_expected_len = 6
+t6_actual_len = (length t6_str)
+t6_ok = (is t6_actual_len t6_expected_len)
+(println "  String length: " t6_actual_len " (expected " t6_expected_len ")")
+(println (if t6_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 7: Backspace Escape (\b)
+// ============================================
+(println "Test 7: Backspace escape (\\b)")
+t7_str = "Text\b"
+t7_expected_len = 5
+t7_actual_len = (length t7_str)
+t7_ok = (is t7_actual_len t7_expected_len)
+(println "  String length: " t7_actual_len " (expected " t7_expected_len ")")
+(println (if t7_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 8: Form Feed Escape (\f)
+// ============================================
+(println "Test 8: Form feed escape (\\f)")
+t8_str = "Page1\fPage2"
+t8_expected_len = 11
+t8_actual_len = (length t8_str)
+t8_ok = (is t8_actual_len t8_expected_len)
+(println "  String length: " t8_actual_len " (expected " t8_expected_len ")")
+(println (if t8_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 9: Vertical Tab Escape (\v)
+// ============================================
+(println "Test 9: Vertical tab escape (\\v)")
+t9_str = "Line1\vLine2"
+t9_expected_len = 11
+t9_actual_len = (length t9_str)
+t9_ok = (is t9_actual_len t9_expected_len)
+(println "  String length: " t9_actual_len " (expected " t9_expected_len ")")
+(println (if t9_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 10: Escape Character (\e)
+// ============================================
+(println "Test 10: Escape character (\\e)")
+t10_str = "\e[31mRed\e[0m"
+t10_expected_len = 12
+t10_actual_len = (length t10_str)
+t10_ok = (is t10_actual_len t10_expected_len)
+(println "  String length: " t10_actual_len " (expected " t10_expected_len ")")
+(println (if t10_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 11: Hexadecimal Escape (\xHH)
+// ============================================
+(println "Test 11: Hexadecimal escape (\\x41 = 'A')")
+t11_str = "\x41BC"
+t11_expected = "ABC"
+t11_ok = (is t11_str t11_expected)
+(println "  String: \"\\x41BC\"")
+(println "  Result: \"" t11_str "\" (expected \"ABC\")")
+(println (if t11_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 12: Multiple Hex Escapes
+// ============================================
+(println "Test 12: Multiple hex escapes")
+t12_str = "\x48\x65\x6c\x6c\x6f"
+t12_expected = "Hello"
+t12_ok = (is t12_str t12_expected)
+(println "  String: \"\\x48\\x65\\x6c\\x6c\\x6f\"")
+(println "  Result: \"" t12_str "\" (expected \"Hello\")")
+(println (if t12_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 13: Mixed Escapes
+// ============================================
+(println "Test 13: Mixed escape sequences")
+t13_str = "Line1\n\tTabbed\n\"Quoted\""
+t13_expected_len = 22
+t13_actual_len = (length t13_str)
+t13_ok = (is t13_actual_len t13_expected_len)
+(println "  String: \"Line1\\n\\tTabbed\\n\\\"Quoted\\\"\"")
+(println "  Length: " t13_actual_len " (expected " t13_expected_len ")")
+(println (if t13_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 14: Empty String
+// ============================================
+(println "Test 14: Empty string with no escapes")
+t14_str = ""
+t14_expected_len = 0
+t14_actual_len = (length t14_str)
+t14_ok = (is t14_actual_len t14_expected_len)
+(println "  Length: " t14_actual_len " (expected " t14_expected_len ")")
+(println (if t14_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 15: String with Only Escapes
+// ============================================
+(println "Test 15: String with only escapes")
+t15_str = "\n\t\r"
+t15_expected_len = 3
+t15_actual_len = (length t15_str)
+t15_ok = (is t15_actual_len t15_expected_len)
+(println "  String: \"\\n\\t\\r\"")
+(println "  Length: " t15_actual_len " (expected " t15_expected_len ")")
+(println (if t15_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 16: Hex Escape with Uppercase
+// ============================================
+(println "Test 16: Hex escape uppercase (\\x4A = 'J')")
+t16_str = "\x4A"
+t16_expected = "J"
+t16_ok = (is t16_str t16_expected)
+(println "  String: \"\\x4A\"")
+(println "  Result: \"" t16_str "\" (expected \"J\")")
+(println (if t16_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 17: Hex Escape with Lowercase
+// ============================================
+(println "Test 17: Hex escape lowercase (\\x7a = 'z')")
+t17_str = "\x7a"
+t17_expected = "z"
+t17_ok = (is t17_str t17_expected)
+(println "  String: \"\\x7a\"")
+(println "  Result: \"" t17_str "\" (expected \"z\")")
+(println (if t17_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 18: String Comparison with Escapes
+// ============================================
+(println "Test 18: String comparison with escapes")
+t18_str1 = "Hello\nWorld"
+t18_str2 = "Hello\nWorld"
+t18_ok = (is t18_str1 t18_str2)
+(println "  \"Hello\\nWorld\" == \"Hello\\nWorld\"")
+(println (if t18_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 19: Escape in List
+// ============================================
+(println "Test 19: Escape sequences in list")
+t19_list = (list "Line1\nLine2" "Tab\there" "Quote:\"Hi\"")
+t19_first = (get t19_list 0)
+t19_expected_len = 11
+t19_actual_len = (length t19_first)
+t19_ok = (is t19_actual_len t19_expected_len)
+(println "  First element length: " t19_actual_len " (expected " t19_expected_len ")")
+(println (if t19_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 20: Consecutive Backslashes
+// ============================================
+(println "Test 20: Consecutive backslashes")
+t20_str = "\\\\\\\\"
+t20_expected_len = 4
+t20_actual_len = (length t20_str)
+t20_ok = (is t20_actual_len t20_expected_len)
+(println "  String: \"\\\\\\\\\\\\\\\\\" (8 backslashes → 4 actual)")
+(println "  Length: " t20_actual_len " (expected " t20_expected_len ")")
+(println (if t20_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 21: Newline in Concatenation
+// ============================================
+(println "Test 21: Escape in string concatenation")
+t21_str1 = "Part1\n"
+t21_str2 = "Part2"
+t21_result = (join t21_str1 t21_str2)
+t21_expected_len = 11
+t21_actual_len = (length t21_result)
+t21_ok = (is t21_actual_len t21_expected_len)
+(println "  \"Part1\\n\" + \"Part2\" length: " t21_actual_len " (expected " t21_expected_len ")")
+(println (if t21_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 22: Tab-Separated Values
+// ============================================
+(println "Test 22: Tab-separated values")
+t22_str = "Name\tAge\tCity"
+t22_expected_len = 13
+t22_actual_len = (length t22_str)
+t22_ok = (is t22_actual_len t22_expected_len)
+(println "  String: \"Name\\tAge\\tCity\"")
+(println "  Length: " t22_actual_len " (expected " t22_expected_len ")")
+(println (if t22_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 23: Path Separators (Windows-style)
+// ============================================
+(println "Test 23: Windows path separators")
+t23_str = "C:\\Program Files\\App\\file.exe"
+t23_expected_len = 30
+t23_actual_len = (length t23_str)
+t23_ok = (is t23_actual_len t23_expected_len)
+(println "  Path length: " t23_actual_len " (expected " t23_expected_len ")")
+(println (if t23_ok {<- "PASS"} {<- "FAIL"}))
+
+// ============================================
+// Test 24: Complex Nested Escapes
+// ============================================
+(println "Test 24: Complex nested escapes")
+t24_str = "Path: \"C:\\\\data\\\\file.txt\""
+t24_expected_len = 26
+t24_actual_len = (length t24_str)
+t24_ok = (is t24_actual_len t24_expected_len)
+(println "  String length: " t24_actual_len " (expected " t24_expected_len ")")
+(println (if t24_ok {<- "PASS"} {<- "FAIL"}))
+
+(println "")
+(println "=== All 24 Escape Sequence Tests Complete ===")

@@ -1,0 +1,26 @@
+(println "Test: EXACT Example 8 pattern")
+
+min_of_three = {a b c ->
+  (if (and (less_than a b) (less_than a c))
+    {<- a}
+    {(if (less_than b c) {<- b} {<- c})})
+}
+
+max_of_three = {a b c ->
+  (if (and (greater_than a b) (greater_than a c))
+    {<- a}
+    {(if (greater_than b c) {<- b} {<- c})})
+}
+
+(println "Step 1: Call min_of_three(30, 10, 20)")
+min_val = (min_of_three 30 10 20)
+(println "  min_val =" min_val)
+
+(println "Step 2: Call max_of_three(30, 10, 20)")
+max_val = (max_of_three 30 10 20)
+(println "  max_val =" max_val)
+
+(println "Step 3: Add min_val + max_val")
+sum_result = (add min_val max_val)
+(println "  sum =" sum_result)
+(println "  Expected: 40 (10 + 30)")

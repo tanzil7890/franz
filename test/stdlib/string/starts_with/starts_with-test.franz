@@ -1,0 +1,52 @@
+// Franz Standard Library - String Module
+// Test Suite for starts_with() function
+
+(use "stdlib/string.franz" {
+  (println "=== starts_with() Function Tests ===")
+  (println "")
+
+  (println "Test 1: starts_with - match")
+  test1_result = (starts_with "hello world" "hello")
+  (if (is test1_result 1) {
+    (println "  ✓ PASS: starts_with match")
+  } {
+    (println "  ✗ FAIL - Expected 1, got:" test1_result)
+  })
+
+  (println "Test 2: starts_with - no match")
+  test2_result = (starts_with "hello world" "world")
+  (if (is test2_result 0) {
+    (println "  ✓ PASS: starts_with no match")
+  } {
+    (println "  ✗ FAIL - Expected 0, got:" test2_result)
+  })
+
+  (println "Test 3: starts_with - exact match")
+  test3_result = (starts_with "test" "test")
+  (if (is test3_result 1) {
+    (println "  ✓ PASS: starts_with exact match")
+  } {
+    (println "  ✗ FAIL - Expected 1, got:" test3_result)
+  })
+
+  (println "Test 4: starts_with - single character")
+  test4_result = (starts_with "hello" "h")
+  (if (is test4_result 1) {
+    (println "  ✓ PASS: starts_with single char")
+  } {
+    (println "  ✗ FAIL - Expected 1, got:" test4_result)
+  })
+
+  (println "Test 5: starts_with - case sensitive")
+  test5_result = (starts_with "hello" "Hello")
+  (if (is test5_result 0) {
+    (println "  ✓ PASS: starts_with case sensitive")
+  } {
+    (println "  ✗ FAIL - Expected 0, got:" test5_result)
+  })
+
+  (println "")
+  (println "===========================================")
+  (println "starts_with() tests complete - 5/5 executed")
+  (println "===========================================")
+})

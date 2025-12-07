@@ -1,0 +1,11 @@
+(println "Test: Creating make_adder function")
+make_adder = {n -> <- {x -> <- (add n x)}}
+(println "make_adder created successfully")
+
+(println "Test: Calling make_adder(5)")
+add5 = (make_adder 5)
+(println "add5 created successfully")
+
+(println "Test: Calling add5(10)")
+result = (add5 10)
+(println "Result:" result)

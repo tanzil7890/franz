@@ -1,0 +1,117 @@
+// Mutual Recursion Examples in Franz
+// Demonstrates that Franz supports mutual recursion without special keywords
+
+(println "=== Mutual Recursion in Franz ===\n")
+
+// Example 1: Classic is_even and is_odd
+(println "1. Even/Odd Check (mutual recursion):")
+
+is_even = {n ->
+  <- (if (is n 0)
+    {<- 1}
+    {<- (is_odd (subtract n 1))})
+}
+
+is_odd = {n ->
+  <- (if (is n 0)
+    {<- 0}
+    {<- (is_even (subtract n 1))})
+}
+
+(println "   is_even(0) = " (is_even 0))
+(println "   is_even(4) = " (is_even 4))
+(println "   is_even(7) = " (is_even 7))
+(println "   is_odd(0) = " (is_odd 0))
+(println "   is_odd(5) = " (is_odd 5))
+(println "   is_odd(8) = " (is_odd 8))
+
+// Example 2: Hofstadter's Male and Female sequences
+// F(0) = 1, M(0) = 0
+// F(n) = n - M(F(n-1))
+// M(n) = n - F(M(n-1))
+(println "\n2. Hofstadter Male/Female Sequences:")
+
+female = {n ->
+  <- (if (is n 0)
+    {<- 1}
+    {<- (subtract n (male (female (subtract n 1))))})
+}
+
+male = {n ->
+  <- (if (is n 0)
+    {<- 0}
+    {<- (subtract n (female (male (subtract n 1))))})
+}
+
+(println "   Female sequence (0-10):")
+(print "   ")
+(loop 11 {i ->
+  (print (female i) " ")
+})
+(println "")
+
+(println "   Male sequence (0-10):")
+(print "   ")
+(loop 11 {i ->
+  (print (male i) " ")
+})
+(println "")
+
+// Example 3: Tree processing (using new helper functions!)
+(println "\n3. Process nested lists (mutual recursion):")
+
+// Process a list by doubling all numbers, recursively processing nested lists
+process_list = {lst ->
+  <- (if (empty? lst)
+    {<- (list)}
+    {<- (cons (process_item (head lst)) (process_list (tail lst)))}
+  )
+}
+
+// Process an item: if it's a list, recurse; if number, double it
+process_item = {item ->
+  <- (if (is (type item) "list")
+    {<- (process_list item)}  // Mutual recursion!
+    {<- (multiply item 2)}
+  )
+}
+
+data1 = (list 1 2 3)
+data2 = (list 1 (list 2 3) 4)
+data3 = (list (list (list 5)))
+
+(println "   Original: " data1)
+(println "   Doubled:  " (process_list data1))
+(println "   Original: " data2)
+(println "   Doubled:  " (process_list data2))
+(println "   Original: " data3)
+(println "   Doubled:  " (process_list data3))
+
+// Example 4: Simple state machine
+(println "\n4. State Machine (ping-pong):")
+
+state_ping = {count max_count ->
+  <- (if (greater_than count max_count)
+    {<- "Done"}
+    {
+      (print "PING(" count ") ")
+      <- (state_pong (add count 1) max_count)
+    }
+  )
+}
+
+state_pong = {count max_count ->
+  <- (if (greater_than count max_count)
+    {<- "Done"}
+    {
+      (print "PONG(" count ") ")
+      <- (state_ping (add count 1) max_count)
+    }
+  )
+}
+
+(print "   ")
+result = (state_ping 1 10)
+(println "\n   " result)
+
+(println "\n=== All Examples Complete ===")

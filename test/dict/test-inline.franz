@@ -1,0 +1,8 @@
+(println "Start")
+scores = (dict "alice" 90)
+(println "Dict created")
+doubled = (dict_map scores {k v -> <- (multiply v 2)})
+(println "Mapped")
+result = (dict_get doubled "alice")
+(println "Result:" result)
+(println "End")

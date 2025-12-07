@@ -1,0 +1,4 @@
+// Math utility module for namespace testing
+square = {x -> <- (multiply x x)}
+cube = {x -> <- (multiply x (multiply x x))}
+double = {x -> <- (multiply x 2)}

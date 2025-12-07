@@ -1,0 +1,26 @@
+// Test variable-stored closures with dict_filter
+(println "=== Variable-Stored dict_filter Test ===")
+(println "")
+
+// Test 1: Create filter closure
+(println "Test 1: Create filter closure")
+high_score_filter = {k v -> <- (greater_than v 88)}
+(println "Filter closure assigned to variable")
+
+// Test 2: Use variable-stored filter closure
+(println "Test 2: Apply filter closure")
+scores = (dict "alice" 90 "bob" 85 "carol" 95)
+high_scores = (dict_filter scores high_score_filter)
+(println "Filtered dict with variable closure")
+
+// Test 3: Verify results
+(println "Test 3: Verify results")
+has_alice = (dict_has high_scores "alice")
+has_bob = (dict_has high_scores "bob")
+has_carol = (dict_has high_scores "carol")
+
+(println "has_alice (90 > 88):" has_alice)
+(println "has_bob (85 > 88):" has_bob)
+(println "has_carol (95 > 88):" has_carol)
+
+(println "✓ All tests passed")

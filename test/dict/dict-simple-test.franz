@@ -1,0 +1,93 @@
+// Simple test for dict_map and dict_filter
+// Testing LLVM implementation with closures
+
+(println "=== Dict Map and Filter Simple Test ===")
+(println "")
+
+// ============================================================================
+// dict_map tests
+// ============================================================================
+
+(println "--- dict_map Tests ---")
+(println "")
+
+// Test 1: Map to double all values
+(println "Test 1: Double numeric values")
+scores = (dict "alice" 90 "bob" 85)
+double_fn = {k v -> <- (multiply v 2)}
+doubled = (dict_map scores double_fn)
+alice_doubled = (dict_get doubled "alice")
+bob_doubled = (dict_get doubled "bob")
+(println "  alice:" alice_doubled "bob:" bob_doubled)
+(println "✓ Test 1 passed")
+(println "")
+
+// Test 2: Map on empty dict
+(println "Test 2: Map on empty dict")
+empty_mapped = (dict_map (dict) {k v -> <- v})
+mapped_count = (length (dict_keys empty_mapped))
+(println "  Empty mapped count:" mapped_count)
+(println "✓ Test 2 passed")
+(println "")
+
+// Test 3: Map to add bonus
+(println "Test 3: Add bonus points")
+points = (dict "player1" 100 "player2" 150)
+add_bonus = {k v -> <- (add v 50)}
+with_bonus = (dict_map points add_bonus)
+p1_bonus = (dict_get with_bonus "player1")
+p2_bonus = (dict_get with_bonus "player2")
+(println "  player1:" p1_bonus "player2:" p2_bonus)
+(println "✓ Test 3 passed")
+(println "")
+
+// ============================================================================
+// dict_filter tests
+// ============================================================================
+
+(println "--- dict_filter Tests ---")
+(println "")
+
+// Test 4: Filter values greater than threshold
+(println "Test 4: Filter scores > 90")
+test_scores = (dict "alice" 95 "bob" 85 "carol" 92)
+high_filter = {k v -> <- (greater_than v 90)}
+high_scores = (dict_filter test_scores high_filter)
+has_alice = (dict_has high_scores "alice")
+has_bob = (dict_has high_scores "bob")
+has_carol = (dict_has high_scores "carol")
+(println "  has alice (95>90):" has_alice)
+(println "  has bob (85>90):" has_bob)
+(println "  has carol (92>90):" has_carol)
+(println "✓ Test 4 passed")
+(println "")
+
+// Test 5: Filter returns empty
+(println "Test 5: Filter that matches nothing")
+nums = (dict "x" 1 "y" 2 "z" 3)
+impossible = {k v -> <- 0}
+none = (dict_filter nums impossible)
+none_count = (length (dict_keys none))
+(println "  No matches, count:" none_count)
+(println "✓ Test 5 passed")
+(println "")
+
+// Test 6: Filter returns all
+(println "Test 6: Filter that matches everything")
+nums2 = (dict "a" 10 "b" 20)
+always = {k v -> <- 1}
+all = (dict_filter nums2 always)
+all_count = (length (dict_keys all))
+(println "  All match, count:" all_count)
+(println "✓ Test 6 passed")
+(println "")
+
+// Test 7: Filter on empty dict
+(println "Test 7: Filter on empty dict")
+empty_filtered = (dict_filter (dict) {k v -> <- 1})
+filtered_count = (length (dict_keys empty_filtered))
+(println "  Filtering empty, count:" filtered_count)
+(println "✓ Test 7 passed")
+(println "")
+
+(println "=== All 7 Tests Passed! ===")

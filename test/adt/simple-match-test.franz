@@ -1,0 +1,13 @@
+(println "Testing simple match with no-argument handlers...")
+
+// Create variants
+some = (variant "Some" 42)
+none = (variant "None")
+
+// Test match with no-argument handlers ()
+result1 = (match none
+  "Some" {-> (println "Matched Some")}
+  "None" {-> (println "Matched None")}
+)
+
+(println "Simple match test complete!")

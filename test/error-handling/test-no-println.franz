@@ -1,0 +1,3 @@
+x1 = (try { (error "first") } {e -> <- 1})
+x2 = (add x1 5)
+y = 999

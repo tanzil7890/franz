@@ -1,0 +1,15 @@
+(println "=== Test: 3-level nested closure ===")
+
+(println "Step 1: Define make_multiplier")
+make_multiplier = {a -> <- {b -> <- {c -> <- (multiply (multiply a b) c)}}}
+
+(println "Step 2: Call make_multiplier(2)")
+mul2 = (make_multiplier 2)
+
+(println "Step 3: Call mul2(3)")
+mul2_3 = (mul2 3)
+
+(println "Step 4: Call mul2_3(4)")
+result = (mul2_3 4)
+(println "Result:" result)
+(println "Expected: 24")

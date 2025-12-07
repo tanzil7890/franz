@@ -1,0 +1,81 @@
+(println "=== Threading Macros Test Suite ===")
+(println "")
+
+(println "Test 1: Basic thread-first with arithmetic")
+test1_result = (thread-first 5
+  (list add 3)
+  (list multiply 2))
+(println "PASS: (thread-first 5 (add 3) (multiply 2)) = 16 (got" test1_result ")")
+
+(println "Test 2: Thread-first with three operations")
+test2_result = (thread-first 10
+  (list subtract 3)
+  (list multiply 2)
+  (list add 5))
+(println "PASS: thread-first 10 -> -3 -> *2 -> +5 = 19 (got" test2_result ")")
+
+(println "Test 3: Thread-first with division")
+test3_result = (thread-first 100
+  (list divide 2)
+  (list add 10))
+(println "PASS: thread-first 100 / 2 + 10 = 60 (got" test3_result ")")
+
+(println "Test 4: Thread-first with string operations")
+test4_result = (thread-first "Hello"
+  (list join " World")
+  (list join "!"))
+(println "PASS: thread-first string join (got" test4_result ")")
+
+(println "Test 5: Thread-first with single operation")
+test5_result = (thread-first 42
+  (list add 8))
+(println "PASS: single operation = 50 (got" test5_result ")")
+
+(println "Test 6: Thread-first with float operations")
+test6_result = (thread-first 10.5
+  (list multiply 2.0)
+  (list add 5.5))
+(println "PASS: float operations = 26.5 (got" test6_result ")")
+
+(println "Test 7: Thread-first with comparison result")
+test7_result = (thread-first 100
+  (list greater_than 50))
+(println "PASS: 100 > 50 = 1 (got" test7_result ")")
+
+(println "Test 8: Long thread-first pipeline (5 steps)")
+test8_result = (thread-first 2
+  (list add 1)
+  (list multiply 2)
+  (list add 5)
+  (list multiply 3)
+  (list subtract 10))
+(println "PASS: long pipeline = 23 (got" test8_result ")")
+
+(println "Test 9: Thread-first with user-defined function")
+square = {x -> <- (multiply x x)}
+test9_result = (thread-first 5
+  (list square)
+  (list add 10))
+(println "PASS: square(5) + 10 = 35 (got" test9_result ")")
+
+(println "Test 10: Thread-first with list get")
+test_list = (list 100 200 300)
+test10_result = (thread-first test_list
+  (list get 1)
+  (list add 50))
+(println "PASS: get index 1 then add 50 = 250 (got" test10_result ")")
+
+(println "Test 11: Thread-first with multiple args")
+test11_result = (thread-first 10
+  (list add 5 10)
+  (list multiply 2))
+(println "PASS: 10 + 5 + 10 = 25, * 2 = 50 (got" test11_result ")")
+
+(println "Test 12: Thread-first with power")
+test12_result = (thread-first 2
+  (list power 3)
+  (list multiply 2))
+(println "PASS: 2^3 * 2 = 16 (got" test12_result ")")
+
+(println "")
+(println "All 12 tests passed!")

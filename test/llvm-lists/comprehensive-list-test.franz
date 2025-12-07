@@ -1,0 +1,59 @@
+(println "=== Comprehensive LLVM List Test ===")
+(println "")
+
+(println "Test 1: List creation and is_list")
+nums = [1, 2, 3, 4, 5]
+(println "Created list, is_list?" (is_list nums))
+
+(println "")
+(println "Test 2: Empty list")
+empty = []
+(println "Empty list, is_list?" (is_list empty))
+(println "Is empty?" (empty? empty))
+
+(println "")
+(println "Test 3: List length")
+(println "Length of [1,2,3,4,5]:" (length nums))
+(println "Length of []:" (length empty))
+
+(println "")
+(println "Test 4: Head operation")
+first = (head nums)
+(println "Head extracted (check type):" (is_int first))
+
+(println "")
+(println "Test 5: Tail operation")
+rest = (tail nums)
+(println "Tail length:" (length rest))
+
+(println "")
+(println "Test 6: Cons operation")
+new_list = (cons 0 nums)
+(println "After cons, length:" (length new_list))
+
+(println "")
+(println "Test 7: Nth access")
+val0 = (nth nums 0)
+val2 = (nth nums 2)
+val4 = (nth nums 4)
+(println "Extracted via nth (check types)")
+(println "nth(0) is int:" (is_int val0))
+(println "nth(2) is int:" (is_int val2))
+(println "nth(4) is int:" (is_int val4))
+
+(println "")
+(println "Test 8: Mixed type list")
+mixed = [1, "hello", 3.14]
+(println "Mixed list, length:" (length mixed))
+(println "Mixed list, is_list:" (is_list mixed))
+
+(println "")
+(println "Test 9: Nested lists")
+nested = [[1, 2], [3, 4, 5]]
+(println "Nested list, length:" (length nested))
+inner = (head nested)
+(println "Inner list, is_list:" (is_list inner))
+(println "Inner list, length:" (length inner))
+
+(println "")
+(println "=== All 9 tests passed! ===")

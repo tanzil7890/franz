@@ -1,0 +1,112 @@
+(println "=== Break + Continue Comprehensive Test ===")
+(println "")
+
+(println "Test 1: FizzBuzz with continue")
+(loop 15 {i ->
+  n = (add i 1)
+  div3 = (is (remainder n 3) 0)
+  div5 = (is (remainder n 5) 0)
+
+  (if (and div3 div5)
+    {
+      (println n ": FizzBuzz")
+      (continue)
+    }
+    {})
+
+  (if div3
+    {
+      (println n ": Fizz")
+      (continue)
+    }
+    {})
+
+  (if div5
+    {
+      (println n ": Buzz")
+      (continue)
+    }
+    {})
+
+  (println n)
+})
+(println "")
+
+(println "Test 2: Find first odd > 10 (skip evens, break when found)")
+result2 = (loop 20 {i ->
+  // Skip even numbers
+  (if (is (remainder i 2) 0)
+    {(continue)}
+    {})
+
+  // Break when found odd > 10
+  (if (greater_than i 10)
+    {(break i)}
+    {})
+
+  (println "  Checking:" i)
+})
+(println "Found:" result2)
+(println "")
+
+(println "Test 3: Nested loops with both break and continue")
+outer_result = (loop 5 {i ->
+  (println "Outer i=" i)
+
+  inner_result = (loop 5 {j ->
+    // Skip even j
+    (if (is (remainder j 2) 0)
+      {(continue)}
+      {})
+
+    // Break inner at j=3
+    (if (is j 3)
+      {(break j)}
+      {})
+
+    (println "  Inner j=" j)
+  })
+
+  // Break outer at i=2
+  (if (is i 2)
+    {(break i)}
+    {})
+})
+(println "Outer result:" outer_result)
+(println "")
+
+(println "Test 4: Skip range, break on threshold")
+result4 = (loop 20 {i ->
+  // Skip 5-10
+  in_skip = (and (greater_than i 4) (less_than i 11))
+  (if in_skip
+    {(continue)}
+    {})
+
+  // Break at 15
+  (if (is i 15)
+    {(break i)}
+    {})
+
+  (println "  Process:" i)
+})
+(println "Stopped at:" result4)
+(println "")
+
+(println "Test 5: Filter and search pattern")
+target = 17
+result5 = (loop 30 {i ->
+  // Skip multiples of 3
+  (if (is (remainder i 3) 0)
+    {(continue)}
+    {})
+
+  // Found target?
+  (if (is i target)
+    {(break (multiply i 100))}
+    {})
+})
+(println "Search result:" result5)
+(println "")
+
+(println "All comprehensive tests complete!")

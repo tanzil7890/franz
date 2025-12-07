@@ -1,0 +1,14 @@
+(println "=== Testing  Current Capabilities ===")
+(println "")
+
+(println "Test 3: User-defined compose function")
+double = {x -> <- (multiply x 2)}
+add_ten = {x -> <- (add x 10)}
+compose = {f g -> <- {x -> <- (f (g x))}}
+composed_auto = (compose double add_ten)
+result3 = (composed_auto 5)
+(println "composed_auto(5) =" result3)
+(println "Expected: 30 ( would optimize this)")
+(println "")
+
+(println "Test 3 complete!")

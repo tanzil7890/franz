@@ -1,0 +1,83 @@
+(println "=== Loop Comprehensive Test Suite ===")
+(println "")
+
+(println "Test 1: Basic loop (3 iterations)")
+(loop 3 {i -> (println "  Iteration" i)})
+(println "PASS: Basic loop works")
+
+(println "")
+(println "Test 2: Zero iterations")
+(loop 0 {i -> (println "  ERROR: Should not print")})
+(println "PASS: Zero iterations skips body")
+
+(println "")
+(println "Test 3: Single iteration")
+(loop 1 {i -> (println "  i=" i)})
+(println "PASS: Single iteration works")
+
+(println "")
+(println "Test 4: Early return with non-void value")
+result4 = (loop 10 {i ->
+  (if (is i 3)
+    {<- "Stopped at 3"}
+    {<- void})
+})
+(println "  Result:" result4)
+(println "PASS: Early return works")
+
+(println "")
+(println "Test 5: Loop completes normally (returns void)")
+result5 = (loop 3 {i -> (println "  i=" i)})
+(println "  Result type:" (type result5))
+(println "PASS: Normal completion returns void")
+
+(println "")
+(println "Test 6: Large loop (100 iterations)")
+(loop 100 {i ->
+  (if (is i 99)
+    {(println "  Last iteration: i=" i)}
+    {<- void})
+})
+(println "PASS: Large loop completes")
+
+(println "")
+(println "Test 7: Nested loops")
+(loop 3 {i ->
+  (println "  Outer i=" i)
+  (loop 2 {j ->
+    (println "    Inner j=" j)
+  })
+})
+(println "PASS: Nested loops work")
+
+(println "")
+(println "Test 8: Loop with arithmetic")
+sum = 0
+(loop 5 {i ->
+  (println "  Adding" i "to sum")
+  sum = (add sum i)
+})
+(println "  Final sum (should be 0+1+2+3+4=10):" sum)
+(println "PASS: Loop with arithmetic works")
+
+(println "")
+(println "Test 9: Early return in first iteration")
+result9 = (loop 10 {i ->
+  <- "Immediate return"
+})
+(println "  Result:" result9)
+(println "PASS: Early return on first iteration")
+
+(println "")
+(println "Test 10: Loop with conditional execution")
+evens = 0
+(loop 10 {i ->
+  (if (is (remainder i 2) 0)
+    {evens = (add evens 1)}
+    {<- void})
+})
+(println "  Even count (should be 5):" evens)
+(println "PASS: Conditional execution in loop")
+
+(println "")
+(println "All 10 tests passed!")

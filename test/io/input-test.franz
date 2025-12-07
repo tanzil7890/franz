@@ -1,0 +1,7 @@
+(println "=== Input Function Test ===")
+(println "")
+(println "Enter your name:")
+mut name = (input)
+(println "Hello," name "!")
+(println "")
+(println "Test complete!")

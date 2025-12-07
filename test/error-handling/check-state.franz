@@ -1,0 +1,13 @@
+(println "Test 1")
+x1 = (try { (error "first") } {e -> <- 1})
+(println "x1=" x1)
+
+(println "Test simple addition")
+y = (add 2 3)
+(println "y=" y)
+
+(println "Test 2")
+x2 = (try { <- 99 } {e -> <- 0})
+(println "x2=" x2)
+
+(println "Done")

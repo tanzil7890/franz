@@ -1,0 +1,79 @@
+(println "=== LLVM Closures - Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: Closure with only built-ins (should capture NOTHING)
+(println "Test 1: Closure with only built-ins")
+adder = {x y -> <- (add x y)}
+result1 = (adder 5 10)
+(println "  adder(5, 10) =" result1 "| Expected: 15")
+
+// Test 2: Closure with single local variable
+(println "Test 2: Closure with single local variable")
+n = 5
+adder_n = {x -> <- (add n x)}
+result2 = (adder_n 10)
+(println "  with n=5, adder_n(10) =" result2 "| Expected: 15")
+
+// Test 3: Nested closure (factory pattern)
+(println "Test 3: Nested closure (factory pattern)")
+make_adder = {n -> <- {x -> <- (add n x)}}
+add5 = (make_adder 5)
+result3 = (add5 10)
+(println "  make_adder(5)(10) =" result3 "| Expected: 15")
+
+// Test 4: Multiple free variables
+(println "Test 4: Multiple free variables")
+a = 10
+b = 20
+sum_with_ab = {x -> <- (add (add a b) x)}
+result4 = (sum_with_ab 5)
+(println "  with a=10, b=20, sum(5) =" result4 "| Expected: 35")
+
+// Test 5: Closure with multiple parameters
+(println "Test 5: Closure with multiple parameters")
+base = 100
+add_to_base = {x y -> <- (add (add base x) y)}
+result5 = (add_to_base 20 30)
+(println "  with base=100, add(20, 30) =" result5 "| Expected: 150")
+
+// Test 6: Nested closure with multiple levels (3 levels)
+(println "Test 6: Three-level nested closure")
+make_multiplier = {a -> <- {b -> <- {c -> <- (multiply (multiply a b) c)}}}
+mul2 = (make_multiplier 2)
+mul2_3 = (mul2 3)
+result6 = (mul2_3 4)
+(println "  make_multiplier(2)(3)(4) =" result6 "| Expected: 24")
+
+// Test 7: Closure returning closure (different pattern)
+(println "Test 7: Different closure factory")
+make_counter = {start -> <- {increment -> <- (add start increment)}}
+counter_from_10 = (make_counter 10)
+result7 = (counter_from_10 5)
+(println "  make_counter(10)(5) =" result7 "| Expected: 15")
+
+// Test 8: Multiple closures from same factory
+(println "Test 8: Multiple closures from same factory")
+add3 = (make_adder 3)
+add7 = (make_adder 7)
+result8a = (add3 10)
+result8b = (add7 10)
+(println "  add3(10) =" result8a "| Expected: 13")
+(println "  add7(10) =" result8b "| Expected: 17")
+
+// Test 9: Closure with mathematical operations
+(println "Test 9: Closure with math operations")
+factor = 2
+scale_and_add = {x y -> <- (add (multiply factor x) y)}
+result9 = (scale_and_add 5 10)
+(println "  with factor=2, scale_and_add(5, 10) =" result9 "| Expected: 20")
+
+// Test 10: Nested closure capturing from multiple scopes
+(println "Test 10: Capturing from multiple scopes")
+outer_val = 100
+make_calc = {middle_val -> <- {inner_val -> <- (add (add outer_val middle_val) inner_val)}}
+calc_with_20 = (make_calc 20)
+result10 = (calc_with_20 5)
+(println "  with outer=100, make_calc(20)(5) =" result10 "| Expected: 125")
+
+(println "")
+(println "=== All 10 tests complete! ===")

@@ -1,0 +1,8 @@
+(println "=== Test 1: Closure with built-in only ===")
+(println "This closure should capture NOTHING (built-ins are global)")
+
+// Closure that only uses built-in 'add'
+adder = {x y -> <- (add x y)}
+result = (adder 5 10)
+(println "adder(5, 10) =" result)
+(println "Expected: 15")

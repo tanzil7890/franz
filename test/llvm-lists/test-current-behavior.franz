@@ -1,0 +1,27 @@
+(println "=== Testing Current List Operation Behavior ===")
+(println "")
+
+(println "Test 1: Can we print head result directly?")
+nums = [1, 2, 3]
+first = (head nums)
+(println "Direct print of head result:")
+(println first)
+
+(println "")
+(println "Test 2: Can we use head result in arithmetic?")
+result = (add first 10)
+(println "first + 10 =" result)
+
+(println "")
+(println "Test 3: Can we use nth result?")
+second = (nth nums 1)
+(println "nth(nums, 1) =" second)
+
+(println "")
+(println "Test 4: Mixed type list")
+mixed = [42, "hello", 3.14]
+num_val = (head mixed)
+(println "Head of mixed list:" num_val)
+
+(println "")
+(println "=== Test Complete ===")

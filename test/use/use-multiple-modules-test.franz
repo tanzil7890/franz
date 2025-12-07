@@ -1,0 +1,49 @@
+// Test: Loading multiple modules in single use call
+
+// Test 6: Multiple modules in one use
+(use "test/use/math-module.franz" "test/use/string-module.franz" {
+  math_result = (square 7)
+  (println "Test 6 - Multiple modules, square(7):" math_result)
+  (if (is math_result 49)
+    {<- (println "✓ PASS - Math module loaded")}
+    {<- (println "✗ FAIL - Math module failed")})
+})
+
+// Test 7: Nested use calls
+(use "test/use/math-module.franz" {
+  outer_result = (double 5)
+  (println "Test 7 - Nested use, outer double(5):" outer_result)
+  (if (is outer_result 10)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 8: Use with variables from outer scope
+base_value = 10
+(use "test/use/math-module.franz" {
+  result = (square base_value)
+  (println "Test 8 - Access outer scope, square(10):" result)
+  (if (is result 100)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 9: Module defining variables used in function
+(use "test/use/math-module.franz" {
+  pi = 3.14159
+  area = {r -> <- (multiply pi (square r))}
+  result = (area 5)
+  (println "Test 9 - Module with variables, area(5):" result)
+  (if (greater_than result 78)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 10: Use function returns value from callback
+result = (use "test/use/math-module.franz" {
+  <- (cube 4)
+})
+(println "Test 10 - use return value:" result)
+(if (is result 64)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")})

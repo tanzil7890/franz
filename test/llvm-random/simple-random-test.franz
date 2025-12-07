@@ -1,0 +1,20 @@
+(println "=== Simple Random Test ===")
+(println "")
+
+(println "Test 1: random_int")
+dice = (add (random_int 6) 1)
+(println "Dice roll (1-6):" dice)
+(println "")
+
+(println "Test 2: random_range")
+temp = (random_range 0 100)
+(println "Temperature (0-100):" temp)
+(println "")
+
+(println "Test 3: random_seed")
+(random_seed 42)
+r1 = (random)
+(println "Random after seed 42:" r1)
+(println "")
+
+(println "All tests complete!")

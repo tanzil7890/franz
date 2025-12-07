@@ -1,0 +1,11 @@
+(println "Starting test")
+
+(println "Before first try")
+x1 = (try { (println "In first try") (error "first") } {e -> (println "First handler") <- 1})
+(println "After first try, x1=" x1)
+
+(println "Before second try")
+x2 = (try { (println "In second try") (error "second") } {e -> (println "Second handler") <- 2})
+(println "After second try, x2=" x2)
+
+(println "Done!")

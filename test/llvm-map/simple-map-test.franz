@@ -1,0 +1,10 @@
+(println "=== Simple Map Test ===")
+
+nums = [1, 2, 3]
+(println "Input:" nums)
+
+double = {x i -> <- (multiply x 2)}
+result = (map nums double)
+
+(println "Result:" result)
+(println "Test completed!")

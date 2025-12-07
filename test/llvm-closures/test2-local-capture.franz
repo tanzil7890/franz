@@ -1,0 +1,9 @@
+(println "=== Test 2: Closure with local variable ===")
+(println "This closure should capture ONLY 'n' (not 'add')")
+
+// Simple closure that captures local variable n
+n = 5
+adder = {x -> <- (add n x)}
+result = (adder 10)
+(println "with n=5, adder(10) =" result)
+(println "Expected: 15")

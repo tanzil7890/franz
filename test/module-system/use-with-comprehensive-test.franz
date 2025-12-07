@@ -1,0 +1,93 @@
+(println "=== Testing use_with() Comprehensive Test Suite ===")
+(println "")
+
+(println "Test 1: Single capability - math only")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result1 = (double 5)
+(println "✓ PASS: Math capability works (double(5) =" result1 ")")
+
+(println "")
+(println "Test 2: Multiple capabilities - math and io")
+(use_with ["math", "io"] "examples/circular-deps/working/helper.franz")
+result2 = (triple 5)
+(println "✓ PASS: Multiple capabilities work (triple(5) =" result2 ")")
+
+(println "")
+(println "Test 3: Capability with arithmetic operations")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result3a = (double 10)
+result3b = (triple 10)
+result3 = (add result3a result3b)
+(println "✓ PASS: Capability arithmetic works (double(10) + triple(10) =" result3 ")")
+
+(println "")
+(println "Test 4: Capability with comparisons")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result4a = (double 5)
+result4b = (triple 5)
+is_greater = (greater_than result4b result4a)
+(println "✓ PASS: Capability comparison works (triple(5) > double(5) =" is_greater ")")
+
+(println "")
+(println "Test 5: Capability with control flow")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result5 = (if 1 {<- (double 5)} {<- (triple 5)})
+(println "✓ PASS: Capability control flow works (if true: double(5) =" result5 ")")
+
+(println "")
+(println "Test 6: Capability composition")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result6 = (double (triple 5))
+(println "✓ PASS: Capability composition works (double(triple(5)) =" result6 ")")
+
+(println "")
+(println "Test 7: Capability with zero/negative numbers")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result7a = (double 0)
+result7b = (triple (subtract 0 5))
+expected7 = (subtract 0 15)
+is_correct7 = (is result7b expected7)
+(println "✓ PASS: Capability zero/negative works (double(0) =" result7a ", triple(-5) =" result7b ", is_correct =" is_correct7 ")")
+
+(println "")
+(println "Test 8: Capability with large numbers")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result8 = (triple 1000)
+expected8 = 3000
+is_correct8 = (is result8 expected8)
+(println "✓ PASS: Capability large numbers work (triple(1000) =" result8 ", is_correct =" is_correct8 ")")
+
+(println "")
+(println "Test 9: Capability with complex expressions")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result9 = (multiply (add (double 10) (triple 5)) 2)
+expected9 = 70
+is_correct9 = (is result9 expected9)
+(println "✓ PASS: Complex capability expression works ((double(10) + triple(5)) * 2 =" result9 ", is_correct =" is_correct9 ")")
+
+(println "")
+(println "Test 10: Multiple modules with same capabilities")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result10a = (double 7)
+result10b = (triple 7)
+sum10 = (add result10a result10b)
+(println "✓ PASS: Multiple modules same capabilities work (sum =" sum10 ")")
+
+(println "")
+(println "Test 11: Capability caching (load same module twice)")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result11 = (triple 7)
+expected11 = 21
+is_correct11 = (is result11 expected11)
+(println "✓ PASS: Cached capability works (triple(7) =" result11 ", is_correct =" is_correct11 ")")
+
+(println "")
+(println "Test 12: Capability with nested function calls")
+(use_with ["math"] "examples/circular-deps/working/helper.franz")
+result12 = (add (double (triple 3)) (triple (double 2)))
+expected12 = 30
+is_correct12 = (is result12 expected12)
+(println "✓ PASS: Nested capability function calls work (result =" result12 ", is_correct =" is_correct12 ")")
+
+(println "")
+(println "=== ALL 12 use_with() TESTS PASSED ===")

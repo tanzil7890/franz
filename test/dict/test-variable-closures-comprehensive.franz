@@ -1,0 +1,78 @@
+// Comprehensive test for variable-stored closures
+(println "=== Comprehensive Variable Closure Tests ===")
+(println "")
+
+// Test 1: Multiple variable-stored closures
+(println "Test 1: Multiple variable-stored closures")
+double_fn = {k v -> <- (multiply v 2)}
+triple_fn = {k v -> <- (multiply v 3)}
+add_ten = {k v -> <- (add v 10)}
+
+scores = (dict "alice" 90 "bob" 85)
+
+doubled = (dict_map scores double_fn)
+tripled = (dict_map scores triple_fn)
+boosted = (dict_map scores add_ten)
+
+alice_doubled = (dict_get doubled "alice")
+alice_tripled = (dict_get tripled "alice")
+alice_boosted = (dict_get boosted "alice")
+
+(println "  alice doubled:" alice_doubled)
+(println "  alice tripled:" alice_tripled)
+(println "  alice boosted:" alice_boosted)
+(println "")
+
+// Test 2: Reusing same closure multiple times
+(println "Test 2: Reusing same closure multiple times")
+data1 = (dict "x" 10)
+data2 = (dict "y" 20)
+data3 = (dict "z" 30)
+
+result1 = (dict_map data1 double_fn)
+result2 = (dict_map data2 double_fn)
+result3 = (dict_map data3 double_fn)
+
+r1 = (dict_get result1 "x")
+r2 = (dict_get result2 "y")
+r3 = (dict_get result3 "z")
+
+(println "  x doubled:" r1)
+(println "  y doubled:" r2)
+(println "  z doubled:" r3)
+(println "")
+
+// Test 3: Filter closures
+(println "Test 3: Multiple filter closures")
+high_filter = {k v -> <- (greater_than v 88)}
+low_filter = {k v -> <- (less_than v 88)}
+
+all_scores = (dict "alice" 90 "bob" 85 "carol" 95 "david" 80)
+
+high_scores = (dict_filter all_scores high_filter)
+low_scores = (dict_filter all_scores low_filter)
+
+has_alice_high = (dict_has high_scores "alice")
+has_bob_low = (dict_has low_scores "bob")
+
+(println "  alice in high scores:" has_alice_high)
+(println "  bob in low scores:" has_bob_low)
+(println "")
+
+// Test 4: Mixing inline and variable closures
+(println "Test 4: Mixing inline and variable closures")
+nums = (dict "a" 5 "b" 10)
+
+// Use variable closure
+result_var = (dict_map nums double_fn)
+// Use inline closure
+result_inline = (dict_map nums {k v -> <- (multiply v 2)})
+
+a_var = (dict_get result_var "a")
+a_inline = (dict_get result_inline "a")
+
+(println "  var closure result:" a_var)
+(println "  inline closure result:" a_inline)
+(println "")
+
+(println "✓ All comprehensive tests passed")

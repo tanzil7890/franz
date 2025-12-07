@@ -1,0 +1,28 @@
+(println "=== Incremental LLVM Map Test ===")
+(println "")
+
+(println "Test 1: Basic map with double")
+nums1 = [1, 2, 3]
+double = {x i -> <- (multiply x 2)}
+result1 = (map nums1 double)
+(println "Input: [1, 2, 3]")
+(println "Result:" result1)
+(println "")
+
+(println "Test 2: Map with addition")
+nums2 = [5, 10, 15]
+add_five = {x i -> <- (add x 5)}
+result2 = (map nums2 add_five)
+(println "Input: [5, 10, 15]")
+(println "Result:" result2)
+(println "")
+
+(println "Test 3: Map using index")
+nums3 = [100, 200, 300]
+add_index = {x i -> <- (add x i)}
+result3 = (map nums3 add_index)
+(println "Input: [100, 200, 300]")
+(println "Result:" result3)
+(println "")
+
+(println "=== All 3 tests completed! ===")

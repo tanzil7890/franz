@@ -1,0 +1,380 @@
+(println "=== Nested Loop Comprehensive Test Suite ===")
+(println "")
+
+(println "===== Category 1: Basic Nested Loops =====")
+(println "")
+
+(println "Test 1: Simple 2-level nested loop (3x3)")
+(loop 3 {i ->
+  (loop 3 {j ->
+    (println "  i=" i "j=" j)
+  })
+})
+(println "PASS: Simple nested loop executed")
+
+(println "")
+(println "Test 2: Nested loop with accumulation")
+mut sum2 = 0
+(loop 3 {i ->
+  (loop 3 {j ->
+    sum2 = (add sum2 (multiply i j))
+  })
+})
+(println "Sum of all i*j:" sum2)
+expected2 = 9
+(println (if (is sum2 expected2) "PASS" "FAIL"))
+
+(println "")
+(println "Test 3: Multiplication table (4x4)")
+(println "Multiplication Table:")
+(loop 4 {i ->
+  (loop 4 {j ->
+    product = (multiply i j)
+    (println "  " i "x" j "=" product)
+  })
+})
+(println "PASS: Multiplication table generated")
+
+(println "")
+(println "===== Category 2: Different Nesting Depths =====")
+(println "")
+
+(println "Test 4: Triple-nested loop (2x2x2)")
+mut count4 = 0
+(loop 2 {i ->
+  (loop 2 {j ->
+    (loop 2 {k ->
+      count4 = (add count4 1)
+    })
+  })
+})
+(println "Triple-nested iterations:" count4)
+(println (if (is count4 8) "PASS" "FAIL"))
+
+(println "")
+(println "Test 5: Quadruple-nested loop (2x2x2x2)")
+mut count5 = 0
+(loop 2 {a ->
+  (loop 2 {b ->
+    (loop 2 {c ->
+      (loop 2 {d ->
+        count5 = (add count5 1)
+      })
+    })
+  })
+})
+(println "Quadruple-nested iterations:" count5)
+(println (if (is count5 16) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 3: Asymmetric Nested Loops =====")
+(println "")
+
+(println "Test 6: Different iteration counts (5x3)")
+mut sum6 = 0
+(loop 5 {i ->
+  (loop 3 {j ->
+    sum6 = (add sum6 1)
+  })
+})
+(println "Total iterations (5x3):" sum6)
+(println (if (is sum6 15) "PASS" "FAIL"))
+
+(println "")
+(println "Test 7: Pyramid pattern (1+2+3+4)")
+mut sum7 = 0
+(loop 4 {i ->
+  count = (add i 1)
+  (loop count {j ->
+    sum7 = (add sum7 1)
+  })
+})
+(println "Pyramid total (1+2+3+4):" sum7)
+(println (if (is sum7 10) "PASS" "FAIL"))
+
+(println "")
+(println "Test 8: Large asymmetric (10x100)")
+mut count8 = 0
+(loop 10 {i ->
+  (loop 100 {j ->
+    count8 = (add count8 1)
+  })
+})
+(println "Large nested (10x100):" count8)
+(println (if (is count8 1000) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 4: Nested Loops with Arithmetic =====")
+(println "")
+
+(println "Test 9: Sum of products")
+mut sum_products = 0
+(loop 4 {i ->
+  (loop 4 {j ->
+    product = (multiply i j)
+    sum_products = (add sum_products product)
+  })
+})
+(println "Sum of i*j (0..3 x 0..3):" sum_products)
+expected9 = 36
+(println (if (is sum_products expected9) "PASS" "FAIL"))
+
+(println "")
+(println "Test 10: Grid coordinate calculation")
+mut coord_sum = 0
+(loop 5 {x ->
+  (loop 5 {y ->
+    distance = (add (multiply x x) (multiply y y))
+    coord_sum = (add coord_sum distance)
+  })
+})
+(println "Sum of (x^2 + y^2):" coord_sum)
+expected10 = 300
+(println (if (is coord_sum expected10) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 5: Nested Loops with Conditionals =====")
+(println "")
+
+(println "Test 11: Conditional accumulation in nested loops")
+mut conditional_sum = 0
+(loop 5 {i ->
+  (loop 5 {j ->
+    (when (is (remainder (add i j) 2) 0)
+      {conditional_sum = (add conditional_sum 1)}
+    )
+  })
+})
+(println "Even (i+j) count:" conditional_sum)
+expected11 = 13
+(println (if (is conditional_sum expected11) "PASS" "FAIL"))
+
+(println "")
+(println "Test 12: Diagonal detection")
+mut diagonal_count = 0
+(loop 5 {i ->
+  (loop 5 {j ->
+    (when (is i j)
+      {diagonal_count = (add diagonal_count 1)}
+    )
+  })
+})
+(println "Diagonal cells (i==j):" diagonal_count)
+(println (if (is diagonal_count 5) "PASS" "FAIL"))
+
+(println "")
+(println "Test 13: Upper triangle")
+mut upper_triangle = 0
+(loop 5 {i ->
+  (loop 5 {j ->
+    (when (greater_than j i)
+      {upper_triangle = (add upper_triangle 1)}
+    )
+  })
+})
+(println "Upper triangle cells:" upper_triangle)
+expected13 = 10
+(println (if (is upper_triangle expected13) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 6: Nested Loops with Variable Scope =====")
+(println "")
+
+(println "Test 14: Inner loop variable doesn't affect outer")
+mut outer_i_sum = 0
+mut inner_j_sum = 0
+(loop 3 {i ->
+  outer_i_sum = (add outer_i_sum i)
+  (loop 3 {j ->
+    inner_j_sum = (add inner_j_sum j)
+  })
+})
+(println "Outer i sum:" outer_i_sum "Inner j sum:" inner_j_sum)
+check14 = (and (is outer_i_sum 3) (is inner_j_sum 9))
+(println (if check14 "PASS" "FAIL"))
+
+(println "")
+(println "Test 15: Outer variable accessible in inner loop")
+outer_multiplier = 10
+mut scaled_sum = 0
+(loop 3 {i ->
+  (loop 3 {j ->
+    scaled = (multiply (add i j) outer_multiplier)
+    scaled_sum = (add scaled_sum scaled)
+  })
+})
+(println "Scaled sum:" scaled_sum)
+expected15 = 180
+(println (if (is scaled_sum expected15) "PASS" "FAIL"))
+
+(println "")
+(println "Test 16: Multiple variables across nesting levels")
+mut level1_var = 0
+(loop 2 {a ->
+  level1_var = (add level1_var a)
+  mut level2_var = 0
+  (loop 2 {b ->
+    level2_var = (add level2_var b)
+    mut level3_var = 0
+    (loop 2 {c ->
+      level3_var = (add level3_var c)
+    })
+  })
+})
+(println "Level 1 var:" level1_var)
+(println "PASS: Multi-level scope works")
+
+(println "")
+(println "===== Category 7: Nested Loops with Edge Cases =====")
+(println "")
+
+(println "Test 17: Nested loop with zero outer count")
+mut count17 = 0
+(loop 0 {i ->
+  (loop 5 {j ->
+    count17 = (add count17 1)
+  })
+})
+(println "Zero outer loop iterations:" count17)
+(println (if (is count17 0) "PASS" "FAIL"))
+
+(println "")
+(println "Test 18: Nested loop with zero inner count")
+mut count18 = 0
+(loop 5 {i ->
+  (loop 0 {j ->
+    count18 = (add count18 1)
+  })
+})
+(println "Zero inner loop iterations:" count18)
+(println (if (is count18 0) "PASS" "FAIL"))
+
+(println "")
+(println "Test 19: Single iteration nested loops")
+mut count19 = 0
+(loop 1 {i ->
+  (loop 1 {j ->
+    count19 = (add count19 1)
+  })
+})
+(println "Single iteration both loops:" count19)
+(println (if (is count19 1) "PASS" "FAIL"))
+
+(println "")
+(println "===== Category 8: Real-World Nested Loop Patterns =====")
+(println "")
+
+(println "Test 20: Matrix operations (2x2 matrix sum)")
+mut matrix_sum = 0
+// Simulate matrix [[1,2], [3,4]]
+matrix_row0_col0 = 1
+matrix_row0_col1 = 2
+matrix_row1_col0 = 3
+matrix_row1_col1 = 4
+(loop 2 {row ->
+  (loop 2 {col ->
+    (when (and (is row 0) (is col 0))
+      {matrix_sum = (add matrix_sum matrix_row0_col0)}
+    )
+    (when (and (is row 0) (is col 1))
+      {matrix_sum = (add matrix_sum matrix_row0_col1)}
+    )
+    (when (and (is row 1) (is col 0))
+      {matrix_sum = (add matrix_sum matrix_row1_col0)}
+    )
+    (when (and (is row 1) (is col 1))
+      {matrix_sum = (add matrix_sum matrix_row1_col1)}
+    )
+  })
+})
+(println "2x2 matrix sum:" matrix_sum)
+(println (if (is matrix_sum 10) "PASS" "FAIL"))
+
+(println "")
+(println "Test 21: Distance calculation (grid points)")
+mut point_count = 0
+(loop 10 {x ->
+  (loop 10 {y ->
+    dist_sq = (add (multiply x x) (multiply y y))
+    (when (less_than dist_sq 25)
+      {point_count = (add point_count 1)}
+    )
+  })
+})
+(println "Points within radius 5:" point_count)
+(println "PASS: Distance calculation works")
+
+(println "")
+(println "Test 22: Pattern generation (checkerboard)")
+mut black_squares = 0
+mut white_squares = 0
+(loop 8 {row ->
+  (loop 8 {col ->
+    sum = (add row col)
+    (if (is (remainder sum 2) 0)
+      {black_squares = (add black_squares 1)}
+      {white_squares = (add white_squares 1)}
+    )
+  })
+})
+(println "Checkerboard - Black:" black_squares "White:" white_squares)
+check22 = (and (is black_squares 32) (is white_squares 32))
+(println (if check22 "PASS" "FAIL"))
+
+(println "")
+(println "Test 23: Pascal's triangle row calculation")
+mut pascal_sum = 0
+(loop 5 {n ->
+  (loop (add n 1) {k ->
+    pascal_sum = (add pascal_sum 1)
+  })
+})
+(println "Pascal's triangle total (5 rows):" pascal_sum)
+expected23 = 15
+(println (if (is pascal_sum expected23) "PASS" "FAIL"))
+
+(println "")
+(println "Test 24: Grid traversal with boundaries")
+grid_width = 10
+grid_height = 10
+mut boundary_cells = 0
+(loop grid_height {y ->
+  (loop grid_width {x ->
+    is_boundary = (or
+      (or (is x 0) (is x 9))
+      (or (is y 0) (is y 9))
+    )
+    (when is_boundary
+      {boundary_cells = (add boundary_cells 1)}
+    )
+  })
+})
+(println "Grid boundary cells (10x10):" boundary_cells)
+expected24 = 36
+(println (if (is boundary_cells expected24) "PASS" "FAIL"))
+
+(println "")
+(println "Test 25: Nested loop with complex expression")
+mut complex_sum = 0
+(loop 4 {i ->
+  (loop 4 {j ->
+    value = (add (multiply i i) (multiply j 2))
+    complex_sum = (add complex_sum value)
+  })
+})
+(println "Complex expression sum:" complex_sum)
+expected25 = 104
+(println (if (is complex_sum expected25) "PASS" "FAIL"))
+
+(println "")
+(println "===== Test Summary =====")
+(println "✅ All 25 nested loop tests completed!")
+(println "Coverage:")
+(println "  - Basic nested loops (3 tests)")
+(println "  - Different nesting depths (2 tests)")
+(println "  - Asymmetric loops (3 tests)")
+(println "  - Nested loops with arithmetic (2 tests)")
+(println "  - Nested loops with conditionals (3 tests)")
+(println "  - Variable scope (3 tests)")
+(println "  - Edge cases (3 tests)")
+(println "  - Real-world patterns (6 tests)")

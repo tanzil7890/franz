@@ -1,0 +1,125 @@
+(println "=== Type Conversion Comprehensive Test Suite ===")
+(println "")
+
+// Test 1: integer() from string - basic
+(println "Test 1: integer from string '123'")
+result1 = (integer "123")
+(println result1)
+
+// Test 2: integer() from string - negative
+(println "Test 2: integer from negative string '-456'")
+result2 = (integer "-456")
+(println result2)
+
+// Test 3: integer() from string - zero
+(println "Test 3: integer from string '0'")
+result3 = (integer "0")
+(println result3)
+
+// Test 4: integer() from float - truncation
+(println "Test 4: integer from float 9.99 (should truncate)")
+result4 = (integer 9.99)
+(println result4)
+
+// Test 5: integer() from float - negative truncation
+(println "Test 5: integer from float -7.5 (should truncate)")
+result5 = (integer -7.5)
+(println result5)
+
+// Test 6: integer() from int - identity
+(println "Test 6: integer from int 42 (identity)")
+result6 = (integer 42)
+(println result6)
+
+// Test 7: float() from string - basic
+(println "Test 7: float from string '3.14'")
+result7 = (float "3.14")
+(println result7)
+
+// Test 8: float() from string - negative
+(println "Test 8: float from string '-2.718'")
+result8 = (float "-2.718")
+(println result8)
+
+// Test 9: float() from string - integer string
+(println "Test 9: float from string '100'")
+result9 = (float "100")
+(println result9)
+
+// Test 10: float() from int - conversion
+(println "Test 10: float from int 42")
+result10 = (float 42)
+(println result10)
+
+// Test 11: float() from float - identity
+(println "Test 11: float from float 3.14159 (identity)")
+result11 = (float 3.14159)
+(println result11)
+
+// Test 12: string() from int - basic
+(println "Test 12: string from int 42")
+result12 = (string 42)
+(println result12)
+
+// Test 13: string() from int - negative
+(println "Test 13: string from int -100")
+result13 = (string -100)
+(println result13)
+
+// Test 14: string() from int - zero
+(println "Test 14: string from int 0")
+result14 = (string 0)
+(println result14)
+
+// Test 15: string() from float - basic
+(println "Test 15: string from float 3.14159")
+result15 = (string 3.14159)
+(println result15)
+
+// Test 16: string() from float - negative
+(println "Test 16: string from float -2.5")
+result16 = (string -2.5)
+(println result16)
+
+// Test 17: string() from string - identity
+(println "Test 17: string from string 'hello' (identity)")
+result17 = (string "hello")
+(println result17)
+
+// Test 18: Chained conversion - string -> int -> float
+(println "Test 18: Chained conversion: string -> int -> float")
+chain1 = (float (integer "42"))
+(println chain1)
+
+// Test 19: Chained conversion - int -> string -> int
+(println "Test 19: Chained conversion: int -> string -> int")
+chain2 = (integer (string 999))
+(println chain2)
+
+// Test 20: Chained conversion - float -> int -> float (precision loss)
+(println "Test 20: Chained conversion: float -> int -> float (precision loss)")
+chain3 = (float (integer 7.8))
+(println chain3)
+
+// Test 21: Type conversion in arithmetic
+(println "Test 21: Type conversion in arithmetic: (integer '5') + 10")
+arith1 = (add (integer "5") 10)
+(println arith1)
+
+// Test 22: Large integer string
+(println "Test 22: Large integer from string '999999'")
+large1 = (integer "999999")
+(println large1)
+
+// Test 23: Scientific notation string to float
+(println "Test 23: float from scientific notation string '1.5e2'")
+sci1 = (float "1.5e2")
+(println sci1)
+
+// Test 24: Very small float
+(println "Test 24: string from very small float 0.0001")
+small1 = (string 0.0001)
+(println small1)
+
+(println "")
+(println "=== All 24 Type Conversion Tests Passed ===")

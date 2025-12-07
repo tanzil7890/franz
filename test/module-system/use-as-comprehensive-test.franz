@@ -1,0 +1,190 @@
+// Comprehensive use_as() Test Suite
+// Tests namespace support with prefix-based symbol access
+
+(println "=== Comprehensive use_as() Test Suite ===")
+(println "")
+
+// ============================================================================
+// Test 1: Basic Namespace Loading
+// ============================================================================
+(println "Test 1: Basic namespace loading")
+(use_as "examples/circular-deps/working/helper.franz" "math")
+
+// Access functions with namespace prefix
+test1_result = (math_double 5)
+test1_expected = 10
+(if (is test1_result test1_expected)
+  {(println "✓ PASS: Basic namespace works (math_double(5) = 10)")}
+  {(println "✗ FAIL: Expected" test1_expected "but got" test1_result)})
+
+(println "")
+
+// ============================================================================
+// Test 2: Multiple Functions from Namespaced Module
+// ============================================================================
+(println "Test 2: Multiple functions from namespaced module")
+test2_double = (math_double 3)
+test2_triple = (math_triple 3)
+test2_sum = (add test2_double test2_triple)
+test2_expected = 15
+(if (is test2_sum test2_expected)
+  {(println "✓ PASS: Multiple namespaced functions work (9 + 6 = 15)")}
+  {(println "✗ FAIL: Expected" test2_expected "but got" test2_sum)})
+
+(println "")
+
+// ============================================================================
+// Test 3: Different Namespaces for Same Module
+// ============================================================================
+(println "Test 3: Load same module with different namespace")
+(use_as "examples/circular-deps/working/helper.franz" "utils")
+
+test3_math = (math_double 5)
+test3_utils = (utils_double 5)
+test3_expected = 10
+test3_ok = (and (is test3_math test3_expected) (is test3_utils test3_expected))
+(if (is test3_ok 1)
+  {(println "✓ PASS: Different namespaces work (both return 10)")}
+  {(println "✗ FAIL: Namespace isolation failed")})
+
+(println "")
+
+// ============================================================================
+// Test 4: Namespace Prefix Prevents Conflicts
+// ============================================================================
+(println "Test 4: Namespace prevents naming conflicts")
+// Define local 'double' function
+double = {x -> <- (multiply x 10)}
+
+local_result = (double 5)
+namespaced_result = (math_double 5)
+
+local_expected = 50
+namespaced_expected = 10
+
+local_ok = (is local_result local_expected)
+namespaced_ok = (is namespaced_result namespaced_expected)
+test4_ok = (and local_ok namespaced_ok)
+
+(if (is test4_ok 1)
+  {(println "✓ PASS: Namespace prevents conflicts (local=50, math=10)")}
+  {(println "✗ FAIL: Naming conflict occurred")})
+
+(println "")
+
+// ============================================================================
+// Test 5: Namespace with Composition
+// ============================================================================
+(println "Test 5: Namespace function composition")
+test5_inner = (math_triple 5)
+test5_result = (math_double test5_inner)
+test5_expected = 30
+(if (is test5_result test5_expected)
+  {(println "✓ PASS: Namespace composition works (math_double(math_triple(5)) = 30)")}
+  {(println "✗ FAIL: Expected" test5_expected "but got" test5_result)})
+
+(println "")
+
+// ============================================================================
+// Test 6: Namespace with Arithmetic
+// ============================================================================
+(println "Test 6: Namespace functions with arithmetic")
+test6_a = (math_double 10)
+test6_b = (utils_triple 5)
+test6_result = (multiply test6_a test6_b)
+test6_expected = 300
+(if (is test6_result test6_expected)
+  {(println "✓ PASS: Namespace arithmetic works (20 * 15 = 300)")}
+  {(println "✗ FAIL: Expected" test6_expected "but got" test6_result)})
+
+(println "")
+
+// ============================================================================
+// Test 7: Namespace with Comparison
+// ============================================================================
+(println "Test 7: Namespace functions with comparisons")
+test7_a = (math_double 10)
+test7_b = (utils_triple 6)
+test7_result = (greater_than test7_a test7_b)
+test7_expected = 1
+(if (is test7_result test7_expected)
+  {(println "✓ PASS: Namespace comparison works (20 > 18 = 1)")}
+  {(println "✗ FAIL: Expected" test7_expected "but got" test7_result)})
+
+(println "")
+
+// ============================================================================
+// Test 8: Namespace with Control Flow
+// ============================================================================
+(println "Test 8: Namespace functions with if statements")
+test8_input = 5
+test8_result = (if (greater_than test8_input 3)
+  {<- (math_double test8_input)}
+  {<- (utils_triple test8_input)})
+test8_expected = 10
+(if (is test8_result test8_expected)
+  {(println "✓ PASS: Namespace control flow works (if true: math_double(5) = 10)")}
+  {(println "✗ FAIL: Expected" test8_expected "but got" test8_result)})
+
+(println "")
+
+// ============================================================================
+// Test 9: Namespace Caching
+// ============================================================================
+(println "Test 9: Namespace caching (import same namespace twice)")
+(use_as "examples/circular-deps/working/helper.franz" "math")
+test9_result = (math_triple 7)
+test9_expected = 21
+(if (is test9_result test9_expected)
+  {(println "✓ PASS: Cached namespace works (math_triple(7) = 21)")}
+  {(println "✗ FAIL: Expected" test9_expected "but got" test9_result)})
+
+(println "")
+
+// ============================================================================
+// Test 10: Complex Expression with Namespaces
+// ============================================================================
+(println "Test 10: Complex expression with namespaced functions")
+// Calculate: (math_double(10) + utils_triple(5)) * 2
+test10_a = (math_double 10)
+test10_b = (utils_triple 5)
+test10_sum = (add test10_a test10_b)
+test10_result = (multiply test10_sum 2)
+test10_expected = 70
+(if (is test10_result test10_expected)
+  {(println "✓ PASS: Complex namespace expression works ((20 + 15) * 2 = 70)")}
+  {(println "✗ FAIL: Expected" test10_expected "but got" test10_result)})
+
+(println "")
+
+// ============================================================================
+// Test 11: Namespace with Zero and Negative Numbers
+// ============================================================================
+(println "Test 11: Namespace functions with zero and negative numbers")
+test11_zero = (math_double 0)
+test11_expected_zero = 0
+zero_ok = (is test11_zero test11_expected_zero)
+
+test11_neg = (utils_triple -5)
+test11_expected_neg = -15
+neg_ok = (is test11_neg test11_expected_neg)
+
+test11_all_ok = (and zero_ok neg_ok)
+(if (is test11_all_ok 1)
+  {(println "✓ PASS: Namespace zero/negative works")}
+  {(println "✗ FAIL: Zero/negative handling failed")})
+
+(println "")
+
+// ============================================================================
+// Test 12: Namespace with Large Numbers
+// ============================================================================
+(println "Test 12: Namespace functions with large numbers")
+test12_result = (math_triple 1000)
+test12_expected = 3000
+(if (is test12_result test12_expected)
+  {(println "✓ PASS: Namespace large numbers work (math_triple(1000) = 3000)")}
+  {(println "✗ FAIL: Expected" test12_expected "but got" test12_result)})
+
+(println "")
+(println "=== All 12 Tests Complete ===")

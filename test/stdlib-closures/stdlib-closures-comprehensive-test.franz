@@ -1,0 +1,167 @@
+(println "===  Standard Library Closure Support - Comprehensive Test ===")
+(println "")
+
+(println "Test 1: map with closure")
+multiplier = 3
+times_n = {item index -> <- (multiply item multiplier)}
+nums1 = (list 1 2 3 4 5)
+result1 = (map nums1 times_n)
+(if (is result1 (list 3 6 9 12 15))
+  {-> (println "PASS: map with closure works")}
+  {-> (println "FAIL: Expected (3 6 9 12 15), got " result1)}
+)
+
+(println "")
+(println "Test 2: reduce with closure")
+base = 10
+add_weighted = {acc item index -> <- (add acc (multiply item base))}
+nums2 = (list 1 2 3)
+result2 = (reduce nums2 add_weighted 0)
+(if (is result2 60)
+  {-> (println "PASS: reduce with closure works")}
+  {-> (println "FAIL: Expected 60, got " result2)}
+)
+
+(println "")
+(println "Test 3: filter with closure")
+threshold = 2
+above_threshold = {item index -> <- (greater_than item threshold)}
+nums3 = (list 1 2 3 4 5)
+result3 = (filter nums3 above_threshold)
+(if (is result3 (list 3 4 5))
+  {-> (println "PASS: filter with closure works")}
+  {-> (println "FAIL: Expected (3 4 5), got " result3)}
+)
+
+(println "")
+(println "Test 4: pipe with closures")
+offset = 100
+add_offset = {x -> <- (add x offset)}
+factor = 2
+multiply_factor = {x -> <- (multiply x factor)}
+result4 = (pipe 5 add_offset multiply_factor)
+(if (is result4 210)
+  {-> (println "PASS: pipe with closures works (5+100)*2=210")}
+  {-> (println "FAIL: Expected 210, got " result4)}
+)
+
+(println "")
+(println "Test 5: partial with closure")
+make_adder = {n -> <- {x -> <- (add x n)}}
+add10 = (make_adder 10)
+partial_add10_5 = (partial add10 5)
+result5 = (call partial_add10_5)
+(if (is result5 15)
+  {-> (println "PASS: partial with closure works")}
+  {-> (println "FAIL: Expected 15, got " result5)}
+)
+
+(println "")
+(println "Test 6: Closure factory with map")
+make_multiplier = {factor ->
+  <- {item index -> <- (multiply item factor)}
+}
+times2 = (make_multiplier 2)
+times3 = (make_multiplier 3)
+nums6 = (list 1 2 3)
+result6a = (map nums6 times2)
+result6b = (map nums6 times3)
+(if (is result6a (list 2 4 6))
+  {-> (println "PASS: Closure factory with map (times2)")}
+  {-> (println "FAIL: Expected (2 4 6), got " result6a)}
+)
+(if (is result6b (list 3 6 9))
+  {-> (println "PASS: Closure factory with map (times3)")}
+  {-> (println "FAIL: Expected (3 6 9), got " result6b)}
+)
+
+(println "")
+(println "Test 7: Nested closures with reduce")
+outer_val = 5
+make_reducer = {->
+  <- {acc item index -> <- (add acc (multiply item outer_val))}
+}
+reducer = (make_reducer)
+nums7 = (list 1 2 3)
+result7 = (reduce nums7 reducer 0)
+(if (is result7 30)
+  {-> (println "PASS: Nested closure with reduce, 5*(1+2+3)=30")}
+  {-> (println "FAIL: Expected 30, got " result7)}
+)
+
+(println "")
+(println "Test 8: filter with complex closure")
+min_val = 2
+max_val = 4
+in_range = {item index ->
+  <- (if (less_than item min_val)
+    {-> <- 0}
+    {-> <- (if (greater_than item max_val)
+      {-> <- 0}
+      {-> <- 1}
+    )}
+  )
+}
+nums8 = (list 1 2 3 4 5)
+result8 = (filter nums8 in_range)
+(if (is result8 (list 2 3 4))
+  {-> (println "PASS: filter with complex closure (range 2-4)")}
+  {-> (println "FAIL: Expected (2 3 4), got " result8)}
+)
+
+(println "")
+(println "Test 9: Pipe with closure chain")
+start = 10
+step1 = {x -> <- (add x start)}
+step2 = {x -> <- (multiply x 2)}
+step3 = {x -> <- (subtract x start)}
+result9 = (pipe 5 step1 step2 step3)
+(if (is result9 20)
+  {-> (println "PASS: Pipe closure chain, (5+10)*2-10=20")}
+  {-> (println "FAIL: Expected 20, got " result9)}
+)
+
+(println "")
+(println "Test 10: Map then reduce with closures")
+scale = 2
+scaler = {item index -> <- (multiply item scale)}
+summer = {acc item index -> <- (add acc item)}
+nums10 = (list 1 2 3 4)
+scaled = (map nums10 scaler)
+result10 = (reduce scaled summer 0)
+(if (is result10 20)
+  {-> (println "PASS: Map then reduce, 2*(1+2+3+4)=20")}
+  {-> (println "FAIL: Expected 20, got " result10)}
+)
+
+(println "")
+(println "Test 11: catch with closure fallback")
+captured_default = 42
+fallback_closure = {-> <- captured_default}
+failing_closure = {-> <- (error "test error")}
+result11 = (catch failing_closure fallback_closure)
+(if (is result11 42)
+  {-> (println "PASS: catch with closure fallback")}
+  {-> (println "FAIL: Expected 42, got " result11)}
+)
+
+(println "")
+(println "Test 12: Multiple independent closures")
+make_counter_base = {base ->
+  <- {x -> <- (add x base)}
+}
+add100 = (make_counter_base 100)
+add200 = (make_counter_base 200)
+result12a = (add100 5)
+result12b = (add200 5)
+(if (is result12a 105)
+  {-> (println "PASS: Independent closure 1 (add100)")}
+  {-> (println "FAIL: Expected 105, got " result12a)}
+)
+(if (is result12b 205)
+  {-> (println "PASS: Independent closure 2 (add200)")}
+  {-> (println "FAIL: Expected 205, got " result12b)}
+)
+
+(println "")
+(println "=== All 14+ stdlib closure tests completed ===")

@@ -1,0 +1,11 @@
+(println "=== Testing  Current Capabilities ===")
+(println "")
+
+(println "Test 1: Basic function ( baseline)")
+add_ten = {x -> <- (add x 10)}
+result1 = (add_ten 5)
+(println "add_ten(5) =" result1)
+(println "Expected: 15 (native int)")
+(println "")
+
+(println "Test 1 complete!")

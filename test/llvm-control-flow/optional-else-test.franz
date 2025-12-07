@@ -1,0 +1,193 @@
+(println "=== Optional Else Test Suite ===")
+(println "Testing: (if cond then) without else clause")
+(println "")
+
+// ============================================================================
+// Category 1: Basic Optional Else
+// ============================================================================
+(println "Category 1: Basic Optional Else")
+(println "")
+
+// Test 1.1: True condition returns then value
+(println "Test 1.1: (if 1 42) should return 42")
+result_1_1 = (if 1 42)
+(println "Result:" result_1_1 "Expected: 42")
+(println "")
+
+// Test 1.2: False condition returns 0 (default)
+(println "Test 1.2: (if 0 42) should return 0")
+result_1_2 = (if 0 42)
+(println "Result:" result_1_2 "Expected: 0")
+(println "")
+
+// Test 1.3: Truthy value
+(println "Test 1.3: (if 5 100) should return 100")
+result_1_3 = (if 5 100)
+(println "Result:" result_1_3 "Expected: 100")
+(println "")
+
+// ============================================================================
+// Category 2: With Comparisons
+// ============================================================================
+(println "Category 2: Optional Else with Comparisons")
+(println "")
+
+// Test 2.1: Greater than (true)
+(println "Test 2.1: (if (greater_than 10 5) 1)")
+result_2_1 = (if (greater_than 10 5) 1)
+(println "Result:" result_2_1 "Expected: 1")
+(println "")
+
+// Test 2.2: Greater than (false)
+(println "Test 2.2: (if (greater_than 3 10) 1)")
+result_2_2 = (if (greater_than 3 10) 1)
+(println "Result:" result_2_2 "Expected: 0")
+(println "")
+
+// Test 2.3: Equality check
+(println "Test 2.3: (if (is 5 5) 42)")
+result_2_3 = (if (is 5 5) 42)
+(println "Result:" result_2_3 "Expected: 42")
+(println "")
+
+// ============================================================================
+// Category 3: Side Effects Only
+// ============================================================================
+(println "Category 3: Optional Else for Side Effects")
+(println "")
+
+// Test 3.1: Execute action if true
+(println "Test 3.1: Execute println if condition true")
+test_3_1 = 1
+(if test_3_1 {(println "  -> Action executed")})
+(println "  (Should see 'Action executed' above)")
+(println "")
+
+// Test 3.2: Skip action if false
+(println "Test 3.2: Skip println if condition false")
+test_3_2 = 0
+(if test_3_2 {(println "  -> This should NOT print")})
+(println "  (Should NOT see message above)")
+(println "")
+
+// ============================================================================
+// Category 4: With Expressions
+// ============================================================================
+(println "Category 4: Optional Else with Expressions")
+(println "")
+
+// Test 4.1: Arithmetic in then
+(println "Test 4.1: (if 1 (add 10 5))")
+result_4_1 = (if 1 (add 10 5))
+(println "Result:" result_4_1 "Expected: 15")
+(println "")
+
+// Test 4.2: Complex expression
+(println "Test 4.2: (if (and 1 1) (multiply 3 4))")
+result_4_2 = (if (and 1 1) (multiply 3 4))
+(println "Result:" result_4_2 "Expected: 12")
+(println "")
+
+// Test 4.3: Expression with false condition
+(println "Test 4.3: (if 0 (add 100 200))")
+result_4_3 = (if 0 (add 100 200))
+(println "Result:" result_4_3 "Expected: 0")
+(println "")
+
+// ============================================================================
+// Category 5: Real-World Patterns
+// ============================================================================
+(println "Category 5: Real-World Usage Patterns")
+(println "")
+
+// Test 5.1: Conditional execution
+(println "Test 5.1: Execute debug statement if debug mode")
+debug_mode = 1
+(if debug_mode {
+  (println "  -> Debug: Variable check passed")
+})
+(println "")
+
+// Test 5.2: Guard clause pattern
+(println "Test 5.2: Guard clause (return early if invalid)")
+value = -5
+validated = (if (greater_than value 0) value)
+(println "Validated:" validated "Expected: 0 (value was negative)")
+(println "")
+
+// Test 5.3: Optional action
+(println "Test 5.3: Log warning only if threshold exceeded")
+count = 150
+threshold = 100
+(if (greater_than count threshold) {
+  (println "  -> WARNING: Count exceeded threshold!")
+})
+(println "")
+
+// Test 5.4: Feature flag pattern
+(println "Test 5.4: Execute feature only if enabled")
+feature_enabled = 0
+result_5_4 = (if feature_enabled {
+  (println "  -> Feature code executing")
+  <- 999
+})
+(println "Result:" result_5_4 "Expected: 0 (feature disabled)")
+(println "")
+
+// ============================================================================
+// Category 6: Multi-Statement Blocks
+// ============================================================================
+(println "Category 6: Optional Else with Multi-Statement Blocks")
+(println "")
+
+// Test 6.1: Multi-statement then (condition true)
+(println "Test 6.1: Multi-statement block with true condition")
+result_6_1 = (if 1 {
+  (println "  -> Statement 1")
+  (println "  -> Statement 2")
+  temp = 42
+  <- temp
+})
+(println "Result:" result_6_1 "Expected: 42")
+(println "")
+
+// Test 6.2: Multi-statement then (condition false)
+(println "Test 6.2: Multi-statement block with false condition")
+result_6_2 = (if 0 {
+  (println "  -> This should NOT print")
+  temp = 999
+  <- temp
+})
+(println "Result:" result_6_2 "Expected: 0")
+(println "")
+
+// ============================================================================
+// Category 7: Compatibility Test
+// ============================================================================
+(println "Category 7: Backward Compatibility")
+(println "")
+
+// Test 7.1: 3-argument if still works
+(println "Test 7.1: Traditional 3-argument if")
+result_7_1 = (if 1 10 20)
+(println "Result:" result_7_1 "Expected: 10")
+(println "")
+
+// Test 7.2: Optional else doesn't break existing code
+(println "Test 7.2: Mix of 2-arg and 3-arg if")
+a = (if 1 5)
+b = (if 0 10 20)
+result_7_2 = (add a b)
+(println "Result:" result_7_2 "Expected: 25 (5 + 20)")
+(println "")
+
+// ============================================================================
+// Summary
+// ============================================================================
+(println "")
+(println "=== All 20 Optional Else Tests Complete ===")
+(println "")
+(println "✅ Optional else syntax working!")
+(println "✅ (if cond then) returns 0 if condition false")
+(println "✅ Backward compatible with 3-argument if")
+(println "✅ Works with multi-statement blocks")

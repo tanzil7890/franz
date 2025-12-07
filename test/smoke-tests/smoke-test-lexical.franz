@@ -1,0 +1,160 @@
+// Smoke tests for lexical scoping
+// Run with: ./franz --scoping=lexical test/smoke-tests/smoke-test-lexical.franz
+
+(println "=== Lexical Scoping Smoke Tests ===")
+(println "")
+
+passed = 0
+failed = 0
+
+// Test 1: Basic capture
+x1 = 10
+get_x1 = {-> <- x1}
+test1 = {->
+  x1 = 20
+  <- (get_x1)
+}
+result1 = (test1)
+(if (is result1 10)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 1: Basic capture")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 1: Expected 10, got " result1)
+  }
+)
+
+// Test 2: Nested closure
+make_adder = {n -> <- {x -> <- (add x n)}}
+add5 = (make_adder 5)
+result2 = (add5 10)
+(if (is result2 15)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 2: Nested closure")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 2: Expected 15, got " result2)
+  }
+)
+
+// Test 3: Multiple closures
+make_mult = {n -> <- {x -> <- (multiply x n)}}
+times2 = (make_mult 2)
+times3 = (make_mult 3)
+result3a = (times2 5)
+result3b = (times3 5)
+(if (is result3a 10)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 3a: Independent closures (times2)")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 3a: Expected 10, got " result3a)
+  }
+)
+(if (is result3b 15)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 3b: Independent closures (times3)")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 3b: Expected 15, got " result3b)
+  }
+)
+
+// Test 4: Map with closure
+multiplier = 3
+times_n = {item index -> <- (multiply item multiplier)}
+nums4 = (list 1 2 3)
+result4 = (map nums4 times_n)
+(if (is result4 (list 3 6 9))
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 4: Map with closure")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 4: Expected (3 6 9), got " result4)
+  }
+)
+
+// Test 5: Reduce with closure
+base = 10
+weighted_sum = {acc item index -> <- (add acc (multiply item base))}
+nums5 = (list 1 2 3)
+result5 = (reduce nums5 weighted_sum 0)
+(if (is result5 60)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 5: Reduce with closure")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 5: Expected 60, got " result5)
+  }
+)
+
+// Test 6: Filter with closure
+threshold = 5
+above = {item index -> <- (greater_than item threshold)}
+nums6 = (list 1 3 5 7 9)
+result6 = (filter nums6 above)
+(if (is result6 (list 7 9))
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 6: Filter with closure")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 6: Expected (7 9), got " result6)
+  }
+)
+
+// Test 7: Pipe with closures
+offset = 100
+add_offset = {x -> <- (add x offset)}
+factor = 2
+multiply_factor = {x -> <- (multiply x factor)}
+result7 = (pipe 5 add_offset multiply_factor)
+(if (is result7 210)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 7: Pipe with closures")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 7: Expected 210, got " result7)
+  }
+)
+
+// Test 8: Partial with closure
+make_partial_adder = {n -> <- {x -> <- (add n x)}}
+add20 = (make_partial_adder 20)
+partial_add20 = (partial add20 15)
+result8 = (call partial_add20)
+(if (is result8 35)
+  {->
+    passed = (add passed 1)
+    (println "✓ Test 8: Partial with closure")
+  }
+  {->
+    failed = (add failed 1)
+    (println "✗ Test 8: Expected 35, got " result8)
+  }
+)
+
+(println "")
+(println "=== Smoke Test Summary ===")
+(println "Passed: " passed "/8")
+(println "Failed: " failed "/8")
+
+(if (is failed 0)
+  {-> (println "✓ All smoke tests PASSED")}
+  {-> (println "✗ Some tests FAILED")}
+)

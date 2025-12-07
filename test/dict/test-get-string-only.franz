@@ -1,0 +1,25 @@
+(println "=== Testing Get Function (Strings Only) ===")
+(println "")
+
+// Test 1: String single character
+(println "Test 1: String single character")
+char1 = (get "hello" 0)
+(println "  char1 =" char1)
+
+// Test 2: Another single character
+(println "Test 2: Another single character")
+char2 = (get "hello" 4)
+(println "  char2 =" char2)
+
+// Test 3: String substring
+(println "Test 3: String substring")
+sub1 = (get "hello" 0 3)
+(println "  sub1 =" sub1)
+
+// Test 4: Another substring
+(println "Test 4: Another substring")
+sub2 = (get "hello" 1 4)
+(println "  sub2 =" sub2)
+
+(println "")
+(println "All tests complete!")

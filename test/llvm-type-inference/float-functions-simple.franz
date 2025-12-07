@@ -1,0 +1,32 @@
+(println "===  Float Function Tests (Simplified) ===")
+(println "")
+
+(println "Test 1: Float function with explicit float literal")
+add_with_pi = {x -> <- (add x 3.14)}
+result1 = (add_with_pi 2.86)
+(println result1)
+(println "Expected: 6.0")
+(println "")
+
+(println "Test 2: Float multiplication with literal")
+times_two = {x -> <- (multiply x 2.0)}
+result2 = (times_two 5.0)
+(println result2)
+(println "Expected: 10.0")
+(println "")
+
+(println "Test 3: Float division with literal")
+half = {x -> <- (divide x 2.0)}
+result3 = (half 10.0)
+(println result3)
+(println "Expected: 5.0")
+(println "")
+
+(println "Test 4: Zero-parameter returning float")
+get_pi = {-> <- 3.14159}
+result4 = (get_pi)
+(println result4)
+(println "Expected: 3.14159")
+(println "")
+
+(println "All 4 simplified float function tests completed!")

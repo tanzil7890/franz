@@ -1,0 +1,80 @@
+(println "===  Dynamic Scoping Test Suite ===")
+(println "Note: Run with --scoping=dynamic flag")
+(println "")
+
+(println "Test 1: Basic dynamic lookup")
+x = 10
+get_x = {-> <- x}
+test1 = {->
+  x = 20
+  <- (get_x)
+}
+result1 = (test1)
+(if (is result1 20)
+  {-> (println "PASS: get_x uses caller's x=20 (dynamic)")}
+  {-> (println "FAIL: Expected 20, got " result1)}
+)
+
+(println "")
+(println "Test 2: Nested dynamic scope")
+y = 100
+inner = {-> <- y}
+outer = {->
+  y = 200
+  <- (inner)
+}
+result2 = (outer)
+(if (is result2 200)
+  {-> (println "PASS: inner uses outer's y=200 (dynamic)")}
+  {-> (println "FAIL: Expected 200, got " result2)}
+)
+
+(println "")
+(println "Test 3: Multiple variables in dynamic scope")
+a = 1
+b = 2
+c = 3
+sum_abc = {-> <- (add (add a b) c)}
+test3 = {->
+  a = 10
+  b = 20
+  c = 30
+  <- (sum_abc)
+}
+result3 = (test3)
+(if (is result3 60)
+  {-> (println "PASS: sum_abc uses caller's a=10,b=20,c=30, sum=60")}
+  {-> (println "FAIL: Expected 60, got " result3)}
+)
+
+(println "")
+(println "Test 4: Dynamic with map")
+multiplier = 3
+triple = {item index -> <- (multiply item multiplier)}
+test4 = {->
+  multiplier = 5
+  nums = (list 1 2 3)
+  <- (map nums triple)
+}
+result4 = (test4)
+expected4 = (list 5 10 15)
+(if (is result4 expected4)
+  {-> (println "PASS: Map uses caller's multiplier=5")}
+  {-> (println "FAIL: Expected " expected4 " got " result4)}
+)
+
+(println "")
+(println "Test 5: Global fallback")
+global_var = 999
+get_global = {-> <- global_var}
+test5 = {->
+  <- (get_global)
+}
+result5 = (test5)
+(if (is result5 999)
+  {-> (println "PASS: Falls back to global when not in caller scope")}
+  {-> (println "FAIL: Expected 999, got " result5)}
+)
+
+(println "")
+(println "=== All 5 dynamic scoping tests completed ===")

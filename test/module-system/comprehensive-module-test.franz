@@ -1,0 +1,150 @@
+// Comprehensive Module System Test Suite
+// Tests all module system features from simple to complex
+
+(println "=== Comprehensive Module System Test Suite ===")
+(println "")
+
+// ============================================================================
+// Test 1: Basic Module Loading
+// ============================================================================
+(println "Test 1: Basic module loading")
+(use "examples/circular-deps/working/helper.franz")
+test1_result = (double 5)
+test1_expected = 10
+(if (is test1_result test1_expected)
+  {(println "✓ PASS: Basic module loading works")}
+  {(println "✗ FAIL: Expected" test1_expected "but got" test1_result)})
+
+(println "")
+
+// ============================================================================
+// Test 2: Multiple Functions from Same Module
+// ============================================================================
+(println "Test 2: Multiple functions from same module")
+test2_double = (double 3)
+test2_triple = (triple 3)
+test2_sum = (add test2_double test2_triple)
+test2_expected = 15
+(if (is test2_sum test2_expected)
+  {(println "✓ PASS: Multiple functions work (double(3) + triple(3) = 15)")}
+  {(println "✗ FAIL: Expected" test2_expected "but got" test2_sum)})
+
+(println "")
+
+// ============================================================================
+// Test 3: Module Caching (Import Same Module Twice)
+// ============================================================================
+(println "Test 3: Module caching (import same module again)")
+(use "examples/circular-deps/working/helper.franz")
+test3_result = (double 7)
+test3_expected = 14
+(if (is test3_result test3_expected)
+  {(println "✓ PASS: Cached module works (double(7) = 14)")}
+  {(println "✗ FAIL: Expected" test3_expected "but got" test3_result)})
+
+(println "")
+
+// ============================================================================
+// Test 4: Functions with Multiple Parameters
+// ============================================================================
+(println "Test 4: Module functions with complex operations")
+// Test composition: double(triple(5))
+test4_inner = (triple 5)
+test4_result = (double test4_inner)
+test4_expected = 30
+(if (is test4_result test4_expected)
+  {(println "✓ PASS: Function composition works (double(triple(5)) = 30)")}
+  {(println "✗ FAIL: Expected" test4_expected "but got" test4_result)})
+
+(println "")
+
+// ============================================================================
+// Test 5: Large Numbers
+// ============================================================================
+(println "Test 5: Module functions with large numbers")
+test5_result = (triple 1000)
+test5_expected = 3000
+(if (is test5_result test5_expected)
+  {(println "✓ PASS: Large numbers work (triple(1000) = 3000)")}
+  {(println "✗ FAIL: Expected" test5_expected "but got" test5_result)})
+
+(println "")
+
+// ============================================================================
+// Test 6: Integration with Arithmetic
+// ============================================================================
+(println "Test 6: Module functions with arithmetic operations")
+test6_a = (double 10)
+test6_b = (triple 5)
+test6_result = (multiply test6_a test6_b)
+test6_expected = 300
+(if (is test6_result test6_expected)
+  {(println "✓ PASS: Arithmetic integration works (20 * 15 = 300)")}
+  {(println "✗ FAIL: Expected" test6_expected "but got" test6_result)})
+
+(println "")
+
+// ============================================================================
+// Test 7: Integration with Comparison
+// ============================================================================
+(println "Test 7: Module functions with comparisons")
+test7_a = (double 10)
+test7_b = (triple 6)
+test7_result = (greater_than test7_a test7_b)
+test7_expected = 1
+(if (is test7_result test7_expected)
+  {(println "✓ PASS: Comparison integration works (20 > 18 = 1)")}
+  {(println "✗ FAIL: Expected" test7_expected "but got" test7_result)})
+
+(println "")
+
+// ============================================================================
+// Test 8: Integration with Control Flow
+// ============================================================================
+(println "Test 8: Module functions with if statements")
+test8_input = 5
+test8_result = (if (greater_than test8_input 3)
+  {<- (double test8_input)}
+  {<- (triple test8_input)})
+test8_expected = 10
+(if (is test8_result test8_expected)
+  {(println "✓ PASS: Control flow integration works (if true: double(5) = 10)")}
+  {(println "✗ FAIL: Expected" test8_expected "but got" test8_result)})
+
+(println "")
+
+// ============================================================================
+// Test 9: Zero and Negative Numbers
+// ============================================================================
+(println "Test 9: Module functions with zero and negative numbers")
+test9_zero = (double 0)
+test9_expected_zero = 0
+zero_ok = (is test9_zero test9_expected_zero)
+
+test9_neg = (triple -5)
+test9_expected_neg = -15
+neg_ok = (is test9_neg test9_expected_neg)
+
+test9_all_ok = (and zero_ok neg_ok)
+(if (is test9_all_ok 1)
+  {(println "✓ PASS: Zero and negative numbers work")}
+  {(println "✗ FAIL: Zero/negative number handling failed")})
+
+(println "")
+
+// ============================================================================
+// Test 10: Complex Expression
+// ============================================================================
+(println "Test 10: Complex expression with module functions")
+// Calculate: (double(10) + triple(5)) * 2
+test10_a = (double 10)
+test10_b = (triple 5)
+test10_sum = (add test10_a test10_b)
+test10_result = (multiply test10_sum 2)
+test10_expected = 70
+(if (is test10_result test10_expected)
+  {(println "✓ PASS: Complex expression works ((20 + 15) * 2 = 70)")}
+  {(println "✗ FAIL: Expected" test10_expected "but got" test10_result)})
+
+(println "")
+(println "=== All 10 Tests Complete ===")

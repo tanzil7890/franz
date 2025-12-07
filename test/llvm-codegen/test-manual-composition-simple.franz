@@ -1,0 +1,19 @@
+(println "=== Testing Manual Composition ===")
+
+// Step 1: Define two simple functions
+add_ten = {x -> <- (add x 10)}
+double = {x -> <- (multiply x 2)}
+
+// Step 2: Test them individually
+(println "add_ten(5) =" (add_ten 5))
+(println "double(10) =" (double 10))
+
+// Step 3: Test manual composition
+manual_composed = {x ->
+  step1 = (add_ten x)
+  step2 = (double step1)
+  <- step2
+}
+
+(println "manual_composed(5) =" (manual_composed 5))
+(println "Expected: 30")

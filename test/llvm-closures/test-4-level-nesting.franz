@@ -1,0 +1,18 @@
+(println "=== Test: 4-level nested closure ===")
+
+(println "Step 1: Define make_quad")
+make_quad = {a -> <- {b -> <- {c -> <- {d -> <- (multiply (multiply (multiply a b) c) d)}}}}
+
+(println "Step 2: Call make_quad(2)")
+quad2 = (make_quad 2)
+
+(println "Step 3: Call quad2(3)")
+quad2_3 = (quad2 3)
+
+(println "Step 4: Call quad2_3(4)")
+quad2_3_4 = (quad2_3 4)
+
+(println "Step 5: Call quad2_3_4(5)")
+result = (quad2_3_4 5)
+(println "Result:" result)
+(println "Expected: 120")

@@ -1,0 +1,12 @@
+// Debug zero case specifically
+check_number = {n ->
+  <- (if
+    (is n 0) {<- "zero"}
+    (is n 1) {<- "one"}
+    {<- "other"}
+  )
+}
+
+result = (check_number 0)
+(println "Type of result: " (type result))
+(println "Result: " result)

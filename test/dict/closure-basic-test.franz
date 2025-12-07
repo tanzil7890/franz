@@ -1,0 +1,20 @@
+// Test basic closure functionality before dict_map/filter
+
+(println "=== Basic Closure Test ===")
+(println "")
+
+// Test 1: Simple closure
+(println "Test 1: Simple closure")
+add_five = {x -> <- (add x 5)}
+result1 = (add_five 10)
+(println "  add_five(10) =" result1)
+(println "")
+
+// Test 2: Two-parameter closure
+(println "Test 2: Two-parameter closure")
+multiply_fn = {a b -> <- (multiply a b)}
+result2 = (multiply_fn 3 4)
+(println "  multiply_fn(3, 4) =" result2)
+(println "")
+
+(println "✓ All basic closure tests passed")

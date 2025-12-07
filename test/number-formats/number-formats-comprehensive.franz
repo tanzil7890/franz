@@ -1,0 +1,112 @@
+(println "=== Multi-Base Number Formats Comprehensive Test ===")
+(println "")
+
+(println "--- Hexadecimal Integers ---")
+(println "Test 1: 0x10 (16)")
+test1 = 0x10
+(println test1)
+
+(println "Test 2: 0xFF (255)")
+test2 = 0xFF
+(println test2)
+
+(println "Test 3: 0xDEADBEEF (large hex)")
+test3 = 0xDEADBEEF
+(println test3)
+
+(println "Test 4: Negative -0x10")
+test4 = (subtract 0 0x10)
+(println test4)
+
+(println "")
+(println "--- Binary Integers ---")
+(println "Test 5: 0b1010 (10)")
+test5 = 0b1010
+(println test5)
+
+(println "Test 6: 0b11111111 (255)")
+test6 = 0b11111111
+(println test6)
+
+(println "Test 7: 0b10000000 (128)")
+test7 = 0b10000000
+(println test7)
+
+(println "Test 8: Binary in arithmetic")
+binsum = (add 0b1111 0b0001)
+(println binsum)
+
+(println "")
+(println "--- Octal Integers ---")
+(println "Test 9: 0o10 (8)")
+test9 = 0o10
+(println test9)
+
+(println "Test 10: 0o377 (255)")
+test10 = 0o377
+(println test10)
+
+(println "Test 11: 0o777 (511)")
+test11 = 0o777
+(println test11)
+
+(println "Test 12: Octal in arithmetic")
+octprod = (multiply 0o10 0o10)
+(println octprod)
+
+(println "")
+(println "--- Hexadecimal Floats ---")
+(println "Test 13: 0x1.0p0 (1.0)")
+test13 = 0x1.0p0
+(println test13)
+
+(println "Test 14: 0x1.8p3 (12.0)")
+test14 = 0x1.8p3
+(println test14)
+
+(println "Test 15: 0x1.5p2 (5.25)")
+test15 = 0x1.5p2
+(println test15)
+
+(println "Test 16: 0x1.Ap-3 (0.203125)")
+test16 = 0x1.Ap-3
+(println test16)
+
+(println "Test 17: Hex float in arithmetic")
+hexsum = (add 0x1.0p1 0x1.0p1)
+(println hexsum)
+
+(println "")
+(println "--- Mixed Base Arithmetic ---")
+(println "Test 18: Hex + Binary")
+mix1 = (add 0xFF 0b1)
+(println mix1)
+
+(println "Test 19: Octal * Hex")
+mix2 = (multiply 0o10 0x10)
+(println mix2)
+
+(println "Test 20: All bases")
+mix3 = (add (add 0x10 0b10) 0o10)
+(println mix3)
+
+(println "")
+(println "--- Conversion to Different Bases ---")
+(println "Test 21: Hex to decimal")
+hexval = 0xABCD
+(println hexval)
+
+(println "Test 22: Binary to decimal")
+binval = 0b11110000
+(println binval)
+
+(println "Test 23: Octal to decimal")
+octval = 0o1234
+(println octval)
+
+(println "Test 24: Hex float to decimal")
+hexfval = 0x1.FFFp10
+(println hexfval)
+
+(println "")
+(println "=== All 24 Multi-Base Tests Complete ===")

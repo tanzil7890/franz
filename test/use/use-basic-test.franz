@@ -1,0 +1,48 @@
+// Test 1: Basic use with single module
+(use "test/use/math-module.franz" {
+  result = (square 5)
+  (println "Test 1 - square(5):" result)
+  (if (is result 25)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 2: Use function from loaded module
+(use "test/use/math-module.franz" {
+  result = (cube 3)
+  (println "Test 2 - cube(3):" result)
+  (if (is result 27)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 3: Multiple functions from same module
+(use "test/use/math-module.franz" {
+  r1 = (double 10)
+  r2 = (half 20)
+  (println "Test 3 - double(10):" r1 "half(20):" r2)
+  (if (is (add r1 r2) 30)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 4: Nested calculations
+(use "test/use/math-module.franz" {
+  result = (square (double 3))
+  (println "Test 4 - square(double(3)):" result)
+  (if (is result 36)
+    {<- (println "✓ PASS")}
+    {<- (println "✗ FAIL")})
+})
+
+// Test 5: Module scoping - functions not available outside use block
+outer_test = {
+  <- (use "test/use/math-module.franz" {
+    <- (square 4)
+  })
+}
+result = (outer_test)
+(println "Test 5 - scoping test, result:" result)
+(if (is result 16)
+  {<- (println "✓ PASS")}
+  {<- (println "✗ FAIL")})

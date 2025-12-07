@@ -1,0 +1,49 @@
+// Test 1: Load module as namespace
+(println "Test 1: Load module as namespace")
+math = (use_as "test/namespace/math-module.franz")
+(println "Type of math:" (type math))
+(if (is (type math) "namespace")
+  {<- (println "✓ PASS - use_as returns namespace")}
+  {<- (println "✗ FAIL - use_as should return namespace")})
+
+// Test 2: Access namespace member with dot notation
+(println)
+(println "Test 2: Access namespace member")
+result = (math.square 5)
+(println "math.square(5) =" result)
+(if (is result 25)
+  {<- (println "✓ PASS - Namespace member access works")}
+  {<- (println "✗ FAIL - Expected 25, got" result)})
+
+// Test 3: Multiple namespaces without collision
+(println)
+(println "Test 3: Multiple namespaces without collision")
+str = (use_as "test/namespace/string-module.franz")
+math_double = (math.double 5)
+str_double = (str.double "Hi")
+(println "math.double(5) =" math_double)
+(println "str.double(\"Hi\") =" str_double)
+(if (and (is math_double 10) (is str_double "HiHi"))
+  {<- (println "✓ PASS - No name collision between namespaces")}
+  {<- (println "✗ FAIL - Namespace isolation failed")})
+
+// Test 4: Namespace members can call each other
+(println)
+(println "Test 4: Namespace members can call each other")
+cube_result = (math.cube 3)
+(println "math.cube(3) =" cube_result)
+(if (is cube_result 27)
+  {<- (println "✓ PASS - Namespace members can use other members")}
+  {<- (println "✗ FAIL - Expected 27, got" cube_result)})
+
+// Test 5: String namespace functions
+(println)
+(println "Test 5: String namespace functions")
+greeting = (str.greet "Franz")
+(println "str.greet(\"Franz\") =" greeting)
+(if (is greeting "Hello, Franz!")
+  {<- (println "✓ PASS - String namespace works")}
+  {<- (println "✗ FAIL - Expected 'Hello, Franz!', got" greeting)})
+
+(println)
+(println "All namespace tests complete!")
