@@ -1,0 +1,25 @@
+# Build artifacts
+*.o
+franz
+*.out
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+extra/
+presentation/
+
+tmp/
+
+#docs/llvm-codegen/
+
+docs/llvm-codegen/
+KNOWN_ISSUE.md
+presentation/
