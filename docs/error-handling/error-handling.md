@@ -274,28 +274,6 @@ except Exception as err:
     print(err)
 ```
 
-## Testing
-
-Comprehensive test suite: [test/error-handling/comprehensive-test.franz](../../test/error-handling/comprehensive-test.franz)
-
-Tests cover:
-- ✅ Basic try/catch with custom errors
-- ✅ Try block succeeds (no error)
-- ✅ Catch with fallback value
-- ✅ Nested try blocks
-- ✅ Error message propagation
-- ✅ Consecutive try blocks
-- ✅ Try/catch mixing
-- ✅ Errors in complex expressions
-- ✅ Multiple nested catches
-
-## Files
-
-- Implementation: [src/error-handling/error_handler_v2.c](../../src/error-handling/error_handler_v2.c)
-- Header: [src/error-handling/error_handler_v2.h](../../src/error-handling/error_handler_v2.h)
-- Standard Library: [src/stdlib.c](../../src/stdlib.c) (lines 1219-1322)
-- Tests: [test/error-handling/](../../test/error-handling/)
-- Examples: See test files for usage examples
 
 ## Troubleshooting
 
@@ -310,3 +288,4 @@ Tests cover:
 ### Error message is "[Void]"
 - This happens with nested catches that don't explicitly return a value
 - Add `<- value` to return explicit value from catch block
+
