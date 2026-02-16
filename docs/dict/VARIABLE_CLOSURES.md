@@ -1,4 +1,4 @@
-#  Variable-Stored Closures - COMPLETE ✅
+#  Variable-Stored Closures 
 
 
 
