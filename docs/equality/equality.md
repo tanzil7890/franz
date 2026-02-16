@@ -294,10 +294,10 @@ See: [examples/equality/working/advanced-equality.franz](../../examples/equality
 
 ## Testing
 
-### Test Coverage: 40/40 Tests Passing (100%)
+### Test Coverage:
 
-**Comprehensive Test Suite (20 tests):**
-[test/equality/equality-comprehensive.franz](../../test/equality/equality-comprehensive.franz)
+
+- [test/equality/equality-comprehensive.franz](../../test/equality/equality-comprehensive.franz)
 
 ```bash
 ./franz test/equality/equality-comprehensive.franz
@@ -313,7 +313,7 @@ See: [examples/equality/working/advanced-equality.franz](../../examples/equality
 - Different type comparison (int vs string, int vs void)
 - Variable equality
 
-**Edge Case Test Suite (20 tests):**
+**Edge Case Test Suite:**
 [test/equality/equality-edge-cases.franz](../../test/equality/equality-edge-cases.franz)
 
 ```bash
@@ -405,4 +405,5 @@ See: [examples/equality/working/advanced-equality.franz](../../examples/equality
 - `(greater_than a b)` - Numeric greater-than comparison
 - `(not value)` - Logical negation (for inequality: `(not (is a b))`)
 - `(and a b)` - Logical AND (for equality chains)
+
 
