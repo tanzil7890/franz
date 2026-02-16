@@ -684,23 +684,6 @@ config = (dict_set config "host" "localhost")
 | Runtime Interpreted | ~15ms | ~30ms |
 | **Speedup** | **30x faster** | **15x faster** |
 
-## Implementation Files
-
-### Source Code (For developer)
-
-- **[src/llvm-dict/llvm_dict.h](../../src/llvm-dict/llvm_dict.h)** - Header file (153 lines)
-- **[src/llvm-dict/llvm_dict.c](../../src/llvm-dict/llvm_dict.c)** - LLVM compilation functions (617+ lines)
-- **[src/stdlib.c](../../src/stdlib.c)** - Runtime wrapper functions (lines 3886-3946)
-- **[src/dict.c](../../src/dict.c)** - Core Dict implementation (FNV-1a hash + chaining)
-- **[src/run.c](../../src/run.c)** - Build system integration (lines 176-246)
-- **[src/llvm-codegen/llvm_ir_gen.c](../../src/llvm-codegen/llvm_ir_gen.c)** - Dispatcher registration
-
-### Test Files
-
-- **[test/dict/dict-comprehensive-test.franz](../../test/dict/dict-comprehensive-test.franz)** - 22 comprehensive tests
-- **[test/dict/dict-simple-test.franz](../../test/dict/dict-simple-test.franz)** - Simple functionality demo
-- **[test/dict/dict-get-test.franz](../../test/dict/dict-get-test.franz)** - Get operation test
-- **[test/dict/dict-print-values-test.franz](../../test/dict/dict-print-values-test.franz)** - Value printing test
 
 ### Example Files
 
