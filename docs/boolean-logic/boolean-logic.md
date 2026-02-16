@@ -611,11 +611,5 @@ result = (if 0
 
 ---
 
-## References
 
-- **Implementation:** [src/stdlib.c](../../src/stdlib.c#L777-L837)
-- **Tests:** [test/boolean-logic/](../../test/boolean-logic/)
-- **Examples:** [examples/boolean-logic/working/](../../examples/boolean-logic/working/)
-- **Bytecode Checklist:** [docs/bytecode/BYTECODE_TEST_CHECKLIST.md](../bytecode/BYTECODE_TEST_CHECKLIST.md)
-- **Comparison Functions:** [docs/ordering/ordering.md](../ordering/ordering.md)
-- **Equality Function:** [docs/equality/equality.md](../equality/equality.md)
+
