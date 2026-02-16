@@ -438,14 +438,6 @@ pattern = "\\d+"
 
 ### Test Coverage
 
-**Comprehensive Tests:** 20/20 passing (100%)
-**Edge Case Tests:** 20/20 passing (100%)
-**Total:** 40/40 tests passing
-
-Test files:
-- [test/escape-sequences/escape-sequences-working.franz](../../test/escape-sequences/escape-sequences-working.franz)
-- [test/escape-sequences/escape-sequences-edge-cases.franz](../../test/escape-sequences/escape-sequences-edge-cases.franz)
-- [test/escape-sequences/simple-escape-test.franz](../../test/escape-sequences/simple-escape-test.franz)
 
 ### Run Tests
 
@@ -465,23 +457,23 @@ gcc src/*.c src/*/*.c -Wall -lm -o franz
 
 ### Test Categories
 
-1. **Standard Escapes** (10 tests)
+1. **Standard Escapes** 
    - Newline, tab, carriage return
    - Backslash, quote
    - Bell, backspace, form feed, vertical tab, escape
 
-2. **Hexadecimal Escapes** (5 tests)
+2. **Hexadecimal Escapes**  
    - Single character (`\x41`)
    - Multiple characters (`\x48\x65\x6c\x6c\x6f`)
    - Uppercase and lowercase hex digits
    - Special characters (/, :, etc.)
 
-3. **Mixed Escapes** (3 tests)
+3. **Mixed Escapes**  
    - Multiple escape types in one string
    - Escape sequences at different positions
    - Consecutive escape sequences
 
-4. **Edge Cases** (20 tests)
+4. **Edge Cases** 
    - Consecutive escapes
    - Escapes at boundaries
    - Invalid/incomplete hex codes
@@ -491,7 +483,7 @@ gcc src/*.c src/*/*.c -Wall -lm -o franz
    - TSV/CSV data
    - Regex patterns
 
-5. **Integration** (2 tests)
+5. **Integration**  
    - Escapes in lists
    - String comparison with escapes
 
@@ -585,3 +577,4 @@ echo '(println "Line1\nLine2")' > test.franz
 ```
 
 ---
+
